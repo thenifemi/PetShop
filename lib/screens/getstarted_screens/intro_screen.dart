@@ -106,7 +106,9 @@ class IntroScreen extends StatelessWidget {
             child: IntroductionScreen(
               pages: getPages(),
               onDone: () {},
-              done: Text(""),
+              done: Text(
+                "",
+              ),
               globalBackgroundColor: MColors.primaryWhiteSmoke,
               dotsDecorator: DotsDecorator(
                 activeColor: MColors.primaryPurple,
