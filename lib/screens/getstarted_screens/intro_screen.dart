@@ -99,7 +99,9 @@ class IntroScreen extends StatelessWidget {
       child: Column(
         children: <Widget>[
           Container(
-            padding: const EdgeInsets.only(top: 50.0),
+            padding: const EdgeInsets.only(
+              top: 50.0,
+            ),
             height: MediaQuery.of(context).size.height / 1.4,
             child: IntroductionScreen(
               pages: getPages(),
