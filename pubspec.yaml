@@ -55,6 +55,7 @@ flutter:
    - assets/images/mc_symbol.svg
    - assets/images/visa.svg
    - assets/images/paypal.svg
+   - assets/images/pets.svg
    - assets/images/creditcard.svg
    - assets/images/cardsuccess.svg
    - assets/images/manage.svg

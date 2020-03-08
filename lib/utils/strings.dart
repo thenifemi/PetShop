@@ -6,17 +6,17 @@ class Strings {
 
   //GET STARTED STRINGS
   static String appName = "mollet";
-  static const String onBoardTitle1 ="Welcome to the World of Quick and Easy";
-  static const String onBoardTitle_sub1 = "Send and Recieve Money of the growing number of people who accept mollet and make your transfer in a second.";
-  static const String onBoardTitle2 = "Shopping Online";
-  static const String onBoardTitle_sub2 = "Visit any of the growing number of online outlets who accept mollet and make your purchase in a second.";
-  static const String onBoardTitle3 = "Manage your finances";
-  static const String onBoardTitle_sub3 = "Just visit any of the growing number of outlets who accept mollet and make your purchase in a second.";
-  static const String welcomeTitle = "Welcome to Mollet";
-  static const String welcomeTitle_sub = "Never Better than now to start thinking how to manage all your finances with Mollet.";
+  static const String onBoardTitle1 ="Welcome to";
+  static const String onBoardTitle_sub1 = "Caring for your pets has never been so easy! With Mollet, you can buy your pets food, hire a professional caretake and book Vet appointments for your pets.";
+  static const String onBoardTitle2 = "the World of Pets";
+  // static const String onBoardTitle_sub2 = "Visit any of the growing number of online outlets who accept mollet and make your purchase in a second.";
+  // static const String onBoardTitle3 = "Manage your finances";
+  // static const String onBoardTitle_sub3 = "Just visit any of the growing number of outlets who accept mollet and make your purchase in a second.";
+  // static const String welcomeTitle = "Welcome to Mollet";
+  // static const String welcomeTitle_sub = "Never Better than now to start thinking how to manage all your finances with Mollet.";
   static const String skip = "Skip";
   static const String signin = "SIGN IN";
-  static const String signin_small = "Sign In";
+  static const String signin_small = "Sign in";
   static const String register = "Create an account";
   static const String registraionTitle = "Registration";
   static const String registraionTitle_sub = "Please enter your phone number and we will send you an OTP for verification.";
