@@ -51,7 +51,7 @@ class IntroScreen extends StatelessWidget {
               child: Text(
                 Strings.onBoardTitle_sub1,
                 style: TextStyle(
-                  fontSize: 20.0,
+                  fontSize: 19.0,
                   color: MColors.textGrey,
                   height: 1.30,
                 ),
@@ -111,7 +111,7 @@ class IntroScreen extends StatelessWidget {
                   focusElevation: 0.0,
                   highlightElevation: 0.0,
                   onPressed: () {
-                    Navigator.of(context).pushNamed("");
+                    Navigator.of(context).pushNamed("/Registration");
                   },
                   child: Text(
                     Strings.register,

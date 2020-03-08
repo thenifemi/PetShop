@@ -7,7 +7,7 @@ class Strings {
   //GET STARTED STRINGS
   static String appName = "mollet";
   static const String onBoardTitle1 ="Welcome to";
-  static const String onBoardTitle_sub1 = "Caring for your pets has never been so easy! With Mollet, you can buy your pets food, hire a professional caretake and book Vet appointments for your pets.";
+  static const String onBoardTitle_sub1 = "Caring for your pets has never been so easy! With Mollet, you can buy your pets food, hire a professional caretaker and book Vet appointments for your pets.";
   static const String onBoardTitle2 = "the World of Pets";
   // static const String onBoardTitle_sub2 = "Visit any of the growing number of online outlets who accept mollet and make your purchase in a second.";
   // static const String onBoardTitle3 = "Manage your finances";
@@ -18,8 +18,8 @@ class Strings {
   static const String signin = "SIGN IN";
   static const String signin_small = "Sign in";
   static const String register = "Create an account";
-  static const String registraionTitle = "Registration";
-  static const String registraionTitle_sub = "Please enter your phone number and we will send you an OTP for verification.";
+  static const String registraionTitle = "Create your free account";
+  static const String registraionTitle_sub = "Do you already have an account?";
   static const String conti_nue = "Continue";
   static const String verificationTitle = "Verification";
   static const String verificationTitle_sub = "Please the code that was sent to your phone number in the form below.";
