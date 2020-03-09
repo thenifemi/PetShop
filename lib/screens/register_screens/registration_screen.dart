@@ -97,17 +97,22 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             decoration: InputDecoration(
                               labelText: "e.g Remiola",
                               labelStyle: TextStyle(fontSize: 16.0),
-                              contentPadding: new EdgeInsets.symmetric( horizontal: 25.0),
+                              contentPadding:
+                                  new EdgeInsets.symmetric(horizontal: 25.0),
                               fillColor: MColors.primaryWhite,
                               filled: true,
                               hasFloatingPlaceholder: false,
                               enabledBorder: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: Colors.white, width: 0.0),
+                                borderRadius: BorderRadius.circular(8.0),
+                                borderSide: BorderSide(
+                                  color: Colors.white,
+                                  width: 0.0,
+                                ),
                               ),
                               focusedBorder: InputBorder.none,
                             ),
-                            style: TextStyle(fontSize: 20.0, color: MColors.textDark),
+                            style: TextStyle(
+                                fontSize: 20.0, color: MColors.textDark),
                           ),
                         ),
                       ],
@@ -129,14 +134,24 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                 !val.contains("@") ? 'Invalid Email' : null,
                             onSaved: (val) => _email = val,
                             decoration: InputDecoration(
-                                labelText: "e.g Remiola2034@gmail.com",
-                                contentPadding: new EdgeInsets.symmetric(
-                                    vertical: 13.0, horizontal: 10.0),
-                                fillColor: MColors.primaryWhite,
-                                hasFloatingPlaceholder: false,
-                                filled: true,
-                                border: InputBorder.none,
-                                focusedBorder: InputBorder.none),
+                              labelText: "e.g Remiola2034@gmail.com",
+                              labelStyle: TextStyle(fontSize: 16.0),
+                              contentPadding:
+                                  new EdgeInsets.symmetric(horizontal: 25.0),
+                              fillColor: MColors.primaryWhite,
+                              hasFloatingPlaceholder: false,
+                              filled: true,
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8.0),
+                                borderSide: BorderSide(
+                                  color: Colors.white,
+                                  width: 0.0,
+                                ),
+                              ),
+                              focusedBorder: InputBorder.none,
+                            ),
+                            style: TextStyle(
+                                fontSize: 20.0, color: MColors.textDark),
                           ),
                         ),
                       ],
@@ -160,13 +175,21 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             onSaved: (val) => _password = val,
                             decoration: InputDecoration(
                                 labelText: "",
-                                contentPadding: new EdgeInsets.symmetric(
-                                    vertical: 13.0, horizontal: 10.0),
+                                contentPadding:
+                                    new EdgeInsets.symmetric(horizontal: 25.0),
                                 fillColor: MColors.primaryWhite,
                                 hasFloatingPlaceholder: false,
                                 filled: true,
-                                border: InputBorder.none,
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  borderSide: BorderSide(
+                                    color: Colors.white,
+                                    width: 0.0,
+                                  ),
+                                ),
                                 focusedBorder: InputBorder.none),
+                            style: TextStyle(
+                                fontSize: 20.0, color: MColors.textDark),
                           ),
                         ),
                       ],
@@ -197,13 +220,70 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             onSaved: (val) => _phoneNumber = val,
                             decoration: InputDecoration(
                                 labelText: "e.g 47-99875-2365",
-                                contentPadding: new EdgeInsets.symmetric(
-                                    vertical: 13.0, horizontal: 10.0),
+                                labelStyle: TextStyle(fontSize: 16.0),
+                                contentPadding:
+                                    new EdgeInsets.symmetric(horizontal: 25.0),
                                 fillColor: MColors.primaryWhite,
                                 hasFloatingPlaceholder: false,
                                 filled: true,
-                                border: InputBorder.none,
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  borderSide: BorderSide(
+                                    color: Colors.white,
+                                    width: 0.0,
+                                  ),
+                                ),
                                 focusedBorder: InputBorder.none),
+                            style: TextStyle(
+                                fontSize: 20.0, color: MColors.textDark),
+                          ),
+                        ),
+                        Padding(
+                          padding:
+                              const EdgeInsets.only(top: 10.0, bottom: 10.0),
+                          child: Row(
+                            children: <Widget>[
+                              Icon(
+                                Icons.check_box,
+                                color: MColors.primaryPurple,
+                              ),
+                              SizedBox(
+                                width: 5.0,
+                              ),
+                              Container(
+                                child: Text(
+                                  "By continuing, you agree to our Terms of Service.",
+                                  style: TextStyle(color: MColors.textDark),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 20.0
+                        ),
+                        SizedBox(
+                          width: double.infinity,
+                          height: 60.0,
+                          child: RawMaterialButton(
+                            elevation: 0.0,
+                            hoverElevation: 0.0,
+                            focusElevation: 0.0,
+                            highlightElevation: 0.0,
+                            fillColor: MColors.primaryPurple,
+                            onPressed: () {
+                              Navigator.of(context).pushNamed("");
+                            },
+                            child: Text(
+                              "Next step",
+                              style: TextStyle(
+                                  color: MColors.primaryWhite,
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(10.0),
+                            ),
                           ),
                         ),
                       ],
