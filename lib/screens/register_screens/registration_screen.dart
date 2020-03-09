@@ -16,6 +16,21 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   String _email;
   String _password;
   String _phoneNumber;
+  bool _autoValidate = false;
+
+  void _submit() {
+    final form = formKey.currentState;
+
+    if (form.validate()) {
+      form.save();
+      // perfomLogin();
+    } else {
+      setState(() {
+        _autoValidate = true;
+      });
+    }
+    ;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -79,6 +94,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               //FORM
               Form(
                 key: formKey,
+                autovalidate: _autoValidate,
                 child: Column(
                   children: <Widget>[
                     Column(
@@ -94,6 +110,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         Padding(
                           padding: const EdgeInsets.only(bottom: 20.0),
                           child: TextFormField(
+                            validator: (val) =>
+                                (val.isEmpty) ? 'Enter a valid name' : null,
                             decoration: InputDecoration(
                               labelText: "e.g Remiola",
                               labelStyle: TextStyle(fontSize: 16.0),
@@ -109,10 +127,31 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                   width: 0.0,
                                 ),
                               ),
-                              focusedBorder: InputBorder.none,
+                              errorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8.0),
+                                borderSide: BorderSide(
+                                  color: Colors.red,
+                                  width: 1.0,
+                                ),
+                              ),
+                              focusedErrorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8.0),
+                                borderSide: BorderSide(
+                                  color: Colors.red,
+                                  width: 1.0,
+                                ),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8.0),
+                                borderSide: BorderSide(
+                                  color: Colors.white,
+                                  width: 0.0,
+                                ),
+                              ),
                             ),
+                            textCapitalization: TextCapitalization.words,
                             style: TextStyle(
-                                fontSize: 20.0, color: MColors.textDark),
+                                fontSize: 17.0, color: MColors.textDark),
                           ),
                         ),
                       ],
@@ -130,8 +169,18 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         Padding(
                           padding: const EdgeInsets.only(bottom: 20.0),
                           child: TextFormField(
-                            validator: (val) =>
-                                !val.contains("@") ? 'Invalid Email' : null,
+                            enableSuggestions: true,
+                            autovalidate: _autoValidate,
+                            validator: (val) {
+                              print(val);
+                              if (!val.contains("@") || !val.contains(".")) {
+                                return "Enter a valid Email address";
+                              } else if (val.isEmpty) {
+                                return "Enter your Email address";
+                              } else {
+                                return null;
+                              }
+                            },
                             onSaved: (val) => _email = val,
                             decoration: InputDecoration(
                               labelText: "e.g Remiola2034@gmail.com",
@@ -148,10 +197,30 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                   width: 0.0,
                                 ),
                               ),
-                              focusedBorder: InputBorder.none,
+                              errorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8.0),
+                                borderSide: BorderSide(
+                                  color: Colors.red,
+                                  width: 1.0,
+                                ),
+                              ),
+                              focusedErrorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8.0),
+                                borderSide: BorderSide(
+                                  color: Colors.red,
+                                  width: 1.0,
+                                ),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8.0),
+                                borderSide: BorderSide(
+                                  color: Colors.white,
+                                  width: 0.0,
+                                ),
+                              ),
                             ),
                             style: TextStyle(
-                                fontSize: 20.0, color: MColors.textDark),
+                                fontSize: 17.0, color: MColors.textDark),
                           ),
                         ),
                       ],
@@ -169,27 +238,58 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         Padding(
                           padding: const EdgeInsets.only(bottom: 10.0),
                           child: TextFormField(
-                            validator: (val) => val.length < 6
-                                ? 'Password not strong enough'
-                                : null,
+                            autovalidate: _autoValidate,
+                            validator: (val) {
+                              Pattern pattern =
+                                  r'(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])';
+                              RegExp regex = RegExp(pattern);
+                              print(val);
+                              if (val.length < 6 || (!regex.hasMatch(val))) {
+                                return "Password not strong enough";
+                              } else {
+                                return null;
+                              }
+                            },
                             onSaved: (val) => _password = val,
                             decoration: InputDecoration(
-                                labelText: "",
-                                contentPadding:
-                                    new EdgeInsets.symmetric(horizontal: 25.0),
-                                fillColor: MColors.primaryWhite,
-                                hasFloatingPlaceholder: false,
-                                filled: true,
-                                enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(8.0),
-                                  borderSide: BorderSide(
-                                    color: Colors.white,
-                                    width: 0.0,
-                                  ),
+                              labelText: "",
+                              contentPadding:
+                                  new EdgeInsets.symmetric(horizontal: 25.0),
+                              fillColor: MColors.primaryWhite,
+                              hasFloatingPlaceholder: false,
+                              filled: true,
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8.0),
+                                borderSide: BorderSide(
+                                  color: Colors.white,
+                                  width: 0.0,
                                 ),
-                                focusedBorder: InputBorder.none),
+                              ),
+                              errorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8.0),
+                                borderSide: BorderSide(
+                                  color: Colors.red,
+                                  width: 1.0,
+                                ),
+                              ),
+                              focusedErrorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8.0),
+                                borderSide: BorderSide(
+                                  color: Colors.red,
+                                  width: 1.0,
+                                ),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8.0),
+                                borderSide: BorderSide(
+                                  color: Colors.white,
+                                  width: 0.0,
+                                ),
+                              ),
+                            ),
+                            obscureText: true,
                             style: TextStyle(
-                                fontSize: 20.0, color: MColors.textDark),
+                                fontSize: 17.0, color: MColors.textDark),
                           ),
                         ),
                       ],
@@ -197,7 +297,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     Container(
                       padding: const EdgeInsets.only(bottom: 15.0),
                       child: Text(
-                        "Your password must have 6 or more characters and your password must contain at least one number.",
+                        "Your password must have 6 or more characters, a capital letter and must contain at least one number.",
                         style: TextStyle(color: MColors.primaryPurple),
                       ),
                     ),
@@ -214,28 +314,58 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         Padding(
                           padding: const EdgeInsets.only(bottom: 20.0),
                           child: TextFormField(
-                            validator: (val) => !val.contains("47")
-                                ? 'Invalid Phone number'
-                                : null,
+                            autovalidate: _autoValidate,
+                            keyboardType: TextInputType.numberWithOptions(),
+                            validator: (val) {
+                              String pattern = r'(^(?:[+0]9)?[0-9]{9}$)';
+                              RegExp regex2 = new RegExp(pattern);
+                              print(val);
+                              if (!regex2.hasMatch(val)) {
+                                return "Enter a valid phone number";
+                              } else {
+                                return null;
+                              }
+                            },
                             onSaved: (val) => _phoneNumber = val,
                             decoration: InputDecoration(
-                                labelText: "e.g 47-99875-2365",
-                                labelStyle: TextStyle(fontSize: 16.0),
-                                contentPadding:
-                                    new EdgeInsets.symmetric(horizontal: 25.0),
-                                fillColor: MColors.primaryWhite,
-                                hasFloatingPlaceholder: false,
-                                filled: true,
-                                enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(8.0),
-                                  borderSide: BorderSide(
-                                    color: Colors.white,
-                                    width: 0.0,
-                                  ),
+                              labelText: "e.g 99875-2365",
+                              labelStyle: TextStyle(fontSize: 16.0),
+                              contentPadding:
+                                  new EdgeInsets.symmetric(horizontal: 25.0),
+                              fillColor: MColors.primaryWhite,
+                              hasFloatingPlaceholder: false,
+                              filled: true,
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8.0),
+                                borderSide: BorderSide(
+                                  color: Colors.white,
+                                  width: 0.0,
                                 ),
-                                focusedBorder: InputBorder.none),
+                              ),
+                              errorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8.0),
+                                borderSide: BorderSide(
+                                  color: Colors.red,
+                                  width: 1.0,
+                                ),
+                              ),
+                              focusedErrorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8.0),
+                                borderSide: BorderSide(
+                                  color: Colors.red,
+                                  width: 1.0,
+                                ),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8.0),
+                                borderSide: BorderSide(
+                                  color: Colors.white,
+                                  width: 0.0,
+                                ),
+                              ),
+                            ),
                             style: TextStyle(
-                                fontSize: 20.0, color: MColors.textDark),
+                                fontSize: 17.0, color: MColors.textDark),
                           ),
                         ),
                         Padding(
@@ -244,7 +374,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           child: Row(
                             children: <Widget>[
                               Icon(
-                                Icons.check_box,
+                                Icons.verified_user,
                                 color: MColors.primaryPurple,
                               ),
                               SizedBox(
@@ -259,9 +389,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             ],
                           ),
                         ),
-                        SizedBox(
-                          height: 20.0
-                        ),
+                        SizedBox(height: 20.0),
                         SizedBox(
                           width: double.infinity,
                           height: 60.0,
@@ -272,7 +400,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             highlightElevation: 0.0,
                             fillColor: MColors.primaryPurple,
                             onPressed: () {
-                              Navigator.of(context).pushNamed("");
+                              _submit();
                             },
                             child: Text(
                               "Next step",
