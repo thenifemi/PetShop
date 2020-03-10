@@ -1,7 +1,10 @@
+// import 'dart:js';
+
 import 'package:flutter/material.dart';
+import 'package:mollet/model/auth/email_auth.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:mollet/utils/strings.dart';
+// import 'package:mollet/utils/strings.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -35,6 +38,31 @@ class _HomeScreenState extends State<HomeScreen> {
                       color: MColors.textDark),
                   textAlign: TextAlign.center,
                 ),
+                 SizedBox(height: 20.0),
+                        SizedBox(
+                          width: double.infinity,
+                          height: 60.0,
+                          child: RawMaterialButton(
+                            elevation: 0.0,
+                            hoverElevation: 0.0,
+                            focusElevation: 0.0,
+                            highlightElevation: 0.0,
+                            fillColor: MColors.primaryPurple,
+                            onPressed: () {
+                              performLogout(context);
+                            },
+                            child: Text(
+                              "Logout",
+                              style: TextStyle(
+                                  color: MColors.primaryWhite,
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(10.0),
+                            ),
+                          ),
+                        ),
               ],
             ),
           ),

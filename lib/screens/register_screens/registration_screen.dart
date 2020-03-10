@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:mollet/model/auth/email_auth.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:mollet/utils/strings.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class RegistrationScreen extends StatefulWidget {
   RegistrationScreen({Key key}) : super(key: key);
@@ -23,15 +26,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
     if (form.validate()) {
       form.save();
-      Navigator.of(context).pushNamed("/Homescreen");
-
-      // perfomLogin();
+      performRegistration(_email, _password, context);
     } else {
       setState(() {
         _autoValidate = true;
       });
     }
-    ;
+    
   }
 
   @override
@@ -75,7 +76,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     padding: const EdgeInsets.only(top: 18.0),
                     child: GestureDetector(
                         onTap: () {
-                          Navigator.of(context).pushNamed("/Registration");
+                          Navigator.of(context).pushNamed("/Login");
                         },
                         child: Text(
                           "Sign in!",
@@ -246,7 +247,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                   r'(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])';
                               RegExp regex = RegExp(pattern);
                               print(val);
-                              if (val.length < 6 || (!regex.hasMatch(val))) {
+                              if (val.isEmpty) {
+                                return "Enter a password";
+                              } else if (val.length < 6 ||
+                                  (!regex.hasMatch(val))) {
                                 return "Password not strong enough";
                               } else {
                                 return null;
@@ -314,12 +318,14 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(bottom: 20.0),
+                          padding: const EdgeInsets.only(
+                            bottom: 10.0,
+                          ),
                           child: TextFormField(
                             autovalidate: _autoValidate,
                             keyboardType: TextInputType.numberWithOptions(),
                             validator: (val) {
-                              String pattern = r'(^(?:[+0]9)?[0-9]{9}$)';
+                              String pattern = r'(^(?:[+0]9)?[0-9]{13}$)';
                               RegExp regex2 = new RegExp(pattern);
                               print(val);
                               if (!regex2.hasMatch(val)) {
@@ -330,7 +336,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             },
                             onSaved: (val) => _phoneNumber = val,
                             decoration: InputDecoration(
-                              labelText: "e.g 99875-2365",
+                              labelText: "e.g +55 47 12345-6789",
                               labelStyle: TextStyle(fontSize: 16.0),
                               contentPadding:
                                   new EdgeInsets.symmetric(horizontal: 25.0),
@@ -368,6 +374,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             ),
                             style: TextStyle(
                                 fontSize: 17.0, color: MColors.textDark),
+                          ),
+                        ),
+                        Container(
+                          padding: const EdgeInsets.only(bottom: 15.0),
+                          child: Text(
+                            "Your number should contain your country code and state code.",
+                            style: TextStyle(color: MColors.primaryPurple),
                           ),
                         ),
                         Padding(

@@ -21,8 +21,7 @@ class Strings {
   static const String registraionTitle = "Create your free account";
   static const String registraionTitle_sub = "Do you already have an account?";
   static const String conti_nue = "Continue";
-  static const String verificationTitle = "Verification";
-  static const String verificationTitle_sub = "Please the code that was sent to your phone number in the form below.";
+  static const String verificationTitle = "Enter the mutiple digit code that was sent to your phone to confirm your number.";
   static const String verificationTitle_sub2 = "This code will expire in 0:59";
   static const String set_your_password = "Set your password";
   static const String resend = "Resend";

@@ -11,140 +11,185 @@ class VerificationScreen extends StatefulWidget {
 }
 
 class _VerificationScreenState extends State<VerificationScreen> {
+  final scaffoldKey = GlobalKey<ScaffoldState>();
+  final formKey = GlobalKey<FormState>();
+
+  String _email;
+  String _password;
+  String _phoneNumber;
+  bool _autoValidate = false;
+
+  void _submit() {
+    final form = formKey.currentState;
+
+    if (form.validate()) {
+      form.save();
+      Navigator.of(context).pushNamed("/Homescreen");
+
+      // perfomLogin();
+    } else {
+      setState(() {
+        _autoValidate = true;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: FlatButton(
-          child: Icon(
-            Icons.arrow_back_ios,
-            color: MColors.textDark,
-            size: 20.0,
-          ),
-          onPressed: () {
-            Navigator.of(context).pushNamed("/Registration");
-          },
-        ),
-        elevation: 0.0,
-        backgroundColor: MColors.primaryWhiteSmoke,
-      ),
-      body: Container(
-        height: double.infinity,
-        color: MColors.primaryWhiteSmoke,
+      backgroundColor: MColors.primaryWhiteSmoke,
+      body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(10.0),
+          padding: const EdgeInsets.all(30.0),
           child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Container(
-                  padding: const EdgeInsets.only(
-                    bottom: 30.0,
-                  ),
-                  child: SvgPicture.asset(
-                    "assets/images/verified.svg",
-                    height: 160,
-                  ),
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Container(
+                alignment: AlignmentDirectional.topStart,
+                padding: const EdgeInsets.only(top: 100.0),
+                child: Text(
+                  "Enter the code",
+                  style: TextStyle(
+                      fontSize: 38.0,
+                      color: MColors.textDark,
+                      fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.start,
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 20.0),
-                  child: Text(
-                    Strings.verificationTitle,
-                    style: TextStyle(
-                        color: MColors.textDark,
-                        fontSize: 30.0,
-                        fontWeight: FontWeight.bold),
+              ),
+
+              Container(
+                padding: const EdgeInsets.only(top: 18.0),
+                child: Text(
+                  Strings.verificationTitle,
+                  style: TextStyle(
+                    fontSize: 17.0,
+                    color: MColors.textGrey,
                   ),
+                  textAlign: TextAlign.start,
                 ),
-                SizedBox(
-                  height: 20.0,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                      right: 60.0, left: 60.0, bottom: 20.0),
-                  child: Column(
-                    children: <Widget>[
-                      Text(
-                        Strings.verificationTitle_sub,
-                        style: TextStyle(
-                          color: MColors.textGrey,
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.w300,
-                        ),
-                        softWrap: true,
-                        textAlign: TextAlign.center,
-                      ),
-                      Text(
-                        Strings.verificationTitle_sub2,
-                        style: TextStyle(
-                          color: MColors.textGrey,
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.w300,
-                        ),
-                        softWrap: true,
-                        textAlign: TextAlign.center,
-                      ),
-                    ],
-                  ),
-                ),
-                Card(
-                  color: MColors.primaryWhite,
-                  child: Padding(
-                    padding: const EdgeInsets.all(30.0),
-                    child: Column(
-                      children: <Widget>[
-                        Form(
-                          child: TextFormField(
-                            keyboardType: TextInputType.numberWithOptions(),
-                            decoration: InputDecoration(
-                              prefixIcon: Icon(Icons.verified_user),
-                              labelText: "OTP - One Time Password",
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(10.0),
-                                ),
-                              ),
+              ),
+
+              SizedBox(
+                height: 60.0,
+              ),
+
+              //FORM
+              Form(
+                key: formKey,
+                autovalidate: _autoValidate,
+                child: Column(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 10.0),
+                      child: TextFormField(
+                        keyboardType: TextInputType.numberWithOptions(),
+                        autovalidate: _autoValidate,
+                        validator: (val) {
+                          Pattern pattern = r'(?=.*?[0-9])';
+                          RegExp regex = RegExp(pattern);
+                          print(val);
+                          if (val.length > 6 ||
+                              (!regex.hasMatch(val)) ||
+                              val.length < 3) {
+                            return "Hmm! That doesn't seem right.";
+                          } else {
+                            return null;
+                          }
+                        },
+                        onSaved: (val) => _password = val,
+                        decoration: InputDecoration(
+                          labelText: "Enter the code",
+                          contentPadding:
+                              new EdgeInsets.symmetric(horizontal: 25.0),
+                          fillColor: MColors.primaryWhite,
+                          hasFloatingPlaceholder: false,
+                          filled: true,
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                            borderSide: BorderSide(
+                              color: Colors.white,
+                              width: 0.0,
+                            ),
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                            borderSide: BorderSide(
+                              color: Colors.red,
+                              width: 1.0,
+                            ),
+                          ),
+                          focusedErrorBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                            borderSide: BorderSide(
+                              color: Colors.red,
+                              width: 1.0,
+                            ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                            borderSide: BorderSide(
+                              color: Colors.white,
+                              width: 0.0,
                             ),
                           ),
                         ),
-                        SizedBox(height: 20.0),
-                        SizedBox(
-                          width: double.infinity,
-                          height: 50.0,
-                          child: RawMaterialButton(
-                            fillColor: MColors.primaryPurple,
-                            onPressed: () {
-                              Navigator.of(context).pushNamed("/SetPassword");
-                            },
-                            child: Text(
-                              Strings.conti_nue,
-                              style: TextStyle(
-                                  color: MColors.primaryWhite, fontSize: 18.0),
-                            ),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: new BorderRadius.circular(10.0),
-                            ),
-                          ),
-                        ),
-                      ],
+                        obscureText: true,
+                        style:
+                            TextStyle(fontSize: 17.0, color: MColors.textDark),
+                      ),
                     ),
-                  ),
-                  elevation: 0.20,
-                  borderOnForeground: false,
-                  semanticContainer: false,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: new BorderRadius.circular(10.0),
-                  ),
+                    SizedBox(height: 20.0),
+                    Container(
+                      padding: const EdgeInsets.only(top: 10.0),
+                      child: Text(
+                        "I didn't recieve the code",
+                        style: TextStyle(
+                          color: MColors.textGrey,
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 5.0, bottom: 30.0),
+                      child: GestureDetector(
+                        onTap: () {},
+                        child: Text(
+                          "RESEND",
+                          style: TextStyle(
+                            color: MColors.primaryPurple,
+                            fontSize: 16.0,
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: double.infinity,
+                      height: 60.0,
+                      child: RawMaterialButton(
+                        elevation: 0.0,
+                        hoverElevation: 0.0,
+                        focusElevation: 0.0,
+                        highlightElevation: 0.0,
+                        fillColor: MColors.primaryPurple,
+                        onPressed: () {
+                          _submit();
+                        },
+                        child: Text(
+                          "Keep going",
+                          style: TextStyle(
+                              color: MColors.primaryWhite,
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: new BorderRadius.circular(10.0),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                FlatButton(
-                  onPressed: null,
-                  child: Text(
-                    "Resend",
-                    style:
-                        TextStyle(color: MColors.primaryPurple, fontSize: 17.0),
-                  ),
-                  color: MColors.primaryWhite,
-                ),
-              ]),
+              ),
+            ],
+          ),
         ),
       ),
     );

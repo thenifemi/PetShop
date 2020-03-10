@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:mollet/model/auth/email_auth.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:mollet/utils/strings.dart';
 
@@ -24,15 +25,13 @@ class _LoginScreenState extends State<LoginScreen> {
 
     if (form.validate()) {
       form.save();
-      Navigator.of(context).pushNamed("/Homescreen");
 
-      // perfomLogin();
+      performLogin(_email, _password, context);
     } else {
       setState(() {
         _autoValidate = true;
       });
     }
-    ;
   }
 
   @override
