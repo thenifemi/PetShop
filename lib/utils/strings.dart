@@ -29,6 +29,7 @@ class Strings {
   static const String fingerprintTitle = "Fingerprint";
   static const String fingerprintTitle_sub = "Please scan your finger";
   static const String login_to_account = "Sign in to your account";
+  static const String do_not_have_account = " Do not have an account?";
   static const String forgot_password = "Forgot password?";
   static const String fingerprint_authTitle = "Fingerprint Authentication";
   static const String fingerprint_authTitle_sub = "Please scan your finger to log in";

@@ -23,6 +23,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
     if (form.validate()) {
       form.save();
+      Navigator.of(context).pushNamed("/Homescreen");
+
       // perfomLogin();
     } else {
       setState(() {
@@ -37,8 +39,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     return Scaffold(
       backgroundColor: MColors.primaryWhiteSmoke,
       body: SingleChildScrollView(
-        // height: double.infinity,
-        // color: MColors.primaryWhiteSmoke,
         child: Padding(
           padding: const EdgeInsets.all(30.0),
           child: Column(
@@ -74,7 +74,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   Container(
                     padding: const EdgeInsets.only(top: 18.0),
                     child: GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.of(context).pushNamed("/Registration");
+                        },
                         child: Text(
                           "Sign in!",
                           style: TextStyle(
