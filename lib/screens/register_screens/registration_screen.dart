@@ -18,6 +18,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
   String _email;
   String _password;
+  String _name;
   String _phoneNumber;
   bool _autoValidate = false;
 
@@ -26,13 +27,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
     if (form.validate()) {
       form.save();
-      performRegistration(_email, _password, context);
+      performRegistration(_email, _password, _name, context);
     } else {
       setState(() {
         _autoValidate = true;
       });
     }
-    
   }
 
   @override
@@ -113,6 +113,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         Padding(
                           padding: const EdgeInsets.only(bottom: 20.0),
                           child: TextFormField(
+                            onSaved: (val) => _name = val,
                             validator: (val) =>
                                 (val.isEmpty) ? 'Enter a valid name' : null,
                             decoration: InputDecoration(

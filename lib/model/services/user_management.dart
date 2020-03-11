@@ -5,11 +5,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
 
 class UserManagement {
-  FirebaseUser user;
-  storeNewUser(user, context) {
+  storeNewUser(user, _name, context) {
+    var userUpdateInfo = new UserUpdateInfo();
+    userUpdateInfo.displayName = _name;
+    print(user.email);
+    print(userUpdateInfo.displayName);
     Firestore.instance.collection('/users').add({
       'email': user.email,
       'uid': user.uid,
+      'name': userUpdateInfo.displayName,
     }).then((val) {
       Navigator.of(context).pushReplacementNamed("/Homescreen");
     }).catchError((e) {

@@ -3,14 +3,18 @@ import 'package:mollet/model/services/user_management.dart';
 import 'package:flutter/widgets.dart';
 
 //REGISTER (CONTINUED IN user_management.dart)
-void performRegistration(_email, _password, context) {
+void performRegistration(_email, _password, _name, context) {
   FirebaseAuth.instance
       .createUserWithEmailAndPassword(
     email: _email,
     password: _password,
   )
       .then((signedInUser) {
-    UserManagement().storeNewUser(signedInUser, context);
+    // FirebaseUser user;
+    var userUpdateInfo = new UserUpdateInfo();
+    userUpdateInfo.displayName = _name;
+    UserManagement().storeNewUser(signedInUser.user, _name, context);
+    Navigator.of(context).pushReplacementNamed("/Homescreen");
   }).catchError((e) {
     print(e);
   });
