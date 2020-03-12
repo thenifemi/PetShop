@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mollet/model/auth/email_auth.dart';
@@ -21,18 +23,75 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   String _name;
   String _phoneNumber;
   bool _autoValidate = false;
+  var _state = 0;
+
+  void animateButton() {
+    setState(() {
+      _state = 1;
+    });
+
+    Timer(Duration(milliseconds: 3300), () {
+      setState(() {
+        _state = 2;
+      });
+    });
+  }
 
   void _submit() {
     final form = formKey.currentState;
 
     if (form.validate()) {
       form.save();
+      setState(() {
+        if (_state == 0) {
+          animateButton();
+        }
+      });
       performRegistration(_email, _password, _name, context);
     } else {
       setState(() {
         _autoValidate = true;
       });
     }
+  }
+
+  Widget buildRegisterButton() {
+    if (_state == 0) {
+      return Text(
+        "Next step",
+        style: TextStyle(
+            color: MColors.primaryWhite,
+            fontSize: 16.0,
+            fontWeight: FontWeight.bold),
+      );
+    } else if (_state == 1) {
+      return CircularProgressIndicator(
+        valueColor: AlwaysStoppedAnimation<Color>(MColors.primaryWhite),
+      );
+    } else {
+      return Icon(Icons.check, color: Colors.white);
+    }
+  }
+
+  Widget registerButton() {
+    return SizedBox(
+      width: double.infinity,
+      height: 60.0,
+      child: RawMaterialButton(
+        elevation: 0.0,
+        hoverElevation: 0.0,
+        focusElevation: 0.0,
+        highlightElevation: 0.0,
+        fillColor: MColors.primaryPurple,
+        onPressed: () {
+          _submit();
+        },
+        child: buildRegisterButton(),
+        shape: RoundedRectangleBorder(
+          borderRadius: new BorderRadius.circular(10.0),
+        ),
+      ),
+    );
   }
 
   @override
@@ -406,30 +465,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           ),
                         ),
                         SizedBox(height: 20.0),
-                        SizedBox(
-                          width: double.infinity,
-                          height: 60.0,
-                          child: RawMaterialButton(
-                            elevation: 0.0,
-                            hoverElevation: 0.0,
-                            focusElevation: 0.0,
-                            highlightElevation: 0.0,
-                            fillColor: MColors.primaryPurple,
-                            onPressed: () {
-                              _submit();
-                            },
-                            child: Text(
-                              "Next step",
-                              style: TextStyle(
-                                  color: MColors.primaryWhite,
-                                  fontSize: 16.0,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: new BorderRadius.circular(10.0),
-                            ),
-                          ),
-                        ),
+                        registerButton(),
                       ],
                     ),
                   ],

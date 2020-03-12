@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mollet/model/auth/email_auth.dart';
@@ -19,19 +21,75 @@ class _LoginScreenState extends State<LoginScreen> {
   String _password;
   String _phoneNumber;
   bool _autoValidate = false;
+  var _state = 0;
+
+  void animateButton() {
+    setState(() {
+      _state = 1;
+    });
+
+    Timer(Duration(milliseconds: 3300), () {
+      setState(() {
+        _state = 2;
+      });
+    });
+  }
 
   void _submit() {
     final form = formKey.currentState;
 
     if (form.validate()) {
       form.save();
-
+      setState(() {
+        if (_state == 0) {
+          animateButton();
+        }
+      });
       performLogin(_email, _password, context);
     } else {
       setState(() {
         _autoValidate = true;
       });
     }
+  }
+
+  Widget buildLoginButton() {
+    if (_state == 0) {
+      return Text(
+        "Next step",
+        style: TextStyle(
+            color: MColors.primaryWhite,
+            fontSize: 16.0,
+            fontWeight: FontWeight.bold),
+      );
+    } else if (_state == 1) {
+      return CircularProgressIndicator(
+        valueColor: AlwaysStoppedAnimation<Color>(MColors.primaryWhite),
+      );
+    } else {
+      return Icon(Icons.check, color: Colors.white);
+    }
+  }
+
+  Widget loginButton() {
+    return SizedBox(
+      width: double.infinity,
+      height: 60.0,
+      child: RawMaterialButton(
+        elevation: 0.0,
+        hoverElevation: 0.0,
+        focusElevation: 0.0,
+        highlightElevation: 0.0,
+        fillColor: MColors.primaryPurple,
+        onPressed: () {
+          _submit();
+        },
+        child: buildLoginButton(),
+        shape: RoundedRectangleBorder(
+          borderRadius: new BorderRadius.circular(10.0),
+        ),
+      ),
+    );
   }
 
   @override
@@ -258,30 +316,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     SizedBox(height: 20.0),
-                    SizedBox(
-                      width: double.infinity,
-                      height: 60.0,
-                      child: RawMaterialButton(
-                        elevation: 0.0,
-                        hoverElevation: 0.0,
-                        focusElevation: 0.0,
-                        highlightElevation: 0.0,
-                        fillColor: MColors.primaryPurple,
-                        onPressed: () {
-                          _submit();
-                        },
-                        child: Text(
-                          "Sign in",
-                          style: TextStyle(
-                              color: MColors.primaryWhite,
-                              fontSize: 16.0,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: new BorderRadius.circular(10.0),
-                        ),
-                      ),
-                    ),
+                    loginButton(),
                     Padding(
                       padding: const EdgeInsets.only(top: 20.0, bottom: 10.0),
                       child: GestureDetector(
