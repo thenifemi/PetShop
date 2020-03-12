@@ -1,8 +1,5 @@
-import 'dart:async';
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:mollet/model/auth/email_auth.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:mollet/utils/strings.dart';
 
@@ -16,10 +13,13 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final formKey = GlobalKey<FormState>();
+  final loginKey = GlobalKey<_LoginScreenState>();
 
   String _email;
   String _password;
   String _phoneNumber;
+  String _error;
+
   bool _autoValidate = false;
   var _state = 0;
 
@@ -28,11 +28,11 @@ class _LoginScreenState extends State<LoginScreen> {
       _state = 1;
     });
 
-    Timer(Duration(milliseconds: 3300), () {
-      setState(() {
-        _state = 2;
-      });
-    });
+    // Timer(Duration(milliseconds: 3300), () {
+    //   setState(() {
+    //     _state = 0;
+    //   });
+    // });
   }
 
   void _submit() {
@@ -51,6 +51,24 @@ class _LoginScreenState extends State<LoginScreen> {
         _autoValidate = true;
       });
     }
+  }
+
+  void performLogin(_email, _password, context) {
+    FirebaseAuth.instance
+        .signInWithEmailAndPassword(
+      email: _email,
+      password: _password,
+    )
+        .then((user) {
+      Navigator.of(context).pushReplacementNamed("/Homescreen");
+    }).catchError((e) {
+      setState(() {
+        _error = e.message;
+        _state = 0;
+      });
+
+      print(e);
+    });
   }
 
   Widget buildLoginButton() {
@@ -90,6 +108,47 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+
+  Widget showAlert() {
+    if (_error != null) {
+      return Container(
+        height: 60,
+        child: Row(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(right: 5.0),
+              child: Icon(
+                Icons.error_outline,
+              ),
+            ),
+            Expanded(
+              child: Text(
+                _error,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 5.0),
+              child: IconButton(
+                icon: Icon(Icons.close),
+                onPressed: () {
+                  setState(() {
+                    _error = null;
+                  });
+                },
+              ),
+            ),
+          ],
+        ),
+        color: Colors.redAccent,
+        width: double.infinity,
+        padding: const EdgeInsets.all(10.0),
+      );
+    } else {
+      return Container(
+        height: 30.0,
+      );
+    }
   }
 
   @override
@@ -146,6 +205,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ],
               ),
+              SizedBox(
+                height: 10.0,
+              ),
+              showAlert(),
 
               SizedBox(
                 height: 20.0,

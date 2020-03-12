@@ -1,11 +1,12 @@
 import 'dart:async';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:mollet/model/auth/email_auth.dart';
+import 'package:mollet/model/services/auth/email_auth.dart';
+import 'package:mollet/model/services/user_management.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:mollet/utils/strings.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class RegistrationScreen extends StatefulWidget {
   RegistrationScreen({Key key}) : super(key: key);
@@ -22,6 +23,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   String _password;
   String _name;
   String _phoneNumber;
+  String _error;
   bool _autoValidate = false;
   var _state = 0;
 
@@ -30,11 +32,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       _state = 1;
     });
 
-    Timer(Duration(milliseconds: 3300), () {
-      setState(() {
-        _state = 2;
-      });
-    });
+    // Timer(Duration(milliseconds: 3300), () {
+    //   setState(() {
+    //     _state = 2;
+    //   });
+    // });
   }
 
   void _submit() {
@@ -94,6 +96,69 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     );
   }
 
+  void performRegistration(_email, _password, _name, context) {
+    FirebaseAuth.instance
+        .createUserWithEmailAndPassword(
+      email: _email,
+      password: _password,
+    )
+        .then((signedInUser) {
+      // FirebaseUser user;
+      var userUpdateInfo = new UserUpdateInfo();
+      userUpdateInfo.displayName = _name;
+      UserManagement().storeNewUser(signedInUser.user, _name, context);
+      Navigator.of(context).pushReplacementNamed("/Homescreen");
+    }).catchError((e) {
+      setState(() {
+        _error = e.message;
+        _state = 0;
+      });
+
+      print(e);
+    });
+  }
+
+  Widget showAlert() {
+    if (_error != null) {
+      return Container(
+        height: 60,
+        child: Row(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(right: 5.0),
+              child: Icon(
+                Icons.error_outline,
+              ),
+            ),
+            Expanded(
+              child: Text(
+                _error,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 5.0),
+              child: IconButton(
+                icon: Icon(Icons.close),
+                onPressed: () {
+                  setState(() {
+                    _error = null;
+                  });
+                },
+              ),
+            ),
+          ],
+        ),
+        color: Colors.redAccent,
+        width: double.infinity,
+        padding: const EdgeInsets.all(10.0),
+      );
+    } else {
+      return Container(
+        height: 30.0,
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -150,6 +215,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               ),
 
               SizedBox(
+                height: 10.0,
+              ),
+              showAlert(),
+
+              SizedBox(
                 height: 20.0,
               ),
 
@@ -173,8 +243,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           padding: const EdgeInsets.only(bottom: 20.0),
                           child: TextFormField(
                             onSaved: (val) => _name = val,
-                            validator: (val) =>
-                                (val.isEmpty) ? 'Enter a valid name' : null,
+                            validator: NameValiditor.validate,
                             decoration: InputDecoration(
                               labelText: "e.g Remiola",
                               labelStyle: TextStyle(fontSize: 16.0),
@@ -234,16 +303,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           child: TextFormField(
                             enableSuggestions: true,
                             autovalidate: _autoValidate,
-                            validator: (val) {
-                              print(val);
-                              if (!val.contains("@") || !val.contains(".")) {
-                                return "Enter a valid Email address";
-                              } else if (val.isEmpty) {
-                                return "Enter your Email address";
-                              } else {
-                                return null;
-                              }
-                            },
+                            validator: EmailValiditor.validate,
                             onSaved: (val) => _email = val,
                             decoration: InputDecoration(
                               labelText: "e.g Remiola2034@gmail.com",
@@ -302,20 +362,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           padding: const EdgeInsets.only(bottom: 10.0),
                           child: TextFormField(
                             autovalidate: _autoValidate,
-                            validator: (val) {
-                              Pattern pattern =
-                                  r'(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])';
-                              RegExp regex = RegExp(pattern);
-                              print(val);
-                              if (val.isEmpty) {
-                                return "Enter a password";
-                              } else if (val.length < 6 ||
-                                  (!regex.hasMatch(val))) {
-                                return "Password not strong enough";
-                              } else {
-                                return null;
-                              }
-                            },
+                            validator: PasswordValiditor.validate,
                             onSaved: (val) => _password = val,
                             decoration: InputDecoration(
                               labelText: "",

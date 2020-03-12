@@ -1,7 +1,7 @@
 // import 'dart:js';
 
 import 'package:flutter/material.dart';
-import 'package:mollet/model/auth/email_auth.dart';
+import 'package:mollet/model/services/auth/email_auth.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:flutter_svg/svg.dart';
 // import 'package:mollet/utils/strings.dart';
