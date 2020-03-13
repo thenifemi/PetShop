@@ -26,17 +26,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   String _error;
   bool _autoValidate = false;
   var _state = 0;
+  bool _isButtonDisabled;
 
   void animateButton() {
     setState(() {
       _state = 1;
+      _isButtonDisabled = true;
     });
-
-    // Timer(Duration(milliseconds: 3300), () {
-    //   setState(() {
-    //     _state = 2;
-    //   });
-    // });
   }
 
   void _submit() {
@@ -68,15 +64,33 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       );
     } else if (_state == 1) {
       return CircularProgressIndicator(
-        valueColor: AlwaysStoppedAnimation<Color>(MColors.primaryWhite),
+        valueColor: AlwaysStoppedAnimation<Color>(MColors.primaryPurple),
       );
     } else {
-      return Icon(Icons.check, color: Colors.white);
+      return null;
     }
   }
 
   Widget registerButton() {
-    return SizedBox(
+    if (_isButtonDisabled == true) {
+      return SizedBox(
+      width: double.infinity,
+      height: 60.0,
+      child: RawMaterialButton(
+        elevation: 0.0,
+        hoverElevation: 0.0,
+        focusElevation: 0.0,
+        highlightElevation: 0.0,
+        fillColor: MColors.textGrey,
+        onPressed: null,
+        child: buildRegisterButton(),
+        shape: RoundedRectangleBorder(
+          borderRadius: new BorderRadius.circular(10.0),
+        ),
+      ),
+    );
+    } else {
+ return SizedBox(
       width: double.infinity,
       height: 60.0,
       child: RawMaterialButton(
@@ -85,15 +99,14 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         focusElevation: 0.0,
         highlightElevation: 0.0,
         fillColor: MColors.primaryPurple,
-        onPressed: () {
-          _submit();
-        },
+        onPressed: _isButtonDisabled ? null : _submit,
         child: buildRegisterButton(),
         shape: RoundedRectangleBorder(
           borderRadius: new BorderRadius.circular(10.0),
         ),
       ),
     );
+    }
   }
 
   void performRegistration(_email, _password, _name, context) {
@@ -112,6 +125,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       setState(() {
         _error = e.message;
         _state = 0;
+        _isButtonDisabled = false;
       });
 
       print(e);
@@ -121,40 +135,52 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   Widget showAlert() {
     if (_error != null) {
       return Container(
-        height: 60,
         child: Row(
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.only(right: 5.0),
               child: Icon(
                 Icons.error_outline,
+                color: Colors.redAccent,
               ),
             ),
             Expanded(
               child: Text(
                 _error,
+                style: TextStyle(
+                  color: Colors.redAccent,
+                  fontSize: 15.0,
+                ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 5.0),
-              child: IconButton(
-                icon: Icon(Icons.close),
-                onPressed: () {
-                  setState(() {
-                    _error = null;
-                  });
-                },
-              ),
-            ),
+            // Padding(
+            //   padding: const EdgeInsets.only(left: 5.0),
+            //   child: IconButton(
+            //     icon: Icon(Icons.close),
+            //     onPressed: () {
+            //       setState(() {
+            //         _error = null;
+            //       });
+            //     },
+            //     color: MColors.primaryPurple,
+            //   ),
+            // ),
           ],
         ),
-        color: Colors.redAccent,
+        height: 60,
         width: double.infinity,
         padding: const EdgeInsets.all(10.0),
+        decoration: BoxDecoration(
+          color: MColors.primaryWhiteSmoke,
+          border: Border.all(width: 1.0, color: Colors.redAccent),
+          borderRadius: BorderRadius.all(
+            Radius.circular(4.0),
+          ),
+        ),
       );
     } else {
       return Container(
-        height: 30.0,
+        height: 0.0,
       );
     }
   }
