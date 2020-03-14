@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mollet/utils/colors.dart';
@@ -15,6 +16,8 @@ class _LoginScreenState extends State<LoginScreen> {
   final formKey = GlobalKey<FormState>();
   final loginKey = GlobalKey<_LoginScreenState>();
 
+  
+
   String _email;
   String _password;
   String _phoneNumber;
@@ -22,6 +25,10 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _autoValidate = false;
   var _state = 0;
   bool _isButtonDisabled = false;
+
+
+
+  
 
   void animateButton() {
     setState(() {
@@ -217,7 +224,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     padding: const EdgeInsets.only(top: 18.0),
                     child: GestureDetector(
                         onTap: () {
-                          Navigator.of(context).pushNamed("/Registration");
+                          Navigator.of(context)
+                              .pushReplacementNamed("/Registration");
                         },
                         child: Text(
                           "Create it!",

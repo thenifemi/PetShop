@@ -84,7 +84,7 @@ class IntroScreen extends StatelessWidget {
                   highlightElevation: 0.0,
                   fillColor: MColors.primaryPurple,
                   onPressed: () {
-                    Navigator.of(context).pushNamed("/Login");
+                    Navigator.of(context).pushReplacementNamed("/Login");
                   },
                   child: Text(
                     Strings.signin_small,
@@ -111,7 +111,7 @@ class IntroScreen extends StatelessWidget {
                   focusElevation: 0.0,
                   highlightElevation: 0.0,
                   onPressed: () {
-                    Navigator.of(context).pushNamed("/Registration");
+                    Navigator.of(context).pushReplacementNamed("/Registration");
                   },
                   child: Text(
                     Strings.register,

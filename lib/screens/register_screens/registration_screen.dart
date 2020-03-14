@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -26,7 +24,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   String _error;
   bool _autoValidate = false;
   var _state = 0;
-  bool _isButtonDisabled;
+  bool _isButtonDisabled = false;
 
   void animateButton() {
     setState(() {
@@ -74,38 +72,38 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   Widget registerButton() {
     if (_isButtonDisabled == true) {
       return SizedBox(
-      width: double.infinity,
-      height: 60.0,
-      child: RawMaterialButton(
-        elevation: 0.0,
-        hoverElevation: 0.0,
-        focusElevation: 0.0,
-        highlightElevation: 0.0,
-        fillColor: MColors.textGrey,
-        onPressed: null,
-        child: buildRegisterButton(),
-        shape: RoundedRectangleBorder(
-          borderRadius: new BorderRadius.circular(10.0),
+        width: double.infinity,
+        height: 60.0,
+        child: RawMaterialButton(
+          elevation: 0.0,
+          hoverElevation: 0.0,
+          focusElevation: 0.0,
+          highlightElevation: 0.0,
+          fillColor: MColors.textGrey,
+          onPressed: null,
+          child: buildRegisterButton(),
+          shape: RoundedRectangleBorder(
+            borderRadius: new BorderRadius.circular(10.0),
+          ),
         ),
-      ),
-    );
+      );
     } else {
- return SizedBox(
-      width: double.infinity,
-      height: 60.0,
-      child: RawMaterialButton(
-        elevation: 0.0,
-        hoverElevation: 0.0,
-        focusElevation: 0.0,
-        highlightElevation: 0.0,
-        fillColor: MColors.primaryPurple,
-        onPressed: _isButtonDisabled ? null : _submit,
-        child: buildRegisterButton(),
-        shape: RoundedRectangleBorder(
-          borderRadius: new BorderRadius.circular(10.0),
+      return SizedBox(
+        width: double.infinity,
+        height: 60.0,
+        child: RawMaterialButton(
+          elevation: 0.0,
+          hoverElevation: 0.0,
+          focusElevation: 0.0,
+          highlightElevation: 0.0,
+          fillColor: MColors.primaryPurple,
+          onPressed: _isButtonDisabled ? null : _submit,
+          child: buildRegisterButton(),
+          shape: RoundedRectangleBorder(
+            borderRadius: new BorderRadius.circular(10.0),
+          ),
         ),
-      ),
-    );
+      );
     }
   }
 
@@ -120,7 +118,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       var userUpdateInfo = new UserUpdateInfo();
       userUpdateInfo.displayName = _name;
       UserManagement().storeNewUser(signedInUser.user, _name, context);
-      Navigator.of(context).pushReplacementNamed("/Homescreen");
+      Navigator.of(context).pushReplacementNamed("/Login");
     }).catchError((e) {
       setState(() {
         _error = e.message;
@@ -226,7 +224,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     padding: const EdgeInsets.only(top: 18.0),
                     child: GestureDetector(
                         onTap: () {
-                          Navigator.of(context).pushNamed("/Login");
+                          Navigator.of(context).pushReplacementNamed("/Login");
                         },
                         child: Text(
                           "Sign in!",
