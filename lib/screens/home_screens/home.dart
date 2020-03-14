@@ -1,11 +1,11 @@
-// import 'dart:js';
+
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:mollet/model/services/auth/email_auth.dart';
+import 'package:mollet/model/services/auth_service.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:mollet/screens/register_screens/login_screen.dart';
+import 'package:mollet/widgets/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -13,22 +13,10 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  String usersName = " ";
-  final DocumentReference documentReference =
-      Firestore.instance.collection("users").document("name");
-
-  _fetchUserName() {
-    documentReference.get().then((datasnapshot) {
-      if (datasnapshot.exists) {
-        setState(() {
-          usersName = datasnapshot.data['name'];
-        });
-      }
-    });
-  }
-
   @override
-  Widget build(BuildContext context) {
+  Widget build(
+    BuildContext context,
+  ) {
     return Scaffold(
       backgroundColor: MColors.primaryWhiteSmoke,
       body: Padding(
@@ -43,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: <Widget>[
                   Container(
                     child: Text(
-                      "Hi,",
+                      "Hi, ",
                       style: TextStyle(
                           fontSize: 38.0,
                           color: MColors.textDark,
@@ -51,20 +39,25 @@ class _HomeScreenState extends State<HomeScreen> {
                       textAlign: TextAlign.start,
                     ),
                   ),
-                  usersName == " "
-                      ? Container(
-                          child: Text(" "),
-                        )
-                      : Container(
-                          child: Text(
-                            usersName,
-                            style: TextStyle(
-                                fontSize: 38.0,
-                                color: MColors.textDark,
-                                fontWeight: FontWeight.bold),
-                            textAlign: TextAlign.start,
-                          ),
-                        ),
+                  Container(
+                    child: StreamBuilder<QuerySnapshot>(
+                        stream:
+                            Firestore.instance.collection('users').snapshots(),
+                        builder: (context, snapshot) {
+                          if (!snapshot.hasData) {
+                            return Text("Human");
+                          } else {
+                            return Text(
+                              snapshot.data.documents[2]['name'],
+                              style: TextStyle(
+                                  fontSize: 38.0,
+                                  color: MColors.textDark,
+                                  fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.start,
+                            );
+                          }
+                        }),
+                  ),
                 ],
               ),
             ),
@@ -100,9 +93,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       focusElevation: 0.0,
                       highlightElevation: 0.0,
                       fillColor: MColors.primaryPurple,
-                      onPressed: () {
-                        performLogout(context);
-                        // _fetchUserName();
+                      onPressed: () async{
+                       try {
+                         AuthService auth = Provider.of(context).auth;
+                         auth.signOut();
+                         print("Signed out.");
+                       } catch (e) {
+                         print(e);
+                       }
                       },
                       child: Text(
                         "Logout",

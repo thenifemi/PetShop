@@ -2,7 +2,6 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/widgets.dart';
 
 class UserManagement {
   storeNewUser(user, _name, context) {
@@ -14,8 +13,6 @@ class UserManagement {
       'email': user.email,
       'uid': user.uid,
       'name': userUpdateInfo.displayName,
-    }).then((val) {
-      Navigator.of(context).pushReplacementNamed("/Homescreen");
     }).catchError((e) {
       print(e);
     });

@@ -1,8 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:mollet/utils/strings.dart';
+import 'package:mollet/widgets/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({Key key}) : super(key: key);
@@ -16,8 +16,6 @@ class _LoginScreenState extends State<LoginScreen> {
   final formKey = GlobalKey<FormState>();
   final loginKey = GlobalKey<_LoginScreenState>();
 
-  
-
   String _email;
   String _password;
   String _phoneNumber;
@@ -26,10 +24,6 @@ class _LoginScreenState extends State<LoginScreen> {
   var _state = 0;
   bool _isButtonDisabled = false;
 
-
-
-  
-
   void animateButton() {
     setState(() {
       _state = 1;
@@ -37,33 +31,27 @@ class _LoginScreenState extends State<LoginScreen> {
     });
   }
 
-  void _submit() {
+  void _submit() async {
     final form = formKey.currentState;
 
-    if (form.validate()) {
-      form.save();
-      setState(() {
-        if (_state == 0) {
-          animateButton();
-        }
-      });
-      performLogin(_email, _password, context);
-    } else {
-      setState(() {
-        _autoValidate = true;
-      });
-    }
-  }
-
-  void performLogin(_email, _password, context) {
-    FirebaseAuth.instance
-        .signInWithEmailAndPassword(
-      email: _email,
-      password: _password,
-    )
-        .then((user) {
-      Navigator.of(context).pushReplacementNamed("/Homescreen");
-    }).catchError((e) {
+    try {
+      final auth = Provider.of(context).auth;
+      if (form.validate()) {
+        form.save();
+        setState(() {
+          if (_state == 0) {
+            animateButton();
+          }
+        });
+        String uid = await auth.signInWithEmailAndPassword(_email, _password);
+        print("Signed in with $uid");
+        Navigator.of(context).pushReplacementNamed("/home");
+      } else {
+        setState(() {
+          _autoValidate = true;
+        });
+      }
+    } catch (e) {
       setState(() {
         _error = e.message;
         _state = 0;
@@ -71,13 +59,13 @@ class _LoginScreenState extends State<LoginScreen> {
       });
 
       print(e);
-    });
+    }
   }
 
   Widget buildLoginButton() {
     if (_state == 0) {
       return Text(
-        "Next step",
+        "Sign in",
         style: TextStyle(
             color: MColors.primaryWhite,
             fontSize: 16.0,
@@ -85,7 +73,8 @@ class _LoginScreenState extends State<LoginScreen> {
       );
     } else if (_state == 1) {
       return CircularProgressIndicator(
-        valueColor: AlwaysStoppedAnimation<Color>(MColors.primaryPurple),
+        strokeWidth: 2.0,
+        valueColor: AlwaysStoppedAnimation<Color>(MColors.primaryWhite),
       );
     } else {
       return null;
@@ -102,7 +91,7 @@ class _LoginScreenState extends State<LoginScreen> {
           hoverElevation: 0.0,
           focusElevation: 0.0,
           highlightElevation: 0.0,
-          fillColor: MColors.textGrey,
+          fillColor: MColors.primaryPurple,
           onPressed: null,
           child: buildLoginButton(),
           shape: RoundedRectangleBorder(
@@ -151,17 +140,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
             ),
-            // Padding(
-            //   padding: const EdgeInsets.only(left: 5.0),
-            //   child: IconButton(
-            //     icon: Icon(Icons.close),
-            //     onPressed: () {
-            //       setState(() {
-            //         _error = null;
-            //       });
-            //     },
-            //     color: MColors.primaryPurple,
-            //   ),
+
             // ),
           ],
         ),
@@ -224,6 +203,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     padding: const EdgeInsets.only(top: 18.0),
                     child: GestureDetector(
                         onTap: () {
+                          formKey.currentState.reset();
                           Navigator.of(context)
                               .pushReplacementNamed("/Registration");
                         },

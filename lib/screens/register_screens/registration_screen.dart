@@ -1,10 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:mollet/model/services/auth/email_auth.dart';
+import 'package:mollet/model/services/auth_service.dart';
 import 'package:mollet/model/services/user_management.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:mollet/utils/strings.dart';
+import 'package:mollet/widgets/provider.dart';
 
 class RegistrationScreen extends StatefulWidget {
   RegistrationScreen({Key key}) : super(key: key);
@@ -33,21 +34,40 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     });
   }
 
-  void _submit() {
+  void _submit() async {
     final form = formKey.currentState;
 
-    if (form.validate()) {
-      form.save();
+    try {
+      final auth = Provider.of(context).auth;
+
+      if (form.validate()) {
+        form.save();
+        setState(() {
+          if (_state == 0) {
+            animateButton();
+          }
+        });
+        String uid = await auth.createUserWithEmailAndPassword(
+          _email,
+          _password,
+          _name,
+        );
+        // UserManagement().storeNewUser(signedInUser.user, _name, context);
+        print("Signed Up with new $uid");
+        Navigator.of(context).pushReplacementNamed("/home");
+      } else {
+        setState(() {
+          _autoValidate = true;
+        });
+      }
+    } catch (e) {
       setState(() {
-        if (_state == 0) {
-          animateButton();
-        }
+        _error = e.message;
+        _state = 0;
+        _isButtonDisabled = false;
       });
-      performRegistration(_email, _password, _name, context);
-    } else {
-      setState(() {
-        _autoValidate = true;
-      });
+
+      print(e);
     }
   }
 
@@ -62,7 +82,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       );
     } else if (_state == 1) {
       return CircularProgressIndicator(
-        valueColor: AlwaysStoppedAnimation<Color>(MColors.primaryPurple),
+        strokeWidth: 2.0,
+        valueColor: AlwaysStoppedAnimation<Color>(MColors.primaryWhite),
       );
     } else {
       return null;
@@ -79,7 +100,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           hoverElevation: 0.0,
           focusElevation: 0.0,
           highlightElevation: 0.0,
-          fillColor: MColors.textGrey,
+          fillColor: MColors.primaryPurple,
           onPressed: null,
           child: buildRegisterButton(),
           shape: RoundedRectangleBorder(
@@ -107,29 +128,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     }
   }
 
-  void performRegistration(_email, _password, _name, context) {
-    FirebaseAuth.instance
-        .createUserWithEmailAndPassword(
-      email: _email,
-      password: _password,
-    )
-        .then((signedInUser) {
-      // FirebaseUser user;
-      var userUpdateInfo = new UserUpdateInfo();
-      userUpdateInfo.displayName = _name;
-      UserManagement().storeNewUser(signedInUser.user, _name, context);
-      Navigator.of(context).pushReplacementNamed("/Login");
-    }).catchError((e) {
-      setState(() {
-        _error = e.message;
-        _state = 0;
-        _isButtonDisabled = false;
-      });
-
-      print(e);
-    });
-  }
-
   Widget showAlert() {
     if (_error != null) {
       return Container(
@@ -151,18 +149,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 ),
               ),
             ),
-            // Padding(
-            //   padding: const EdgeInsets.only(left: 5.0),
-            //   child: IconButton(
-            //     icon: Icon(Icons.close),
-            //     onPressed: () {
-            //       setState(() {
-            //         _error = null;
-            //       });
-            //     },
-            //     color: MColors.primaryPurple,
-            //   ),
-            // ),
           ],
         ),
         height: 60,
@@ -224,6 +210,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     padding: const EdgeInsets.only(top: 18.0),
                     child: GestureDetector(
                         onTap: () {
+                          formKey.currentState.reset();
                           Navigator.of(context).pushReplacementNamed("/Login");
                         },
                         child: Text(
