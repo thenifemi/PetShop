@@ -396,7 +396,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     Padding(
                       padding: const EdgeInsets.only(top: 20.0, bottom: 10.0),
                       child: GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.of(context).pushNamed('/Reset');
+                        },
                         child: Text(
                           "Forgot password?",
                           style: TextStyle(color: MColors.textGrey),

@@ -1,0 +1,307 @@
+import 'package:flutter/material.dart';
+import 'package:mollet/model/services/auth_service.dart';
+import 'package:mollet/utils/colors.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:mollet/widgets/provider.dart';
+
+class ResetScreen extends StatefulWidget {
+  ResetScreen({Key key}) : super(key: key);
+
+  @override
+  _ResetScreenState createState() => _ResetScreenState();
+}
+
+class _ResetScreenState extends State<ResetScreen> {
+  final scaffoldKey = GlobalKey<ScaffoldState>();
+  final formKey = GlobalKey<FormState>();
+  VoidCallback _showPersBottomSheetCallBack;
+
+  String _email;
+  bool _autoValidate = false;
+  var _state = 0;
+  bool _isButtonDisabled = false;
+  String _error;
+
+  void _showModalSheet() {
+    showModalBottomSheet(
+        context: context,
+        builder: (builder) {
+          return Container(
+            height: 330.0,
+            color: MColors.primaryWhiteSmoke,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.only(top: 20.0),
+                  child: Text(
+                    "Reset link sent!",
+                    style: TextStyle(
+                        fontSize: 30.0,
+                        color: MColors.textDark,
+                        fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.start,
+                  ),
+                ),
+                Container(
+                  padding: const EdgeInsets.all(20.0),
+                  child: SvgPicture.asset(
+                    "assets/images/cardsuccess.svg",
+                    height: 100,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                    right: 30.0,
+                    left: 30.0,
+                    bottom: 20.0,
+                  ),
+                  child: Text(
+                    "Please reset your password with the link sent to your email and proceed to login.",
+                    style: TextStyle(
+                      fontSize: 17.0,
+                      color: MColors.textGrey,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                    right: 30.0,
+                    left: 30.0,
+                    bottom: 10.0,
+                  ),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 60.0,
+                    child: RawMaterialButton(
+                      elevation: 0.0,
+                      hoverElevation: 0.0,
+                      focusElevation: 0.0,
+                      highlightElevation: 0.0,
+                      fillColor: MColors.primaryPurple,
+                      onPressed: () {
+                        Navigator.of(context).pushReplacementNamed("/Login");
+                      },
+                      child: Text(
+                        "Proceed to login",
+                        style: TextStyle(
+                            color: MColors.primaryWhite,
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: new BorderRadius.circular(10.0),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          );
+        });
+  }
+
+  void animateButton() {
+    setState(() {
+      _state = 1;
+      _isButtonDisabled = true;
+    });
+  }
+
+  void _submit() {
+    final form = formKey.currentState;
+
+    try {
+      final auth = Provider.of(context).auth;
+      if (form.validate()) {
+        form.save();
+        setState(() {
+          if (_state == 0) {
+            animateButton();
+          }
+        });
+
+        _showModalSheet();
+        _state = 0;
+
+        // String uid = await auth.signInWithEmailAndPassword(_email, _password);
+        // print("Signed in with $uid");
+        // Navigator.of(context).pushReplacementNamed("/home");
+      } else {
+        setState(() {
+          _autoValidate = true;
+        });
+      }
+    } catch (e) {
+      setState(() {
+        _error = e.message;
+        _state = 0;
+        _isButtonDisabled = false;
+      });
+
+      print(e);
+    }
+  }
+
+  Widget buildResetButton() {
+    if (_state == 0) {
+      return Text(
+        "Reset",
+        style: TextStyle(
+            color: MColors.primaryWhite,
+            fontSize: 16.0,
+            fontWeight: FontWeight.bold),
+      );
+    } else if (_state == 1) {
+      return CircularProgressIndicator(
+        strokeWidth: 2.0,
+        valueColor: AlwaysStoppedAnimation<Color>(MColors.primaryWhite),
+      );
+    } else {
+      return null;
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: MColors.primaryWhiteSmoke,
+      appBar: AppBar(
+        elevation: 0.0,
+        backgroundColor: MColors.primaryWhiteSmoke,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back_ios,
+            color: MColors.textDark,
+          ),
+          onPressed: () {
+            Navigator.of(context).pushReplacementNamed("/Login");
+          },
+        ),
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(30.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Container(
+                alignment: AlignmentDirectional.topStart,
+                padding: const EdgeInsets.only(top: 20.0),
+                child: Text(
+                  "Forgot password?",
+                  style: TextStyle(
+                      fontSize: 38.0,
+                      color: MColors.textDark,
+                      fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.start,
+                ),
+              ),
+
+              Container(
+                padding: const EdgeInsets.only(top: 18.0),
+                child: Text(
+                  "Enter the email address associated with your account.",
+                  style: TextStyle(
+                    fontSize: 17.0,
+                    color: MColors.textGrey,
+                  ),
+                  textAlign: TextAlign.start,
+                ),
+              ),
+
+              SizedBox(
+                height: 60.0,
+              ),
+
+              //FORM
+              Form(
+                key: formKey,
+                autovalidate: _autoValidate,
+                child: Column(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 10.0),
+                      child: TextFormField(
+                        autovalidate: _autoValidate,
+                        validator: EmailValiditor.validate,
+                        onSaved: (val) => _email = val,
+                        decoration: InputDecoration(
+                          labelText: "e.g Remiola2030@example.com",
+                          contentPadding:
+                              new EdgeInsets.symmetric(horizontal: 25.0),
+                          fillColor: MColors.primaryWhite,
+                          hasFloatingPlaceholder: false,
+                          filled: true,
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                            borderSide: BorderSide(
+                              color: Colors.white,
+                              width: 0.0,
+                            ),
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                            borderSide: BorderSide(
+                              color: Colors.red,
+                              width: 1.0,
+                            ),
+                          ),
+                          focusedErrorBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                            borderSide: BorderSide(
+                              color: Colors.red,
+                              width: 1.0,
+                            ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                            borderSide: BorderSide(
+                              color: Colors.white,
+                              width: 0.0,
+                            ),
+                          ),
+                        ),
+                        style:
+                            TextStyle(fontSize: 17.0, color: MColors.textDark),
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Text(
+                        "We will send a link to reset your password to that email.",
+                        style: TextStyle(
+                          color: MColors.textGrey,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: double.infinity,
+                      height: 60.0,
+                      child: RawMaterialButton(
+                        elevation: 0.0,
+                        hoverElevation: 0.0,
+                        focusElevation: 0.0,
+                        highlightElevation: 0.0,
+                        fillColor: MColors.primaryPurple,
+                        onPressed: () {
+                          _submit();
+                        },
+                        child: buildResetButton(),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: new BorderRadius.circular(10.0),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

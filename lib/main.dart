@@ -4,6 +4,7 @@ import 'package:mollet/screens/getstarted_screens/intro_screen.dart';
 import 'package:mollet/screens/home_screens/home.dart';
 import 'package:mollet/screens/register_screens/login_screen.dart';
 import 'package:mollet/screens/register_screens/registration_screen.dart';
+import 'package:mollet/screens/register_screens/reset_screen.dart';
 import 'package:mollet/screens/register_screens/verification_screen.dart';
 import 'package:flutter/services.dart';
 import 'package:mollet/widgets/provider.dart';
@@ -17,8 +18,10 @@ final routes = {
   '/Homescreen': (BuildContext context) => HomeScreen(),
   '/Verification': (BuildContext context) => VerificationScreen(),
   '/Login': (BuildContext context) => LoginScreen(),
-  // '/': (BuildContext context) => IntroScreen(),
+  '/Reset': (BuildContext context) => ResetScreen(),
   '/home': (BuildContext context) => HomeController(),
+
+  // '/': (BuildContext context) => IntroScreen(),
 };
 
 class MyApp extends StatelessWidget {
