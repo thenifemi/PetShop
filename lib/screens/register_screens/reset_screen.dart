@@ -14,13 +14,12 @@ class ResetScreen extends StatefulWidget {
 class _ResetScreenState extends State<ResetScreen> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final formKey = GlobalKey<FormState>();
-  VoidCallback _showPersBottomSheetCallBack;
 
   String _email;
   bool _autoValidate = false;
   var _state = 0;
   bool _isButtonDisabled = false;
-  String _error;
+  String warning;
 
   void _showModalSheet() {
     showModalBottomSheet(
@@ -58,7 +57,7 @@ class _ResetScreenState extends State<ResetScreen> {
                     bottom: 20.0,
                   ),
                   child: Text(
-                    "Please reset your password with the link sent to your email and proceed to login.",
+                    "Please reset your password with the link sent to $_email and proceed to login.",
                     style: TextStyle(
                       fontSize: 17.0,
                       color: MColors.textGrey,
@@ -110,7 +109,7 @@ class _ResetScreenState extends State<ResetScreen> {
     });
   }
 
-  void _submit() {
+  void _submit() async {
     final form = formKey.currentState;
 
     try {
@@ -122,13 +121,10 @@ class _ResetScreenState extends State<ResetScreen> {
             animateButton();
           }
         });
-
+        await auth.sendPasswordResetEmail(_email);
+        print("Password reset link sent to $_email");
         _showModalSheet();
         _state = 0;
-
-        // String uid = await auth.signInWithEmailAndPassword(_email, _password);
-        // print("Signed in with $uid");
-        // Navigator.of(context).pushReplacementNamed("/home");
       } else {
         setState(() {
           _autoValidate = true;
@@ -136,7 +132,7 @@ class _ResetScreenState extends State<ResetScreen> {
       }
     } catch (e) {
       setState(() {
-        _error = e.message;
+        warning = e.message;
         _state = 0;
         _isButtonDisabled = false;
       });
@@ -163,6 +159,47 @@ class _ResetScreenState extends State<ResetScreen> {
       return null;
     }
   }
+
+  // Widget showAlert() {
+  //   if (warning != null) {
+  //     return Container(
+  //       child: Row(
+  //         children: <Widget>[
+  //           Padding(
+  //             padding: const EdgeInsets.only(right: 5.0),
+  //             child: Icon(
+  //               Icons.error_outline,
+  //               color: Colors.redAccent,
+  //             ),
+  //           ),
+  //           Expanded(
+  //             child: Text(
+  //               warning,
+  //               style: TextStyle(
+  //                 color: Colors.redAccent,
+  //                 fontSize: 15.0,
+  //               ),
+  //             ),
+  //           ),
+  //         ],
+  //       ),
+  //       height: 60,
+  //       width: double.infinity,
+  //       padding: const EdgeInsets.all(10.0),
+  //       decoration: BoxDecoration(
+  //         color: MColors.primaryWhiteSmoke,
+  //         border: Border.all(width: 1.0, color: Colors.redAccent),
+  //         borderRadius: BorderRadius.all(
+  //           Radius.circular(4.0),
+  //         ),
+  //       ),
+  //     );
+  //   } else {
+  //     return Container(
+  //       height: 0.0,
+  //     );
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
