@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -51,10 +52,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           _email,
           _password,
           _name,
+          _phoneNumber
         );
-        // UserManagement().storeNewUser(signedInUser.user, _name, context);
+       UserManagement().storeNewUser(_name, _phoneNumber, context);
         print("Signed Up with new $uid");
-        Navigator.of(context).pushReplacementNamed("/home");
+        Navigator.of(context).pushReplacementNamed("/Login");
       } else {
         setState(() {
           _autoValidate = true;

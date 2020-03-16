@@ -1,5 +1,3 @@
-
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:mollet/model/services/auth_service.dart';
@@ -13,10 +11,18 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  Stream<QuerySnapshot> getUsersNameStreamSnapshot(
+      BuildContext context) async* {
+    final uid = await Provider.of(context).auth.getCurrentUID();
+    yield* Firestore.instance
+        .collection('userData')
+        .document(uid)
+        .collection('usersName')
+        .snapshots();
+  }
+
   @override
-  Widget build(
-    BuildContext context,
-  ) {
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: MColors.primaryWhiteSmoke,
       body: Padding(
@@ -31,7 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: <Widget>[
                   Container(
                     child: Text(
-                      "Hi, ",
+                      "Hi ",
                       style: TextStyle(
                           fontSize: 38.0,
                           color: MColors.textDark,
@@ -40,15 +46,21 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   Container(
-                    child: StreamBuilder<QuerySnapshot>(
-                        stream:
-                            Firestore.instance.collection('users').snapshots(),
+                    child: StreamBuilder(
+                        stream: getUsersNameStreamSnapshot(context),
                         builder: (context, snapshot) {
                           if (!snapshot.hasData) {
-                            return Text("Human");
+                            return Text(
+                              "Human",
+                              style: TextStyle(
+                                  fontSize: 38.0,
+                                  color: MColors.textDark,
+                                  fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.start,
+                            );
                           } else {
                             return Text(
-                              snapshot.data.documents[2]['name'],
+                              snapshot.data.documents[0]['name'],
                               style: TextStyle(
                                   fontSize: 38.0,
                                   color: MColors.textDark,
@@ -57,6 +69,16 @@ class _HomeScreenState extends State<HomeScreen> {
                             );
                           }
                         }),
+                  ),
+                  Container(
+                    child: Text(
+                      ",",
+                      style: TextStyle(
+                          fontSize: 38.0,
+                          color: MColors.textDark,
+                          fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.start,
+                    ),
                   ),
                 ],
               ),
@@ -93,14 +115,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       focusElevation: 0.0,
                       highlightElevation: 0.0,
                       fillColor: MColors.primaryPurple,
-                      onPressed: () async{
-                       try {
-                         AuthService auth = Provider.of(context).auth;
-                         auth.signOut();
-                         print("Signed out.");
-                       } catch (e) {
-                         print(e);
-                       }
+                      onPressed: () async {
+                        try {
+                          AuthService auth = Provider.of(context).auth;
+                          auth.signOut();
+                          print("Signed out.");
+                        } catch (e) {
+                          print(e);
+                        }
                       },
                       child: Text(
                         "Logout",

@@ -17,6 +17,7 @@ class AuthService {
     String email,
     String password,
     String name,
+    String phoneNumber
   ) async {
     final currentUser = (await _firebaseAuth.createUserWithEmailAndPassword(
       email: email,
@@ -30,6 +31,8 @@ class AuthService {
     await currentUser.updateProfile(userUpdateInfo);
     await currentUser.reload();
     return currentUser.uid;
+
+    
   }
 
   //Email and Password Sign in

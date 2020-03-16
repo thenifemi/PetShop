@@ -2,18 +2,28 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:mollet/widgets/provider.dart';
 
 class UserManagement {
-  storeNewUser(user, _name, context) {
+  storeNewUser(_name, _phoneNumber, context) async {
+    final db = Firestore.instance;
+    final uid = await Provider.of(context).auth.getCurrentUID();
+
     var userUpdateInfo = new UserUpdateInfo();
     userUpdateInfo.displayName = _name;
-    print(user.email);
     print(userUpdateInfo.displayName);
-    Firestore.instance.collection('/users').add({
-      'email': user.email,
-      'uid': user.uid,
-      'name': userUpdateInfo.displayName,
-    }).catchError((e) {
+    await db
+        .collection("userData")
+        .document(uid)
+        .collection("usersName")
+        .add({"name": userUpdateInfo.displayName}).catchError((e) {
+      print(e);
+    });
+    await db
+        .collection("userData")
+        .document(uid)
+        .collection("usersPhone")
+        .add({"phone": _phoneNumber}).catchError((e) {
       print(e);
     });
   }
