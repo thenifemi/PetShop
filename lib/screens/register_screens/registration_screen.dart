@@ -49,12 +49,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           }
         });
         String uid = await auth.createUserWithEmailAndPassword(
-          _email,
-          _password,
-          _name,
-          _phoneNumber
-        );
-       UserManagement().storeNewUser(_name, _phoneNumber, context);
+            _email, _password, _name, _phoneNumber);
+        UserManagement().storeNewUser(_name, _phoneNumber, _email, context);
         print("Signed Up with new $uid");
         Navigator.of(context).pushReplacementNamed("/Login");
       } else {

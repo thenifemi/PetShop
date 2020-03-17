@@ -5,7 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mollet/widgets/provider.dart';
 
 class UserManagement {
-  storeNewUser(_name, _phoneNumber, context) async {
+  storeNewUser(_name, _phoneNumber, _email, context) async {
     final db = Firestore.instance;
     final uid = await Provider.of(context).auth.getCurrentUID();
 
@@ -24,6 +24,13 @@ class UserManagement {
         .document(uid)
         .collection("usersPhone")
         .add({"phone": _phoneNumber}).catchError((e) {
+      print(e);
+    });
+    await db
+        .collection("userData")
+        .document(uid)
+        .collection("usersEmail")
+        .add({"email": _email}).catchError((e) {
       print(e);
     });
   }

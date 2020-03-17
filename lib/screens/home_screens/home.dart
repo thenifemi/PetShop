@@ -11,6 +11,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final scaffoldKey = GlobalKey<ScaffoldState>();
+
   Stream<QuerySnapshot> getUsersNameStreamSnapshot(
       BuildContext context) async* {
     final uid = await Provider.of(context).auth.getCurrentUID();
@@ -21,10 +23,120 @@ class _HomeScreenState extends State<HomeScreen> {
         .snapshots();
   }
 
+  Stream<QuerySnapshot> getUsersEmailStreamSnapshot(
+      BuildContext context) async* {
+    final uid = await Provider.of(context).auth.getCurrentUID();
+    yield* Firestore.instance
+        .collection('userData')
+        .document(uid)
+        .collection('usersEmail')
+        .snapshots();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldKey,
       backgroundColor: MColors.primaryWhiteSmoke,
+      appBar: AppBar(
+        elevation: 0.0,
+        backgroundColor: MColors.primaryWhiteSmoke,
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 20.0),
+          child: IconButton(
+              icon: Icon(
+                Icons.menu,
+                color: MColors.primaryPurple,
+                size: 35.0,
+              ),
+              onPressed: () {
+                scaffoldKey.currentState.openDrawer();
+              }),
+        ),
+      ),
+      drawer: Drawer(
+          child: Container(
+        color: MColors.primaryWhiteSmoke,
+        child: ListView(
+          children: <Widget>[
+            UserAccountsDrawerHeader(
+              currentAccountPicture: CircleAvatar(
+                  backgroundColor:
+                      Theme.of(context).platform == TargetPlatform.iOS
+                          ? MColors.primaryPurple
+                          : MColors.primaryPurple,
+                  child: Text("N")),
+              accountName: StreamBuilder(
+                  stream: getUsersNameStreamSnapshot(context),
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) {
+                      return Text(
+                        "Human",
+                        style: TextStyle(
+                            fontSize: 18.0,
+                            color: MColors.textGrey,
+                            fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.start,
+                      );
+                    } else {
+                      return Text(
+                        snapshot.data.documents[0]['name'],
+                        style: TextStyle(
+                            fontSize: 18.0,
+                            color: MColors.textGrey,
+                            fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.start,
+                      );
+                    }
+                  }),
+              accountEmail: StreamBuilder(
+                  stream: getUsersEmailStreamSnapshot(context),
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) {
+                      return Text(
+                        "Loading...",
+                        style: TextStyle(
+                          fontSize: 16.0,
+                          color: MColors.textGrey,
+                        ),
+                        textAlign: TextAlign.start,
+                      );
+                    } else {
+                      return Text(
+                        snapshot.data.documents[0]['email'],
+                        style: TextStyle(
+                          fontSize: 16.0,
+                          color: MColors.textGrey,
+                        ),
+                        textAlign: TextAlign.start,
+                      );
+                    }
+                  }),
+              decoration: BoxDecoration(
+                color: MColors.primaryWhiteSmoke,
+              ),
+            ),
+            ListTile(
+                title: Text("Page One"),
+                trailing: Icon(Icons.arrow_upward),
+                onTap: () {
+                  Navigator.of(context).pop();
+                }),
+            ListTile(
+                title: Text("Page Two"),
+                trailing: Icon(Icons.arrow_downward),
+                onTap: () {
+                  Navigator.of(context).pop();
+                }),
+            Divider(),
+            ListTile(
+              title: Text("Close"),
+              trailing: Icon(Icons.close),
+              onTap: () => Navigator.of(context).pop(),
+            ),
+          ],
+        ),
+      )),
       body: Padding(
         padding: const EdgeInsets.all(30.0),
         child: Column(
@@ -32,7 +144,7 @@ class _HomeScreenState extends State<HomeScreen> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.only(top: 75.0),
+              padding: const EdgeInsets.only(top: 0.0),
               child: Row(
                 children: <Widget>[
                   Container(
