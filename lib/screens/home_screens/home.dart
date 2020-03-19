@@ -1,17 +1,20 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:mollet/model/services/auth_service.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mollet/widgets/provider.dart';
 
 class HomeScreen extends StatefulWidget {
+  final homeScreen;
+  HomeScreen(this.homeScreen);
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final scaffoldKey = GlobalKey<ScaffoldState>();
+  // final scaffoldKey = GlobalKey<ScaffoldState>();
 
   Stream<QuerySnapshot> getUsersNameStreamSnapshot(
       BuildContext context) async* {
@@ -20,138 +23,30 @@ class _HomeScreenState extends State<HomeScreen> {
         .collection('userData')
         .document(uid)
         .collection('usersName')
-        .snapshots();
-  }
-
-  Stream<QuerySnapshot> getUsersEmailStreamSnapshot(
-      BuildContext context) async* {
-    final uid = await Provider.of(context).auth.getCurrentUID();
-    yield* Firestore.instance
-        .collection('userData')
-        .document(uid)
-        .collection('usersEmail')
-        .snapshots();
+        .snapshots()
+        .asBroadcastStream();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: scaffoldKey,
-      backgroundColor: MColors.primaryWhiteSmoke,
-      appBar: AppBar(
-        elevation: 0.0,
-        backgroundColor: MColors.primaryWhiteSmoke,
-        leading: Padding(
-          padding: const EdgeInsets.only(left: 20.0),
-          child: IconButton(
-              icon: Icon(
-                Icons.menu,
-                color: MColors.primaryPurple,
-                size: 35.0,
-              ),
-              onPressed: () {
-                scaffoldKey.currentState.openDrawer();
-              }),
-        ),
-      ),
-      drawer: Drawer(
-          child: Container(
-        color: MColors.primaryWhiteSmoke,
-        child: ListView(
-          children: <Widget>[
-            UserAccountsDrawerHeader(
-              currentAccountPicture: CircleAvatar(
-                  backgroundColor:
-                      Theme.of(context).platform == TargetPlatform.iOS
-                          ? MColors.primaryPurple
-                          : MColors.primaryPurple,
-                  child: Text("N")),
-              accountName: StreamBuilder(
-                  stream: getUsersNameStreamSnapshot(context),
-                  builder: (context, snapshot) {
-                    if (!snapshot.hasData) {
-                      return Text(
-                        "Human",
-                        style: TextStyle(
-                            fontSize: 18.0,
-                            color: MColors.textGrey,
-                            fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.start,
-                      );
-                    } else {
-                      return Text(
-                        snapshot.data.documents[0]['name'],
-                        style: TextStyle(
-                            fontSize: 18.0,
-                            color: MColors.textGrey,
-                            fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.start,
-                      );
-                    }
-                  }),
-              accountEmail: StreamBuilder(
-                  stream: getUsersEmailStreamSnapshot(context),
-                  builder: (context, snapshot) {
-                    if (!snapshot.hasData) {
-                      return Text(
-                        "Loading...",
-                        style: TextStyle(
-                          fontSize: 16.0,
-                          color: MColors.textGrey,
-                        ),
-                        textAlign: TextAlign.start,
-                      );
-                    } else {
-                      return Text(
-                        snapshot.data.documents[0]['email'],
-                        style: TextStyle(
-                          fontSize: 16.0,
-                          color: MColors.textGrey,
-                        ),
-                        textAlign: TextAlign.start,
-                      );
-                    }
-                  }),
-              decoration: BoxDecoration(
-                color: MColors.primaryWhiteSmoke,
-              ),
-            ),
-            ListTile(
-                title: Text("Page One"),
-                trailing: Icon(Icons.arrow_upward),
-                onTap: () {
-                  Navigator.of(context).pop();
-                }),
-            ListTile(
-                title: Text("Page Two"),
-                trailing: Icon(Icons.arrow_downward),
-                onTap: () {
-                  Navigator.of(context).pop();
-                }),
-            Divider(),
-            ListTile(
-              title: Text("Close"),
-              trailing: Icon(Icons.close),
-              onTap: () => Navigator.of(context).pop(),
-            ),
-          ],
-        ),
-      )),
-      body: Padding(
+    return Container(
+      // key: scaffoldKey,
+      color: MColors.primaryWhiteSmoke,
+      child: Padding(
         padding: const EdgeInsets.all(30.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.only(top: 0.0),
+              padding: const EdgeInsets.only(top: 20.0),
               child: Row(
                 children: <Widget>[
                   Container(
                     child: Text(
                       "Hi ",
                       style: TextStyle(
-                          fontSize: 38.0,
+                          fontSize: 25.0,
                           color: MColors.textDark,
                           fontWeight: FontWeight.bold),
                       textAlign: TextAlign.start,
@@ -165,7 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             return Text(
                               "Human",
                               style: TextStyle(
-                                  fontSize: 38.0,
+                                  fontSize: 25.0,
                                   color: MColors.textDark,
                                   fontWeight: FontWeight.bold),
                               textAlign: TextAlign.start,
@@ -174,10 +69,11 @@ class _HomeScreenState extends State<HomeScreen> {
                             return Text(
                               snapshot.data.documents[0]['name'],
                               style: TextStyle(
-                                  fontSize: 38.0,
+                                  fontSize: 25.0,
                                   color: MColors.textDark,
                                   fontWeight: FontWeight.bold),
                               textAlign: TextAlign.start,
+                              // ),
                             );
                           }
                         }),
@@ -186,7 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Text(
                       ",",
                       style: TextStyle(
-                          fontSize: 38.0,
+                          fontSize: 30.0,
                           color: MColors.textDark,
                           fontWeight: FontWeight.bold),
                       textAlign: TextAlign.start,
@@ -196,64 +92,138 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             Container(
-              padding: const EdgeInsets.only(top: 5.0),
+              padding: const EdgeInsets.only(top: 5.0, bottom: 30.0),
               child: Text(
                 "What would you like to do today?",
                 style: TextStyle(
-                    fontSize: 30.0,
+                    fontSize: 20.0,
                     color: MColors.textDark,
-                    fontWeight: FontWeight.w600),
+                    fontWeight: FontWeight.w400),
                 textAlign: TextAlign.start,
               ),
             ),
-            Container(
-              padding: const EdgeInsets.all(20.0),
-              child: SvgPicture.asset(
-                "assets/images/pets.svg",
-                height: 250,
-              ),
-            ),
-            Container(
-              padding: const EdgeInsets.only(right: 20.0, left: 20.0),
-              child: Column(
-                children: <Widget>[
-                  SizedBox(height: 20.0),
-                  SizedBox(
-                    width: double.infinity,
-                    height: 60.0,
-                    child: RawMaterialButton(
-                      elevation: 0.0,
-                      hoverElevation: 0.0,
-                      focusElevation: 0.0,
-                      highlightElevation: 0.0,
-                      fillColor: MColors.primaryPurple,
-                      onPressed: () async {
-                        try {
-                          AuthService auth = Provider.of(context).auth;
-                          auth.signOut();
-                          print("Signed out.");
-                        } catch (e) {
-                          print(e);
-                        }
-                      },
-                      child: Text(
-                        "Logout",
-                        style: TextStyle(
-                            color: MColors.primaryWhite,
-                            fontSize: 16.0,
-                            fontWeight: FontWeight.bold),
+            SingleChildScrollView(
+              child: Container(
+                child: Column(
+                  children: <Widget>[
+                    GestureDetector(
+                      child: Padding(
+                        padding: const EdgeInsets.only(bottom: 20.0),
+                        child: Container(
+                          height: 150.0,
+                          decoration: BoxDecoration(
+                            color: MColors.primaryPurple,
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(20.0),
+                            ),
+                          ),
+                          child: Row(
+                            children: <Widget>[
+                              Container(
+                                padding: const EdgeInsets.all(20.0),
+                                child: SvgPicture.asset(
+                                  "assets/images/petfood.svg",
+                                  //Icons made by "https://www.flaticon.com/authors/photo3idea-studio"
+                                  height: 80,
+                                ),
+                              ),
+                              Expanded(
+                                child: Text(
+                                  "Shop trusted stores for Pet food",
+                                  style: TextStyle(
+                                      fontSize: 25.0,
+                                      color: MColors.primaryWhite,
+                                      fontWeight: FontWeight.bold),
+                                  textAlign: TextAlign.start,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: new BorderRadius.circular(10.0),
-                      ),
+                      onTap: () {},
                     ),
-                  ),
-                ],
+                    GestureDetector(
+                      child: Padding(
+                        padding: const EdgeInsets.only(bottom: 20.0),
+                        child: Container(
+                          height: 150.0,
+                          decoration: BoxDecoration(
+                            color: Colors.green,
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(20.0),
+                            ),
+                          ),
+                          child: Row(
+                            children: <Widget>[
+                              Container(
+                                padding: const EdgeInsets.all(20.0),
+                                child: SvgPicture.asset(
+                                  "assets/images/veterinarian.svg",
+                                  height: 80,
+                                ),
+                              ),
+                              Expanded(
+                                child: Text(
+                                  "Book a Vet appointment",
+                                  style: TextStyle(
+                                      fontSize: 25.0,
+                                      color: MColors.primaryWhite,
+                                      fontWeight: FontWeight.bold),
+                                  textAlign: TextAlign.start,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      onTap: () {},
+                    ),
+                    GestureDetector(
+                      child: Padding(
+                        padding: const EdgeInsets.only(bottom: 20.0),
+                        child: Container(
+                          height: 150.0,
+                          decoration: BoxDecoration(
+                            color: Colors.pink,
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(20.0),
+                            ),
+                          ),
+                          child: Row(
+                            children: <Widget>[
+                              Container(
+                                padding: const EdgeInsets.all(20.0),
+                                child: SvgPicture.asset(
+                                  "assets/images/petsitter.svg",
+                                  height: 80,
+                                ),
+                              ),
+                              Expanded(
+                                child: Text(
+                                  "Hire a professional Petsitter",
+                                  style: TextStyle(
+                                      fontSize: 25.0,
+                                      color: MColors.primaryWhite,
+                                      fontWeight: FontWeight.bold),
+                                  textAlign: TextAlign.start,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      onTap: () {},
+                    ),
+                  ],
+                ),
               ),
             ),
+            
           ],
         ),
       ),
+      // bottomNavigationBar: MBottomNavBar(MBottomNavBar),
     );
   }
 }

@@ -58,6 +58,11 @@ flutter:
    - assets/images/visa.svg
    - assets/images/paypal.svg
    - assets/images/pets.svg
+   - assets/images/petsitter.svg
+   - assets/images/petfood.svg
+   - assets/images/vet.svg
+   - assets/images/veterinarian.svg
+   - assets/images/caretaker.svg
    - assets/images/creditcard.svg
    - assets/images/cardsuccess.svg
    - assets/images/manage.svg

@@ -66,7 +66,7 @@ class NameValiditor {
       return "Enter your name";
     } else if (val.length < 2) {
       return "Name has to be atleast 2 characters";
-    } else if (val.length > 20) {
+    } else if (val.length > 15) {
       return "Name is too long";
     } else {
       return null;

@@ -251,6 +251,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         Padding(
                           padding: const EdgeInsets.only(bottom: 20.0),
                           child: TextFormField(
+                            keyboardType: TextInputType.emailAddress,
                             onSaved: (val) => _name = val,
                             validator: NameValiditor.validate,
                             decoration: InputDecoration(

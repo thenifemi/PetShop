@@ -8,6 +8,7 @@ import 'package:mollet/screens/register_screens/reset_screen.dart';
 import 'package:mollet/screens/register_screens/verification_screen.dart';
 import 'package:flutter/services.dart';
 import 'package:mollet/widgets/provider.dart';
+import 'package:mollet/widgets/bottom_navbar.dart';
 
 // import 'model/services/provider.dart';
 
@@ -15,11 +16,12 @@ void main() => runApp(MyApp());
 
 final routes = {
   '/Registration': (BuildContext context) => RegistrationScreen(),
-  '/Homescreen': (BuildContext context) => HomeScreen(),
+  '/Homescreen': (BuildContext context) => HomeScreen(HomeScreen),
   '/Verification': (BuildContext context) => VerificationScreen(),
   '/Login': (BuildContext context) => LoginScreen(),
   '/Reset': (BuildContext context) => ResetScreen(),
   '/home': (BuildContext context) => HomeController(),
+  '/BottomNav': (BuildContext context) => MBottomNavBar(MBottomNavBar),
 
   // '/': (BuildContext context) => IntroScreen(),
 };
@@ -51,7 +53,7 @@ class HomeController extends StatelessWidget {
         builder: (context, AsyncSnapshot<String> snapshot) {
           if (snapshot.connectionState == ConnectionState.active) {
             final bool signedIn = snapshot.hasData;
-            return signedIn ? HomeScreen() : IntroScreen();
+            return signedIn ? MBottomNavBar(MBottomNavBar) : IntroScreen();
           }
           return CircularProgressIndicator();
         });

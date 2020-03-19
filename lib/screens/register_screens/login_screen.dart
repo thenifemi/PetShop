@@ -45,7 +45,7 @@ class _LoginScreenState extends State<LoginScreen> {
         });
         String uid = await auth.signInWithEmailAndPassword(_email, _password);
         print("Signed in with $uid");
-        Navigator.of(context).pushReplacementNamed("/home");
+        Navigator.of(context).pushReplacementNamed("/BottomNav");
       } else {
         setState(() {
           _autoValidate = true;
@@ -246,6 +246,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         Padding(
                           padding: const EdgeInsets.only(bottom: 20.0),
                           child: TextFormField(
+                            keyboardType: TextInputType.emailAddress,
                             enableSuggestions: true,
                             autovalidate: _autoValidate,
                             validator: (val) {
