@@ -11,6 +11,42 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
+  void _showLogOutDialog() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("Sign Out"),
+            content: Text("Are you sure sure you want to log out?"),
+            actions: <Widget>[
+              FlatButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text(
+                  "Cancel",
+                  style: TextStyle(color: MColors.textGrey),
+                ),
+              ),
+              RaisedButton(
+                onPressed: () async {
+                  try {
+                    AuthService auth = Provider.of(context).auth;
+                    auth.signOut();
+                    Navigator.of(context).pushReplacementNamed("/Login");
+                    print("Signed out.");
+                  } catch (e) {
+                    print(e);
+                  }
+                },
+                child: Text("Sign out"),
+                color: MColors.primaryPurple,
+              ),
+            ],
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -28,14 +64,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 focusElevation: 0.0,
                 highlightElevation: 0.0,
                 fillColor: MColors.primaryPurple,
-                onPressed: () async {
-                  try {
-                    AuthService auth = Provider.of(context).auth;
-                    auth.signOut();
-                    print("Signed out.");
-                  } catch (e) {
-                    print(e);
-                  }
+                onPressed: () {
+                  _showLogOutDialog();
                 },
                 child: Text(
                   "Logout",

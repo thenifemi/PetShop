@@ -30,200 +30,205 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // key: scaffoldKey,
+      height: double.infinity,
       color: MColors.primaryWhiteSmoke,
-      child: Padding(
-        padding: const EdgeInsets.all(30.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(top: 20.0),
-              child: Row(
-                children: <Widget>[
-                  Container(
-                    child: Text(
-                      "Hi ",
-                      style: TextStyle(
-                          fontSize: 25.0,
-                          color: MColors.textDark,
-                          fontWeight: FontWeight.bold),
-                      textAlign: TextAlign.start,
-                    ),
-                  ),
-                  Container(
-                    child: StreamBuilder(
-                        stream: getUsersNameStreamSnapshot(context),
-                        builder: (context, snapshot) {
-                          if (!snapshot.hasData) {
-                            return Text(
-                              "Human",
-                              style: TextStyle(
-                                  fontSize: 25.0,
-                                  color: MColors.textDark,
-                                  fontWeight: FontWeight.bold),
-                              textAlign: TextAlign.start,
-                            );
-                          } else {
-                            return Text(
-                              snapshot.data.documents[0]['name'],
-                              style: TextStyle(
-                                  fontSize: 25.0,
-                                  color: MColors.textDark,
-                                  fontWeight: FontWeight.bold),
-                              textAlign: TextAlign.start,
-                              // ),
-                            );
-                          }
-                        }),
-                  ),
-                  Container(
-                    child: Text(
-                      ",",
-                      style: TextStyle(
-                          fontSize: 30.0,
-                          color: MColors.textDark,
-                          fontWeight: FontWeight.bold),
-                      textAlign: TextAlign.start,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              padding: const EdgeInsets.only(top: 5.0, bottom: 30.0),
-              child: Text(
-                "What would you like to do today?",
-                style: TextStyle(
-                    fontSize: 20.0,
-                    color: MColors.textDark,
-                    fontWeight: FontWeight.w400),
-                textAlign: TextAlign.start,
-              ),
-            ),
-            SingleChildScrollView(
-              child: Container(
-                child: Column(
-                  children: <Widget>[
-                    GestureDetector(
-                      child: Padding(
-                        padding: const EdgeInsets.only(bottom: 20.0),
-                        child: Container(
-                          height: 150.0,
-                          decoration: BoxDecoration(
-                            color: MColors.primaryPurple,
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(20.0),
-                            ),
-                          ),
-                          child: Row(
-                            children: <Widget>[
-                              Container(
-                                padding: const EdgeInsets.all(20.0),
-                                child: SvgPicture.asset(
-                                  "assets/images/petfood.svg",
-                                  //Icons made by "https://www.flaticon.com/authors/photo3idea-studio"
-                                  height: 80,
-                                ),
-                              ),
-                              Expanded(
-                                child: Text(
-                                  "Shop trusted stores for Pet food",
-                                  style: TextStyle(
-                                      fontSize: 25.0,
-                                      color: MColors.primaryWhite,
-                                      fontWeight: FontWeight.bold),
-                                  textAlign: TextAlign.start,
-                                ),
-                              ),
-                            ],
-                          ),
+      child: SingleChildScrollView(
+        child: Container(
+          // key: scaffoldKey,
+          color: MColors.primaryWhiteSmoke,
+          child: Padding(
+            padding: const EdgeInsets.all(30.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.only(top: 20.0),
+                  child: Row(
+                    children: <Widget>[
+                      Container(
+                        child: Text(
+                          "Hi ",
+                          style: TextStyle(
+                              fontSize: 22.0,
+                              color: MColors.primaryPurple,
+                              fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.start,
                         ),
                       ),
-                      onTap: () {},
-                    ),
-                    GestureDetector(
-                      child: Padding(
-                        padding: const EdgeInsets.only(bottom: 20.0),
-                        child: Container(
-                          height: 150.0,
-                          decoration: BoxDecoration(
-                            color: Colors.green,
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(20.0),
-                            ),
-                          ),
-                          child: Row(
-                            children: <Widget>[
-                              Container(
-                                padding: const EdgeInsets.all(20.0),
-                                child: SvgPicture.asset(
-                                  "assets/images/veterinarian.svg",
-                                  height: 80,
-                                ),
-                              ),
-                              Expanded(
-                                child: Text(
-                                  "Book a Vet appointment",
+                      Container(
+                        child: StreamBuilder(
+                            stream: getUsersNameStreamSnapshot(context),
+                            builder: (context, snapshot) {
+                              if (!snapshot.hasData) {
+                                return Text(
+                                  "Human",
                                   style: TextStyle(
-                                      fontSize: 25.0,
-                                      color: MColors.primaryWhite,
+                                      fontSize: 22.0,
+                                      color: MColors.primaryPurple,
                                       fontWeight: FontWeight.bold),
                                   textAlign: TextAlign.start,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      onTap: () {},
-                    ),
-                    GestureDetector(
-                      child: Padding(
-                        padding: const EdgeInsets.only(bottom: 20.0),
-                        child: Container(
-                          height: 150.0,
-                          decoration: BoxDecoration(
-                            color: Colors.pink,
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(20.0),
-                            ),
-                          ),
-                          child: Row(
-                            children: <Widget>[
-                              Container(
-                                padding: const EdgeInsets.all(20.0),
-                                child: SvgPicture.asset(
-                                  "assets/images/petsitter.svg",
-                                  height: 80,
-                                ),
-                              ),
-                              Expanded(
-                                child: Text(
-                                  "Hire a professional Petsitter",
+                                );
+                              } else {
+                                return Text(
+                                  snapshot.data.documents[0]['name'],
                                   style: TextStyle(
-                                      fontSize: 25.0,
-                                      color: MColors.primaryWhite,
+                                      fontSize: 22.0,
+                                      color: MColors.primaryPurple,
                                       fontWeight: FontWeight.bold),
                                   textAlign: TextAlign.start,
-                                ),
-                              ),
-                            ],
-                          ),
+                                  // ),
+                                );
+                              }
+                            }),
+                      ),
+                      Container(
+                        child: Text(
+                          ",",
+                          style: TextStyle(
+                              fontSize: 22.0,
+                              color: MColors.textDark,
+                              fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.start,
                         ),
                       ),
-                      onTap: () {},
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
+                Container(
+                  padding: const EdgeInsets.only(top: 5.0, bottom: 30.0),
+                  child: Text(
+                    "What would you like to do today?",
+                    style: TextStyle(
+                        fontSize: 18.0,
+                        color: MColors.textDark,
+                        fontWeight: FontWeight.w400),
+                    textAlign: TextAlign.start,
+                  ),
+                ),
+                Container(
+                  color: MColors.primaryWhiteSmoke,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      GestureDetector(
+                        child: Padding(
+                          padding: const EdgeInsets.only(bottom: 20.0),
+                          child: Container(
+                            height: 165.0,
+                            decoration: BoxDecoration(
+                              color: MColors.dashBlue,
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(10.0),
+                              ),
+                            ),
+                            child: Row(
+                              children: <Widget>[
+                                Container(
+                                  padding: const EdgeInsets.all(20.0),
+                                  child: SvgPicture.asset(
+                                    "assets/images/petfood.svg",
+                                    //Icons made by "https://www.flaticon.com/authors/photo3idea-studio"
+                                    height: 80,
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Text(
+                                    "Shop trusted stores for Pet food",
+                                    style: TextStyle(
+                                        fontSize: 25.0,
+                                        color: MColors.textGrey,
+                                        fontWeight: FontWeight.bold),
+                                    textAlign: TextAlign.start,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        onTap: () {},
+                      ),
+                      GestureDetector(
+                        child: Padding(
+                          padding: const EdgeInsets.only(bottom: 20.0),
+                          child: Container(
+                            height: 165.0,
+                            decoration: BoxDecoration(
+                              color: MColors.dashPurple,
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(10.0),
+                              ),
+                            ),
+                            child: Row(
+                              children: <Widget>[
+                                Container(
+                                  padding: const EdgeInsets.all(20.0),
+                                  child: SvgPicture.asset(
+                                    "assets/images/veterinarian.svg",
+                                    height: 80,
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Text(
+                                    "Book a Vet appointment",
+                                    style: TextStyle(
+                                        fontSize: 25.0,
+                                        color: MColors.textGrey,
+                                        fontWeight: FontWeight.bold),
+                                    textAlign: TextAlign.start,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        onTap: () {},
+                      ),
+                      GestureDetector(
+                        child: Padding(
+                          padding: const EdgeInsets.only(bottom: 20.0),
+                          child: Container(
+                            height: 165.0,
+                            decoration: BoxDecoration(
+                              color: MColors.dashAmber,
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(10.0),
+                              ),
+                            ),
+                            child: Row(
+                              children: <Widget>[
+                                Container(
+                                  padding: const EdgeInsets.all(20.0),
+                                  child: SvgPicture.asset(
+                                    "assets/images/petsitter.svg",
+                                    height: 80,
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Text(
+                                    "Hire a professional Petsitter",
+                                    style: TextStyle(
+                                        fontSize: 25.0,
+                                        color: MColors.textGrey,
+                                        fontWeight: FontWeight.bold),
+                                    textAlign: TextAlign.start,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        onTap: () {},
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
-            
-          ],
+          ),
+          // bottomNavigationBar: MBottomNavBar(MBottomNavBar),
         ),
       ),
-      // bottomNavigationBar: MBottomNavBar(MBottomNavBar),
     );
   }
 }
