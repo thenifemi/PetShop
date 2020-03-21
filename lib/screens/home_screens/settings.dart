@@ -70,6 +70,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   try {
                     AuthService auth = Provider.of(context).auth;
                     auth.signOut();
+                    Navigator.of(context).pop();
+
                     Navigator.of(context).pushReplacementNamed("/Login");
                     print("Signed out.");
                   } catch (e) {

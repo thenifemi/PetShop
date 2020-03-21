@@ -46,7 +46,7 @@ class _LoginScreenState extends State<LoginScreen> {
         });
         String uid = await auth.signInWithEmailAndPassword(_email, _password);
         print("Signed in with $uid");
-        Navigator.of(context).pushReplacementNamed("/BottomNav");
+        Navigator.of(context).pushReplacementNamed("/home");
       } else {
         setState(() {
           _autoValidate = true;
@@ -202,8 +202,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   Container(
                     padding: const EdgeInsets.only(top: 18.0),
-                    child: GestureDetector(
-                        onTap: () {
+                    child: FlatButton(
+                        onPressed: () {
                           formKey.currentState.reset();
                           Navigator.of(context)
                               .pushReplacementNamed("/Registration");
