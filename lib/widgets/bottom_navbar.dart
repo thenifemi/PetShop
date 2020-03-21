@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:mollet/screens/home_screens/favorites.dart';
+import 'package:mollet/screens/home_screens/history.dart';
 import 'package:mollet/screens/home_screens/home.dart';
+import 'package:mollet/screens/home_screens/inbox.dart';
 import 'package:mollet/screens/home_screens/settings.dart';
 import 'package:mollet/utils/colors.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class MBottomNavBar extends StatefulWidget {
   final mBottomNavBar;
@@ -17,9 +21,9 @@ class _MBottomNavBarState extends State<MBottomNavBar> {
 
   final tabs = [
     HomeScreen(HomeScreen),
-    Center(child: Text("A")),
-    Center(child: Text("B")),
-    Center(child: Text("c")),
+    HistoryScreen(HistoryScreen),
+    FavoritesScreen(FavoritesScreen),
+    InboxScreen(InboxScreen),
     SettingsScreen(SettingsScreen),
   ];
 
@@ -132,7 +136,7 @@ class _MBottomNavBarState extends State<MBottomNavBar> {
     if (_currentIndex == 0) {
       return Text(
         "Home",
-        style: TextStyle(
+        style: GoogleFonts.montserrat(
             color: MColors.textGrey,
             fontSize: 30.0,
             fontWeight: FontWeight.bold),
@@ -140,7 +144,7 @@ class _MBottomNavBarState extends State<MBottomNavBar> {
     } else if (_currentIndex == 1) {
       return Text(
         "History",
-        style: TextStyle(
+        style: GoogleFonts.montserrat(
             color: MColors.textGrey,
             fontSize: 30.0,
             fontWeight: FontWeight.bold),
@@ -148,7 +152,7 @@ class _MBottomNavBarState extends State<MBottomNavBar> {
     } else if (_currentIndex == 2) {
       return Text(
         "Favorites",
-        style: TextStyle(
+        style: GoogleFonts.montserrat(
             color: MColors.textGrey,
             fontSize: 30.0,
             fontWeight: FontWeight.bold),
@@ -156,7 +160,7 @@ class _MBottomNavBarState extends State<MBottomNavBar> {
     } else if (_currentIndex == 3) {
       return Text(
         "Inbox",
-        style: TextStyle(
+        style: GoogleFonts.montserrat(
             color: MColors.textGrey,
             fontSize: 30.0,
             fontWeight: FontWeight.bold),
@@ -164,7 +168,7 @@ class _MBottomNavBarState extends State<MBottomNavBar> {
     } else if (_currentIndex == 4) {
       return Text(
         "Settings",
-        style: TextStyle(
+        style: GoogleFonts.montserrat(
             color: MColors.textGrey,
             fontSize: 30.0,
             fontWeight: FontWeight.bold),

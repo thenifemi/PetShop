@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:mollet/model/services/auth_service.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:flutter_svg/svg.dart';
@@ -36,7 +37,7 @@ class _ResetScreenState extends State<ResetScreen> {
                   padding: const EdgeInsets.only(top: 20.0),
                   child: Text(
                     "Reset link sent!",
-                    style: TextStyle(
+                    style: GoogleFonts.montserrat(
                         fontSize: 30.0,
                         color: MColors.textDark,
                         fontWeight: FontWeight.bold),
@@ -58,7 +59,7 @@ class _ResetScreenState extends State<ResetScreen> {
                   ),
                   child: Text(
                     "Please reset your password with the link sent to $_email and proceed to login.",
-                    style: TextStyle(
+                    style: GoogleFonts.montserrat(
                       fontSize: 17.0,
                       color: MColors.textGrey,
                     ),
@@ -85,7 +86,7 @@ class _ResetScreenState extends State<ResetScreen> {
                       },
                       child: Text(
                         "Proceed to login",
-                        style: TextStyle(
+                        style: GoogleFonts.montserrat(
                             color: MColors.primaryWhite,
                             fontSize: 16.0,
                             fontWeight: FontWeight.bold),
@@ -145,7 +146,7 @@ class _ResetScreenState extends State<ResetScreen> {
     if (_state == 0) {
       return Text(
         "Reset",
-        style: TextStyle(
+        style: GoogleFonts.montserrat(
             color: MColors.primaryWhite,
             fontSize: 16.0,
             fontWeight: FontWeight.bold),
@@ -175,7 +176,7 @@ class _ResetScreenState extends State<ResetScreen> {
             Expanded(
               child: Text(
                 warning,
-                style: TextStyle(
+                style: GoogleFonts.montserrat(
                   color: Colors.redAccent,
                   fontSize: 15.0,
                 ),
@@ -229,7 +230,7 @@ class _ResetScreenState extends State<ResetScreen> {
                 padding: const EdgeInsets.only(top: 20.0),
                 child: Text(
                   "Forgot password?",
-                  style: TextStyle(
+                  style: GoogleFonts.montserrat(
                       fontSize: 38.0,
                       color: MColors.textDark,
                       fontWeight: FontWeight.bold),
@@ -241,7 +242,7 @@ class _ResetScreenState extends State<ResetScreen> {
                 padding: const EdgeInsets.only(top: 18.0),
                 child: Text(
                   "Enter the email address associated with your account.",
-                  style: TextStyle(
+                  style: GoogleFonts.montserrat(
                     fontSize: 17.0,
                     color: MColors.textGrey,
                   ),
@@ -302,14 +303,14 @@ class _ResetScreenState extends State<ResetScreen> {
                           ),
                         ),
                         style:
-                            TextStyle(fontSize: 17.0, color: MColors.textDark),
+                            GoogleFonts.montserrat(fontSize: 17.0, color: MColors.textDark),
                       ),
                     ),
                     Container(
                       padding: const EdgeInsets.all(20.0),
                       child: Text(
                         "We will send a link to reset your password to that email.",
-                        style: TextStyle(
+                        style: GoogleFonts.montserrat(
                           color: MColors.textGrey,
                         ),
                       ),

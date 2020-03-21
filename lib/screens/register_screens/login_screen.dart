@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:mollet/utils/strings.dart';
 import 'package:mollet/widgets/provider.dart';
@@ -66,7 +67,7 @@ class _LoginScreenState extends State<LoginScreen> {
     if (_state == 0) {
       return Text(
         "Sign in",
-        style: TextStyle(
+        style: GoogleFonts.montserrat(
             color: MColors.primaryWhite,
             fontSize: 16.0,
             fontWeight: FontWeight.bold),
@@ -134,7 +135,7 @@ class _LoginScreenState extends State<LoginScreen> {
             Expanded(
               child: Text(
                 _error,
-                style: TextStyle(
+                style: GoogleFonts.montserrat(
                   color: Colors.redAccent,
                   fontSize: 15.0,
                 ),
@@ -176,7 +177,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 padding: const EdgeInsets.only(top: 100.0),
                 child: Text(
                   Strings.login_to_account,
-                  style: TextStyle(
+                  style: GoogleFonts.montserrat(
                       fontSize: 38.0,
                       color: MColors.textDark,
                       fontWeight: FontWeight.bold),
@@ -189,7 +190,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     padding: const EdgeInsets.only(top: 18.0),
                     child: Text(
                       Strings.do_not_have_account,
-                      style: TextStyle(
+                      style: GoogleFonts.montserrat(
                         fontSize: 17.0,
                         color: MColors.textGrey,
                       ),
@@ -209,7 +210,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         },
                         child: Text(
                           "Create it!",
-                          style: TextStyle(
+                          style: GoogleFonts.montserrat(
                             fontSize: 17.0,
                             color: MColors.primaryPurple,
                           ),
@@ -240,7 +241,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           padding: const EdgeInsets.only(bottom: 5.0),
                           child: Text(
                             "Email",
-                            style: TextStyle(color: MColors.textGrey),
+                            style: GoogleFonts.montserrat(color: MColors.textGrey),
                           ),
                         ),
                         Padding(
@@ -262,7 +263,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             onSaved: (val) => _email = val,
                             decoration: InputDecoration(
                               labelText: "e.g Remiola2034@gmail.com",
-                              labelStyle: TextStyle(fontSize: 16.0),
+                              labelStyle: GoogleFonts.montserrat(fontSize: 16.0),
                               contentPadding:
                                   new EdgeInsets.symmetric(horizontal: 25.0),
                               fillColor: MColors.primaryWhite,
@@ -297,7 +298,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                               ),
                             ),
-                            style: TextStyle(
+                            style: GoogleFonts.montserrat(
                                 fontSize: 17.0, color: MColors.textDark),
                           ),
                         ),
@@ -310,7 +311,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           padding: const EdgeInsets.only(bottom: 5.0),
                           child: Text(
                             "Password",
-                            style: TextStyle(color: MColors.textGrey),
+                            style: GoogleFonts.montserrat(color: MColors.textGrey),
                           ),
                         ),
                         Padding(
@@ -366,7 +367,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                             ),
                             obscureText: true,
-                            style: TextStyle(
+                            style: GoogleFonts.montserrat(
                                 fontSize: 17.0, color: MColors.textDark),
                           ),
                         ),
@@ -386,7 +387,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           Container(
                             child: Text(
                               "Remember me.",
-                              style: TextStyle(color: MColors.textDark),
+                              style: GoogleFonts.montserrat(color: MColors.textDark),
                             ),
                           ),
                         ],
@@ -402,7 +403,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         },
                         child: Text(
                           "Forgot password?",
-                          style: TextStyle(color: MColors.textGrey),
+                          style: GoogleFonts.montserrat(color: MColors.textGrey),
                         ),
                       ),
                     ),

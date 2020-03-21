@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mollet/utils/strings.dart';
@@ -28,7 +29,7 @@ class IntroScreen extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     Strings.onBoardTitle1,
-                    style: TextStyle(
+                    style: GoogleFonts.montserrat(
                         fontSize: 30.0,
                         fontWeight: FontWeight.bold,
                         color: MColors.textDark),
@@ -36,7 +37,7 @@ class IntroScreen extends StatelessWidget {
                   ),
                   Text(
                     Strings.onBoardTitle2,
-                    style: TextStyle(
+                    style: GoogleFonts.montserrat(
                       fontSize: 30.0,
                       fontWeight: FontWeight.bold,
                       color: MColors.textDark,
@@ -50,7 +51,7 @@ class IntroScreen extends StatelessWidget {
               padding: const EdgeInsets.all(30.0),
               child: Text(
                 Strings.onBoardTitle_sub1,
-                style: TextStyle(
+                style: GoogleFonts.montserrat(
                   fontSize: 19.0,
                   color: MColors.textGrey,
                   height: 1.30,
@@ -88,7 +89,7 @@ class IntroScreen extends StatelessWidget {
                   },
                   child: Text(
                     Strings.signin_small,
-                    style: TextStyle(
+                    style: GoogleFonts.montserrat(
                         color: MColors.primaryWhite,
                         fontSize: 16.0,
                         fontWeight: FontWeight.bold),
@@ -115,7 +116,7 @@ class IntroScreen extends StatelessWidget {
                   },
                   child: Text(
                     Strings.register,
-                    style: TextStyle(
+                    style: GoogleFonts.montserrat(
                         color: MColors.primaryPurple,
                         fontSize: 16.0,
                         fontWeight: FontWeight.bold),

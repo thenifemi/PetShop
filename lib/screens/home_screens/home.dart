@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mollet/widgets/provider.dart';
@@ -14,7 +15,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  // final scaffoldKey = GlobalKey<ScaffoldState>();
 
   Stream<QuerySnapshot> getUsersNameStreamSnapshot(
       BuildContext context) async* {
@@ -34,7 +34,6 @@ class _HomeScreenState extends State<HomeScreen> {
       color: MColors.primaryWhiteSmoke,
       child: SingleChildScrollView(
         child: Container(
-          // key: scaffoldKey,
           color: MColors.primaryWhiteSmoke,
           child: Padding(
             padding: const EdgeInsets.all(30.0),
@@ -49,7 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       Container(
                         child: Text(
                           "Hi ",
-                          style: TextStyle(
+                          style: GoogleFonts.montserrat(
                               fontSize: 22.0,
                               color: MColors.primaryPurple,
                               fontWeight: FontWeight.bold),
@@ -63,7 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               if (!snapshot.hasData) {
                                 return Text(
                                   "Human",
-                                  style: TextStyle(
+                                  style: GoogleFonts.montserrat(
                                       fontSize: 22.0,
                                       color: MColors.primaryPurple,
                                       fontWeight: FontWeight.bold),
@@ -72,7 +71,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               } else {
                                 return Text(
                                   snapshot.data.documents[0]['name'],
-                                  style: TextStyle(
+                                  style: GoogleFonts.montserrat(
                                       fontSize: 22.0,
                                       color: MColors.primaryPurple,
                                       fontWeight: FontWeight.bold),
@@ -85,7 +84,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       Container(
                         child: Text(
                           ",",
-                          style: TextStyle(
+                          style: GoogleFonts.montserrat(
                               fontSize: 22.0,
                               color: MColors.textDark,
                               fontWeight: FontWeight.bold),
@@ -99,7 +98,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   padding: const EdgeInsets.only(top: 5.0, bottom: 30.0),
                   child: Text(
                     "What would you like to do today?",
-                    style: TextStyle(
+                    style: GoogleFonts.montserrat(
                         fontSize: 18.0,
                         color: MColors.textDark,
                         fontWeight: FontWeight.w400),
@@ -115,6 +114,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: Padding(
                           padding: const EdgeInsets.only(bottom: 20.0),
                           child: Container(
+                            padding: const EdgeInsets.all(20.0),
                             height: 165.0,
                             decoration: BoxDecoration(
                               color: MColors.dashBlue,
@@ -135,7 +135,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 Expanded(
                                   child: Text(
                                     "Shop trusted stores for Pet food",
-                                    style: TextStyle(
+                                    style: GoogleFonts.montserrat(
                                         fontSize: 25.0,
                                         color: MColors.textGrey,
                                         fontWeight: FontWeight.bold),
@@ -152,6 +152,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: Padding(
                           padding: const EdgeInsets.only(bottom: 20.0),
                           child: Container(
+                            padding: const EdgeInsets.all(20.0),
                             height: 165.0,
                             decoration: BoxDecoration(
                               color: MColors.dashPurple,
@@ -171,7 +172,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 Expanded(
                                   child: Text(
                                     "Book a Vet appointment",
-                                    style: TextStyle(
+                                    style: GoogleFonts.montserrat(
                                         fontSize: 25.0,
                                         color: MColors.textGrey,
                                         fontWeight: FontWeight.bold),
@@ -188,6 +189,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: Padding(
                           padding: const EdgeInsets.only(bottom: 20.0),
                           child: Container(
+                            padding: const EdgeInsets.all(20.0),
                             height: 165.0,
                             decoration: BoxDecoration(
                               color: MColors.dashAmber,
@@ -207,7 +209,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 Expanded(
                                   child: Text(
                                     "Hire a professional Petsitter",
-                                    style: TextStyle(
+                                    style: GoogleFonts.montserrat(
                                         fontSize: 25.0,
                                         color: MColors.textGrey,
                                         fontWeight: FontWeight.bold),

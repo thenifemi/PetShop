@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:mollet/model/services/auth_service.dart';
 import 'package:mollet/model/services/user_management.dart';
 import 'package:mollet/utils/colors.dart';
@@ -73,7 +74,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     if (_state == 0) {
       return Text(
         "Next step",
-        style: TextStyle(
+        style: GoogleFonts.montserrat(
             color: MColors.primaryWhite,
             fontSize: 16.0,
             fontWeight: FontWeight.bold),
@@ -141,7 +142,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             Expanded(
               child: Text(
                 _error,
-                style: TextStyle(
+                style: GoogleFonts.montserrat(
                   color: Colors.redAccent,
                   fontSize: 15.0,
                 ),
@@ -181,7 +182,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 padding: const EdgeInsets.only(top: 75.0),
                 child: Text(
                   Strings.registraionTitle,
-                  style: TextStyle(
+                  style: GoogleFonts.montserrat(
                       fontSize: 38.0,
                       color: MColors.textDark,
                       fontWeight: FontWeight.bold),
@@ -194,7 +195,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     padding: const EdgeInsets.only(top: 18.0),
                     child: Text(
                       Strings.registraionTitle_sub,
-                      style: TextStyle(
+                      style: GoogleFonts.montserrat(
                         fontSize: 17.0,
                         color: MColors.textGrey,
                       ),
@@ -213,7 +214,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         },
                         child: Text(
                           "Sign in!",
-                          style: TextStyle(
+                          style: GoogleFonts.montserrat(
                             fontSize: 17.0,
                             color: MColors.primaryPurple,
                           ),
@@ -245,7 +246,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           padding: const EdgeInsets.only(bottom: 5.0),
                           child: Text(
                             "Name",
-                            style: TextStyle(color: MColors.textGrey),
+                            style:
+                                GoogleFonts.montserrat(color: MColors.textGrey),
                           ),
                         ),
                         Padding(
@@ -256,7 +258,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             validator: NameValiditor.validate,
                             decoration: InputDecoration(
                               labelText: "e.g Remiola",
-                              labelStyle: TextStyle(fontSize: 16.0),
+                              labelStyle:
+                                  GoogleFonts.montserrat(fontSize: 16.0),
                               contentPadding:
                                   new EdgeInsets.symmetric(horizontal: 25.0),
                               fillColor: MColors.primaryWhite,
@@ -292,7 +295,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               ),
                             ),
                             textCapitalization: TextCapitalization.words,
-                            style: TextStyle(
+                            style: GoogleFonts.montserrat(
                                 fontSize: 17.0, color: MColors.textDark),
                           ),
                         ),
@@ -305,7 +308,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           padding: const EdgeInsets.only(bottom: 5.0),
                           child: Text(
                             "Email",
-                            style: TextStyle(color: MColors.textGrey),
+                            style:
+                                GoogleFonts.montserrat(color: MColors.textGrey),
                           ),
                         ),
                         Padding(
@@ -317,7 +321,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             onSaved: (val) => _email = val,
                             decoration: InputDecoration(
                               labelText: "e.g Remiola2034@gmail.com",
-                              labelStyle: TextStyle(fontSize: 16.0),
+                              labelStyle:
+                                  GoogleFonts.montserrat(fontSize: 16.0),
                               contentPadding:
                                   new EdgeInsets.symmetric(horizontal: 25.0),
                               fillColor: MColors.primaryWhite,
@@ -352,7 +357,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                 ),
                               ),
                             ),
-                            style: TextStyle(
+                            style: GoogleFonts.montserrat(
                                 fontSize: 17.0, color: MColors.textDark),
                           ),
                         ),
@@ -365,7 +370,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           padding: const EdgeInsets.only(bottom: 5.0),
                           child: Text(
                             "Password",
-                            style: TextStyle(color: MColors.textGrey),
+                            style:
+                                GoogleFonts.montserrat(color: MColors.textGrey),
                           ),
                         ),
                         Padding(
@@ -411,7 +417,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               ),
                             ),
                             obscureText: true,
-                            style: TextStyle(
+                            style: GoogleFonts.montserrat(
                                 fontSize: 17.0, color: MColors.textDark),
                           ),
                         ),
@@ -421,7 +427,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       padding: const EdgeInsets.only(bottom: 15.0),
                       child: Text(
                         "Your password must have 6 or more characters, a capital letter and must contain at least one number.",
-                        style: TextStyle(color: MColors.primaryPurple),
+                        style: GoogleFonts.montserrat(
+                            color: MColors.primaryPurple),
                       ),
                     ),
                     Column(
@@ -431,7 +438,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           padding: const EdgeInsets.only(bottom: 5.0),
                           child: Text(
                             "Phone number",
-                            style: TextStyle(color: MColors.textGrey),
+                            style:
+                                GoogleFonts.montserrat(color: MColors.textGrey),
                           ),
                         ),
                         Padding(
@@ -454,7 +462,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             onSaved: (val) => _phoneNumber = val,
                             decoration: InputDecoration(
                               labelText: "e.g +55 47 12345-6789",
-                              labelStyle: TextStyle(fontSize: 16.0),
+                              labelStyle:
+                                  GoogleFonts.montserrat(fontSize: 16.0),
                               contentPadding:
                                   new EdgeInsets.symmetric(horizontal: 25.0),
                               fillColor: MColors.primaryWhite,
@@ -489,7 +498,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                 ),
                               ),
                             ),
-                            style: TextStyle(
+                            style: GoogleFonts.montserrat(
                                 fontSize: 17.0, color: MColors.textDark),
                           ),
                         ),
@@ -497,7 +506,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           padding: const EdgeInsets.only(bottom: 15.0),
                           child: Text(
                             "Your number should contain your country code and state code.",
-                            style: TextStyle(color: MColors.primaryPurple),
+                            style: GoogleFonts.montserrat(
+                                color: MColors.primaryPurple),
                           ),
                         ),
                         Padding(
@@ -515,7 +525,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               Container(
                                 child: Text(
                                   "By continuing, you agree to our Terms of Service.",
-                                  style: TextStyle(color: MColors.textDark),
+                                  style: GoogleFonts.montserrat(
+                                      color: MColors.textDark),
                                 ),
                               ),
                             ],
