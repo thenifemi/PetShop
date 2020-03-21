@@ -13,6 +13,39 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
+  Widget displayUserInfo(context, snapshot) {
+    final user = snapshot.data;
+
+    return Column(
+      children: <Widget>[
+        Text(
+          "${user.displayName}",
+          style: GoogleFonts.montserrat(
+            color: MColors.primaryPurple,
+            fontSize: 18.0,
+            fontWeight: FontWeight.w500,
+          ),
+          textAlign: TextAlign.center,
+        ),
+        Container(
+          padding: const EdgeInsets.only(
+            right: 30.0,
+            left: 30.0,
+            top: 3.0,
+          ),
+          child: Text(
+            "${user.email}",
+            style: GoogleFonts.montserrat(
+              color: MColors.textGrey,
+              fontSize: 13.0,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ),
+      ],
+    );
+  }
+
   void _showLogOutDialog() {
     showDialog(
         context: context,
@@ -77,8 +110,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       child: Padding(
                         padding: const EdgeInsets.all(15.0),
                         child: Container(
-                          width: 80.0,
-                          height: 80.0,
+                          width: 90.0,
+                          height: 90.0,
                           child: SvgPicture.asset(
                             "assets/images/femaleAvatar.svg",
                             height: 150,
@@ -91,34 +124,21 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ),
                     ),
                     Container(
-                      child: Text(
-                        "Oluwatimilehin Diffu",
-                        style: GoogleFonts.montserrat(
-                          color: MColors.primaryPurple,
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.w500,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.only(
-                        right: 30.0,
-                        left: 30.0,
-                        top: 3.0,
-                      ),
-                      child: Text(
-                        "thenifemi@yahoo.com",
-                        style: GoogleFonts.montserrat(
-                          color: MColors.textGrey,
-                          fontSize: 13.0,
-                        ),
-                        textAlign: TextAlign.center,
+                      child: FutureBuilder(
+                        future: Provider.of(context).auth.getCurrentUser(),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.done) {
+                            return displayUserInfo(context, snapshot);
+                          } else {
+                            return Text("Loading...");
+                          }
+                        },
                       ),
                     ),
                     SizedBox(height: 5.0),
                     SizedBox(
-                      width: 110,
+                      width: 100,
                       height: 18.0,
                       child: RawMaterialButton(
                         elevation: 0.0,
@@ -135,7 +155,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           ),
                         ),
                         shape: RoundedRectangleBorder(
-                          borderRadius: new BorderRadius.circular(10.0),
+                          borderRadius: new BorderRadius.circular(5.0),
                         ),
                       ),
                     ),
@@ -146,10 +166,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
               Divider(
                 height: 1.0,
               ),
-              SizedBox(height: 20.0),
-              GestureDetector(
-                onTap: () {},
-                child: Container(
+              SizedBox(
+                height: 70,
+                width: double.infinity,
+                child: RawMaterialButton(
+                  onPressed: () {},
                   child: Row(
                     children: <Widget>[
                       Container(
@@ -179,14 +200,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   ),
                 ),
               ),
-              SizedBox(height: 20.0),
               Divider(
                 height: 1.0,
               ),
-              SizedBox(height: 20.0),
-              GestureDetector(
-                onTap: () {},
-                child: Container(
+              SizedBox(
+                height: 70,
+                width: double.infinity,
+                child: RawMaterialButton(
+                  onPressed: () {},
                   child: Row(
                     children: <Widget>[
                       Container(
@@ -216,14 +237,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   ),
                 ),
               ),
-              SizedBox(height: 20.0),
               Divider(
                 height: 1.0,
               ),
-              SizedBox(height: 20.0),
-              GestureDetector(
-                onTap: () {},
-                child: Container(
+              SizedBox(
+                height: 70,
+                width: double.infinity,
+                child: RawMaterialButton(
+                  onPressed: () {},
                   child: Row(
                     children: <Widget>[
                       Container(
@@ -253,14 +274,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   ),
                 ),
               ),
-              SizedBox(height: 20.0),
               Divider(
                 height: 1.0,
               ),
-              SizedBox(height: 20.0),
-              GestureDetector(
-                onTap: () {},
-                child: Container(
+              SizedBox(
+                height: 70,
+                width: double.infinity,
+                child: RawMaterialButton(
+                  onPressed: () {},
                   child: Row(
                     children: <Widget>[
                       Container(
@@ -290,14 +311,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   ),
                 ),
               ),
-              SizedBox(height: 20.0),
               Divider(
                 height: 1.0,
               ),
-              SizedBox(height: 20.0),
-              GestureDetector(
-                onTap: () {},
-                child: Container(
+              SizedBox(
+                height: 70,
+                width: double.infinity,
+                child: RawMaterialButton(
+                  onPressed: () {},
                   child: Row(
                     children: <Widget>[
                       Container(
@@ -327,16 +348,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   ),
                 ),
               ),
-              SizedBox(height: 20.0),
               Divider(
                 height: 1.0,
               ),
               SizedBox(height: 100.0),
-              GestureDetector(
-                onTap: () {
-                  _showLogOutDialog();
-                },
-                child: Container(
+              SizedBox(
+                height: 70,
+                width: double.infinity,
+                child: RawMaterialButton(
+                  onPressed: () {
+                    _showLogOutDialog();
+                  },
                   child: Row(
                     children: <Widget>[
                       Container(

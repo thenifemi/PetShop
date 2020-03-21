@@ -16,7 +16,7 @@ void main() => runApp(MyApp());
 
 final routes = {
   '/Registration': (BuildContext context) => RegistrationScreen(),
-  '/Homescreen': (BuildContext context) => HomeScreen(HomeScreen),
+  '/Homescreen': (BuildContext context) => HomeScreen(),
   '/Verification': (BuildContext context) => VerificationScreen(),
   '/Login': (BuildContext context) => LoginScreen(),
   '/Reset': (BuildContext context) => ResetScreen(),
@@ -31,14 +31,21 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
     return Provider(
       auth: AuthService(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: "mollet",
         routes: routes,
-        home: HomeController(),
+        home: AnnotatedRegion<SystemUiOverlayStyle>(
+          value: SystemUiOverlayStyle(
+            statusBarColor: Colors.transparent, // tra navigation bar color
+            statusBarIconBrightness: Brightness.dark, // status bar icons' color
+            systemNavigationBarIconBrightness:
+                Brightness.dark, //navigation bar icons' color
+          ),
+          child: HomeController(),
+        ),
       ),
     );
   }

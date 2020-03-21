@@ -8,8 +8,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:mollet/widgets/provider.dart';
 
 class HomeScreen extends StatefulWidget {
-  final homeScreen;
-  HomeScreen(this.homeScreen);
+  // final homeScreen;
+  // HomeScreen(this.homeScreen);
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }

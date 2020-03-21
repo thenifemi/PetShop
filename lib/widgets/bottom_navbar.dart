@@ -19,8 +19,8 @@ class MBottomNavBar extends StatefulWidget {
 class _MBottomNavBarState extends State<MBottomNavBar> {
   int _currentIndex = 0;
 
-  final tabs = [
-    HomeScreen(HomeScreen),
+  final List<Widget> tabs = [
+    HomeScreen(),
     HistoryScreen(HistoryScreen),
     FavoritesScreen(FavoritesScreen),
     InboxScreen(InboxScreen),
@@ -182,6 +182,7 @@ class _MBottomNavBarState extends State<MBottomNavBar> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        brightness: Brightness.light ,
         elevation: 0.0,
         backgroundColor: MColors.primaryWhiteSmoke,
         title: buildAppBarTitle(),
