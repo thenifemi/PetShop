@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:mollet/model/services/auth_service.dart';
 import 'package:mollet/screens/getstarted_screens/intro_screen.dart';
 import 'package:mollet/screens/home_screens/home.dart';
+import 'package:mollet/screens/home_screens/settings.dart';
 import 'package:mollet/screens/register_screens/login_screen.dart';
 import 'package:mollet/screens/register_screens/registration_screen.dart';
 import 'package:mollet/screens/register_screens/reset_screen.dart';
 import 'package:mollet/screens/register_screens/verification_screen.dart';
 import 'package:flutter/services.dart';
+import 'package:mollet/screens/settings_screens/editProfile.dart';
 import 'package:mollet/widgets/provider.dart';
 import 'package:mollet/widgets/bottom_navbar.dart';
 
@@ -22,6 +24,8 @@ final routes = {
   '/Reset': (BuildContext context) => ResetScreen(),
   '/home': (BuildContext context) => HomeController(),
   '/BottomNav': (BuildContext context) => MBottomNavBar(MBottomNavBar),
+  '/EditProfile': (BuildContext context) => EditProfile(),
+  '/Settings': (BuildContext context) => SettingsScreen(SettingsScreen),
 
   // '/': (BuildContext context) => IntroScreen(),
 };

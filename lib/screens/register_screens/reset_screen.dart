@@ -46,10 +46,8 @@ class _ResetScreenState extends State<ResetScreen> {
                 ),
                 Container(
                   padding: const EdgeInsets.all(20.0),
-                  child: SvgPicture.asset(
-                    "assets/images/cardsuccess.svg",
-                    height: 100,
-                  ),
+                  child: Icon(Icons.check_circle_outline,
+                      color: Colors.green, size: 40.0),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(
@@ -82,7 +80,8 @@ class _ResetScreenState extends State<ResetScreen> {
                       highlightElevation: 0.0,
                       fillColor: MColors.primaryPurple,
                       onPressed: () {
-                        Navigator.of(context).pushReplacementNamed("/Login");
+                        Navigator.of(context).pop();
+                        Navigator.of(context).pushReplacementNamed("/home");
                       },
                       child: Text(
                         "Proceed to login",
@@ -215,7 +214,7 @@ class _ResetScreenState extends State<ResetScreen> {
             color: MColors.textDark,
           ),
           onPressed: () {
-            Navigator.of(context).pushReplacementNamed("/Login");
+            Navigator.of(context).pushReplacementNamed("/home");
           },
         ),
       ),
@@ -252,6 +251,12 @@ class _ResetScreenState extends State<ResetScreen> {
 
               SizedBox(
                 height: 60.0,
+              ),
+
+              showAlert(),
+
+              SizedBox(
+                height: 20.0,
               ),
 
               //FORM
@@ -302,8 +307,8 @@ class _ResetScreenState extends State<ResetScreen> {
                             ),
                           ),
                         ),
-                        style:
-                            GoogleFonts.montserrat(fontSize: 17.0, color: MColors.textDark),
+                        style: GoogleFonts.montserrat(
+                            fontSize: 17.0, color: MColors.textDark),
                       ),
                     ),
                     Container(

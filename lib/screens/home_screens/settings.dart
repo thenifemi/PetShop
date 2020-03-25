@@ -72,7 +72,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     auth.signOut();
                     Navigator.of(context).pop();
 
-                    Navigator.of(context).pushReplacementNamed("/Login");
+                    Navigator.of(context).pushReplacementNamed("/home");
                     print("Signed out.");
                   } catch (e) {
                     print(e);
@@ -148,7 +148,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         focusElevation: 0.0,
                         highlightElevation: 0.0,
                         fillColor: MColors.dashPurple,
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).pushNamed("/EditProfile");
+                        },
                         child: Text(
                           "EDIT PROFILE",
                           style: GoogleFonts.montserrat(
