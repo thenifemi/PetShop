@@ -17,6 +17,7 @@ class MBottomNavBar extends StatefulWidget {
 }
 
 class _MBottomNavBarState extends State<MBottomNavBar> {
+  final _navigatorKey = GlobalKey<NavigatorState>();
   int _currentIndex = 0;
 
   final List<Widget> tabs = [
@@ -182,7 +183,7 @@ class _MBottomNavBarState extends State<MBottomNavBar> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        brightness: Brightness.light ,
+        brightness: Brightness.light,
         elevation: 0.0,
         backgroundColor: MColors.primaryWhiteSmoke,
         title: buildAppBarTitle(),

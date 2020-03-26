@@ -449,16 +449,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           child: TextFormField(
                             autovalidate: _autoValidate,
                             keyboardType: TextInputType.numberWithOptions(),
-                            validator: (val) {
-                              String pattern = r'(^(?:[+0]9)?[0-9]{13}$)';
-                              RegExp regex2 = new RegExp(pattern);
-                              print(val);
-                              if (!regex2.hasMatch(val)) {
-                                return "Enter a valid phone number";
-                              } else {
-                                return null;
-                              }
-                            },
+                            validator:PhoneNumberValiditor.validate,
                             onSaved: (val) => _phoneNumber = val,
                             decoration: InputDecoration(
                               labelText: "e.g +55 47 12345-6789",

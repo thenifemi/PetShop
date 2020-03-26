@@ -30,6 +30,7 @@ class AuthService {
     var userUpdateInfo = UserUpdateInfo();
     userUpdateInfo.displayName = name;
     await currentUser.updateProfile(userUpdateInfo);
+    await currentUser.updateProfile(userUpdateInfo);
     await currentUser.reload();
     return currentUser.uid;
   }
@@ -65,7 +66,7 @@ class NameValiditor {
       return "Enter your name";
     } else if (val.length < 2) {
       return "Name has to be atleast 2 characters";
-    } else if (val.length > 15) {
+    } else if (val.length > 20) {
       return "Name is too long";
     } else {
       return null;
@@ -95,6 +96,19 @@ class PasswordValiditor {
       return "Enter a password";
     } else if (val.length < 6 || (!regex.hasMatch(val))) {
       return "Password not strong enough";
+    } else {
+      return null;
+    }
+  }
+}
+
+class PhoneNumberValiditor {
+  static String validate(String val) {
+    String pattern = r'(^(?:[+0]9)?[0-9]{13}$)';
+    RegExp regex2 = new RegExp(pattern);
+    print(val);
+    if (!regex2.hasMatch(val)) {
+      return "Enter a valid phone number";
     } else {
       return null;
     }
