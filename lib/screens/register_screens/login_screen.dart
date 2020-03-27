@@ -19,11 +19,18 @@ class _LoginScreenState extends State<LoginScreen> {
 
   String _email;
   String _password;
-  String _phoneNumber;
   String _error;
   bool _autoValidate = false;
   var _state = 0;
   bool _isButtonDisabled = false;
+
+  bool _obscureText = true;
+
+  void _toggle() {
+    setState(() {
+      _obscureText = !_obscureText;
+    });
+  }
 
   void animateButton() {
     setState(() {
@@ -332,6 +339,20 @@ class _LoginScreenState extends State<LoginScreen> {
                             },
                             onSaved: (val) => _password = val,
                             decoration: InputDecoration(
+                               suffix: SizedBox(
+                                height: 20.0,
+                                width: 35.0,
+                                child: RawMaterialButton(
+                                  onPressed: _toggle,
+                                  child: new Text(
+                                    _obscureText ? "Show" : "Hide",
+                                    style: TextStyle(
+                                      color: MColors.primaryPurple,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                              ),
                               labelText: "",
                               contentPadding:
                                   new EdgeInsets.symmetric(horizontal: 25.0),
@@ -367,7 +388,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                               ),
                             ),
-                            obscureText: true,
+                            obscureText: _obscureText,
                             style: GoogleFonts.montserrat(
                                 fontSize: 17.0, color: MColors.textDark),
                           ),

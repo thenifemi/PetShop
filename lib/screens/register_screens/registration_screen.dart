@@ -1,5 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -28,6 +26,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   bool _autoValidate = false;
   var _state = 0;
   bool _isButtonDisabled = false;
+  bool _obscureText = true;
+
+  void _toggle() {
+    setState(() {
+      _obscureText = !_obscureText;
+    });
+  }
 
   void animateButton() {
     setState(() {
@@ -381,6 +386,20 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             validator: PasswordValiditor.validate,
                             onSaved: (val) => _password = val,
                             decoration: InputDecoration(
+                              suffix: SizedBox(
+                                height: 20.0,
+                                width: 35.0,
+                                child: RawMaterialButton(
+                                  onPressed: _toggle,
+                                  child: new Text(
+                                    _obscureText ? "Show" : "Hide",
+                                    style: TextStyle(
+                                      color: MColors.primaryPurple,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                              ),
                               labelText: "",
                               contentPadding:
                                   new EdgeInsets.symmetric(horizontal: 25.0),
@@ -416,7 +435,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                 ),
                               ),
                             ),
-                            obscureText: true,
+                            obscureText: _obscureText,
                             style: GoogleFonts.montserrat(
                                 fontSize: 17.0, color: MColors.textDark),
                           ),
@@ -449,7 +468,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           child: TextFormField(
                             autovalidate: _autoValidate,
                             keyboardType: TextInputType.numberWithOptions(),
-                            validator:PhoneNumberValiditor.validate,
+                            validator: PhoneNumberValiditor.validate,
                             onSaved: (val) => _phoneNumber = val,
                             decoration: InputDecoration(
                               labelText: "e.g +55 47 12345-6789",
