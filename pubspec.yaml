@@ -53,6 +53,7 @@ flutter:
    - assets/images/clock.svg
    - assets/images/fav.svg
    - assets/images/mail.svg
+   - assets/images/key.svg
    - assets/images/settings.svg
    - assets/images/pay.svg
    - assets/images/logout.svg

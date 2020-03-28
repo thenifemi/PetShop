@@ -104,66 +104,71 @@ class _SettingsScreenState extends State<SettingsScreen> {
             children: <Widget>[
               Container(
                 padding: const EdgeInsets.only(top: 20.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Center(
-                      child: Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: Container(
-                          width: 90.0,
-                          height: 90.0,
-                          child: SvgPicture.asset(
-                            "assets/images/femaleAvatar.svg",
-                            height: 150,
-                          ),
-                          decoration: new BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: MColors.dashPurple,
+                child: RawMaterialButton(
+                  onPressed: () {
+                    Navigator.of(context).pushNamed("/EditProfile");
+                  },
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(15.0),
+                          child: Container(
+                            width: 90.0,
+                            height: 90.0,
+                            child: SvgPicture.asset(
+                              "assets/images/femaleAvatar.svg",
+                              height: 150,
+                            ),
+                            decoration: new BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: MColors.dashPurple,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    Container(
-                      child: FutureBuilder(
-                        future: Provider.of(context).auth.getCurrentUser(),
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.done) {
-                            return displayUserInfo(context, snapshot);
-                          } else {
-                            return Text("Loading...");
-                          }
-                        },
+                      Container(
+                        child: FutureBuilder(
+                          future: Provider.of(context).auth.getCurrentUser(),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.done) {
+                              return displayUserInfo(context, snapshot);
+                            } else {
+                              return Text("Loading...");
+                            }
+                          },
+                        ),
                       ),
-                    ),
-                    SizedBox(height: 5.0),
-                    SizedBox(
-                      width: 100,
-                      height: 18.0,
-                      child: RawMaterialButton(
-                        elevation: 0.0,
-                        hoverElevation: 0.0,
-                        focusElevation: 0.0,
-                        highlightElevation: 0.0,
-                        fillColor: MColors.dashPurple,
-                        onPressed: () {
-                          Navigator.of(context).pushNamed("/EditProfile");
-                        },
-                        child: Text(
-                          "EDIT PROFILE",
-                          style: GoogleFonts.montserrat(
-                            color: MColors.primaryPurple,
-                            fontSize: 12.0,
+                      SizedBox(height: 5.0),
+                      SizedBox(
+                        width: 100,
+                        height: 18.0,
+                        child: RawMaterialButton(
+                          elevation: 0.0,
+                          hoverElevation: 0.0,
+                          focusElevation: 0.0,
+                          highlightElevation: 0.0,
+                          fillColor: MColors.dashPurple,
+                          onPressed: () {
+                            Navigator.of(context).pushNamed("/EditProfile");
+                          },
+                          child: Text(
+                            "EDIT PROFILE",
+                            style: GoogleFonts.montserrat(
+                              color: MColors.primaryPurple,
+                              fontSize: 12.0,
+                            ),
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(5.0),
                           ),
                         ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: new BorderRadius.circular(5.0),
-                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
               SizedBox(height: 20.0),
@@ -171,17 +176,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 height: 1.0,
               ),
               SizedBox(
-                height: 70,
+                height: 60,
                 width: double.infinity,
                 child: RawMaterialButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).pushNamed('/Security');
+                  },
                   child: Row(
                     children: <Widget>[
                       Container(
                         padding: const EdgeInsets.only(right: 20.0),
                         child: SvgPicture.asset(
                           "assets/images/password.svg",
-                          height: 30,
+                          height: 20,
                           color: MColors.textGrey,
                         ),
                       ),
@@ -191,7 +198,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           style: GoogleFonts.montserrat(
                             color: MColors.primaryPurple,
                             fontSize: 15.0,
-                            fontWeight: FontWeight.w500,
                           ),
                         ),
                       ),
@@ -208,7 +214,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 height: 1.0,
               ),
               SizedBox(
-                height: 70,
+                height: 60,
                 width: double.infinity,
                 child: RawMaterialButton(
                   onPressed: () {},
@@ -218,7 +224,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         padding: const EdgeInsets.only(right: 20.0),
                         child: SvgPicture.asset(
                           "assets/images/pay.svg",
-                          height: 30,
+                          height: 20,
                           color: MColors.textGrey,
                         ),
                       ),
@@ -228,7 +234,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           style: GoogleFonts.montserrat(
                             color: MColors.primaryPurple,
                             fontSize: 15.0,
-                            fontWeight: FontWeight.w500,
                           ),
                         ),
                       ),
@@ -245,7 +250,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 height: 1.0,
               ),
               SizedBox(
-                height: 70,
+                height: 60,
                 width: double.infinity,
                 child: RawMaterialButton(
                   onPressed: () {},
@@ -255,7 +260,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         padding: const EdgeInsets.only(right: 20.0),
                         child: SvgPicture.asset(
                           "assets/images/gift.svg",
-                          height: 30,
+                          height: 20,
                           color: MColors.textGrey,
                         ),
                       ),
@@ -265,7 +270,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           style: GoogleFonts.montserrat(
                             color: MColors.primaryPurple,
                             fontSize: 15.0,
-                            fontWeight: FontWeight.w500,
                           ),
                         ),
                       ),
@@ -282,7 +286,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 height: 1.0,
               ),
               SizedBox(
-                height: 70,
+                height: 60,
                 width: double.infinity,
                 child: RawMaterialButton(
                   onPressed: () {},
@@ -292,7 +296,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         padding: const EdgeInsets.only(right: 20.0),
                         child: SvgPicture.asset(
                           "assets/images/help.svg",
-                          height: 30,
+                          height: 20,
                           color: MColors.textGrey,
                         ),
                       ),
@@ -302,7 +306,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           style: GoogleFonts.montserrat(
                             color: MColors.primaryPurple,
                             fontSize: 15.0,
-                            fontWeight: FontWeight.w500,
                           ),
                         ),
                       ),
@@ -319,7 +322,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 height: 1.0,
               ),
               SizedBox(
-                height: 70,
+                height: 60,
                 width: double.infinity,
                 child: RawMaterialButton(
                   onPressed: () {},
@@ -329,7 +332,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         padding: const EdgeInsets.only(right: 20.0),
                         child: SvgPicture.asset(
                           "assets/images/question.svg",
-                          height: 30,
+                          height: 20,
                           color: MColors.textGrey,
                         ),
                       ),
@@ -339,7 +342,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           style: GoogleFonts.montserrat(
                             color: MColors.primaryPurple,
                             fontSize: 15.0,
-                            fontWeight: FontWeight.w500,
                           ),
                         ),
                       ),
@@ -357,7 +359,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
               SizedBox(height: 100.0),
               SizedBox(
-                height: 70,
+                height: 60,
                 width: double.infinity,
                 child: RawMaterialButton(
                   onPressed: () {
@@ -369,7 +371,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         padding: const EdgeInsets.only(right: 20.0),
                         child: SvgPicture.asset(
                           "assets/images/logout.svg",
-                          height: 30,
+                          height: 20,
                           color: Colors.redAccent,
                         ),
                       ),
@@ -379,7 +381,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           style: GoogleFonts.montserrat(
                             color: Colors.redAccent,
                             fontSize: 15.0,
-                            fontWeight: FontWeight.w500,
                           ),
                         ),
                       ),

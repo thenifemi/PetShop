@@ -34,7 +34,7 @@ class _MBottomNavBarState extends State<MBottomNavBar> {
         padding: const EdgeInsets.only(top: 15.0),
         child: SvgPicture.asset(
           "assets/images/home.svg",
-          height: 25,
+          height: 23,
         ),
       );
     } else {
@@ -42,7 +42,7 @@ class _MBottomNavBarState extends State<MBottomNavBar> {
         padding: const EdgeInsets.only(top: 15.0),
         child: SvgPicture.asset(
           "assets/images/home.svg",
-          height: 23,
+          height: 21,
           color: MColors.textGrey,
         ),
       );
@@ -55,7 +55,7 @@ class _MBottomNavBarState extends State<MBottomNavBar> {
         padding: const EdgeInsets.only(top: 15.0),
         child: SvgPicture.asset(
           "assets/images/clock.svg",
-          height: 25,
+          height: 23,
         ),
       );
     } else {
@@ -63,7 +63,7 @@ class _MBottomNavBarState extends State<MBottomNavBar> {
         padding: const EdgeInsets.only(top: 15.0),
         child: SvgPicture.asset(
           "assets/images/clock.svg",
-          height: 23,
+          height: 21,
           color: MColors.textGrey,
         ),
       );
@@ -76,7 +76,7 @@ class _MBottomNavBarState extends State<MBottomNavBar> {
         padding: const EdgeInsets.only(top: 15.0),
         child: SvgPicture.asset(
           "assets/images/fav.svg",
-          height: 25,
+          height: 23,
         ),
       );
     } else {
@@ -84,7 +84,7 @@ class _MBottomNavBarState extends State<MBottomNavBar> {
         padding: const EdgeInsets.only(top: 15.0),
         child: SvgPicture.asset(
           "assets/images/fav.svg",
-          height: 23,
+          height: 21,
           color: MColors.textGrey,
         ),
       );
@@ -97,7 +97,7 @@ class _MBottomNavBarState extends State<MBottomNavBar> {
         padding: const EdgeInsets.only(top: 15.0),
         child: SvgPicture.asset(
           "assets/images/mail.svg",
-          height: 25,
+          height: 23,
         ),
       );
     } else {
@@ -105,7 +105,7 @@ class _MBottomNavBarState extends State<MBottomNavBar> {
         padding: const EdgeInsets.only(top: 15.0),
         child: SvgPicture.asset(
           "assets/images/mail.svg",
-          height: 23,
+          height: 21,
           color: MColors.textGrey,
         ),
       );
@@ -118,7 +118,7 @@ class _MBottomNavBarState extends State<MBottomNavBar> {
         padding: const EdgeInsets.only(top: 15.0),
         child: SvgPicture.asset(
           "assets/images/settings.svg",
-          height: 25,
+          height: 23,
         ),
       );
     } else {
@@ -126,7 +126,7 @@ class _MBottomNavBarState extends State<MBottomNavBar> {
         padding: const EdgeInsets.only(top: 15.0),
         child: SvgPicture.asset(
           "assets/images/settings.svg",
-          height: 23,
+          height: 21,
           color: MColors.textGrey,
         ),
       );

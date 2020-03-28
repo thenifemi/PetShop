@@ -362,12 +362,67 @@ class _EditProfileState extends State<EditProfile> {
                                           getUsersPhoneStreamSnapshot(context),
                                       builder: (context, snapshot) {
                                         if (!snapshot.hasData) {
-                                          return Text(
-                                            "Loading...",
-                                            style: GoogleFonts.montserrat(
-                                              color: MColors.textGrey,
-                                              fontSize: 13.0,
+                                          return TextFormField(
+                                            initialValue: "+554700000000",
+                                            textAlign: TextAlign.end,
+                                            enableSuggestions: true,
+                                            autovalidate: _autoValidate,
+                                            validator:
+                                                PhoneNumberValiditor.validate,
+                                            onSaved: (val) =>
+                                                _phoneNumber = val,
+                                            decoration: InputDecoration(
+                                              labelStyle:
+                                                  GoogleFonts.montserrat(
+                                                      color:
+                                                          MColors.primaryPurple,
+                                                      fontSize: 13.0,
+                                                      fontWeight:
+                                                          FontWeight.w500),
+                                              contentPadding:
+                                                  new EdgeInsets.symmetric(
+                                                      horizontal: 25.0),
+                                              fillColor: MColors.primaryWhite,
+                                              hasFloatingPlaceholder: false,
+                                              filled: true,
+                                              enabledBorder: OutlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(8.0),
+                                                borderSide: BorderSide(
+                                                  color: Colors.white,
+                                                  width: 0.0,
+                                                ),
+                                              ),
+                                              errorBorder: OutlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(8.0),
+                                                borderSide: BorderSide(
+                                                  color: Colors.red,
+                                                  width: 1.0,
+                                                ),
+                                              ),
+                                              focusedErrorBorder:
+                                                  OutlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(8.0),
+                                                borderSide: BorderSide(
+                                                  color: Colors.red,
+                                                  width: 1.0,
+                                                ),
+                                              ),
+                                              focusedBorder: OutlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(8.0),
+                                                borderSide: BorderSide(
+                                                  color: Colors.white,
+                                                  width: 0.0,
+                                                ),
+                                              ),
                                             ),
+                                            style: GoogleFonts.montserrat(
+                                                color: MColors.primaryPurple,
+                                                fontSize: 13.0,
+                                                fontWeight: FontWeight.w500),
                                           );
                                         } else {
                                           return TextFormField(

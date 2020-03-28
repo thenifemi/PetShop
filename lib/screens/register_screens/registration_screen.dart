@@ -194,39 +194,42 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   textAlign: TextAlign.start,
                 ),
               ),
-              Row(
-                children: <Widget>[
-                  Container(
-                    padding: const EdgeInsets.only(top: 18.0),
-                    child: Text(
-                      Strings.registraionTitle_sub,
-                      style: GoogleFonts.montserrat(
-                        fontSize: 17.0,
-                        color: MColors.textGrey,
+              Container(
+                child: Row(
+                  children: <Widget>[
+                    Container(
+                      padding: const EdgeInsets.only(top: 18.0),
+                      child: Text(
+                        "Already have an account?",
+                        style: GoogleFonts.montserrat(
+                          fontSize: 17.0,
+                          color: MColors.textGrey,
+                        ),
+                        textAlign: TextAlign.start,
                       ),
-                      textAlign: TextAlign.start,
                     ),
-                  ),
-                  SizedBox(
-                    width: 3.0,
-                  ),
-                  Container(
-                    padding: const EdgeInsets.only(top: 18.0),
-                    child: GestureDetector(
-                        onTap: () {
-                          formKey.currentState.reset();
-                          Navigator.of(context).pushReplacementNamed("/Login");
-                        },
-                        child: Text(
-                          "Sign in!",
-                          style: GoogleFonts.montserrat(
-                            fontSize: 17.0,
-                            color: MColors.primaryPurple,
-                          ),
-                          textAlign: TextAlign.start,
-                        )),
-                  ),
-                ],
+                    SizedBox(
+                      width: 3.0,
+                    ),
+                    Container(
+                      padding: const EdgeInsets.only(top: 18.0),
+                      child: GestureDetector(
+                          onTap: () {
+                            formKey.currentState.reset();
+                            Navigator.of(context)
+                                .pushReplacementNamed("/Login");
+                          },
+                          child: Text(
+                            "Sign in!",
+                            style: GoogleFonts.montserrat(
+                              fontSize: 17.0,
+                              color: MColors.primaryPurple,
+                            ),
+                            textAlign: TextAlign.start,
+                          )),
+                    ),
+                  ],
+                ),
               ),
 
               SizedBox(
@@ -532,11 +535,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               SizedBox(
                                 width: 5.0,
                               ),
-                              Container(
-                                child: Text(
-                                  "By continuing, you agree to our Terms of Service.",
-                                  style: GoogleFonts.montserrat(
-                                      color: MColors.textDark),
+                              Expanded(
+                                                              child: Container(
+                                  child: Text(
+                                    "By continuing, you agree to our Terms of Service.",
+                                    style: GoogleFonts.montserrat(
+                                        color: MColors.textDark),
+                                  ),
                                 ),
                               ),
                             ],
