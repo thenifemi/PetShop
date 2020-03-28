@@ -217,7 +217,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 height: 60,
                 width: double.infinity,
                 child: RawMaterialButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).pushNamed('/Cards');
+                  },
                   child: Row(
                     children: <Widget>[
                       Container(
@@ -253,7 +255,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 height: 60,
                 width: double.infinity,
                 child: RawMaterialButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).pushNamed('/InviteFriend');
+                  },
                   child: Row(
                     children: <Widget>[
                       Container(

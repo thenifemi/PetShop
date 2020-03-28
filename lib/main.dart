@@ -8,8 +8,10 @@ import 'package:mollet/screens/register_screens/registration_screen.dart';
 import 'package:mollet/screens/register_screens/reset_screen.dart';
 import 'package:mollet/screens/register_screens/verification_screen.dart';
 import 'package:flutter/services.dart';
+import 'package:mollet/screens/settings_screens/cards.dart';
 import 'package:mollet/screens/settings_screens/changePassword.dart';
 import 'package:mollet/screens/settings_screens/editProfile.dart';
+import 'package:mollet/screens/settings_screens/inviteFriend.dart';
 import 'package:mollet/screens/settings_screens/passwordSecurity.dart';
 import 'package:mollet/widgets/provider.dart';
 import 'package:mollet/widgets/bottom_navbar.dart';
@@ -30,6 +32,8 @@ final routes = {
   '/Settings': (BuildContext context) => SettingsScreen(SettingsScreen),
   '/Security': (BuildContext context) => SecurityScreen(),
   '/ChangePassword': (BuildContext context) => ChangePasswordScreen(),
+  '/Cards': (BuildContext context) => Cards(),
+  '/InviteFriend': (BuildContext context) => InviteFriendScreen(),
 
   // '/': (BuildContext context) => IntroScreen(),
 };
