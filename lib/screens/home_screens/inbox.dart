@@ -5,7 +5,8 @@ import 'package:mollet/utils/colors.dart';
 
 class InboxScreen extends StatefulWidget {
   final inboxScreen;
-  InboxScreen(this.inboxScreen);
+  final ValueChanged<int> onPush;
+  InboxScreen({this.inboxScreen, this.onPush});
   @override
   _InboxScreenState createState() => _InboxScreenState();
 }

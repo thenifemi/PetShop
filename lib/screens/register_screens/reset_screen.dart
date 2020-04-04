@@ -214,7 +214,7 @@ class _ResetScreenState extends State<ResetScreen> {
             color: MColors.textDark,
           ),
           onPressed: () {
-            Navigator.of(context).pushReplacementNamed("/home");
+            Navigator.of(context).pop();
           },
         ),
       ),

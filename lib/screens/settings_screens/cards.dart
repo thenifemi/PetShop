@@ -123,7 +123,7 @@ class _CardsState extends State<Cards> {
             color: MColors.textDark,
           ),
           onPressed: () {
-            Navigator.of(context).pushReplacementNamed("/BottomNav");
+            Navigator.of(context).pop();
           },
         ),
         title: Text(

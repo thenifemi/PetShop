@@ -4,8 +4,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:mollet/utils/colors.dart';
 
 class FavoritesScreen extends StatefulWidget {
+  final ValueChanged<int> onPush;
   final favoritesScreen;
-  FavoritesScreen(this.favoritesScreen);
+  FavoritesScreen({this.favoritesScreen, this.onPush});
   @override
   _FavoritesScreenState createState() => _FavoritesScreenState();
 }

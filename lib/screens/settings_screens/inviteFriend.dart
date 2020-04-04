@@ -90,7 +90,7 @@ class _InviteFriendScreenState extends State<InviteFriendScreen> {
             color: MColors.textDark,
           ),
           onPressed: () {
-            Navigator.of(context).pushReplacementNamed("/BottomNav");
+            Navigator.of(context).pop();
           },
         ),
         title: Text(

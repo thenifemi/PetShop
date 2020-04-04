@@ -9,13 +9,13 @@ import 'package:mollet/widgets/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   // final homeScreen;
-  // HomeScreen(this.homeScreen);
+  HomeScreen({this.onPush});
+  final ValueChanged<int> onPush;
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
   Stream<QuerySnapshot> getUsersNameStreamSnapshot(
       BuildContext context) async* {
     final uid = await Provider.of(context).auth.getCurrentUID();
@@ -29,20 +29,21 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: double.infinity,
-      color: MColors.primaryWhiteSmoke,
-      child: SingleChildScrollView(
-        child: Container(
-          color: MColors.primaryWhiteSmoke,
-          child: Padding(
-            padding: const EdgeInsets.all(30.0),
+    return Scaffold(
+      appBar: AppBar(
+        brightness: Brightness.light,
+        elevation: 0.0,
+        backgroundColor: MColors.primaryWhiteSmoke,
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(60.0),
+          child: Container(
+            padding: const EdgeInsets.only(right: 20.0, left: 20.0, top: 5.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 Padding(
-                  padding: const EdgeInsets.only(top: 20.0),
+                  padding: const EdgeInsets.only(top: 0.0),
                   child: Row(
                     children: <Widget>[
                       Container(
@@ -95,142 +96,538 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
                 Container(
-                  padding: const EdgeInsets.only(top: 5.0, bottom: 30.0),
-                  child: Text(
-                    "What would you like to do today?",
+                  padding: const EdgeInsets.only(bottom: 20.0, top: 10.0),
+                  child: TextFormField(
+                    // onSaved: (val) => _email = val,
+                    decoration: InputDecoration(
+                      prefixIcon: Icon(Icons.search),
+                      labelText: "Search product or service here...",
+                      labelStyle: GoogleFonts.montserrat(
+                        fontSize: 14.0,
+                        color: MColors.textGrey,
+                      ),
+                      contentPadding:
+                          new EdgeInsets.symmetric(horizontal: 25.0),
+                      fillColor: MColors.primaryWhite,
+                      hasFloatingPlaceholder: false,
+                      filled: true,
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                        borderSide: BorderSide(
+                          color: Colors.white,
+                          width: 0.0,
+                        ),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                        borderSide: BorderSide(
+                          color: Colors.red,
+                          width: 1.0,
+                        ),
+                      ),
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                        borderSide: BorderSide(
+                          color: Colors.red,
+                          width: 1.0,
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                        borderSide: BorderSide(
+                          color: Colors.white,
+                          width: 0.0,
+                        ),
+                      ),
+                    ),
                     style: GoogleFonts.montserrat(
-                        fontSize: 18.0,
-                        color: MColors.textDark,
-                        fontWeight: FontWeight.w400),
-                    textAlign: TextAlign.start,
-                  ),
-                ),
-                Container(
-                  color: MColors.primaryWhiteSmoke,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      GestureDetector(
-                        child: Padding(
-                          padding: const EdgeInsets.only(bottom: 20.0),
-                          child: Container(
-                            padding: const EdgeInsets.all(20.0),
-                            height: 165.0,
-                            decoration: BoxDecoration(
-                              color: MColors.dashBlue,
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(10.0),
-                              ),
-                            ),
-                            child: Row(
-                              children: <Widget>[
-                                Container(
-                                  padding: const EdgeInsets.all(20.0),
-                                  child: SvgPicture.asset(
-                                    "assets/images/petfood.svg",
-                                    //Icons made by "https://www.flaticon.com/authors/photo3idea-studio"
-                                    height: 80,
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Text(
-                                    "Shop trusted stores for Pet food",
-                                    style: GoogleFonts.montserrat(
-                                        fontSize: 25.0,
-                                        color: MColors.textGrey,
-                                        fontWeight: FontWeight.bold),
-                                    textAlign: TextAlign.start,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        onTap: () {},
-                      ),
-                      GestureDetector(
-                        child: Padding(
-                          padding: const EdgeInsets.only(bottom: 20.0),
-                          child: Container(
-                            padding: const EdgeInsets.all(20.0),
-                            height: 165.0,
-                            decoration: BoxDecoration(
-                              color: MColors.dashPurple,
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(10.0),
-                              ),
-                            ),
-                            child: Row(
-                              children: <Widget>[
-                                Container(
-                                  padding: const EdgeInsets.all(20.0),
-                                  child: SvgPicture.asset(
-                                    "assets/images/veterinarian.svg",
-                                    height: 80,
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Text(
-                                    "Book a Vet appointment",
-                                    style: GoogleFonts.montserrat(
-                                        fontSize: 25.0,
-                                        color: MColors.textGrey,
-                                        fontWeight: FontWeight.bold),
-                                    textAlign: TextAlign.start,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        onTap: () {},
-                      ),
-                      GestureDetector(
-                        child: Padding(
-                          padding: const EdgeInsets.only(bottom: 20.0),
-                          child: Container(
-                            padding: const EdgeInsets.all(20.0),
-                            height: 165.0,
-                            decoration: BoxDecoration(
-                              color: MColors.dashAmber,
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(10.0),
-                              ),
-                            ),
-                            child: Row(
-                              children: <Widget>[
-                                Container(
-                                  padding: const EdgeInsets.all(20.0),
-                                  child: SvgPicture.asset(
-                                    "assets/images/petsitter.svg",
-                                    height: 80,
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Text(
-                                    "Hire a professional Petsitter",
-                                    style: GoogleFonts.montserrat(
-                                        fontSize: 25.0,
-                                        color: MColors.textGrey,
-                                        fontWeight: FontWeight.bold),
-                                    textAlign: TextAlign.start,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        onTap: () {},
-                      ),
-                    ],
+                        fontSize: 18.0, color: MColors.textDark),
                   ),
                 ),
               ],
             ),
           ),
-          // bottomNavigationBar: MBottomNavBar(MBottomNavBar),
         ),
       ),
+      body: Container(
+        // color: MColors.primaryWhiteSmoke,
+        padding: const EdgeInsets.only(
+          // right: 30,
+          left: 20.0,
+          top: 10.0,
+        ),
+        child: SingleChildScrollView(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+              maxHeight: MediaQuery.of(context).size.height,
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Container(
+                  padding: const EdgeInsets.only(bottom: 10.0),
+                  child: Text(
+                    "Top Products",
+                    style: GoogleFonts.montserrat(
+                      fontSize: 22.0,
+                      color: MColors.textDark,
+                      fontWeight: FontWeight.w500,
+                    ),
+                    textAlign: TextAlign.start,
+                  ),
+                ),
+                Expanded(
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
+                    itemCount: 8,
+                    itemBuilder: (context, i) => Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(10.0),
+                          ),
+                          child: RawMaterialButton(
+                            onPressed: () {
+                              // Navigator.of(context).pushNamed('/PetShop');
+                            },
+                            shape: RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(10.0),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.only(bottom: 0.0),
+                              child: Container(
+                                padding: const EdgeInsets.all(20.0),
+                                height: 230.0,
+                                width: 200.0,
+                                decoration: BoxDecoration(
+                                  color: MColors.dashPurple,
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(10.0),
+                                  ),
+                                ),
+                                child: Column(
+                                  children: <Widget>[
+                                    Container(
+                                      padding: const EdgeInsets.all(5.0),
+                                      child: SvgPicture.asset(
+                                        "assets/images/dogs.svg",
+                                        //Icons made by "https://www.flaticon.com/authors/photo3idea-studio"
+                                        height: 95,
+                                      ),
+                                    ),
+                                    Container(
+                                      child: Text(
+                                        "Dogs",
+                                        style: GoogleFonts.montserrat(
+                                            fontSize: 16.0,
+                                            color: MColors.textGrey,
+                                            fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.start,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: 20.0),
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(height: 20.0),
+                Container(
+                  padding: const EdgeInsets.only(bottom: 10.0),
+                  child: Text(
+                    "Shop by pet",
+                    style: GoogleFonts.montserrat(
+                      fontSize: 18.0,
+                      color: MColors.textDark,
+                      fontWeight: FontWeight.w500,
+                    ),
+                    textAlign: TextAlign.start,
+                  ),
+                ),
+                Expanded(
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
+                    itemCount: 8,
+                    itemBuilder: (context, i) => Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(10.0),
+                          ),
+                          child: RawMaterialButton(
+                            onPressed: () {
+                              // Navigator.of(context).pushNamed('/PetShop');
+                            },
+                            shape: RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(10.0),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.only(bottom: 0.0),
+                              child: Container(
+                                padding: const EdgeInsets.all(20.0),
+                                height: 230.0,
+                                width: 200.0,
+                                decoration: BoxDecoration(
+                                  color: MColors.dashPurple,
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(10.0),
+                                  ),
+                                ),
+                                child: Column(
+                                  children: <Widget>[
+                                    Container(
+                                      padding: const EdgeInsets.all(5.0),
+                                      child: SvgPicture.asset(
+                                        "assets/images/dogs.svg",
+                                        //Icons made by "https://www.flaticon.com/authors/photo3idea-studio"
+                                        height: 95,
+                                      ),
+                                    ),
+                                    Container(
+                                      child: Text(
+                                        "Dogs",
+                                        style: GoogleFonts.montserrat(
+                                            fontSize: 16.0,
+                                            color: MColors.textGrey,
+                                            fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.start,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: 20.0),
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(height: 20.0),
+                Container(
+                  padding: const EdgeInsets.only(bottom: 10.0),
+                  child: Text(
+                    "Shop by pet",
+                    style: GoogleFonts.montserrat(
+                      fontSize: 18.0,
+                      color: MColors.textDark,
+                      fontWeight: FontWeight.w500,
+                    ),
+                    textAlign: TextAlign.start,
+                  ),
+                ),
+                Expanded(
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
+                    itemCount: 8,
+                    itemBuilder: (context, i) => Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(10.0),
+                          ),
+                          child: RawMaterialButton(
+                            onPressed: () {
+                              // Navigator.of(context).pushNamed('/PetShop');
+                            },
+                            shape: RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(10.0),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.only(bottom: 0.0),
+                              child: Container(
+                                padding: const EdgeInsets.all(20.0),
+                                height: 230.0,
+                                width: 200.0,
+                                decoration: BoxDecoration(
+                                  color: MColors.dashPurple,
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(10.0),
+                                  ),
+                                ),
+                                child: Column(
+                                  children: <Widget>[
+                                    Container(
+                                      padding: const EdgeInsets.all(5.0),
+                                      child: SvgPicture.asset(
+                                        "assets/images/dogs.svg",
+                                        //Icons made by "https://www.flaticon.com/authors/photo3idea-studio"
+                                        height: 95,
+                                      ),
+                                    ),
+                                    Container(
+                                      child: Text(
+                                        "Dogs",
+                                        style: GoogleFonts.montserrat(
+                                            fontSize: 16.0,
+                                            color: MColors.textGrey,
+                                            fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.start,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: 20.0),
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(height: 20.0),
+                Container(
+                  padding: const EdgeInsets.only(bottom: 10.0),
+                  child: Text(
+                    "Shop by pet",
+                    style: GoogleFonts.montserrat(
+                      fontSize: 18.0,
+                      color: MColors.textDark,
+                      fontWeight: FontWeight.w500,
+                    ),
+                    textAlign: TextAlign.start,
+                  ),
+                ),
+                Expanded(
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
+                    itemCount: 8,
+                    itemBuilder: (context, i) => Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(10.0),
+                          ),
+                          child: RawMaterialButton(
+                            onPressed: () {
+                              // Navigator.of(context).pushNamed('/PetShop');
+                            },
+                            shape: RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(10.0),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.only(bottom: 0.0),
+                              child: Container(
+                                padding: const EdgeInsets.all(20.0),
+                                height: 230.0,
+                                width: 200.0,
+                                decoration: BoxDecoration(
+                                  color: MColors.dashPurple,
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(10.0),
+                                  ),
+                                ),
+                                child: Column(
+                                  children: <Widget>[
+                                    Container(
+                                      padding: const EdgeInsets.all(5.0),
+                                      child: SvgPicture.asset(
+                                        "assets/images/dogs.svg",
+                                        //Icons made by "https://www.flaticon.com/authors/photo3idea-studio"
+                                        height: 95,
+                                      ),
+                                    ),
+                                    Container(
+                                      child: Text(
+                                        "Dogs",
+                                        style: GoogleFonts.montserrat(
+                                            fontSize: 16.0,
+                                            color: MColors.textGrey,
+                                            fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.start,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: 20.0),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+
+      // child: SingleChildScrollView(
+      //   child: Container(
+      //     color: MColors.primaryWhiteSmoke,
+      //     child: Padding(
+      //       padding: const EdgeInsets.all(30.0),
+      //       child: Column(
+      //         crossAxisAlignment: CrossAxisAlignment.start,
+      //         mainAxisAlignment: MainAxisAlignment.start,
+      //         children: <Widget>[
+
+      //           Container(
+      //             color: MColors.primaryWhiteSmoke,
+      //             child: Column(
+      //               mainAxisAlignment: MainAxisAlignment.start,
+      //               children: <Widget>[
+      //                 RawMaterialButton(
+      //                   onPressed: () {
+      //                     Navigator.of(context).pushNamed('/PetShop');
+      //                   },
+      //                   shape: RoundedRectangleBorder(
+      //                     borderRadius: new BorderRadius.circular(10.0),
+      //                   ),
+      //                   child: Padding(
+      //                     padding: const EdgeInsets.only(bottom: 0.0),
+      //                     child: Container(
+      //                       padding: const EdgeInsets.all(20.0),
+      //                       height: 165.0,
+      //                       decoration: BoxDecoration(
+      //                         color: MColors.dashBlue,
+      //                         borderRadius: BorderRadius.all(
+      //                           Radius.circular(10.0),
+      //                         ),
+      //                       ),
+      //                       child: Row(
+      //                         children: <Widget>[
+      //                           Container(
+      //                             padding: const EdgeInsets.all(20.0),
+      //                             child: SvgPicture.asset(
+      //                               "assets/images/petfood.svg",
+      //                               //Icons made by "https://www.flaticon.com/authors/photo3idea-studio"
+      //                               height: 80,
+      //                             ),
+      //                           ),
+      //                           Expanded(
+      //                             child: Text(
+      //                               "Shop trusted stores for Pet supplies",
+      //                               style: GoogleFonts.montserrat(
+      //                                   fontSize: 22.0,
+      //                                   color: MColors.textGrey,
+      //                                   fontWeight: FontWeight.bold),
+      //                               textAlign: TextAlign.start,
+      //                             ),
+      //                           ),
+      //                         ],
+      //                       ),
+      //                     ),
+      //                   ),
+      //                 ),
+      //                 SizedBox(
+      //                   height: 30.0,
+      //                 ),
+      //                 RawMaterialButton(
+      //                   onPressed: () {},
+      //                   shape: RoundedRectangleBorder(
+      //                     borderRadius: new BorderRadius.circular(10.0),
+      //                   ),
+      //                   child: Padding(
+      //                     padding: const EdgeInsets.only(),
+      //                     child: Container(
+      //                       padding: const EdgeInsets.all(20.0),
+      //                       height: 165.0,
+      //                       decoration: BoxDecoration(
+      //                         color: MColors.dashPurple,
+      //                         borderRadius: BorderRadius.all(
+      //                           Radius.circular(10.0),
+      //                         ),
+      //                       ),
+      //                       child: Row(
+      //                         children: <Widget>[
+      //                           Container(
+      //                             padding: const EdgeInsets.all(20.0),
+      //                             child: SvgPicture.asset(
+      //                               "assets/images/veterinarian.svg",
+      //                               height: 80,
+      //                             ),
+      //                           ),
+      //                           Expanded(
+      //                             child: Text(
+      //                               "Book a Vet appointment",
+      //                               style: GoogleFonts.montserrat(
+      //                                   fontSize: 22.0,
+      //                                   color: MColors.textGrey,
+      //                                   fontWeight: FontWeight.bold),
+      //                               textAlign: TextAlign.start,
+      //                             ),
+      //                           ),
+      //                         ],
+      //                       ),
+      //                     ),
+      //                   ),
+      //                 ),
+      //                 SizedBox(
+      //                   height: 30.0,
+      //                 ),
+      //                 RawMaterialButton(
+      //                   onPressed: () {},
+      //                   shape: RoundedRectangleBorder(
+      //                     borderRadius: new BorderRadius.circular(10.0),
+      //                   ),
+      //                   child: Padding(
+      //                     padding: const EdgeInsets.only(),
+      //                     child: Container(
+      //                       padding: const EdgeInsets.all(20.0),
+      //                       height: 165.0,
+      //                       decoration: BoxDecoration(
+      //                         color: MColors.dashAmber,
+      //                         borderRadius: BorderRadius.all(
+      //                           Radius.circular(10.0),
+      //                         ),
+      //                       ),
+      //                       child: Row(
+      //                         children: <Widget>[
+      //                           Container(
+      //                             padding: const EdgeInsets.all(20.0),
+      //                             child: SvgPicture.asset(
+      //                               "assets/images/petsitter.svg",
+      //                               height: 80,
+      //                             ),
+      //                           ),
+      //                           Expanded(
+      //                             child: Text(
+      //                               "Hire professional Pet services",
+      //                               style: GoogleFonts.montserrat(
+      //                                   fontSize: 22.0,
+      //                                   color: MColors.textGrey,
+      //                                   fontWeight: FontWeight.bold),
+      //                               textAlign: TextAlign.start,
+      //                             ),
+      //                           ),
+      //                         ],
+      //                       ),
+      //                     ),
+      //                   ),
+      //                 ),
+      //               ],
+      //             ),
+      //           ),
+      //         ],
+      //       ),
+      //     ),
+      //     // bottomNavigationBar: MBottomNavBar(MBottomNavBar),
+      //   ),
+      // ),
     );
   }
 }

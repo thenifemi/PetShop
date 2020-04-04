@@ -267,9 +267,11 @@ class _EditProfileState extends State<EditProfile> {
             color: MColors.textDark,
           ),
           onPressed: () {
-            Navigator.of(context).pushReplacementNamed("/home");
+            // Navigator.of(context).pushReplacementNamed("/home");
+            Navigator.of(context).pop();
           },
         ),
+        
         title: Text(
           "Profile",
           style: GoogleFonts.montserrat(

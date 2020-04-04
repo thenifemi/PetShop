@@ -32,7 +32,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
             color: MColors.textDark,
           ),
           onPressed: () {
-            Navigator.of(context).pushReplacementNamed("/Security");
+            Navigator.of(context).pop();
           },
         ),
         title: Text(

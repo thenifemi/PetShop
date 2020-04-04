@@ -80,6 +80,12 @@ flutter:
     - assets/images/creditcard.svg
     - assets/images/cardsuccess.svg
     - assets/images/manage.svg
+    - assets/images/dogs.svg
+    - assets/images/cats.svg
+    - assets/images/fish.svg
+    - assets/images/birds.svg
+    - assets/images/reptiles.svg
+    - assets/images/others.svg
     - assets/images/scan_fingerprint.png
     - assets/images/checkmark.png
 

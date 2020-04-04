@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mollet/screens/settings_screens/changePassword.dart';
 import 'package:mollet/utils/colors.dart';
 
 class SecurityScreen extends StatelessWidget {
@@ -17,7 +18,7 @@ class SecurityScreen extends StatelessWidget {
             color: MColors.textDark,
           ),
           onPressed: () {
-            Navigator.of(context).pushReplacementNamed("/home");
+            Navigator.of(context).pop();
           },
         ),
         title: Text(
@@ -37,7 +38,11 @@ class SecurityScreen extends StatelessWidget {
             width: double.infinity,
             child: RawMaterialButton(
               onPressed: () {
-                Navigator.of(context).pushReplacementNamed('/ChangePassword');
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => ChangePasswordScreen(),
+                  ),
+                );
               },
               child: Row(
                 children: <Widget>[

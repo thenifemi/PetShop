@@ -1,13 +1,12 @@
-
 class Strings {
-
   //FONTS
   static const String customFont = "poppins-regular";
 
   //GET STARTED STRINGS
   static String appName = "mollet";
-  static const String onBoardTitle1 ="Welcome to";
-  static const String onBoardTitle_sub1 = "Caring for your pets has never been so easy! With Mollet, you can buy your pets food, hire a professional caretaker and book Vet appointments for your pets.";
+  static const String onBoardTitle1 = "Welcome to";
+  static const String onBoardTitle_sub1 =
+      "Caring for your pets has never been so easy! With Mollet, you can get pet supplies, hire professional pet services and book Vet appointments.";
   static const String onBoardTitle2 = "the World of Pets";
   // static const String onBoardTitle_sub2 = "Visit any of the growing number of online outlets who accept mollet and make your purchase in a second.";
   // static const String onBoardTitle3 = "Manage your finances";
@@ -21,7 +20,8 @@ class Strings {
   static const String registraionTitle = "Create your free account";
   static const String registraionTitle_sub = "Do you already have an account?";
   static const String conti_nue = "Continue";
-  static const String verificationTitle = "Enter the mutiple digit code that was sent to your phone to confirm your number.";
+  static const String verificationTitle =
+      "Enter the mutiple digit code that was sent to your phone to confirm your number.";
   static const String verificationTitle_sub2 = "This code will expire in 0:59";
   static const String set_your_password = "Set your password";
   static const String resend = "Resend";
@@ -31,7 +31,8 @@ class Strings {
   static const String do_not_have_account = " Do not have an account?";
   static const String forgot_password = "Forgot password?";
   static const String fingerprint_authTitle = "Fingerprint Authentication";
-  static const String fingerprint_authTitle_sub = "Please scan your finger to log in";
+  static const String fingerprint_authTitle_sub =
+      "Please scan your finger to log in";
   static const String link_account = "Link account";
   static const String pick_card = "International card";
   static const String link_card = "Link your card";

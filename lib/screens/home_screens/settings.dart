@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mollet/main.dart';
 import 'package:mollet/model/services/auth_service.dart';
+import 'package:mollet/screens/settings_screens/cards.dart';
+import 'package:mollet/screens/settings_screens/editProfile.dart';
+import 'package:mollet/screens/settings_screens/inviteFriend.dart';
+import 'package:mollet/screens/settings_screens/passwordSecurity.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:mollet/widgets/provider.dart';
 
 class SettingsScreen extends StatefulWidget {
   final mSettings;
-  SettingsScreen(this.mSettings);
+  final ValueChanged<int> onPush;
+  SettingsScreen({this.mSettings, this.onPush});
   @override
   _SettingsScreenState createState() => _SettingsScreenState();
 }
@@ -52,7 +58,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         builder: (BuildContext context) {
           return AlertDialog(
             content: Text(
-              "Are you sure sure you want to log out?",
+              "Are you sure you want to sign out?",
               style: GoogleFonts.montserrat(),
             ),
             actions: <Widget>[
@@ -71,8 +77,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     AuthService auth = Provider.of(context).auth;
                     auth.signOut();
                     Navigator.of(context).pop();
-
-                    Navigator.of(context).pushReplacementNamed("/home");
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        builder: (_) => MyApp(),
+                      ),
+                    );
                     print("Signed out.");
                   } catch (e) {
                     print(e);
@@ -106,7 +115,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 padding: const EdgeInsets.only(top: 20.0),
                 child: RawMaterialButton(
                   onPressed: () {
-                    Navigator.of(context).pushNamed("/EditProfile");
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (_) => EditProfile(),
+                      ),
+                    );
                   },
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -153,7 +166,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           highlightElevation: 0.0,
                           fillColor: MColors.dashPurple,
                           onPressed: () {
-                            Navigator.of(context).pushNamed("/EditProfile");
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (_) => EditProfile(),
+                              ),
+                            );
                           },
                           child: Text(
                             "EDIT PROFILE",
@@ -180,7 +197,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 width: double.infinity,
                 child: RawMaterialButton(
                   onPressed: () {
-                    Navigator.of(context).pushNamed('/Security');
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (_) => SecurityScreen(),
+                      ),
+                    );
                   },
                   child: Row(
                     children: <Widget>[
@@ -218,7 +239,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 width: double.infinity,
                 child: RawMaterialButton(
                   onPressed: () {
-                    Navigator.of(context).pushNamed('/Cards');
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (_) => Cards(),
+                      ),
+                    );
                   },
                   child: Row(
                     children: <Widget>[
@@ -256,7 +281,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 width: double.infinity,
                 child: RawMaterialButton(
                   onPressed: () {
-                    Navigator.of(context).pushNamed('/InviteFriend');
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (_) => InviteFriendScreen(),
+                      ),
+                    );
                   },
                   child: Row(
                     children: <Widget>[
@@ -293,7 +322,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 height: 60,
                 width: double.infinity,
                 child: RawMaterialButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    // Navigator.of(context).push(
+                    //   MaterialPageRoute(
+                    //     builder: (_) => SecurityScreen(),
+                    //   ),
+                    // );
+                  },
                   child: Row(
                     children: <Widget>[
                       Container(
@@ -329,7 +364,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 height: 60,
                 width: double.infinity,
                 child: RawMaterialButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    // Navigator.of(context).push(
+                    //   MaterialPageRoute(
+                    //     builder: (_) => SecurityScreen(),
+                    //   ),
+                    // );
+                  },
                   child: Row(
                     children: <Widget>[
                       Container(

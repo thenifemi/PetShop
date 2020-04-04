@@ -17,16 +17,36 @@ class MBottomNavBar extends StatefulWidget {
 }
 
 class _MBottomNavBarState extends State<MBottomNavBar> {
-  final _navigatorKey = GlobalKey<NavigatorState>();
   int _currentIndex = 0;
 
-  final List<Widget> tabs = [
-    HomeScreen(),
-    HistoryScreen(HistoryScreen),
-    FavoritesScreen(FavoritesScreen),
-    InboxScreen(InboxScreen),
-    SettingsScreen(SettingsScreen),
-  ];
+  HomeScreen homeScreen;
+  HistoryScreen historyScreen;
+  FavoritesScreen favoritesScreen;
+  InboxScreen inboxScreen;
+  SettingsScreen settingsScreen;
+  List<Widget> tabs;
+  Widget currentTab;
+
+  @override
+  void initState() {
+    homeScreen = HomeScreen();
+    historyScreen = HistoryScreen();
+    favoritesScreen = FavoritesScreen();
+    inboxScreen = InboxScreen();
+    settingsScreen = SettingsScreen();
+
+    tabs = [
+      homeScreen,
+      historyScreen,
+      favoritesScreen,
+      inboxScreen,
+      settingsScreen
+    ];
+
+    currentTab = homeScreen;
+
+    super.initState();
+  }
 
   Widget buildHomeIcon() {
     if (_currentIndex == 0) {
@@ -34,7 +54,7 @@ class _MBottomNavBarState extends State<MBottomNavBar> {
         padding: const EdgeInsets.only(top: 15.0),
         child: SvgPicture.asset(
           "assets/images/home.svg",
-          height: 23,
+          height: 20,
         ),
       );
     } else {
@@ -42,7 +62,7 @@ class _MBottomNavBarState extends State<MBottomNavBar> {
         padding: const EdgeInsets.only(top: 15.0),
         child: SvgPicture.asset(
           "assets/images/home.svg",
-          height: 21,
+          height: 18,
           color: MColors.textGrey,
         ),
       );
@@ -55,7 +75,7 @@ class _MBottomNavBarState extends State<MBottomNavBar> {
         padding: const EdgeInsets.only(top: 15.0),
         child: SvgPicture.asset(
           "assets/images/clock.svg",
-          height: 23,
+          height: 20,
         ),
       );
     } else {
@@ -63,7 +83,7 @@ class _MBottomNavBarState extends State<MBottomNavBar> {
         padding: const EdgeInsets.only(top: 15.0),
         child: SvgPicture.asset(
           "assets/images/clock.svg",
-          height: 21,
+          height: 18,
           color: MColors.textGrey,
         ),
       );
@@ -76,7 +96,7 @@ class _MBottomNavBarState extends State<MBottomNavBar> {
         padding: const EdgeInsets.only(top: 15.0),
         child: SvgPicture.asset(
           "assets/images/fav.svg",
-          height: 23,
+          height: 20,
         ),
       );
     } else {
@@ -84,7 +104,7 @@ class _MBottomNavBarState extends State<MBottomNavBar> {
         padding: const EdgeInsets.only(top: 15.0),
         child: SvgPicture.asset(
           "assets/images/fav.svg",
-          height: 21,
+          height: 18,
           color: MColors.textGrey,
         ),
       );
@@ -97,7 +117,7 @@ class _MBottomNavBarState extends State<MBottomNavBar> {
         padding: const EdgeInsets.only(top: 15.0),
         child: SvgPicture.asset(
           "assets/images/mail.svg",
-          height: 23,
+          height: 20,
         ),
       );
     } else {
@@ -105,7 +125,7 @@ class _MBottomNavBarState extends State<MBottomNavBar> {
         padding: const EdgeInsets.only(top: 15.0),
         child: SvgPicture.asset(
           "assets/images/mail.svg",
-          height: 21,
+          height: 18,
           color: MColors.textGrey,
         ),
       );
@@ -118,7 +138,7 @@ class _MBottomNavBarState extends State<MBottomNavBar> {
         padding: const EdgeInsets.only(top: 15.0),
         child: SvgPicture.asset(
           "assets/images/settings.svg",
-          height: 23,
+          height: 20,
         ),
       );
     } else {
@@ -126,7 +146,7 @@ class _MBottomNavBarState extends State<MBottomNavBar> {
         padding: const EdgeInsets.only(top: 15.0),
         child: SvgPicture.asset(
           "assets/images/settings.svg",
-          height: 21,
+          height: 18,
           color: MColors.textGrey,
         ),
       );
@@ -188,7 +208,7 @@ class _MBottomNavBarState extends State<MBottomNavBar> {
         backgroundColor: MColors.primaryWhiteSmoke,
         title: buildAppBarTitle(),
       ),
-      body: tabs[_currentIndex],
+      body: currentTab,
       bottomNavigationBar: Container(
         height: 65.0,
         child: BottomNavigationBar(
@@ -202,6 +222,7 @@ class _MBottomNavBarState extends State<MBottomNavBar> {
           onTap: (index) {
             setState(() {
               _currentIndex = index;
+              currentTab = tabs[index];
             });
           },
           items: [
