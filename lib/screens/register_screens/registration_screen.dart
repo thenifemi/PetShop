@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mollet/model/services/auth_service.dart';
 import 'package:mollet/model/services/user_management.dart';
+import 'package:mollet/screens/register_screens/login_screen.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:mollet/utils/strings.dart';
 import 'package:mollet/widgets/provider.dart';
@@ -58,7 +59,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             _email, _password, _name, _phoneNumber);
         UserManagement().storeNewUser(_name, _phoneNumber, _email, context);
         print("Signed Up with new $uid");
-        Navigator.of(context).pushReplacementNamed("/Login");
+
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (_) => LoginScreen(),
+          ),
+        );
       } else {
         setState(() {
           _autoValidate = true;
@@ -216,8 +222,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       child: GestureDetector(
                           onTap: () {
                             formKey.currentState.reset();
-                            Navigator.of(context)
-                                .pushReplacementNamed("/Login");
+                            Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                builder: (_) => LoginScreen(),
+                              ),
+                            );
                           },
                           child: Text(
                             "Sign in!",
@@ -536,7 +545,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                 width: 5.0,
                               ),
                               Expanded(
-                                                              child: Container(
+                                child: Container(
                                   child: Text(
                                     "By continuing, you agree to our Terms of Service.",
                                     style: GoogleFonts.montserrat(

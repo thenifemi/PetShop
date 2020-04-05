@@ -1,6 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mollet/main.dart';
+import 'package:mollet/screens/register_screens/registration_screen.dart';
+import 'package:mollet/screens/register_screens/reset_screen.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:mollet/utils/strings.dart';
 import 'package:mollet/widgets/provider.dart';
@@ -54,7 +57,11 @@ class _LoginScreenState extends State<LoginScreen> {
         String uid = await auth.signInWithEmailAndPassword(_email, _password);
         print("Signed in with $uid");
         Navigator.of(context).pop();
-        Navigator.of(context).pushReplacementNamed("/home");
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (_) => MyApp(),
+          ),
+        );
       } else {
         setState(() {
           _autoValidate = true;
@@ -210,8 +217,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: FlatButton(
                         onPressed: () {
                           formKey.currentState.reset();
-                          Navigator.of(context)
-                              .pushReplacementNamed("/Registration");
+                          Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(
+                              builder: (_) => RegistrationScreen(),
+                            ),
+                          );
                         },
                         child: Text(
                           "Create it!",
@@ -339,7 +349,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             },
                             onSaved: (val) => _password = val,
                             decoration: InputDecoration(
-                               suffix: SizedBox(
+                              suffix: SizedBox(
                                 height: 20.0,
                                 width: 35.0,
                                 child: RawMaterialButton(
@@ -422,7 +432,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       padding: const EdgeInsets.only(top: 20.0, bottom: 10.0),
                       child: GestureDetector(
                         onTap: () {
-                          Navigator.of(context).pushNamed('/Reset');
+                          Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(
+                              builder: (_) => ResetScreen(),
+                            ),
+                          );
                         },
                         child: Text(
                           "Forgot password?",

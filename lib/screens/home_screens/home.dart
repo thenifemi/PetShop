@@ -64,18 +64,18 @@ class _HomeScreenState extends State<HomeScreen> {
                                 return Text(
                                   "Human",
                                   style: GoogleFonts.montserrat(
-                                      fontSize: 22.0,
-                                      color: MColors.primaryPurple,
-                                      fontWeight: FontWeight.bold),
+                                    fontSize: 22.0,
+                                    color: MColors.primaryPurple,
+                                  ),
                                   textAlign: TextAlign.start,
                                 );
                               } else {
                                 return Text(
                                   snapshot.data.documents[0]['name'],
                                   style: GoogleFonts.montserrat(
-                                      fontSize: 22.0,
-                                      color: MColors.primaryPurple,
-                                      fontWeight: FontWeight.bold),
+                                    fontSize: 22.0,
+                                    color: MColors.primaryPurple,
+                                  ),
                                   textAlign: TextAlign.start,
                                   // ),
                                 );
@@ -157,70 +157,172 @@ class _HomeScreenState extends State<HomeScreen> {
           top: 10.0,
         ),
         child: SingleChildScrollView(
-          child: ConstrainedBox(
-            constraints: BoxConstraints(
-              maxHeight: MediaQuery.of(context).size.height,
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Container(
-                  padding: const EdgeInsets.only(bottom: 10.0),
-                  child: Text(
-                    "Top Products",
-                    style: GoogleFonts.montserrat(
-                      fontSize: 22.0,
-                      color: MColors.textDark,
-                      fontWeight: FontWeight.w500,
-                    ),
-                    textAlign: TextAlign.start,
+          child: Column(
+            children: <Widget>[
+              Container(
+                height: 300.0,
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(
+                    maxHeight: 300,
                   ),
-                ),
-                Expanded(
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    itemCount: 8,
-                    itemBuilder: (context, i) => Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Card(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: new BorderRadius.circular(10.0),
-                          ),
-                          child: RawMaterialButton(
-                            onPressed: () {
-                              // Navigator.of(context).pushNamed('/PetShop');
-                            },
-                            shape: RoundedRectangleBorder(
-                              borderRadius: new BorderRadius.circular(10.0),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.only(bottom: 0.0),
-                              child: Container(
-                                padding: const EdgeInsets.all(20.0),
-                                height: 230.0,
-                                width: 200.0,
-                                decoration: BoxDecoration(
-                                  color: MColors.dashPurple,
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(10.0),
-                                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Container(
+                        padding: const EdgeInsets.only(bottom: 10.0),
+                        child: Row(
+                          children: <Widget>[
+                            Expanded(
+                              child: Text(
+                                "Popular",
+                                style: GoogleFonts.montserrat(
+                                  fontSize: 30.0,
+                                  color: MColors.textDark,
+                                  fontWeight: FontWeight.w600,
                                 ),
-                                child: Column(
-                                  children: <Widget>[
-                                    Container(
-                                      padding: const EdgeInsets.all(5.0),
-                                      child: SvgPicture.asset(
-                                        "assets/images/dogs.svg",
-                                        //Icons made by "https://www.flaticon.com/authors/photo3idea-studio"
-                                        height: 95,
+                                textAlign: TextAlign.start,
+                              ),
+                            ),
+                            RawMaterialButton(
+                              onPressed: () {},
+                              child: Text(
+                                "SEE ALL",
+                                style: GoogleFonts.montserrat(
+                                  fontSize: 12.0,
+                                  color: MColors.textGrey,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                                textAlign: TextAlign.end,
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          scrollDirection: Axis.horizontal,
+                          itemCount: 8,
+                          itemBuilder: (context, i) => Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Card(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: new BorderRadius.circular(10.0),
+                                ),
+                                child: RawMaterialButton(
+                                  onPressed: () {
+                                    // Navigator.of(context).pushNamed('/PetShop');
+                                  },
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        new BorderRadius.circular(10.0),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(bottom: 0.0),
+                                    child: Container(
+                                      padding: const EdgeInsets.all(20.0),
+                                      height: 250.0,
+                                      width: 200.0,
+                                      decoration: BoxDecoration(
+                                        color: MColors.dashPurple,
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(10.0),
+                                        ),
+                                      ),
+                                      child: Column(
+                                        children: <Widget>[
+                                          Container(
+                                            padding: const EdgeInsets.all(5.0),
+                                            child: SvgPicture.asset(
+                                              "assets/images/dogs.svg",
+                                              //Icons made by "https://www.flaticon.com/authors/photo3idea-studio"
+                                              height: 95,
+                                            ),
+                                          ),
+                                          Container(
+                                            child: Text(
+                                              "Dogs",
+                                              style: GoogleFonts.montserrat(
+                                                  fontSize: 16.0,
+                                                  color: MColors.textGrey,
+                                                  fontWeight: FontWeight.bold),
+                                              textAlign: TextAlign.start,
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ),
-                                    Container(
+                                  ),
+                                ),
+                              ),
+                              SizedBox(width: 20.0),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 20.0,
+              ),
+              Container(
+                height: 100.0,
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(
+                    maxHeight: 50,
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Container(
+                        padding: const EdgeInsets.only(bottom: 10.0),
+                        child: Text(
+                          "Shop by pet",
+                          style: GoogleFonts.montserrat(
+                            fontSize: 18.0,
+                            color: MColors.textDark,
+                            fontWeight: FontWeight.w500,
+                          ),
+                          textAlign: TextAlign.start,
+                        ),
+                      ),
+                      Expanded(
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          scrollDirection: Axis.horizontal,
+                          itemCount: 8,
+                          itemBuilder: (context, i) => Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              RawMaterialButton(
+                                onPressed: () {
+                                  // Navigator.of(context).pushNamed('/PetShop');
+                                },
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: new BorderRadius.circular(10.0),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(bottom: 0.0),
+                                  child: Container(
+                                    padding: const EdgeInsets.all(5.0),
+                                    height: 50.0,
+                                    width: 100.0,
+                                    decoration: BoxDecoration(
+                                      color: MColors.dashPurple,
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(10.0),
+                                      ),
+                                    ),
+                                    child: Center(
                                       child: Text(
                                         "Dogs",
                                         style: GoogleFonts.montserrat(
@@ -230,247 +332,221 @@ class _HomeScreenState extends State<HomeScreen> {
                                         textAlign: TextAlign.start,
                                       ),
                                     ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(width: 20.0),
-                      ],
-                    ),
-                  ),
-                ),
-                SizedBox(height: 20.0),
-                Container(
-                  padding: const EdgeInsets.only(bottom: 10.0),
-                  child: Text(
-                    "Shop by pet",
-                    style: GoogleFonts.montserrat(
-                      fontSize: 18.0,
-                      color: MColors.textDark,
-                      fontWeight: FontWeight.w500,
-                    ),
-                    textAlign: TextAlign.start,
-                  ),
-                ),
-                Expanded(
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    itemCount: 8,
-                    itemBuilder: (context, i) => Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Card(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: new BorderRadius.circular(10.0),
-                          ),
-                          child: RawMaterialButton(
-                            onPressed: () {
-                              // Navigator.of(context).pushNamed('/PetShop');
-                            },
-                            shape: RoundedRectangleBorder(
-                              borderRadius: new BorderRadius.circular(10.0),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.only(bottom: 0.0),
-                              child: Container(
-                                padding: const EdgeInsets.all(20.0),
-                                height: 230.0,
-                                width: 200.0,
-                                decoration: BoxDecoration(
-                                  color: MColors.dashPurple,
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(10.0),
                                   ),
                                 ),
-                                child: Column(
-                                  children: <Widget>[
-                                    Container(
-                                      padding: const EdgeInsets.all(5.0),
-                                      child: SvgPicture.asset(
-                                        "assets/images/dogs.svg",
-                                        //Icons made by "https://www.flaticon.com/authors/photo3idea-studio"
-                                        height: 95,
-                                      ),
-                                    ),
-                                    Container(
-                                      child: Text(
-                                        "Dogs",
-                                        style: GoogleFonts.montserrat(
-                                            fontSize: 16.0,
-                                            color: MColors.textGrey,
-                                            fontWeight: FontWeight.bold),
-                                        textAlign: TextAlign.start,
-                                      ),
-                                    ),
-                                  ],
-                                ),
                               ),
-                            ),
+                              SizedBox(width: 10.0),
+                            ],
                           ),
                         ),
-                        SizedBox(width: 20.0),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
-                SizedBox(height: 20.0),
-                Container(
-                  padding: const EdgeInsets.only(bottom: 10.0),
-                  child: Text(
-                    "Shop by pet",
-                    style: GoogleFonts.montserrat(
-                      fontSize: 18.0,
-                      color: MColors.textDark,
-                      fontWeight: FontWeight.w500,
-                    ),
-                    textAlign: TextAlign.start,
+              ),
+              Container(
+                height: 180.0,
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(
+                    maxHeight: 150,
                   ),
-                ),
-                Expanded(
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    itemCount: 8,
-                    itemBuilder: (context, i) => Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Card(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: new BorderRadius.circular(10.0),
-                          ),
-                          child: RawMaterialButton(
-                            onPressed: () {
-                              // Navigator.of(context).pushNamed('/PetShop');
-                            },
-                            shape: RoundedRectangleBorder(
-                              borderRadius: new BorderRadius.circular(10.0),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Container(
+                        child: Row(
+                          children: <Widget>[
+                            Expanded(
+                              child: Text(
+                                "Services",
+                                style: GoogleFonts.montserrat(
+                                  fontSize: 26.0,
+                                  color: MColors.textDark,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                                textAlign: TextAlign.start,
+                              ),
                             ),
-                            child: Padding(
-                              padding: const EdgeInsets.only(bottom: 0.0),
-                              child: Container(
-                                padding: const EdgeInsets.all(20.0),
-                                height: 230.0,
-                                width: 200.0,
-                                decoration: BoxDecoration(
-                                  color: MColors.dashPurple,
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(10.0),
+                            RawMaterialButton(
+                              onPressed: () {},
+                              child: Text(
+                                "SEE ALL",
+                                style: GoogleFonts.montserrat(
+                                  fontSize: 12.0,
+                                  color: MColors.textGrey,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                                textAlign: TextAlign.end,
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          scrollDirection: Axis.horizontal,
+                          itemCount: 8,
+                          itemBuilder: (context, i) => Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Card(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: new BorderRadius.circular(10.0),
+                                ),
+                                child: RawMaterialButton(
+                                  onPressed: () {
+                                    // Navigator.of(context).pushNamed('/PetShop');
+                                  },
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        new BorderRadius.circular(10.0),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(bottom: 0.0),
+                                    child: Container(
+                                      padding: const EdgeInsets.all(20.0),
+                                      height: 150.0,
+                                      width: 250.0,
+                                      decoration: BoxDecoration(
+                                        color: MColors.dashPurple,
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(10.0),
+                                        ),
+                                      ),
+                                      child: Column(
+                                        children: <Widget>[
+                                          Container(
+                                            padding: const EdgeInsets.all(5.0),
+                                            child: SvgPicture.asset(
+                                              "assets/images/dogs.svg",
+                                              //Icons made by "https://www.flaticon.com/authors/photo3idea-studio"
+                                              height: 40,
+                                            ),
+                                          ),
+                                          Container(
+                                            child: Text(
+                                              "Grooming",
+                                              style: GoogleFonts.montserrat(
+                                                  fontSize: 16.0,
+                                                  color: MColors.textGrey,
+                                                  fontWeight: FontWeight.bold),
+                                              textAlign: TextAlign.start,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
                                   ),
                                 ),
-                                child: Column(
-                                  children: <Widget>[
-                                    Container(
-                                      padding: const EdgeInsets.all(5.0),
-                                      child: SvgPicture.asset(
-                                        "assets/images/dogs.svg",
-                                        //Icons made by "https://www.flaticon.com/authors/photo3idea-studio"
-                                        height: 95,
-                                      ),
-                                    ),
-                                    Container(
-                                      child: Text(
-                                        "Dogs",
-                                        style: GoogleFonts.montserrat(
-                                            fontSize: 16.0,
-                                            color: MColors.textGrey,
-                                            fontWeight: FontWeight.bold),
-                                        textAlign: TextAlign.start,
-                                      ),
-                                    ),
-                                  ],
-                                ),
                               ),
-                            ),
+                              SizedBox(width: 20.0),
+                            ],
                           ),
                         ),
-                        SizedBox(width: 20.0),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
-                SizedBox(height: 20.0),
-                Container(
-                  padding: const EdgeInsets.only(bottom: 10.0),
-                  child: Text(
-                    "Shop by pet",
-                    style: GoogleFonts.montserrat(
-                      fontSize: 18.0,
-                      color: MColors.textDark,
-                      fontWeight: FontWeight.w500,
-                    ),
-                    textAlign: TextAlign.start,
+              ),
+              Container(
+                height: 120.0,
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(
+                    maxHeight: 120,
                   ),
-                ),
-                Expanded(
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    itemCount: 8,
-                    itemBuilder: (context, i) => Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Card(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: new BorderRadius.circular(10.0),
-                          ),
-                          child: RawMaterialButton(
-                            onPressed: () {
-                              // Navigator.of(context).pushNamed('/PetShop');
-                            },
-                            shape: RoundedRectangleBorder(
-                              borderRadius: new BorderRadius.circular(10.0),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Container(
+                        child: Row(
+                          children: <Widget>[
+                            Expanded(
+                              child: Text(
+                                "Top Rated",
+                                style: GoogleFonts.montserrat(
+                                  fontSize: 26.0,
+                                  color: MColors.textDark,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                                textAlign: TextAlign.start,
+                              ),
                             ),
-                            child: Padding(
-                              padding: const EdgeInsets.only(bottom: 0.0),
-                              child: Container(
-                                padding: const EdgeInsets.all(20.0),
-                                height: 230.0,
-                                width: 200.0,
-                                decoration: BoxDecoration(
-                                  color: MColors.dashPurple,
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(10.0),
+                            RawMaterialButton(
+                              onPressed: () {},
+                              child: Text(
+                                "SEE MORE",
+                                style: GoogleFonts.montserrat(
+                                  fontSize: 12.0,
+                                  color: MColors.textGrey,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                                textAlign: TextAlign.end,
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          scrollDirection: Axis.horizontal,
+                          itemCount: 8,
+                          itemBuilder: (context, i) => Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              RawMaterialButton(
+                                onPressed: () {
+                                  // Navigator.of(context).pushNamed('/PetShop');
+                                },
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: new BorderRadius.circular(10.0),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(bottom: 0.0),
+                                  child: Container(
+                                    padding: const EdgeInsets.all(20.0),
+                                    height: 800.0,
+                                    width: 280.0,
+                                    decoration: BoxDecoration(
+                                      color: MColors.dashPurple,
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(10.0),
+                                      ),
+                                    ),
+                                    child: Column(
+                                      children: <Widget>[
+                                        Container(
+                                          child: Text(
+                                            "Linda Martin",
+                                            style: GoogleFonts.montserrat(
+                                                fontSize: 16.0,
+                                                color: MColors.textGrey,
+                                                fontWeight: FontWeight.bold),
+                                            textAlign: TextAlign.start,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
-                                child: Column(
-                                  children: <Widget>[
-                                    Container(
-                                      padding: const EdgeInsets.all(5.0),
-                                      child: SvgPicture.asset(
-                                        "assets/images/dogs.svg",
-                                        //Icons made by "https://www.flaticon.com/authors/photo3idea-studio"
-                                        height: 95,
-                                      ),
-                                    ),
-                                    Container(
-                                      child: Text(
-                                        "Dogs",
-                                        style: GoogleFonts.montserrat(
-                                            fontSize: 16.0,
-                                            color: MColors.textGrey,
-                                            fontWeight: FontWeight.bold),
-                                        textAlign: TextAlign.start,
-                                      ),
-                                    ),
-                                  ],
-                                ),
                               ),
-                            ),
+                              SizedBox(width: 20.0),
+                            ],
                           ),
                         ),
-                        SizedBox(width: 20.0),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mollet/screens/register_screens/login_screen.dart';
+import 'package:mollet/screens/register_screens/registration_screen.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mollet/utils/strings.dart';
@@ -85,7 +87,11 @@ class IntroScreen extends StatelessWidget {
                   highlightElevation: 0.0,
                   fillColor: MColors.primaryPurple,
                   onPressed: () {
-                    Navigator.of(context).pushReplacementNamed("/Login");
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        builder: (_) => LoginScreen(),
+                      ),
+                    );
                   },
                   child: Text(
                     Strings.signin_small,
@@ -112,7 +118,11 @@ class IntroScreen extends StatelessWidget {
                   focusElevation: 0.0,
                   highlightElevation: 0.0,
                   onPressed: () {
-                    Navigator.of(context).pushReplacementNamed("/Registration");
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        builder: (_) => RegistrationScreen(),
+                      ),
+                    );
                   },
                   child: Text(
                     Strings.register,

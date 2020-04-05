@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mollet/model/services/auth_service.dart';
+import 'package:mollet/screens/register_screens/login_screen.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mollet/widgets/provider.dart';
@@ -81,7 +82,11 @@ class _ResetScreenState extends State<ResetScreen> {
                       fillColor: MColors.primaryPurple,
                       onPressed: () {
                         Navigator.of(context).pop();
-                        Navigator.of(context).pushReplacementNamed("/home");
+                        Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                            builder: (_) => LoginScreen(),
+                          ),
+                        );
                       },
                       child: Text(
                         "Proceed to login",
@@ -215,6 +220,11 @@ class _ResetScreenState extends State<ResetScreen> {
           ),
           onPressed: () {
             Navigator.of(context).pop();
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(
+                builder: (_) => LoginScreen(),
+              ),
+            );
           },
         ),
       ),
