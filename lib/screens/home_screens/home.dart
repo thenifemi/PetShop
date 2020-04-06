@@ -205,20 +205,24 @@ class _HomeScreenState extends State<HomeScreen>
                         ),
                       ),
                       Expanded(
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                          scrollDirection: Axis.horizontal,
-                          itemCount: _products.length,
-                          itemBuilder: (context, i) {
-                            final Products product = _products[i];
+                        child: _products == null
+                            ? Center(
+                                child: CircularProgressIndicator(),
+                              )
+                            : ListView.builder(
+                                shrinkWrap: true,
+                                scrollDirection: Axis.horizontal,
+                                itemCount: _products.length,
+                                itemBuilder: (context, i) {
+                                  final Products product = _products[i];
 
-                            return _isLoading
-                                ? Center(
-                                    child: CircularProgressIndicator(),
-                                  )
-                                : _popularBlockWidget(product);
-                          },
-                        ),
+                                  return _isLoading
+                                      ? Center(
+                                          child: CircularProgressIndicator(),
+                                        )
+                                      : _popularBlockWidget(product);
+                                },
+                              ),
                       ),
                     ],
                   ),
