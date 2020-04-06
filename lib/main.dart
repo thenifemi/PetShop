@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:mollet/dependency_injection.dart';
 import 'package:mollet/model/services/auth_service.dart';
 import 'package:mollet/screens/getstarted_screens/intro_screen.dart';
 import 'package:mollet/screens/home_screens/home.dart';
@@ -21,9 +22,12 @@ import 'package:mollet/widgets/tabsLayout.dart';
 // import 'model/services/provider.dart';
 
 void main() async {
+  Injector.configure(Flavor.MOCK);
+
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+
   runApp(MyApp());
 }
 
