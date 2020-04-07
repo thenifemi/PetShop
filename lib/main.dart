@@ -15,7 +15,6 @@ import 'package:mollet/screens/settings_screens/changePassword.dart';
 import 'package:mollet/screens/settings_screens/editProfile.dart';
 import 'package:mollet/screens/settings_screens/inviteFriend.dart';
 import 'package:mollet/screens/settings_screens/passwordSecurity.dart';
-import 'package:mollet/widgets/bottom_navbar.dart';
 import 'package:mollet/widgets/provider.dart';
 import 'package:mollet/widgets/tabsLayout.dart';
 
@@ -38,7 +37,6 @@ final routes = {
   '/Login': (BuildContext context) => LoginScreen(),
   '/Reset': (BuildContext context) => ResetScreen(),
   '/home': (BuildContext context) => HomeController(),
-  '/BottomNav': (BuildContext context) => MBottomNavBar(MBottomNavBar),
   '/EditProfile': (BuildContext context) => EditProfile(),
   '/Settings': (BuildContext context) => SettingsScreen(),
   '/Security': (BuildContext context) => SecurityScreen(),

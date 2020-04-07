@@ -4,9 +4,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:mollet/utils/colors.dart';
 
 class InboxScreen extends StatefulWidget {
-  final inboxScreen;
-  final ValueChanged<int> onPush;
-  InboxScreen({this.inboxScreen, this.onPush});
+  InboxScreen({Key key}) : super(key: key);
+
   @override
   _InboxScreenState createState() => _InboxScreenState();
 }

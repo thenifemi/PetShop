@@ -17,4 +17,10 @@ class ProdProductsRepo implements ProductsRepo {
     }
     return responseBody.map((c) => Products.fromMap(c)).toList();
   }
+
+  @override
+  Future<List<Products>> fetchPets() {
+    // TODO: implement fetchPets
+    return null;
+  }
 }

@@ -11,9 +11,8 @@ import 'package:mollet/utils/colors.dart';
 import 'package:mollet/widgets/provider.dart';
 
 class SettingsScreen extends StatefulWidget {
-  final mSettings;
-  final ValueChanged<int> onPush;
-  SettingsScreen({this.mSettings, this.onPush});
+  SettingsScreen({Key key}) : super(key: key);
+
   @override
   _SettingsScreenState createState() => _SettingsScreenState();
 }

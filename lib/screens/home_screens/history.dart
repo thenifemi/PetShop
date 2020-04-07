@@ -4,9 +4,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:mollet/utils/colors.dart';
 
 class HistoryScreen extends StatefulWidget {
-  final ValueChanged<int> onPush;
-  final historyScreen;
-  HistoryScreen({this.historyScreen, this.onPush});
+  HistoryScreen({Key key}) : super(key: key);
+
   @override
   _HistoryScreenState createState() => _HistoryScreenState();
 }

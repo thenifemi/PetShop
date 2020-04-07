@@ -17,23 +17,24 @@ class Products {
   String directions;
   String size;
   String productID;
+  String pet;
 
-  Products({
-    this.productImage,
-    this.name,
-    this.brand,
-    this.price,
-    this.desc,
-    this.moreDesc,
-    this.foodType,
-    this.lifeStage,
-    this.flavor,
-    this.weight,
-    this.ingredients,
-    this.directions,
-    this.size,
-    this.productID,
-  });
+  Products(
+      {this.productImage,
+      this.name,
+      this.brand,
+      this.price,
+      this.desc,
+      this.moreDesc,
+      this.foodType,
+      this.lifeStage,
+      this.flavor,
+      this.weight,
+      this.ingredients,
+      this.directions,
+      this.size,
+      this.productID,
+      this.pet});
 
   Products.fromMap(Map<String, dynamic> map)
       : productImage = map["productImage"],
@@ -49,11 +50,13 @@ class Products {
         ingredients = map["ingredients"],
         directions = map["directions"],
         size = map["size"],
-        productID = map["productID"];
+        productID = map["productID"],
+        pet = map["pet"];
 }
 
 abstract class ProductsRepo {
   Future<List<Products>> fetchProducts();
+  Future<List<Products>> fetchPets();
 }
 
 class FetchDataException implements Exception {

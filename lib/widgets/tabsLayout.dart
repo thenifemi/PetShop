@@ -14,12 +14,32 @@ class TabsLayout extends StatefulWidget {
 }
 
 class _TabsLayoutState extends State<TabsLayout> {
+  final PageStorageBucket bucket = PageStorageBucket();
+
   int _currentIndex = 0;
 
   @override
   void initState() {
     super.initState();
   }
+
+  final List<Widget> _children = [
+    HomeScreen(
+      key: PageStorageKey("homeKey"),
+    ),
+    HistoryScreen(
+      key: PageStorageKey("historyKey"),
+    ),
+    FavoritesScreen(
+      key: PageStorageKey("favoritesKey"),
+    ),
+    InboxScreen(
+      key: PageStorageKey("inboxKey"),
+    ),
+    SettingsScreen(
+      key: PageStorageKey("settingsKey"),
+    ),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +50,10 @@ class _TabsLayoutState extends State<TabsLayout> {
         backgroundColor: MColors.primaryWhiteSmoke,
         title: buildAppBarTitle(),
       ),
-      body: _children[_currentIndex],
+      body: PageStorage(
+        child: _children[_currentIndex],
+        bucket: bucket,
+      ),
       bottomNavigationBar: Container(
         height: 65.0,
         child: BottomNavigationBar(
@@ -79,14 +102,6 @@ class _TabsLayoutState extends State<TabsLayout> {
       _currentIndex = index;
     });
   }
-
-  final List<Widget> _children = [
-    HomeScreen(),
-    HistoryScreen(),
-    FavoritesScreen(),
-    InboxScreen(),
-    SettingsScreen(),
-  ];
 
   //Build Appbar Titles
 
