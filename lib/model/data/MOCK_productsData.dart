@@ -111,7 +111,7 @@ var products = <Products>[
     directions:
         "Up to 15 lbs 1/2 to 1-1/4 cups*16 to 25 lbs 1-1/4 to 1-3/4 cups*26 to 40 lbs 1-3/4 to 2-1/4 cups*41 to 60 lbs 2-1/4 to 3-1/4 cups*61 to 80 lbs 3-1/4 to 4 cups*81 to 100 lbs 4 to 4-3/4 cups*Over 100 lbs 4-3/4 cups* + 1/2 cup for each additional 20 lbs",
     size: "null",
-    productID: "null",
+    productID: "0",
   ),
   Products(
     productImage: Image.asset('assets/images/productImages/cesar.jpg'),
@@ -131,7 +131,7 @@ var products = <Products>[
     directions:
         "Up to 15 lbs 1/2 to 1-1/4 cups*16 to 25 lbs 1-1/4 to 1-3/4 cups*26 to 40 lbs 1-3/4 to 2-1/4 cups*41 to 60 lbs 2-1/4 to 3-1/4 cups*61 to 80 lbs 3-1/4 to 4 cups*81 to 100 lbs 4 to 4-3/4 cups*Over 100 lbs 4-3/4 cups* + 1/2 cup for each additional 20 lbs",
     size: "null",
-    productID: "null",
+    productID: "1",
   ),
   Products(
     productImage: Image.asset('assets/images/productImages/meowmix.jpg'),
@@ -151,7 +151,7 @@ var products = <Products>[
     directions:
         "Up to 15 lbs 1/2 to 1-1/4 cups*16 to 25 lbs 1-1/4 to 1-3/4 cups*26 to 40 lbs 1-3/4 to 2-1/4 cups*41 to 60 lbs 2-1/4 to 3-1/4 cups*61 to 80 lbs 3-1/4 to 4 cups*81 to 100 lbs 4 to 4-3/4 cups*Over 100 lbs 4-3/4 cups* + 1/2 cup for each additional 20 lbs",
     size: "null",
-    productID: "null",
+    productID: "2",
   ),
   Products(
     productImage: Image.asset('assets/images/productImages/pedigree.jpg'),
@@ -171,7 +171,7 @@ var products = <Products>[
     directions:
         "Up to 15 lbs 1/2 to 1-1/4 cups*16 to 25 lbs 1-1/4 to 1-3/4 cups*26 to 40 lbs 1-3/4 to 2-1/4 cups*41 to 60 lbs 2-1/4 to 3-1/4 cups*61 to 80 lbs 3-1/4 to 4 cups*81 to 100 lbs 4 to 4-3/4 cups*Over 100 lbs 4-3/4 cups* + 1/2 cup for each additional 20 lbs",
     size: "null",
-    productID: "null",
+    productID: "3",
   ),
   Products(
     productImage: Image.asset('assets/images/productImages/proplan.jpg'),
@@ -192,7 +192,7 @@ var products = <Products>[
     directions:
         "Up to 15 lbs 1/2 to 1-1/4 cups*16 to 25 lbs 1-1/4 to 1-3/4 cups*26 to 40 lbs 1-3/4 to 2-1/4 cups*41 to 60 lbs 2-1/4 to 3-1/4 cups*61 to 80 lbs 3-1/4 to 4 cups*81 to 100 lbs 4 to 4-3/4 cups*Over 100 lbs 4-3/4 cups* + 1/2 cup for each additional 20 lbs",
     size: "null",
-    productID: "null",
+    productID: "4",
   ),
   Products(
     productImage: Image.asset('assets/images/productImages/temptations.jpg'),
@@ -212,7 +212,7 @@ var products = <Products>[
     directions:
         "Up to 15 lbs 1/2 to 1-1/4 cups*16 to 25 lbs 1-1/4 to 1-3/4 cups*26 to 40 lbs 1-3/4 to 2-1/4 cups*41 to 60 lbs 2-1/4 to 3-1/4 cups*61 to 80 lbs 3-1/4 to 4 cups*81 to 100 lbs 4 to 4-3/4 cups*Over 100 lbs 4-3/4 cups* + 1/2 cup for each additional 20 lbs",
     size: "null",
-    productID: "null",
+    productID: "5",
   ),
   Products(
     productImage: Image.asset('assets/images/productImages/todycats.jpg'),
@@ -232,7 +232,7 @@ var products = <Products>[
     directions:
         "Up to 15 lbs 1/2 to 1-1/4 cups*16 to 25 lbs 1-1/4 to 1-3/4 cups*26 to 40 lbs 1-3/4 to 2-1/4 cups*41 to 60 lbs 2-1/4 to 3-1/4 cups*61 to 80 lbs 3-1/4 to 4 cups*81 to 100 lbs 4 to 4-3/4 cups*Over 100 lbs 4-3/4 cups* + 1/2 cup for each additional 20 lbs",
     size: "null",
-    productID: "null",
+    productID: "6",
   ),
   Products(
     productImage: Image.asset('assets/images/productImages/9lives.jpg'),
@@ -252,6 +252,6 @@ var products = <Products>[
     directions:
         "Up to 15 lbs 1/2 to 1-1/4 cups*16 to 25 lbs 1-1/4 to 1-3/4 cups*26 to 40 lbs 1-3/4 to 2-1/4 cups*41 to 60 lbs 2-1/4 to 3-1/4 cups*61 to 80 lbs 3-1/4 to 4 cups*81 to 100 lbs 4 to 4-3/4 cups*Over 100 lbs 4-3/4 cups* + 1/2 cup for each additional 20 lbs",
     size: "null",
-    productID: "null",
+    productID: "7",
   ),
 ];

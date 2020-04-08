@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mollet/model/data/products_data.dart';
 import 'package:mollet/model/modules/products_presenter.dart';
+import 'package:mollet/screens/home_screens/homeScreen_buttonPages/homeProductScreens/productDetailsScreen.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mollet/widgets/provider.dart';
@@ -578,7 +579,11 @@ class _HomeScreenState extends State<HomeScreen>
           ),
           child: RawMaterialButton(
             onPressed: () {
-              // Navigator.of(context).pushNamed('/PetShop');
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (_) => ProductDetails(),
+                ),
+              );
             },
             shape: RoundedRectangleBorder(
               borderRadius: new BorderRadius.circular(20.0),

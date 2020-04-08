@@ -4,7 +4,6 @@ import 'package:mollet/dependency_injection.dart';
 import 'package:mollet/model/services/auth_service.dart';
 import 'package:mollet/screens/getstarted_screens/intro_screen.dart';
 import 'package:mollet/screens/home_screens/home.dart';
-import 'package:mollet/screens/home_screens/homeScreen_buttonPages/shopScreens/shopHome.dart';
 import 'package:mollet/screens/home_screens/settings.dart';
 import 'package:mollet/screens/register_screens/login_screen.dart';
 import 'package:mollet/screens/register_screens/registration_screen.dart';
@@ -43,7 +42,6 @@ final routes = {
   '/ChangePassword': (BuildContext context) => ChangePasswordScreen(),
   '/Cards': (BuildContext context) => Cards(),
   '/InviteFriend': (BuildContext context) => InviteFriendScreen(),
-  '/PetShop': (BuildContext context) => ShopHomeScreen(),
   '/MyTabs': (BuildContext context) => TabsLayout(),
 };
 
