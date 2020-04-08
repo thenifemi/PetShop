@@ -90,6 +90,20 @@ flutter:
     - assets/images/checkmark.png
     #PRODUCT IMAGES FOR MOCK DATA
     - assets/images/productImages/buffalo.jpg
+    - assets/images/productImages/cesar.jpg
+    - assets/images/productImages/meowmix.jpg
+    - assets/images/productImages/pedigree.jpg
+    - assets/images/productImages/proplan.jpg
+    - assets/images/productImages/temptations.jpg
+    - assets/images/productImages/todycats.jpg
+    - assets/images/productImages/9lives.jpg
+    #Pets
+    - assets/images/productImages/cat.png
+    - assets/images/productImages/dogs.png
+    - assets/images/productImages/bird.png
+    - assets/images/productImages/reptile.png
+    - assets/images/productImages/fish.png
+    - assets/images/productImages/hedgehog.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

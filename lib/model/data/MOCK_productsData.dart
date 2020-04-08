@@ -11,25 +11,82 @@ class MockProductsRepo implements ProductsRepo {
   Future<List<Products>> fetchPets() {
     return Future.value(pets);
   }
+
+  Future<List<Products>> fetchCategories() {
+    return Future.value(categories);
+  }
+
+  @override
+  Future<List<Products>> fetchServices() {
+    return Future.value(services);
+  }
 }
+
+var services = <Products>[
+  Products(
+    service: "Grooming",
+  ),
+  Products(
+    category: "Training",
+  ),
+  Products(
+    category: "Pet Hotel",
+  ),
+  Products(
+    category: "Doggie Day Camp",
+  ),
+  Products(
+    category: "Vetiniary",
+  ),
+  Products(
+    category: "Charities",
+  ),
+];
+
+var categories = <Products>[
+  Products(
+    category: "Toys",
+  ),
+  Products(
+    category: "food",
+  ),
+  Products(
+    category: "Aquariums",
+  ),
+  Products(
+    category: "supplies",
+  ),
+  Products(
+    category: "Treats",
+  ),
+  Products(
+    category: "Medicine",
+  ),
+];
 
 var pets = <Products>[
   Products(
+    productImage: Image.asset('assets/images/productImages/dogs.png'),
     pet: "Dogs",
   ),
   Products(
+    productImage: Image.asset('assets/images/productImages/cat.png'),
     pet: "Cats",
   ),
   Products(
+    productImage: Image.asset('assets/images/productImages/fish.png'),
     pet: "Fish",
   ),
   Products(
+    productImage: Image.asset('assets/images/productImages/bird.png'),
     pet: "Birds",
   ),
   Products(
+    productImage: Image.asset('assets/images/productImages/reptile.png'),
     pet: "Reptiles",
   ),
   Products(
+    productImage: Image.asset('assets/images/productImages/hedgehog.png'),
     pet: "Small pets",
   ),
 ];
@@ -57,11 +114,10 @@ var products = <Products>[
     productID: "null",
   ),
   Products(
-    productImage: Image.asset('assets/images/productImages/buffalo.jpg'),
-    name:
-        "Blue Buffalo Wilderness High Protein Grain Free, Natural Adult Dry Dog Food",
-    price: 58.78,
-    brand: "Blue Buffalo",
+    productImage: Image.asset('assets/images/productImages/cesar.jpg'),
+    name: "Cesar Small Breed Dry Dog Food, All Flavors",
+    price: 68.33,
+    brand: "Cesar",
     desc:
         "Inspired by the diet of wolves, true omnivores whose endurance is legendary, BLUE Wilderness is a grain-free, protein-rich food that contains more of the delicious chicken your dog loves. Made with the finest natural ingredients and no grains.",
     moreDesc:
@@ -78,11 +134,10 @@ var products = <Products>[
     productID: "null",
   ),
   Products(
-    productImage: Image.asset('assets/images/productImages/buffalo.jpg'),
-    name:
-        "Blue Buffalo Wilderness High Protein Grain Free, Natural Adult Dry Dog Food",
-    price: 58.78,
-    brand: "Blue Buffalo",
+    productImage: Image.asset('assets/images/productImages/meowmix.jpg'),
+    name: "Meow Mix Original Choice Dry Cat Food",
+    price: 33.8,
+    brand: "Meow Mix",
     desc:
         "Inspired by the diet of wolves, true omnivores whose endurance is legendary, BLUE Wilderness is a grain-free, protein-rich food that contains more of the delicious chicken your dog loves. Made with the finest natural ingredients and no grains.",
     moreDesc:
@@ -99,11 +154,10 @@ var products = <Products>[
     productID: "null",
   ),
   Products(
-    productImage: Image.asset('assets/images/productImages/buffalo.jpg'),
-    name:
-        "Blue Buffalo Wilderness High Protein Grain Free, Natural Adult Dry Dog Food",
-    price: 58.78,
-    brand: "Blue Buffalo",
+    productImage: Image.asset('assets/images/productImages/pedigree.jpg'),
+    name: "Pedigree Adult Dry Dog Food - Grilled Steak & Vegetable Flavor",
+    price: 128.89,
+    brand: "Pedigree",
     desc:
         "Inspired by the diet of wolves, true omnivores whose endurance is legendary, BLUE Wilderness is a grain-free, protein-rich food that contains more of the delicious chicken your dog loves. Made with the finest natural ingredients and no grains.",
     moreDesc:
@@ -120,11 +174,11 @@ var products = <Products>[
     productID: "null",
   ),
   Products(
-    productImage: Image.asset('assets/images/productImages/buffalo.jpg'),
+    productImage: Image.asset('assets/images/productImages/proplan.jpg'),
     name:
-        "Blue Buffalo Wilderness High Protein Grain Free, Natural Adult Dry Dog Food",
-    price: 58.78,
-    brand: "Blue Buffalo",
+        "Purina Pro Plan FOCUS Sensitive Skin & Stomach Adult Dry Dog Food & Wet Dog Food",
+    price: 47.12,
+    brand: "Purina Pro Plan",
     desc:
         "Inspired by the diet of wolves, true omnivores whose endurance is legendary, BLUE Wilderness is a grain-free, protein-rich food that contains more of the delicious chicken your dog loves. Made with the finest natural ingredients and no grains.",
     moreDesc:
@@ -141,11 +195,10 @@ var products = <Products>[
     productID: "null",
   ),
   Products(
-    productImage: Image.asset('assets/images/productImages/buffalo.jpg'),
-    name:
-        "Blue Buffalo Wilderness High Protein Grain Free, Natural Adult Dry Dog Food",
-    price: 58.78,
-    brand: "Blue Buffalo",
+    productImage: Image.asset('assets/images/productImages/temptations.jpg'),
+    name: "Temptations Classic Crunchy and Soft Cat Treats, 30 oz.",
+    price: 14.67,
+    brand: "Temptations",
     desc:
         "Inspired by the diet of wolves, true omnivores whose endurance is legendary, BLUE Wilderness is a grain-free, protein-rich food that contains more of the delicious chicken your dog loves. Made with the finest natural ingredients and no grains.",
     moreDesc:
@@ -162,11 +215,10 @@ var products = <Products>[
     productID: "null",
   ),
   Products(
-    productImage: Image.asset('assets/images/productImages/buffalo.jpg'),
-    name:
-        "Blue Buffalo Wilderness High Protein Grain Free, Natural Adult Dry Dog Food",
-    price: 58.78,
-    brand: "Blue Buffalo",
+    productImage: Image.asset('assets/images/productImages/todycats.jpg'),
+    name: "Purina Tidy Cats 24/7 Performance Clumping Cat Litter",
+    price: 24.10,
+    brand: "Purina",
     desc:
         "Inspired by the diet of wolves, true omnivores whose endurance is legendary, BLUE Wilderness is a grain-free, protein-rich food that contains more of the delicious chicken your dog loves. Made with the finest natural ingredients and no grains.",
     moreDesc:
@@ -183,11 +235,10 @@ var products = <Products>[
     productID: "null",
   ),
   Products(
-    productImage: Image.asset('assets/images/productImages/buffalo.jpg'),
-    name:
-        "Blue Buffalo Wilderness High Protein Grain Free, Natural Adult Dry Dog Food",
-    price: 58.78,
-    brand: "Blue Buffalo",
+    productImage: Image.asset('assets/images/productImages/9lives.jpg'),
+    name: "9Lives Dry Cat Food",
+    price: 18.78,
+    brand: "9 Lives",
     desc:
         "Inspired by the diet of wolves, true omnivores whose endurance is legendary, BLUE Wilderness is a grain-free, protein-rich food that contains more of the delicious chicken your dog loves. Made with the finest natural ingredients and no grains.",
     moreDesc:

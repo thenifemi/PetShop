@@ -22,6 +22,9 @@ class _HomeScreenState extends State<HomeScreen>
   ProductsListPresenter _presenter;
   List<Products> _products;
   List<Products> _pets;
+  List<Products> _categories;
+  List<Products> _services;
+  List<Products> _brands;
   bool _isLoading;
 
   _HomeScreenState() {
@@ -34,6 +37,8 @@ class _HomeScreenState extends State<HomeScreen>
 
     _presenter.loadProducts();
     _presenter.loadPets();
+    _presenter.loadCategories();
+    _presenter.loadServices();
   }
 
   Stream<QuerySnapshot> getUsersNameStreamSnapshot(
@@ -233,10 +238,10 @@ class _HomeScreenState extends State<HomeScreen>
                 height: 20.0,
               ),
               Container(
-                height: 100.0,
+                height: 150.0,
                 child: ConstrainedBox(
                   constraints: BoxConstraints(
-                    maxHeight: 50,
+                    maxHeight: 150,
                   ),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
@@ -567,7 +572,7 @@ class _HomeScreenState extends State<HomeScreen>
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Card(
-          elevation: 6.0,
+          elevation: 4.0,
           shape: RoundedRectangleBorder(
             borderRadius: new BorderRadius.circular(15.0),
           ),
@@ -597,6 +602,7 @@ class _HomeScreenState extends State<HomeScreen>
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Container(
+                          height: 100,
                           padding: const EdgeInsets.all(5.0),
                           width: 150.0,
                           child: Text(
@@ -662,26 +668,38 @@ class _HomeScreenState extends State<HomeScreen>
               borderRadius: new BorderRadius.circular(10.0),
             ),
             child: Padding(
-              padding: const EdgeInsets.only(bottom: 0.0),
+              padding: const EdgeInsets.only(bottom: 10.0),
               child: Container(
                 padding: const EdgeInsets.all(5.0),
-                height: 50.0,
+                height: 150.0,
                 width: 100.0,
                 decoration: BoxDecoration(
-                  color: MColors.dashPurple,
+                  color: MColors.primaryWhiteSmoke,
                   borderRadius: BorderRadius.all(
                     Radius.circular(10.0),
                   ),
                 ),
-                child: Center(
-                  child: Text(
-                    pet.pet,
-                    style: GoogleFonts.montserrat(
-                        fontSize: 16.0,
-                        color: MColors.textGrey,
-                        fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.start,
-                  ),
+                child: Column(
+                  children: <Widget>[
+                    Expanded(
+                      child: Container(
+                        padding: const EdgeInsets.all(10.0),
+                        child: pet.productImage,
+                        height: 120,
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.only(bottom: 5.0),
+                      child: Text(
+                        pet.pet,
+                        style: GoogleFonts.montserrat(
+                            fontSize: 16.0,
+                            color: MColors.textGrey,
+                            fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.start,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -712,5 +730,27 @@ class _HomeScreenState extends State<HomeScreen>
   @override
   void onLoadPetsError() {
     // TODO: implement onLoadPetsError
+  }
+
+  @override
+  void onLoadCategoriesComplete(List<Products> items) {
+    _categories = items;
+    _isLoading = false;
+  }
+
+  @override
+  void onLoadCategoriesError() {
+    // TODO: implement onLoadCategoriesError
+  }
+
+  @override
+  void onLoadServicesComplete(List<Products> items) {
+    _services = items;
+    _isLoading = false;
+  }
+
+  @override
+  void onLoadServicesError() {
+    // TODO: implement onLoadServicesError
   }
 }

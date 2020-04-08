@@ -23,4 +23,16 @@ class ProdProductsRepo implements ProductsRepo {
     // TODO: implement fetchPets
     return null;
   }
+
+  @override
+  Future<List<Products>> fetchCategories() {
+    // TODO: implement fetchCategories
+    return null;
+  }
+
+  @override
+  Future<List<Products>> fetchServices() {
+    // TODO: implement fetchServices
+    return null;
+  }
 }
