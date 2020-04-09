@@ -24,22 +24,46 @@ class MockProductsRepo implements ProductsRepo {
 
 var services = <Products>[
   Products(
+    productImage: Image.asset(
+      'assets/images/productImages/grooming.png',
+      fit: BoxFit.fill,
+    ),
     service: "Grooming",
   ),
   Products(
-    category: "Training",
+    productImage: Image.asset(
+      'assets/images/productImages/training.jpg',
+      fit: BoxFit.fill,
+    ),
+    service: "Training",
   ),
   Products(
-    category: "Pet Hotel",
+    productImage: Image.asset(
+      'assets/images/productImages/pethotel.jpg',
+      fit: BoxFit.fill,
+    ),
+    service: "Pet Hotels",
   ),
   Products(
-    category: "Doggie Day Camp",
+    productImage: Image.asset(
+      'assets/images/productImages/doggycamp.jpg',
+      fit: BoxFit.fill,
+    ),
+    service: "Doggie Day Camp",
   ),
   Products(
-    category: "Vetiniary",
+    productImage: Image.asset(
+      'assets/images/productImages/vetdoc.jpg',
+      fit: BoxFit.fill,
+    ),
+    service: "Veterinary",
   ),
   Products(
-    category: "Charities",
+    productImage: Image.asset(
+      'assets/images/productImages/charities.png',
+      fit: BoxFit.fill,
+    ),
+    service: "Charities",
   ),
 ];
 

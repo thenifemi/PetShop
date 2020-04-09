@@ -200,15 +200,16 @@ class _TabsLayoutState extends State<TabsLayout> {
       return Container(
         padding: const EdgeInsets.only(top: 15.0),
         child: SvgPicture.asset(
-          "assets/images/fav.svg",
+          "assets/images/cart.svg",
           height: 20,
+          color: MColors.primaryPurple,
         ),
       );
     } else {
       return Container(
         padding: const EdgeInsets.only(top: 15.0),
         child: SvgPicture.asset(
-          "assets/images/fav.svg",
+          "assets/images/cart.svg",
           height: 18,
           color: MColors.textGrey,
         ),

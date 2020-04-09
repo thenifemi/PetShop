@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mollet/model/data/MOCK_productsData.dart';
@@ -310,60 +311,34 @@ class _HomeScreenState extends State<HomeScreen>
                         ),
                       ),
                       Expanded(
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                          scrollDirection: Axis.horizontal,
-                          itemCount: 8,
-                          itemBuilder: (context, i) => Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              RawMaterialButton(
-                                onPressed: () {
-                                  // Navigator.of(context).pushNamed('/PetShop');
+                        child: _categories == null
+                            ? Center(
+                                child: CircularProgressIndicator(),
+                              )
+                            : ListView.builder(
+                                shrinkWrap: true,
+                                scrollDirection: Axis.horizontal,
+                                itemCount: _categories.length,
+                                itemBuilder: (context, i) {
+                                  final Products category = _categories[i];
+
+                                  return _isLoading
+                                      ? Center(
+                                          child: CircularProgressIndicator(),
+                                        )
+                                      : _categoriesBlock(category);
                                 },
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: new BorderRadius.circular(10.0),
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(bottom: 0.0),
-                                  child: Container(
-                                    padding: const EdgeInsets.all(5.0),
-                                    height: 80.0,
-                                    width: 200.0,
-                                    decoration: BoxDecoration(
-                                      color: MColors.dashPurple,
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(10.0),
-                                      ),
-                                    ),
-                                    child: Center(
-                                      child: Text(
-                                        "Toys",
-                                        style: GoogleFonts.montserrat(
-                                            fontSize: 16.0,
-                                            color: MColors.textGrey,
-                                            fontWeight: FontWeight.bold),
-                                        textAlign: TextAlign.start,
-                                      ),
-                                    ),
-                                  ),
-                                ),
                               ),
-                              SizedBox(width: 10.0),
-                            ],
-                          ),
-                        ),
                       ),
                     ],
                   ),
                 ),
               ),
               Container(
-                height: 180.0,
+                height: 250.0,
                 child: ConstrainedBox(
                   constraints: BoxConstraints(
-                    maxHeight: 150,
+                    maxHeight: 250,
                   ),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
@@ -400,68 +375,24 @@ class _HomeScreenState extends State<HomeScreen>
                         ),
                       ),
                       Expanded(
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                          scrollDirection: Axis.horizontal,
-                          itemCount: 8,
-                          itemBuilder: (context, i) => Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Card(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: new BorderRadius.circular(10.0),
-                                ),
-                                child: RawMaterialButton(
-                                  onPressed: () {
-                                    // Navigator.of(context).pushNamed('/PetShop');
-                                  },
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius:
-                                        new BorderRadius.circular(10.0),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(bottom: 0.0),
-                                    child: Container(
-                                      padding: const EdgeInsets.all(20.0),
-                                      height: 150.0,
-                                      width: 250.0,
-                                      decoration: BoxDecoration(
-                                        color: MColors.dashPurple,
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(10.0),
-                                        ),
-                                      ),
-                                      child: Column(
-                                        children: <Widget>[
-                                          Container(
-                                            padding: const EdgeInsets.all(5.0),
-                                            child: SvgPicture.asset(
-                                              "assets/images/dogs.svg",
-                                              //Icons made by "https://www.flaticon.com/authors/photo3idea-studio"
-                                              height: 40,
-                                            ),
-                                          ),
-                                          Container(
-                                            child: Text(
-                                              "Grooming",
-                                              style: GoogleFonts.montserrat(
-                                                  fontSize: 16.0,
-                                                  color: MColors.textGrey,
-                                                  fontWeight: FontWeight.bold),
-                                              textAlign: TextAlign.start,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
+                        child: _services == null
+                            ? Center(
+                                child: CircularProgressIndicator(),
+                              )
+                            : ListView.builder(
+                                shrinkWrap: true,
+                                scrollDirection: Axis.horizontal,
+                                itemCount: _services.length,
+                                itemBuilder: (context, i) {
+                                  final Products service = _services[i];
+
+                                  return _isLoading
+                                      ? Center(
+                                          child: CircularProgressIndicator(),
+                                        )
+                                      : _servicesBlock(service);
+                                },
                               ),
-                              SizedBox(width: 20.0),
-                            ],
-                          ),
-                        ),
                       ),
                     ],
                   ),
@@ -666,10 +597,111 @@ class _HomeScreenState extends State<HomeScreen>
 
   Widget _shopByPetBlock(Products pet) {
     return Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          RawMaterialButton(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        RawMaterialButton(
+          onPressed: () {
+            // Navigator.of(context).pushNamed('/PetShop');
+          },
+          shape: RoundedRectangleBorder(
+            borderRadius: new BorderRadius.circular(10.0),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.only(bottom: 10.0),
+            child: Container(
+              padding: const EdgeInsets.all(5.0),
+              height: 150.0,
+              width: 100.0,
+              decoration: BoxDecoration(
+                color: MColors.primaryWhiteSmoke,
+                borderRadius: BorderRadius.all(
+                  Radius.circular(10.0),
+                ),
+              ),
+              child: Column(
+                children: <Widget>[
+                  Expanded(
+                    child: Container(
+                      padding: const EdgeInsets.all(10.0),
+                      child: pet.productImage,
+                      height: 120,
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.only(bottom: 5.0),
+                    child: Text(
+                      pet.pet,
+                      style: GoogleFonts.montserrat(
+                        fontSize: 16.0,
+                        color: MColors.textGrey,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      textAlign: TextAlign.start,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+        SizedBox(width: 10.0),
+      ],
+    );
+  }
+
+  Widget _categoriesBlock(Products category) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        RawMaterialButton(
+          onPressed: () {
+            // Navigator.of(context).pushNamed('/PetShop');
+          },
+          shape: RoundedRectangleBorder(
+            borderRadius: new BorderRadius.circular(10.0),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.only(bottom: 0.0),
+            child: Container(
+              padding: const EdgeInsets.all(5.0),
+              height: 80.0,
+              width: 150.0,
+              decoration: BoxDecoration(
+                color: MColors.primaryWhiteSmoke,
+                borderRadius: BorderRadius.all(
+                  Radius.circular(10.0),
+                ),
+              ),
+              child: Center(
+                child: Text(
+                  category.category,
+                  style: GoogleFonts.montserrat(
+                      fontSize: 26.0,
+                      color: MColors.textGrey,
+                      fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.start,
+                ),
+              ),
+            ),
+          ),
+        ),
+        SizedBox(width: 10.0),
+      ],
+    );
+  }
+
+  Widget _servicesBlock(Products service) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: new BorderRadius.circular(10.0),
+          ),
+          child: RawMaterialButton(
             onPressed: () {
               // Navigator.of(context).pushNamed('/PetShop');
             },
@@ -677,35 +709,35 @@ class _HomeScreenState extends State<HomeScreen>
               borderRadius: new BorderRadius.circular(10.0),
             ),
             child: Padding(
-              padding: const EdgeInsets.only(bottom: 10.0),
+              padding: const EdgeInsets.only(bottom: 0.0),
               child: Container(
-                padding: const EdgeInsets.all(5.0),
-                height: 150.0,
-                width: 100.0,
+                padding: const EdgeInsets.all(0.0),
+                height: 200.0,
+                width: 250.0,
                 decoration: BoxDecoration(
-                  color: MColors.primaryWhiteSmoke,
+                  color: MColors.primaryWhite,
                   borderRadius: BorderRadius.all(
                     Radius.circular(10.0),
                   ),
                 ),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
-                    Expanded(
-                      child: Container(
-                        padding: const EdgeInsets.all(10.0),
-                        child: pet.productImage,
-                        height: 120,
-                      ),
+                    Container(
+                      child: service.productImage,
+                      height: 150.0,
                     ),
                     Container(
-                      padding: const EdgeInsets.only(bottom: 5.0),
-                      child: Text(
-                        pet.pet,
-                        style: GoogleFonts.montserrat(
-                            fontSize: 16.0,
-                            color: MColors.textGrey,
-                            fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.start,
+                      padding: const EdgeInsets.only(top: 10.0),
+                      child: Center(
+                        child: Text(
+                          service.service,
+                          style: GoogleFonts.montserrat(
+                              fontSize: 20.0,
+                              color: MColors.textGrey,
+                              fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.start,
+                        ),
                       ),
                     ),
                   ],
@@ -713,8 +745,10 @@ class _HomeScreenState extends State<HomeScreen>
               ),
             ),
           ),
-          SizedBox(width: 10.0),
-        ]);
+        ),
+        SizedBox(width: 20.0),
+      ],
+    );
   }
 
   @override

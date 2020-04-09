@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mollet/model/data/MOCK_productsData.dart';
 import 'package:mollet/model/data/products_data.dart';
@@ -96,153 +97,330 @@ class _ProductDetailsState extends State<ProductDetails>
     }
 
     return Expanded(
-      child: SingleChildScrollView(
-        child: Container(
-          decoration: new BoxDecoration(
-            color: MColors.primaryWhiteSmoke,
-            borderRadius: new BorderRadius.only(
-              topLeft: const Radius.circular(30.0),
-              topRight: const Radius.circular(30.0),
+      child: Container(
+        decoration: new BoxDecoration(
+          color: MColors.primaryWhiteSmoke,
+          borderRadius: new BorderRadius.only(
+            topLeft: const Radius.circular(30.0),
+            topRight: const Radius.circular(30.0),
+          ),
+        ),
+        child: SingleChildScrollView(
+          child: Container(
+            decoration: new BoxDecoration(
+              color: MColors.primaryWhiteSmoke,
+              borderRadius: new BorderRadius.only(
+                topLeft: const Radius.circular(30.0),
+                topRight: const Radius.circular(30.0),
+              ),
             ),
-          ),
-          padding: const EdgeInsets.only(
-            top: 20.0,
-            right: 20.0,
-            left: 20.0,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Container(
-                padding: const EdgeInsets.only(bottom: 10.0),
-                child: Text(
-                  product.name,
-                  style: GoogleFonts.montserrat(
-                    color: MColors.textDark,
-                    fontWeight: FontWeight.w400,
-                    fontSize: 22.0,
+            padding: const EdgeInsets.only(
+              top: 20.0,
+              right: 20.0,
+              left: 20.0,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Container(
+                  padding: const EdgeInsets.only(bottom: 10.0),
+                  child: Text(
+                    product.name,
+                    style: GoogleFonts.montserrat(
+                      color: MColors.textDark,
+                      fontWeight: FontWeight.w400,
+                      fontSize: 22.0,
+                    ),
                   ),
                 ),
-              ),
-              Container(
-                padding: const EdgeInsets.only(bottom: 17.0),
-                child: Text(
-                  "\$$price",
-                  style: GoogleFonts.montserrat(
-                    color: MColors.textDark,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 30.0,
+                Container(
+                  padding: const EdgeInsets.only(bottom: 17.0),
+                  child: Text(
+                    "\$$price",
+                    style: GoogleFonts.montserrat(
+                      color: MColors.textDark,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30.0,
+                    ),
                   ),
                 ),
-              ),
-              Container(
-                child: Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: Container(
-                        child: IconTheme(
-                          data: IconThemeData(
-                            color: Colors.amberAccent,
-                            size: 18,
+                Container(
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: Container(
+                          child: IconTheme(
+                            data: IconThemeData(
+                              color: Colors.amberAccent,
+                              size: 18,
+                            ),
+                            child: StarDisplay(value: 4),
                           ),
-                          child: StarDisplay(value: 4),
                         ),
                       ),
-                    ),
-                    Expanded(
-                      child: Text(
-                        "742 reviews",
+                      Expanded(
+                        child: Text(
+                          "742 reviews",
+                          style: GoogleFonts.montserrat(
+                            color: MColors.textGrey,
+                            fontSize: 14.0,
+                          ),
+                        ),
+                      ),
+                      Text(
+                        "#8887272",
                         style: GoogleFonts.montserrat(
                           color: MColors.textGrey,
                           fontSize: 14.0,
                         ),
                       ),
-                    ),
-                    Text(
-                      "#8887272",
+                    ],
+                  ),
+                ),
+                Container(
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: Text(
+                          "Quantity",
+                          style: GoogleFonts.montserrat(
+                            color: MColors.textGrey,
+                            fontSize: 18.0,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        height: 24,
+                        width: 24,
+                        margin: const EdgeInsets.all(10.0),
+                        decoration: new BoxDecoration(
+                          border: Border.all(
+                            width: 1.5,
+                            color: MColors.primaryPurple,
+                          ),
+                          borderRadius: new BorderRadius.all(
+                            const Radius.circular(20.0),
+                          ),
+                        ),
+                        child: RawMaterialButton(
+                          onPressed: subQty,
+                          child: Icon(
+                            Icons.remove,
+                            color: MColors.primaryPurple,
+                            size: 20.0,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.only(
+                          right: 5,
+                          left: 5.0,
+                        ),
+                        child: Text(
+                          '$qty',
+                          style: GoogleFonts.montserrat(
+                            color: MColors.textDark,
+                            fontSize: 24.0,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        height: 24,
+                        width: 24,
+                        margin: const EdgeInsets.all(10.0),
+                        decoration: new BoxDecoration(
+                          border: Border.all(
+                            width: 1.5,
+                            color: MColors.primaryPurple,
+                          ),
+                          borderRadius: new BorderRadius.all(
+                            const Radius.circular(20.0),
+                          ),
+                        ),
+                        child: RawMaterialButton(
+                          onPressed: addQty,
+                          child: Icon(
+                            Icons.add,
+                            color: MColors.primaryPurple,
+                            size: 20.0,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  child: ExpansionTile(
+                    title: Text(
+                      "Details",
                       style: GoogleFonts.montserrat(
-                        color: MColors.textGrey,
-                        fontSize: 14.0,
+                        color: MColors.textDark,
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
-                  ],
-                ),
-              ),
-              Container(
-                child: Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: Text(
-                        "Quantity",
-                        style: GoogleFonts.montserrat(
-                          color: MColors.textGrey,
-                          fontSize: 18.0,
+                    children: <Widget>[
+                      Container(
+                        padding: const EdgeInsets.only(
+                          left: 30.0,
+                          bottom: 10.0,
+                          right: 30.0,
                         ),
-                      ),
-                    ),
-                    IconButton(
-                      onPressed: subQty,
-                      icon: Icon(
-                        Icons.remove,
-                        color: MColors.primaryPurple,
-                        size: 20.0,
-                      ),
-                    ),
-                    Container(
-                      color: MColors.primaryWhite,
-                      padding: const EdgeInsets.only(
-                        right: 5,
-                        left: 5.0,
-                      ),
-                      child: Text(
-                        '$qty',
-                        style: GoogleFonts.montserrat(
-                          color: MColors.textDark,
-                          fontSize: 20.0,
-                        ),
-                      ),
-                    ),
-                    IconButton(
-                      onPressed: addQty,
-                      icon: Icon(
-                        Icons.add,
-                        color: MColors.primaryPurple,
-                        size: 20.0,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                child: ExpansionTile(
-                  title: Text(
-                    "Details",
-                    style: GoogleFonts.montserrat(
-                      color: MColors.textDark,
-                      fontSize: 18.0,
-                    ),
-                  ),
-                  children: <Widget>[
-                    Container(
-                      padding: const EdgeInsets.only(
-                        left: 30.0,
-                        bottom: 10.0,
-                        right: 30.0,
-                      ),
-                      child: Row(
-                        children: <Widget>[
-                          Expanded(
-                            child: Text(
-                              "Food type",
-                              style: GoogleFonts.montserrat(
-                                color: MColors.textDark,
-                                fontSize: 16.0,
+                        child: Row(
+                          children: <Widget>[
+                            Expanded(
+                              child: Text(
+                                "Food type",
+                                style: GoogleFonts.montserrat(
+                                  color: MColors.textDark,
+                                  fontSize: 16.0,
+                                ),
                               ),
                             ),
+                            Expanded(
+                              child: Text(
+                                product.foodType,
+                                style: GoogleFonts.montserrat(
+                                  color: MColors.textGrey,
+                                  fontSize: 16.0,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.only(
+                          left: 30.0,
+                          bottom: 10.0,
+                          right: 30.0,
+                        ),
+                        child: Row(
+                          children: <Widget>[
+                            Expanded(
+                              child: Text(
+                                "Life stage",
+                                style: GoogleFonts.montserrat(
+                                  color: MColors.textDark,
+                                  fontSize: 16.0,
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Text(
+                                product.lifeStage,
+                                style: GoogleFonts.montserrat(
+                                  color: MColors.textGrey,
+                                  fontSize: 16.0,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.only(
+                          left: 30.0,
+                          bottom: 10.0,
+                          right: 30.0,
+                        ),
+                        child: Row(
+                          children: <Widget>[
+                            Expanded(
+                              child: Text(
+                                "Weight",
+                                style: GoogleFonts.montserrat(
+                                  color: MColors.textDark,
+                                  fontSize: 16.0,
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Text(
+                                product.weight,
+                                style: GoogleFonts.montserrat(
+                                  color: MColors.textGrey,
+                                  fontSize: 16.0,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.only(
+                          left: 30.0,
+                          bottom: 10.0,
+                          right: 30.0,
+                        ),
+                        child: Row(
+                          children: <Widget>[
+                            Expanded(
+                              child: Text(
+                                "Flavor",
+                                style: GoogleFonts.montserrat(
+                                  color: MColors.textDark,
+                                  fontSize: 16.0,
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Text(
+                                product.flavor,
+                                style: GoogleFonts.montserrat(
+                                  color: MColors.textGrey,
+                                  fontSize: 16.0,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  child: ExpansionTile(
+                    title: Text(
+                      "Description",
+                      style: GoogleFonts.montserrat(
+                        color: MColors.textDark,
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    children: <Widget>[
+                      Container(
+                        padding: const EdgeInsets.only(
+                          left: 30.0,
+                          bottom: 10.0,
+                          right: 30.0,
+                        ),
+                        child: Text(
+                          product.desc,
+                          style: GoogleFonts.montserrat(
+                            color: MColors.textGrey,
+                            fontSize: 16.0,
                           ),
-                          Expanded(
+                        ),
+                      ),
+                      ExpansionTile(
+                        title: Text(
+                          "More description",
+                          style: GoogleFonts.montserrat(
+                            color: MColors.textDark,
+                            fontSize: 18.0,
+                          ),
+                        ),
+                        children: <Widget>[
+                          Container(
+                            padding: const EdgeInsets.only(
+                              left: 30.0,
+                              bottom: 10.0,
+                              right: 30.0,
+                            ),
                             child: Text(
-                              product.foodType,
+                              product.moreDesc,
                               style: GoogleFonts.montserrat(
                                 color: MColors.textGrey,
                                 fontSize: 16.0,
@@ -250,209 +428,105 @@ class _ProductDetailsState extends State<ProductDetails>
                             ),
                           ),
                         ],
-                      ),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.only(
-                        left: 30.0,
-                        bottom: 10.0,
-                        right: 30.0,
-                      ),
-                      child: Row(
-                        children: <Widget>[
-                          Expanded(
-                            child: Text(
-                              "Life stage",
-                              style: GoogleFonts.montserrat(
-                                color: MColors.textDark,
-                                fontSize: 16.0,
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: Text(
-                              product.lifeStage,
-                              style: GoogleFonts.montserrat(
-                                color: MColors.textGrey,
-                                fontSize: 16.0,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.only(
-                        left: 30.0,
-                        bottom: 10.0,
-                        right: 30.0,
-                      ),
-                      child: Row(
-                        children: <Widget>[
-                          Expanded(
-                            child: Text(
-                              "Weight",
-                              style: GoogleFonts.montserrat(
-                                color: MColors.textDark,
-                                fontSize: 16.0,
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: Text(
-                              product.weight,
-                              style: GoogleFonts.montserrat(
-                                color: MColors.textGrey,
-                                fontSize: 16.0,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.only(
-                        left: 30.0,
-                        bottom: 10.0,
-                        right: 30.0,
-                      ),
-                      child: Row(
-                        children: <Widget>[
-                          Expanded(
-                            child: Text(
-                              "Flavor",
-                              style: GoogleFonts.montserrat(
-                                color: MColors.textDark,
-                                fontSize: 16.0,
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: Text(
-                              product.flavor,
-                              style: GoogleFonts.montserrat(
-                                color: MColors.textGrey,
-                                fontSize: 16.0,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                child: ExpansionTile(
-                  title: Text(
-                    "Description",
-                    style: GoogleFonts.montserrat(
-                      color: MColors.textDark,
-                      fontSize: 18.0,
-                    ),
+                      )
+                    ],
                   ),
-                  children: <Widget>[
-                    Container(
-                      padding: const EdgeInsets.only(
-                        left: 30.0,
-                        bottom: 10.0,
-                        right: 30.0,
-                      ),
-                      child: Text(
-                        product.desc,
-                        style: GoogleFonts.montserrat(
-                          color: MColors.textGrey,
-                          fontSize: 16.0,
-                        ),
+                ),
+                Container(
+                  child: ExpansionTile(
+                    title: Text(
+                      "Directions",
+                      style: GoogleFonts.montserrat(
+                        color: MColors.textDark,
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
-                    ExpansionTile(
-                      title: Text(
-                        "More description",
-                        style: GoogleFonts.montserrat(
-                          color: MColors.textDark,
-                          fontSize: 18.0,
+                    children: <Widget>[
+                      Container(
+                        padding: const EdgeInsets.only(
+                          left: 30.0,
+                          bottom: 10.0,
+                          right: 30.0,
                         ),
-                      ),
-                      children: <Widget>[
-                        Container(
-                          padding: const EdgeInsets.only(
-                            left: 30.0,
-                            bottom: 10.0,
-                            right: 30.0,
-                          ),
-                          child: Text(
-                            product.moreDesc,
-                            style: GoogleFonts.montserrat(
-                              color: MColors.textGrey,
-                              fontSize: 16.0,
-                            ),
+                        child: Text(
+                          product.directions,
+                          style: GoogleFonts.montserrat(
+                            color: MColors.textGrey,
+                            fontSize: 16.0,
                           ),
                         ),
-                      ],
-                    )
-                  ],
-                ),
-              ),
-              Container(
-                child: ExpansionTile(
-                  title: Text(
-                    "Directions",
-                    style: GoogleFonts.montserrat(
-                      color: MColors.textDark,
-                      fontSize: 18.0,
-                    ),
-                  ),
-                  children: <Widget>[
-                    Container(
-                      padding: const EdgeInsets.only(
-                        left: 30.0,
-                        bottom: 10.0,
-                        right: 30.0,
                       ),
-                      child: Text(
-                        product.directions,
-                        style: GoogleFonts.montserrat(
-                          color: MColors.textGrey,
-                          fontSize: 16.0,
+                    ],
+                  ),
+                ),
+                Container(
+                  child: ExpansionTile(
+                    title: Text(
+                      "Ingredients",
+                      style: GoogleFonts.montserrat(
+                        color: MColors.textDark,
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    children: <Widget>[
+                      Container(
+                        padding: const EdgeInsets.only(
+                          left: 30.0,
+                          bottom: 10.0,
+                          right: 30.0,
+                        ),
+                        child: Text(
+                          product.ingredients,
+                          style: GoogleFonts.montserrat(
+                            color: MColors.textGrey,
+                            fontSize: 16.0,
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                child: ExpansionTile(
-                  title: Text(
-                    "Ingredients",
-                    style: GoogleFonts.montserrat(
-                      color: MColors.textDark,
-                      fontSize: 18.0,
-                    ),
+                    ],
                   ),
-                  children: <Widget>[
-                    Container(
-                      padding: const EdgeInsets.only(
-                        left: 30.0,
-                        bottom: 10.0,
-                        right: 30.0,
-                      ),
-                      child: Text(
-                        product.ingredients,
-                        style: GoogleFonts.montserrat(
-                          color: MColors.textGrey,
-                          fontSize: 16.0,
-                        ),
-                      ),
-                    ),
-                  ],
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
     );
+  }
+
+  void _showAddedToBagDialog() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            content: Text(
+              "This Item has been added to your bag.",
+              style: GoogleFonts.montserrat(),
+            ),
+            actions: <Widget>[
+              FlatButton(
+                onPressed: () async {
+                  try {
+                    //todo
+                    print("Item added added to cart");
+                    Navigator.of(context).pop();
+                  } catch (e) {
+                    print(e);
+                  }
+                },
+                child: Text(
+                  "Okay",
+                  style: GoogleFonts.montserrat(
+                    color: MColors.primaryPurple,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+            ],
+          );
+        });
   }
 
   @override
@@ -480,29 +554,47 @@ class _ProductDetailsState extends State<ProductDetails>
         // ),
         centerTitle: true,
         actions: <Widget>[
-          IconButton(
-            icon: Icon(
-              Icons.favorite_border,
-              color: MColors.textDark,
+          Container(
+            width: 70,
+            child: RawMaterialButton(
+              child: Container(
+                height: 26.0,
+                child: SvgPicture.asset(
+                  "assets/images/cart.svg",
+                  height: 18,
+                  color: MColors.textDark,
+                ),
+              ),
+              onPressed: () {
+                _showAddedToBagDialog();
+              },
             ),
-            onPressed: () {
-              // Navigator.of(context).pop();
-            },
           ),
         ],
       ),
       body: _buildBody(),
       bottomNavigationBar: Container(
-        height: 60.0,
-        child: RawMaterialButton(
-          onPressed: () {},
-          fillColor: MColors.primaryPurple,
-          child: Text(
-            "Add to cart",
-            style: GoogleFonts.montserrat(
-              color: MColors.primaryWhite,
-              fontSize: 18.0,
-              fontWeight: FontWeight.w500,
+        color: MColors.primaryWhiteSmoke,
+        padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 20.0),
+        height: 80.0,
+        child: SizedBox(
+          width: double.infinity,
+          height: 60.0,
+          child: RawMaterialButton(
+            shape: RoundedRectangleBorder(
+              borderRadius: new BorderRadius.circular(10.0),
+            ),
+            onPressed: () {
+              _showAddedToBagDialog();
+            },
+            fillColor: MColors.primaryPurple,
+            child: Text(
+              "Add to cart",
+              style: GoogleFonts.montserrat(
+                color: MColors.primaryWhite,
+                fontSize: 18.0,
+                fontWeight: FontWeight.w500,
+              ),
             ),
           ),
         ),
@@ -547,76 +639,5 @@ class _ProductDetailsState extends State<ProductDetails>
   @override
   void onLoadServicesError() {
     // TODO: implement onLoadServicesError
-  }
-}
-
-class Entry {
-  Entry(this.title, [this.children = const <Entry>[]]);
-
-  final String title;
-  final List<Entry> children;
-}
-
-// The entire multilevel list displayed by this app.
-final List<Entry> data = <Entry>[
-  Entry(
-    'Chapter A',
-    <Entry>[
-      Entry(
-        'Section A0',
-        <Entry>[
-          Entry('Item A0.1'),
-          Entry('Item A0.2'),
-          Entry('Item A0.3'),
-        ],
-      ),
-      Entry('Section A1'),
-      Entry('Section A2'),
-    ],
-  ),
-  Entry(
-    'Chapter B',
-    <Entry>[
-      Entry('Section B0'),
-      Entry('Section B1'),
-    ],
-  ),
-  Entry(
-    'Chapter C',
-    <Entry>[
-      Entry('Section C0'),
-      Entry('Section C1'),
-      Entry(
-        'Section C2',
-        <Entry>[
-          Entry('Item C2.0'),
-          Entry('Item C2.1'),
-          Entry('Item C2.2'),
-          Entry('Item C2.3'),
-        ],
-      ),
-    ],
-  ),
-];
-
-// Displays one Entry. If the entry has children then it's displayed
-// with an ExpansionTile.
-class EntryItem extends StatelessWidget {
-  const EntryItem(this.entry);
-
-  final Entry entry;
-
-  Widget _buildTiles(Entry root) {
-    if (root.children.isEmpty) return ListTile(title: Text(root.title));
-    return ExpansionTile(
-      key: PageStorageKey<Entry>(root),
-      title: Text(root.title),
-      children: root.children.map(_buildTiles).toList(),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return _buildTiles(entry);
   }
 }

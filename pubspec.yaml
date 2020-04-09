@@ -59,6 +59,7 @@ flutter:
     - assets/images/gift.svg
     - assets/images/question.svg
     - assets/images/help.svg
+    - assets/images/cart.svg
     - assets/images/noHistory.svg
     - assets/images/noInbox.svg
     - assets/images/noFavs.svg
@@ -104,6 +105,13 @@ flutter:
     - assets/images/productImages/reptile.png
     - assets/images/productImages/fish.png
     - assets/images/productImages/hedgehog.png
+    #Services
+    - assets/images/productImages/grooming.png
+    - assets/images/productImages/training.jpg
+    - assets/images/productImages/pethotel.jpg
+    - assets/images/productImages/doggycamp.jpg
+    - assets/images/productImages/vetdoc.jpg
+    - assets/images/productImages/charities.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
