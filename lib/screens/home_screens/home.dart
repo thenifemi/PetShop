@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mollet/model/data/MOCK_productsData.dart';
 import 'package:mollet/model/data/products_data.dart';
 import 'package:mollet/model/modules/products_presenter.dart';
 import 'package:mollet/screens/home_screens/homeScreen_buttonPages/homeProductScreens/productDetailsScreen.dart';
@@ -15,7 +16,7 @@ class HomeScreen extends StatefulWidget {
   HomeScreen({Key key}) : super(key: key);
 
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  _HomeScreenState createState() => _HomeScreenState(products);
 }
 
 class _HomeScreenState extends State<HomeScreen>
@@ -28,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen>
   List<Products> _brands;
   bool _isLoading;
 
-  _HomeScreenState() {
+  _HomeScreenState(this._products) {
     _presenter = ProductsListPresenter(this);
   }
   @override
@@ -211,26 +212,26 @@ class _HomeScreenState extends State<HomeScreen>
                           ],
                         ),
                       ),
-                      Expanded(
-                        child: _products == null
-                            ? Center(
-                                child: CircularProgressIndicator(),
-                              )
-                            : ListView.builder(
-                                shrinkWrap: true,
-                                scrollDirection: Axis.horizontal,
-                                itemCount: _products.length,
-                                itemBuilder: (context, i) {
-                                  final Products product = _products[i];
+                      _isLoading
+                          ? Center(
+                              child: CircularProgressIndicator(),
+                            )
+                          : Expanded(
+                              child: _products == null
+                                  ? Center(
+                                      child: CircularProgressIndicator(),
+                                    )
+                                  : ListView.builder(
+                                      shrinkWrap: true,
+                                      scrollDirection: Axis.horizontal,
+                                      itemCount: _products.length,
+                                      itemBuilder: (context, i) {
+                                        final Products product = _products[i];
 
-                                  return _isLoading
-                                      ? Center(
-                                          child: CircularProgressIndicator(),
-                                        )
-                                      : _popularBlockWidget(product);
-                                },
-                              ),
-                      ),
+                                        return _popularBlockWidget(product, i);
+                                      },
+                                    ),
+                            ),
                     ],
                   ),
                 ),
@@ -567,7 +568,7 @@ class _HomeScreenState extends State<HomeScreen>
     );
   }
 
-  Widget _popularBlockWidget(Products product) {
+  Widget _popularBlockWidget(Products product, i) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -581,7 +582,7 @@ class _HomeScreenState extends State<HomeScreen>
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (_) => ProductDetails(),
+                  builder: (_) => ProductDetails(_products[i]),
                 ),
               );
             },
@@ -626,7 +627,7 @@ class _HomeScreenState extends State<HomeScreen>
                             "\$${product.price.toString()}",
                             style: GoogleFonts.montserrat(
                                 fontSize: 28.0,
-                                color: MColors.textGrey,
+                                color: MColors.primaryPurple,
                                 fontWeight: FontWeight.bold),
                             textAlign: TextAlign.left,
                           ),
@@ -645,7 +646,10 @@ class _HomeScreenState extends State<HomeScreen>
                     ),
                     Expanded(
                       child: Container(
-                        child: product.productImage,
+                        child: Hero(
+                          child: product.productImage,
+                          tag: product.productID.toString(),
+                        ),
                         height: 160,
                       ),
                     ),

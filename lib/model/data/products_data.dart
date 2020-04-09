@@ -16,7 +16,7 @@ class Products {
   String ingredients;
   String directions;
   String size;
-  String productID;
+  int productID;
   String pet;
   String category;
   String service;
