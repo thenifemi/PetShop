@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>433101719914-256gdh25eu9u2utdc6vn2v72n2uuulqc.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.433101719914-256gdh25eu9u2utdc6vn2v72n2uuulqc</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>433101719914-g1k5o4gk7qt5ke8dojmpeu7q6240g9e5.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyC0FkyHQNRmdpHa0uK4SrV5PyeOswHJyMc</string>
+	<key>GCM_SENDER_ID</key>
+	<string>433101719914</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.mollet</string>
+	<key>PROJECT_ID</key>
+	<string>molletapp</string>
+	<key>STORAGE_BUCKET</key>
+	<string>molletapp.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:433101719914:ios:fcb440f1161649aa39bd13</string>
+	<key>DATABASE_URL</key>
+	<string>https://molletapp.firebaseio.com</string>
+</dict>
+</plist>

@@ -539,11 +539,12 @@ class _HomeScreenState extends State<HomeScreen>
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Container(
-                          height: 100,
                           padding: const EdgeInsets.all(5.0),
                           width: 150.0,
                           child: Text(
                             product.name,
+                            maxLines: 4,
+                            overflow: TextOverflow.ellipsis,
                             style: GoogleFonts.montserrat(
                                 fontSize: 16.0,
                                 color: MColors.textDark,
@@ -552,6 +553,7 @@ class _HomeScreenState extends State<HomeScreen>
                             softWrap: true,
                           ),
                         ),
+                        Spacer(),
                         Container(
                           padding: const EdgeInsets.only(top: 5.0),
                           child: Text(
