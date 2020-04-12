@@ -55,7 +55,6 @@ class _TabsLayoutState extends State<TabsLayout> {
         bucket: bucket,
       ),
       bottomNavigationBar: Container(
-        height: 65.0,
         child: BottomNavigationBar(
           elevation: 0.0,
           selectedFontSize: 12.0,
@@ -65,33 +64,21 @@ class _TabsLayoutState extends State<TabsLayout> {
           type: BottomNavigationBarType.fixed,
           backgroundColor: MColors.primaryWhite,
           onTap: onTabTapped,
-          items: [
-            BottomNavigationBarItem(
-              icon: buildHomeIcon(),
+          items: _tabIcons.map((e) {
+            final bool isSelected = _tabIcons.indexOf(e) == _currentIndex;
+            return BottomNavigationBarItem(
+              icon: Container(
+                padding: const EdgeInsets.only(top: 15.0),
+                child: SvgPicture.asset(
+                  e,
+                  height: 20,
+                  color: isSelected ? MColors.primaryPurple : MColors.textGrey,
+                ),
+              ),
               title: Text(""),
               backgroundColor: MColors.primaryPurple,
-            ),
-            BottomNavigationBarItem(
-              icon: buildHistoryIcon(),
-              title: Text(""),
-              backgroundColor: MColors.primaryPurple,
-            ),
-            BottomNavigationBarItem(
-              icon: buildFavoritesIcon(),
-              title: Text(""),
-              backgroundColor: MColors.primaryPurple,
-            ),
-            BottomNavigationBarItem(
-              icon: buildInboxIcon(),
-              title: Text(""),
-              backgroundColor: MColors.primaryPurple,
-            ),
-            BottomNavigationBarItem(
-              icon: buildSettingsIcon(),
-              title: Text(""),
-              backgroundColor: MColors.primaryPurple,
-            ),
-          ],
+            );
+          }).toList(),
         ),
       ),
     );
@@ -102,6 +89,14 @@ class _TabsLayoutState extends State<TabsLayout> {
       _currentIndex = index;
     });
   }
+
+  final _tabIcons = [
+    "assets/images/home.svg",
+    "assets/images/clock.svg",
+    "assets/images/cart.svg",
+    "assets/images/mail.svg",
+    "assets/images/settings.svg",
+  ];
 
   //Build Appbar Titles
 
@@ -148,114 +143,6 @@ class _TabsLayoutState extends State<TabsLayout> {
       );
     } else {
       return null;
-    }
-  }
-
-  // Building Tab Item Icons
-
-  Widget buildHomeIcon() {
-    if (_currentIndex == 0) {
-      return Container(
-        padding: const EdgeInsets.only(top: 15.0),
-        child: SvgPicture.asset(
-          "assets/images/home.svg",
-          height: 20,
-        ),
-      );
-    } else {
-      return Container(
-        padding: const EdgeInsets.only(top: 15.0),
-        child: SvgPicture.asset(
-          "assets/images/home.svg",
-          height: 18,
-          color: MColors.textGrey,
-        ),
-      );
-    }
-  }
-
-  Widget buildHistoryIcon() {
-    if (_currentIndex == 1) {
-      return Container(
-        padding: const EdgeInsets.only(top: 15.0),
-        child: SvgPicture.asset(
-          "assets/images/clock.svg",
-          height: 20,
-        ),
-      );
-    } else {
-      return Container(
-        padding: const EdgeInsets.only(top: 15.0),
-        child: SvgPicture.asset(
-          "assets/images/clock.svg",
-          height: 18,
-          color: MColors.textGrey,
-        ),
-      );
-    }
-  }
-
-  Widget buildFavoritesIcon() {
-    if (_currentIndex == 2) {
-      return Container(
-        padding: const EdgeInsets.only(top: 15.0),
-        child: SvgPicture.asset(
-          "assets/images/cart.svg",
-          height: 20,
-          color: MColors.primaryPurple,
-        ),
-      );
-    } else {
-      return Container(
-        padding: const EdgeInsets.only(top: 15.0),
-        child: SvgPicture.asset(
-          "assets/images/cart.svg",
-          height: 18,
-          color: MColors.textGrey,
-        ),
-      );
-    }
-  }
-
-  Widget buildInboxIcon() {
-    if (_currentIndex == 3) {
-      return Container(
-        padding: const EdgeInsets.only(top: 15.0),
-        child: SvgPicture.asset(
-          "assets/images/mail.svg",
-          height: 20,
-        ),
-      );
-    } else {
-      return Container(
-        padding: const EdgeInsets.only(top: 15.0),
-        child: SvgPicture.asset(
-          "assets/images/mail.svg",
-          height: 18,
-          color: MColors.textGrey,
-        ),
-      );
-    }
-  }
-
-  Widget buildSettingsIcon() {
-    if (_currentIndex == 4) {
-      return Container(
-        padding: const EdgeInsets.only(top: 15.0),
-        child: SvgPicture.asset(
-          "assets/images/settings.svg",
-          height: 20,
-        ),
-      );
-    } else {
-      return Container(
-        padding: const EdgeInsets.only(top: 15.0),
-        child: SvgPicture.asset(
-          "assets/images/settings.svg",
-          height: 18,
-          color: MColors.textGrey,
-        ),
-      );
     }
   }
 }

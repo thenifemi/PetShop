@@ -21,8 +21,8 @@ dependencies:
     sdk: flutter
   introduction_screen: ^1.0.8
   flutter_svg: ^0.17.1
-  firebase_auth:
-  cloud_firestore: ^0.13.4+1
+  firebase_auth: ^0.15.5+3
+  cloud_firestore: ^0.13.4+2
   google_fonts:
   wc_flutter_share: ^0.2.0
 
@@ -46,72 +46,8 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/images/wallet.svg
-    - assets/images/home.svg
-    - assets/images/clock.svg
-    - assets/images/fav.svg
-    - assets/images/mail.svg
-    - assets/images/key.svg
-    - assets/images/settings.svg
-    - assets/images/pay.svg
-    - assets/images/logout.svg
-    - assets/images/femaleAvatar.svg
-    - assets/images/gift.svg
-    - assets/images/question.svg
-    - assets/images/help.svg
-    - assets/images/cart.svg
-    - assets/images/noHistory.svg
-    - assets/images/noInbox.svg
-    - assets/images/noFavs.svg
-    - assets/images/online_shopping.svg
-    - assets/images/login.svg
-    - assets/images/fingerprint.svg
-    - assets/images/verified.svg
-    - assets/images/phone_number.svg
-    - assets/images/password.svg
-    - assets/images/mc_symbol.svg
-    - assets/images/visa.svg
-    - assets/images/paypal.svg
-    - assets/images/pets.svg
-    - assets/images/petsitter.svg
-    - assets/images/petfood.svg
-    - assets/images/vet.svg
-    - assets/images/veterinarian.svg
-    - assets/images/caretaker.svg
-    - assets/images/creditcard.svg
-    - assets/images/cardsuccess.svg
-    - assets/images/manage.svg
-    - assets/images/dogs.svg
-    - assets/images/cats.svg
-    - assets/images/fish.svg
-    - assets/images/birds.svg
-    - assets/images/reptiles.svg
-    - assets/images/others.svg
-    - assets/images/scan_fingerprint.png
-    - assets/images/checkmark.png
-    #PRODUCT IMAGES FOR MOCK DATA
-    - assets/images/productImages/buffalo.jpg
-    - assets/images/productImages/cesar.jpg
-    - assets/images/productImages/meowmix.jpg
-    - assets/images/productImages/pedigree.jpg
-    - assets/images/productImages/proplan.jpg
-    - assets/images/productImages/temptations.jpg
-    - assets/images/productImages/todycats.jpg
-    - assets/images/productImages/9lives.jpg
-    #Pets
-    - assets/images/productImages/cat.png
-    - assets/images/productImages/dogs.png
-    - assets/images/productImages/bird.png
-    - assets/images/productImages/reptile.png
-    - assets/images/productImages/fish.png
-    - assets/images/productImages/hedgehog.png
-    #Services
-    - assets/images/productImages/grooming.png
-    - assets/images/productImages/training.jpg
-    - assets/images/productImages/pethotel.jpg
-    - assets/images/productImages/doggycamp.jpg
-    - assets/images/productImages/vetdoc.jpg
-    - assets/images/productImages/charities.png
+    - assets/images/
+    - assets/images/productImages/
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
