@@ -46,7 +46,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     final form = formKey.currentState;
 
     try {
-      final auth = Provider.of(context).auth;
+      final auth = MyProvider.of(context).auth;
 
       if (form.validate()) {
         form.save();

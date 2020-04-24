@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mollet/main.dart';
 import 'package:mollet/model/services/auth_service.dart';
+import 'package:mollet/model/services/user_management.dart';
 import 'package:mollet/screens/settings_screens/cards.dart';
 import 'package:mollet/screens/settings_screens/editProfile.dart';
 import 'package:mollet/screens/settings_screens/inviteFriend.dart';
@@ -73,7 +74,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               FlatButton(
                 onPressed: () async {
                   try {
-                    AuthService auth = Provider.of(context).auth;
+                    AuthService auth = MyProvider.of(context).auth;
                     auth.signOut();
                     Navigator.of(context).pop();
                     Navigator.of(context).pushReplacement(
@@ -143,7 +144,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ),
                       Container(
                         child: FutureBuilder(
-                          future: Provider.of(context).auth.getCurrentUser(),
+                          future: MyProvider.of(context).auth.getCurrentUser(),
                           builder: (context, snapshot) {
                             if (snapshot.connectionState ==
                                 ConnectionState.done) {
@@ -363,13 +364,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 height: 60,
                 width: double.infinity,
                 child: RawMaterialButton(
-                  onPressed: () {
-                    // Navigator.of(context).push(
-                    //   MaterialPageRoute(
-                    //     builder: (_) => SecurityScreen(),
-                    //   ),
-                    // );
-                  },
+                  onPressed: () {},
                   child: Row(
                     children: <Widget>[
                       Container(

@@ -46,7 +46,7 @@ class _LoginScreenState extends State<LoginScreen> {
     final form = formKey.currentState;
 
     try {
-      final auth = Provider.of(context).auth;
+      final auth = MyProvider.of(context).auth;
       if (form.validate()) {
         form.save();
         setState(() {

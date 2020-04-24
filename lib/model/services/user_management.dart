@@ -7,7 +7,7 @@ import 'package:mollet/widgets/provider.dart';
 class UserManagement {
   storeNewUser(_name, _phoneNumber, _email, context) async {
     final db = Firestore.instance;
-    final uid = await Provider.of(context).auth.getCurrentUID();
+    final uid = await MyProvider.of(context).auth.getCurrentUID();
 
     var userUpdateInfo = new UserUpdateInfo();
     userUpdateInfo.displayName = _name;
@@ -35,3 +35,4 @@ class UserManagement {
     });
   }
 }
+

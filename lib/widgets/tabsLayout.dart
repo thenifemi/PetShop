@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mollet/model/data/products_data.dart';
 import 'package:mollet/screens/home_screens/favorites.dart';
 import 'package:mollet/screens/home_screens/history.dart';
 import 'package:mollet/screens/home_screens/home.dart';
 import 'package:mollet/screens/home_screens/inbox.dart';
 import 'package:mollet/screens/home_screens/settings.dart';
 import 'package:mollet/utils/colors.dart';
+import 'package:provider/provider.dart';
 
 class TabsLayout extends StatefulWidget {
   @override
@@ -39,6 +41,28 @@ class _TabsLayoutState extends State<TabsLayout> {
     SettingsScreen(
       key: PageStorageKey("settingsKey"),
     ),
+  ];
+
+  void onTabTapped(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+  }
+
+  final _tabIcons = [
+    "assets/images/home.svg",
+    "assets/images/clock.svg",
+    "assets/images/cart.svg",
+    "assets/images/mail.svg",
+    "assets/images/settings.svg",
+  ];
+
+  final appBarTitle = [
+    "Home",
+    "History",
+    "Cart",
+    "Inbox",
+    "Settings",
   ];
 
   @override
@@ -83,20 +107,6 @@ class _TabsLayoutState extends State<TabsLayout> {
       ),
     );
   }
-
-  void onTabTapped(int index) {
-    setState(() {
-      _currentIndex = index;
-    });
-  }
-
-  final _tabIcons = [
-    "assets/images/home.svg",
-    "assets/images/clock.svg",
-    "assets/images/cart.svg",
-    "assets/images/mail.svg",
-    "assets/images/settings.svg",
-  ];
 
   //Build Appbar Titles
 

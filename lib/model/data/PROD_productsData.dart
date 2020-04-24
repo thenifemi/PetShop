@@ -35,4 +35,29 @@ class ProdProductsRepo implements ProductsRepo {
     // TODO: implement fetchServices
     return null;
   }
+
+  @override
+  notifyListeners() {
+    // TODO: implement notifyListeners
+    return null;
+  }
+
+  @override
+  void addListener(listener) {
+    // TODO: implement addListener
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+  }
+
+  @override
+  // TODO: implement hasListeners
+  bool get hasListeners => null;
+
+  @override
+  void removeListener(listener) {
+    // TODO: implement removeListener
+  }
 }

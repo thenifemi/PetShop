@@ -53,7 +53,7 @@ class _EditProfileState extends State<EditProfile> {
 
   Stream<QuerySnapshot> getUsersPhoneStreamSnapshot(
       BuildContext context) async* {
-    final uid = await Provider.of(context).auth.getCurrentUID();
+    final uid = await MyProvider.of(context).auth.getCurrentUID();
     yield* Firestore.instance
         .collection('userData')
         .document(uid)
@@ -332,7 +332,7 @@ class _EditProfileState extends State<EditProfile> {
                       Padding(
                         padding: const EdgeInsets.only(left: 20.0),
                         child: FutureBuilder(
-                          future: Provider.of(context).auth.getCurrentUser(),
+                          future: MyProvider.of(context).auth.getCurrentUser(),
                           builder: (context, snapshot) {
                             if (snapshot.connectionState ==
                                 ConnectionState.done) {

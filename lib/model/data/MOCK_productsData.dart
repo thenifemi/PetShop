@@ -20,6 +20,31 @@ class MockProductsRepo implements ProductsRepo {
   Future<List<Products>> fetchServices() {
     return Future.value(services);
   }
+
+  @override
+  notifyListeners() {
+    // TODO: implement notifyListeners
+    return null;
+  }
+
+  @override
+  void addListener(listener) {
+    // TODO: implement addListener
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+  }
+
+  @override
+  // TODO: implement hasListeners
+  bool get hasListeners => null;
+
+  @override
+  void removeListener(listener) {
+    // TODO: implement removeListener
+  }
 }
 
 var services = <Products>[

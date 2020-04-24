@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mollet/model/services/auth_service.dart';
 
-class Provider extends InheritedWidget {
+class MyProvider extends InheritedWidget {
   final AuthService auth;
-  Provider({
+  MyProvider({
     Key key,
     Widget child,
     this.auth,
@@ -14,6 +14,6 @@ class Provider extends InheritedWidget {
     return true;
   }
 
-  static Provider of(BuildContext context) =>
-      (context.inheritFromWidgetOfExactType(Provider) as Provider);
+  static MyProvider of(BuildContext context) =>
+      (context.inheritFromWidgetOfExactType(MyProvider) as MyProvider);
 }

@@ -5,13 +5,16 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mollet/model/data/MOCK_productsData.dart';
+import 'package:mollet/model/data/carousel_data.dart';
 import 'package:mollet/model/data/products_data.dart';
 import 'package:mollet/model/modules/products_presenter.dart';
 import 'package:mollet/screens/home_screens/homeScreen_buttonPages/homeProductScreens/productDetailsScreen.dart';
 import 'package:mollet/utils/colors.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:mollet/widgets/provider.dart';
 import 'package:mollet/widgets/starRatings.dart';
+import 'package:provider/provider.dart';
+
+import 'package:carousel_slider/carousel_slider.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key key}) : super(key: key);
@@ -46,7 +49,7 @@ class _HomeScreenState extends State<HomeScreen>
 
   Stream<QuerySnapshot> getUsersNameStreamSnapshot(
       BuildContext context) async* {
-    final uid = await Provider.of(context).auth.getCurrentUID();
+    final uid = await MyProvider.of(context).auth.getCurrentUID();
     yield* Firestore.instance
         .collection('userData')
         .document(uid)
@@ -63,7 +66,7 @@ class _HomeScreenState extends State<HomeScreen>
         elevation: 0.0,
         backgroundColor: MColors.primaryWhiteSmoke,
         bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(60.0),
+          preferredSize: const Size.fromHeight(60),
           child: Container(
             padding: const EdgeInsets.only(right: 20.0, left: 20.0, top: 5.0),
             child: Column(
@@ -164,19 +167,18 @@ class _HomeScreenState extends State<HomeScreen>
         ),
       ),
       body: Container(
-        color: MColors.primaryWhiteSmoke,
+        height: double.infinity,
         padding: const EdgeInsets.only(
           left: 20.0,
-          top: 10.0,
+          top: 20.0,
         ),
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
               Container(
-                height: 280.0,
                 child: ConstrainedBox(
                   constraints: BoxConstraints(
-                    maxHeight: 280,
+                    maxHeight: (MediaQuery.of(context).size.height) / 7,
                   ),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
@@ -185,13 +187,62 @@ class _HomeScreenState extends State<HomeScreen>
                     children: <Widget>[
                       Container(
                         padding: const EdgeInsets.only(bottom: 10.0),
+                        child: Text(
+                          "Shop by pet",
+                          style: GoogleFonts.montserrat(
+                            fontSize: 18.0,
+                            color: MColors.textDark,
+                            fontWeight: FontWeight.w600,
+                          ),
+                          textAlign: TextAlign.start,
+                        ),
+                      ),
+                      Expanded(
+                        child: _pets == null
+                            ? Center(
+                                child: CircularProgressIndicator(),
+                              )
+                            : ListView.builder(
+                                shrinkWrap: true,
+                                scrollDirection: Axis.horizontal,
+                                itemCount: _pets.length,
+                                itemBuilder: (context, i) {
+                                  final Products pet = _pets[i];
+
+                                  return _isLoading
+                                      ? Center(
+                                          child: CircularProgressIndicator(),
+                                        )
+                                      : _shopByPetBlock(pet);
+                                },
+                              ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 20.0,
+              ),
+              Container(
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(
+                    maxHeight: 240,
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Container(
+                        padding: const EdgeInsets.only(bottom: 5.0),
                         child: Row(
                           children: <Widget>[
                             Expanded(
                               child: Text(
                                 "Popular",
                                 style: GoogleFonts.montserrat(
-                                  fontSize: 30.0,
+                                  fontSize: 20.0,
                                   color: MColors.textDark,
                                   fontWeight: FontWeight.w600,
                                 ),
@@ -241,359 +292,12 @@ class _HomeScreenState extends State<HomeScreen>
                 height: 20.0,
               ),
               Container(
-                height: 150.0,
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(
-                    maxHeight: 150,
-                  ),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Container(
-                        padding: const EdgeInsets.only(bottom: 10.0),
-                        child: Text(
-                          "Shop by pet",
-                          style: GoogleFonts.montserrat(
-                            fontSize: 18.0,
-                            color: MColors.textDark,
-                            fontWeight: FontWeight.w500,
-                          ),
-                          textAlign: TextAlign.start,
-                        ),
-                      ),
-                      Expanded(
-                        child: _pets == null
-                            ? Center(
-                                child: CircularProgressIndicator(),
-                              )
-                            : ListView.builder(
-                                shrinkWrap: true,
-                                scrollDirection: Axis.horizontal,
-                                itemCount: _pets.length,
-                                itemBuilder: (context, i) {
-                                  final Products pet = _pets[i];
-
-                                  return _isLoading
-                                      ? Center(
-                                          child: CircularProgressIndicator(),
-                                        )
-                                      : _shopByPetBlock(pet);
-                                },
-                              ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Container(
-                height: 100.0,
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(
-                    maxHeight: 50,
-                  ),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Container(
-                        padding: const EdgeInsets.only(bottom: 10.0),
-                        child: Text(
-                          "Categories",
-                          style: GoogleFonts.montserrat(
-                            fontSize: 22.0,
-                            color: MColors.textDark,
-                            fontWeight: FontWeight.w500,
-                          ),
-                          textAlign: TextAlign.start,
-                        ),
-                      ),
-                      Expanded(
-                        child: _categories == null
-                            ? Center(
-                                child: CircularProgressIndicator(),
-                              )
-                            : ListView.builder(
-                                shrinkWrap: true,
-                                scrollDirection: Axis.horizontal,
-                                itemCount: _categories.length,
-                                itemBuilder: (context, i) {
-                                  final Products category = _categories[i];
-
-                                  return _isLoading
-                                      ? Center(
-                                          child: CircularProgressIndicator(),
-                                        )
-                                      : _categoriesBlock(category);
-                                },
-                              ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Container(
-                height: 250.0,
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(
-                    maxHeight: 250,
-                  ),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Container(
-                        child: Row(
-                          children: <Widget>[
-                            Expanded(
-                              child: Text(
-                                "Services",
-                                style: GoogleFonts.montserrat(
-                                  fontSize: 26.0,
-                                  color: MColors.textDark,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                                textAlign: TextAlign.start,
-                              ),
-                            ),
-                            RawMaterialButton(
-                              onPressed: () {},
-                              child: Text(
-                                "SEE ALL",
-                                style: GoogleFonts.montserrat(
-                                  fontSize: 12.0,
-                                  color: MColors.textGrey,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                                textAlign: TextAlign.end,
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        child: _services == null
-                            ? Center(
-                                child: CircularProgressIndicator(),
-                              )
-                            : ListView.builder(
-                                shrinkWrap: true,
-                                scrollDirection: Axis.horizontal,
-                                itemCount: _services.length,
-                                itemBuilder: (context, i) {
-                                  final Products service = _services[i];
-
-                                  return _isLoading
-                                      ? Center(
-                                          child: CircularProgressIndicator(),
-                                        )
-                                      : _servicesBlock(service);
-                                },
-                              ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Container(
-                height: 150.0,
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(
-                    maxHeight: 150,
-                  ),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Container(
-                        child: Row(
-                          children: <Widget>[
-                            Expanded(
-                              child: Text(
-                                "Featured brands",
-                                style: GoogleFonts.montserrat(
-                                  fontSize: 24.0,
-                                  color: MColors.textDark,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                                textAlign: TextAlign.start,
-                              ),
-                            ),
-                            RawMaterialButton(
-                              onPressed: () {},
-                              child: Text(
-                                "SEE MORE",
-                                style: GoogleFonts.montserrat(
-                                  fontSize: 12.0,
-                                  color: MColors.textGrey,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                                textAlign: TextAlign.end,
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                          scrollDirection: Axis.horizontal,
-                          itemCount: 8,
-                          itemBuilder: (context, i) => Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              RawMaterialButton(
-                                onPressed: () {
-                                  // Navigator.of(context).pushNamed('/PetShop');
-                                },
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: new BorderRadius.circular(10.0),
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(bottom: 0.0),
-                                  child: Container(
-                                    padding: const EdgeInsets.all(20.0),
-                                    height: 100.0,
-                                    width: 280.0,
-                                    decoration: BoxDecoration(
-                                      color: MColors.dashPurple,
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(10.0),
-                                      ),
-                                    ),
-                                    child: Column(
-                                      children: <Widget>[
-                                        Container(
-                                          child: Text(
-                                            "Linda Martin",
-                                            style: GoogleFonts.montserrat(
-                                                fontSize: 16.0,
-                                                color: MColors.textGrey,
-                                                fontWeight: FontWeight.bold),
-                                            textAlign: TextAlign.start,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(width: 20.0),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                child: _buildCarouselBlock(),
               ),
             ],
           ),
         ),
       ),
-    );
-  }
-
-  Widget _popularBlockWidget(Products product, i) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Card(
-          elevation: 4.0,
-          shape: RoundedRectangleBorder(
-            borderRadius: new BorderRadius.circular(15.0),
-          ),
-          child: RawMaterialButton(
-            onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (_) => ProductDetails(_products[i]),
-                ),
-              );
-            },
-            shape: RoundedRectangleBorder(
-              borderRadius: new BorderRadius.circular(20.0),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 0.0),
-              child: Container(
-                padding: const EdgeInsets.all(20.0),
-                height: 200.0,
-                width: 300.0,
-                decoration: BoxDecoration(
-                  color: MColors.primaryWhite,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(20.0),
-                  ),
-                ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Container(
-                          padding: const EdgeInsets.all(5.0),
-                          width: 150.0,
-                          child: Text(
-                            product.name,
-                            maxLines: 4,
-                            overflow: TextOverflow.ellipsis,
-                            style: GoogleFonts.montserrat(
-                                fontSize: 16.0,
-                                color: MColors.textDark,
-                                fontWeight: FontWeight.w500),
-                            textAlign: TextAlign.left,
-                            softWrap: true,
-                          ),
-                        ),
-                        Spacer(),
-                        Container(
-                          padding: const EdgeInsets.only(top: 5.0),
-                          child: Text(
-                            "\$${product.price.toString()}",
-                            style: GoogleFonts.montserrat(
-                                fontSize: 28.0,
-                                color: MColors.primaryPurple,
-                                fontWeight: FontWeight.bold),
-                            textAlign: TextAlign.left,
-                          ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.only(top: 5.0),
-                          child: IconTheme(
-                            data: IconThemeData(
-                              color: Colors.amber,
-                              size: 18,
-                            ),
-                            child: StarDisplay(value: 4),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Expanded(
-                      child: Container(
-                        child: Hero(
-                          child: product.productImage,
-                          tag: product.productID.toString(),
-                        ),
-                        height: 160,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ),
-        SizedBox(width: 15.0),
-      ],
     );
   }
 
@@ -609,147 +313,177 @@ class _HomeScreenState extends State<HomeScreen>
           shape: RoundedRectangleBorder(
             borderRadius: new BorderRadius.circular(10.0),
           ),
-          child: Padding(
-            padding: const EdgeInsets.only(bottom: 10.0),
+          child: Container(
+            padding: const EdgeInsets.all(5.0),
+            width: 100.0,
+            decoration: BoxDecoration(
+              color: MColors.primaryWhiteSmoke,
+              borderRadius: BorderRadius.all(
+                Radius.circular(10.0),
+              ),
+            ),
+            child: Column(
+              children: <Widget>[
+                Expanded(
+                  child: Container(
+                    padding: const EdgeInsets.all(10.0),
+                    child: pet.productImage,
+                    // height: 120,
+                  ),
+                ),
+                Container(
+                  padding: const EdgeInsets.only(bottom: 5.0),
+                  child: Text(
+                    pet.pet,
+                    style: GoogleFonts.montserrat(
+                      fontSize: 16.0,
+                      color: MColors.textGrey,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.start,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        SizedBox(width: 10.0),
+      ],
+    );
+  }
+
+  Widget _popularBlockWidget(Products product, i) {
+    return Consumer<Products>(
+      builder: (context, prod, child) => Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          RawMaterialButton(
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (_) => ProductDetails(_products[i]),
+                ),
+              );
+            },
+            shape: RoundedRectangleBorder(
+              borderRadius: new BorderRadius.circular(10.0),
+            ),
             child: Container(
-              padding: const EdgeInsets.all(5.0),
-              height: 150.0,
-              width: 100.0,
+              padding: const EdgeInsets.all(20.0),
+              width: 280,
               decoration: BoxDecoration(
-                color: MColors.primaryWhiteSmoke,
+                color: MColors.primaryWhite,
                 borderRadius: BorderRadius.all(
                   Radius.circular(10.0),
                 ),
+                boxShadow: [
+                  BoxShadow(
+                      color: Color.fromRGBO(0, 0, 0, 0.03),
+                      offset: Offset(0, 10),
+                      blurRadius: 10,
+                      spreadRadius: 0),
+                ],
               ),
-              child: Column(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Container(
+                        padding: const EdgeInsets.all(5.0),
+                        width: 150.0,
+                        child: Text(
+                          product.name,
+                          maxLines: 4,
+                          overflow: TextOverflow.ellipsis,
+                          style: GoogleFonts.montserrat(
+                              fontSize: 16.0,
+                              color: MColors.textDark,
+                              fontWeight: FontWeight.w500),
+                          textAlign: TextAlign.left,
+                          softWrap: true,
+                        ),
+                      ),
+                      Spacer(),
+                      Container(
+                        padding: const EdgeInsets.only(top: 5.0),
+                        child: Text(
+                          "\$${product.price.toString()}",
+                          style: GoogleFonts.montserrat(
+                              fontSize: 28.0,
+                              color: MColors.primaryPurple,
+                              fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.left,
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.only(top: 5.0),
+                        child: IconTheme(
+                          data: IconThemeData(
+                            color: Colors.amber,
+                            size: 18,
+                          ),
+                          child: StarDisplay(value: 4),
+                        ),
+                      ),
+                    ],
+                  ),
                   Expanded(
                     child: Container(
-                      padding: const EdgeInsets.all(10.0),
-                      child: pet.productImage,
-                      height: 120,
-                    ),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.only(bottom: 5.0),
-                    child: Text(
-                      pet.pet,
-                      style: GoogleFonts.montserrat(
-                        fontSize: 16.0,
-                        color: MColors.textGrey,
-                        fontWeight: FontWeight.bold,
+                      child: Hero(
+                        child: product.productImage,
+                        tag: product.productID.toString(),
                       ),
-                      textAlign: TextAlign.start,
                     ),
                   ),
                 ],
               ),
             ),
           ),
-        ),
-        SizedBox(width: 10.0),
-      ],
+          SizedBox(width: 15.0),
+        ],
+      ),
     );
   }
 
-  Widget _categoriesBlock(Products category) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        RawMaterialButton(
-          onPressed: () {
-            // Navigator.of(context).pushNamed('/PetShop');
-          },
-          shape: RoundedRectangleBorder(
-            borderRadius: new BorderRadius.circular(10.0),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.only(bottom: 0.0),
-            child: Container(
-              padding: const EdgeInsets.all(5.0),
-              height: 80.0,
-              width: 150.0,
-              decoration: BoxDecoration(
-                color: MColors.primaryWhiteSmoke,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(10.0),
-                ),
-              ),
-              child: Center(
-                child: Text(
-                  category.category,
-                  style: GoogleFonts.montserrat(
-                      fontSize: 26.0,
-                      color: MColors.textGrey,
-                      fontWeight: FontWeight.bold),
-                  textAlign: TextAlign.start,
-                ),
-              ),
-            ),
-          ),
-        ),
-        SizedBox(width: 10.0),
-      ],
-    );
-  }
-
-  Widget _servicesBlock(Products service) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Card(
-          shape: RoundedRectangleBorder(
-            borderRadius: new BorderRadius.circular(10.0),
-          ),
-          child: RawMaterialButton(
-            onPressed: () {
-              // Navigator.of(context).pushNamed('/PetShop');
-            },
-            shape: RoundedRectangleBorder(
-              borderRadius: new BorderRadius.circular(10.0),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 0.0),
-              child: Container(
-                padding: const EdgeInsets.all(0.0),
-                height: 200.0,
-                width: 250.0,
+  Widget _buildCarouselBlock() {
+    return CarouselSlider(
+      options:
+          CarouselOptions(height: (MediaQuery.of(context).size.height) / 4.7),
+      items: [0, 1, 2, 3, 4].map((i) {
+        return Builder(
+          builder: (BuildContext context) {
+            return Consumer<CarouselData>(
+              builder: (context, carousel, child) => Container(
                 decoration: BoxDecoration(
                   color: MColors.primaryWhite,
                   borderRadius: BorderRadius.all(
                     Radius.circular(10.0),
                   ),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    Container(
-                      child: service.productImage,
-                      height: 150.0,
-                    ),
-                    Container(
-                      padding: const EdgeInsets.only(top: 10.0),
-                      child: Center(
-                        child: Text(
-                          service.service,
-                          style: GoogleFonts.montserrat(
-                              fontSize: 20.0,
-                              color: MColors.textGrey,
-                              fontWeight: FontWeight.bold),
-                          textAlign: TextAlign.start,
-                        ),
-                      ),
-                    ),
+                  boxShadow: [
+                    BoxShadow(
+                        color: Color.fromRGBO(0, 0, 0, 0.03),
+                        offset: Offset(0, 10),
+                        blurRadius: 10,
+                        spreadRadius: 0),
                   ],
                 ),
+                width: MediaQuery.of(context).size.width,
+                margin: EdgeInsets.symmetric(horizontal: 5.0),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10.0),
+                  child: Image.asset(
+                    carousel.carouselImages[i],
+                    fit: BoxFit.fill,
+                  ),
+                ),
               ),
-            ),
-          ),
-        ),
-        SizedBox(width: 20.0),
-      ],
+            );
+          },
+        );
+      }).toList(),
     );
   }
 

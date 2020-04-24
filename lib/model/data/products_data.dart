@@ -1,8 +1,9 @@
 import 'dart:async';
 
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 
-class Products {
+class Products extends ChangeNotifier {
   Image productImage;
   String name;
   String brand;
@@ -19,6 +20,7 @@ class Products {
   int productID;
   String pet;
   String category;
+  String subCategory;
   String service;
 
   Products({
@@ -38,6 +40,7 @@ class Products {
     this.productID,
     this.pet,
     this.category,
+    this.subCategory,
     this.service,
   });
 
@@ -58,14 +61,16 @@ class Products {
         productID = map["productID"],
         pet = map["pet"],
         category = map["category"],
+        subCategory = map["subCategory"],
         service = map["service"];
 }
 
-abstract class ProductsRepo {
+abstract class ProductsRepo with ChangeNotifier{
   Future<List<Products>> fetchProducts();
   Future<List<Products>> fetchPets();
   Future<List<Products>> fetchCategories();
   Future<List<Products>> fetchServices();
+  notifyListeners();
 }
 
 class FetchDataException implements Exception {
