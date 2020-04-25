@@ -18,6 +18,7 @@ import 'package:mollet/screens/settings_screens/inviteFriend.dart';
 import 'package:mollet/screens/settings_screens/passwordSecurity.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:mollet/widgets/provider.dart';
+import 'package:mollet/widgets/similarProducts_Wigdet.dart';
 import 'package:mollet/widgets/tabsLayout.dart';
 import 'package:provider/provider.dart';
 

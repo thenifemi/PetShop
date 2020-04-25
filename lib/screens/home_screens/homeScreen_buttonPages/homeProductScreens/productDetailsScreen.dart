@@ -5,6 +5,7 @@ import 'package:mollet/model/data/MOCK_productsData.dart';
 import 'package:mollet/model/data/products_data.dart';
 import 'package:mollet/model/modules/products_presenter.dart';
 import 'package:mollet/utils/colors.dart';
+import 'package:mollet/widgets/similarProducts_Wigdet.dart';
 import 'package:mollet/widgets/starRatings.dart';
 
 class ProductDetails extends StatefulWidget {
@@ -262,7 +263,7 @@ class _ProductDetailsState extends State<ProductDetails>
                     "More",
                     style: GoogleFonts.montserrat(
                       color: MColors.textDark,
-                      fontSize: 18.0,
+                      fontSize: 16.0,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
@@ -290,7 +291,7 @@ class _ProductDetailsState extends State<ProductDetails>
                     "Details",
                     style: GoogleFonts.montserrat(
                       color: MColors.textDark,
-                      fontSize: 18.0,
+                      fontSize: 16.0,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
@@ -420,7 +421,7 @@ class _ProductDetailsState extends State<ProductDetails>
                     "Directions",
                     style: GoogleFonts.montserrat(
                       color: MColors.textDark,
-                      fontSize: 18.0,
+                      fontSize: 16.0,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
@@ -448,7 +449,7 @@ class _ProductDetailsState extends State<ProductDetails>
                     "Ingredients",
                     style: GoogleFonts.montserrat(
                       color: MColors.textDark,
-                      fontSize: 18.0,
+                      fontSize: 16.0,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
@@ -470,6 +471,21 @@ class _ProductDetailsState extends State<ProductDetails>
                   ],
                 ),
               ),
+              SizedBox(
+                height: 20.0,
+              ),
+              Container(
+                padding: const EdgeInsets.only(bottom: 6.0),
+                child: Text(
+                  "Similar products",
+                  style: GoogleFonts.montserrat(
+                    color: MColors.textDark,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 16.0,
+                  ),
+                ),
+              ),
+              SimilarProductsWidget(),
             ],
           ),
         ),

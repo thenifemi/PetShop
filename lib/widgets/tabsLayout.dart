@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mollet/model/data/products_data.dart';
 import 'package:mollet/screens/home_screens/favorites.dart';
 import 'package:mollet/screens/home_screens/history.dart';
 import 'package:mollet/screens/home_screens/home.dart';
 import 'package:mollet/screens/home_screens/inbox.dart';
 import 'package:mollet/screens/home_screens/settings.dart';
 import 'package:mollet/utils/colors.dart';
-import 'package:provider/provider.dart';
 
 class TabsLayout extends StatefulWidget {
   @override
