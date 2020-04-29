@@ -6,6 +6,13 @@ class SimilarProducts {
     "Purina Pro Plan FOCUS Sensitive Skin & Stomach Adult Dry Dog Food & Wet Dog Food",
   ];
 
+  var price = [
+    "40.99",
+    "22.99",
+    "18.99",
+    "72.99",
+  ];
+
   var images = [
     'assets/images/productImages/cesar.jpg',
     'assets/images/productImages/meowmix.jpg',

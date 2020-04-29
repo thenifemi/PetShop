@@ -4,8 +4,11 @@ import 'package:mollet/dependency_injection.dart';
 import 'package:mollet/model/data/carousel_data.dart';
 import 'package:mollet/model/data/products_data.dart';
 import 'package:mollet/model/services/auth_service.dart';
+import 'package:mollet/prodModel/Product_service.dart';
+import 'package:mollet/prodModel/products_notifier.dart';
 import 'package:mollet/screens/getstarted_screens/intro_screen.dart';
 import 'package:mollet/screens/home_screens/home.dart';
+import 'package:mollet/screens/home_screens/homeScreen_buttonPages/homeProductScreens/productDetailsScreen.dart';
 import 'package:mollet/screens/home_screens/settings.dart';
 import 'package:mollet/screens/register_screens/login_screen.dart';
 import 'package:mollet/screens/register_screens/registration_screen.dart';
@@ -86,12 +89,16 @@ class HomeController extends StatelessWidget {
               home: signedIn
                   ? MultiProvider(
                       providers: [
-                        ChangeNotifierProvider<Products>(
+                        Provider<Products>(
                           create: (context) => Products(),
                         ),
                         Provider<CarouselData>(
                           create: (context) => CarouselData(),
                         ),
+                        ChangeNotifierProvider(
+                          create: (context) => ProductsNotifier(),
+                        ),
+                        
                       ],
                       child: TabsLayout(),
                     )

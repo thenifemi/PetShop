@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 
-class Products extends ChangeNotifier {
-  Image productImage;
+class Products  {
+  String productImage;
   String name;
   String brand;
   double price;
@@ -65,12 +65,16 @@ class Products extends ChangeNotifier {
         service = map["service"];
 }
 
-abstract class ProductsRepo with ChangeNotifier{
+abstract class ProductsRepo extends ChangeNotifier {
   Future<List<Products>> fetchProducts();
   Future<List<Products>> fetchPets();
   Future<List<Products>> fetchCategories();
   Future<List<Products>> fetchServices();
-  notifyListeners();
+  @override
+  void notifyListeners() {
+    // TODO: implement notifyListeners
+    super.notifyListeners();
+  }
 }
 
 class FetchDataException implements Exception {

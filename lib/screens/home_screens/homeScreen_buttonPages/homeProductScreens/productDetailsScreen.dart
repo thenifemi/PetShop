@@ -2,125 +2,45 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mollet/model/data/MOCK_productsData.dart';
-import 'package:mollet/model/data/products_data.dart';
-import 'package:mollet/model/modules/products_presenter.dart';
+import 'package:mollet/prodModel/Products.dart';
+import 'package:mollet/prodModel/products_notifier.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:mollet/widgets/similarProducts_Wigdet.dart';
 import 'package:mollet/widgets/starRatings.dart';
+import 'package:provider/provider.dart';
 
 class ProductDetails extends StatefulWidget {
-  ProductDetails(this._products);
-  Products _products;
+  ProdProducts prodDetails;
+  ProductDetails(this.prodDetails);
 
   @override
-  _ProductDetailsState createState() => _ProductDetailsState(_products);
+  _ProductDetailsState createState() => _ProductDetailsState(prodDetails);
 }
 
-class _ProductDetailsState extends State<ProductDetails>
-    implements ProductsListViewContract {
-  Products _products;
-  ProductsListPresenter _presenter;
+class _ProductDetailsState extends State<ProductDetails> {
+  ProdProducts prodDetails;
 
+  _ProductDetailsState(this.prodDetails);
   bool _isLoading;
-
-  _ProductDetailsState(this._products) {
-    _presenter = ProductsListPresenter(this);
-  }
 
   @override
   void initState() {
     _isLoading = true;
 
-    _presenter.loadProducts();
-    print("HERE HERE");
-
     super.initState();
-  }
-
-  Widget _buildBody() {
-    return NestedScrollView(
-      headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-        return <Widget>[
-          SliverAppBar(
-            elevation: 0.0,
-            brightness: Brightness.light,
-            backgroundColor: MColors.primaryWhite,
-            leading: IconButton(
-              icon: Icon(
-                Icons.arrow_back_ios,
-                color: MColors.textDark,
-              ),
-              onPressed: () {
-                Navigator.of(context).pop(_products);
-              },
-            ),
-            expandedHeight: (MediaQuery.of(context).size.height) / 2.3,
-            floating: false,
-            pinned: true,
-            flexibleSpace: FlexibleSpaceBar(
-              background: _buildProductImage(),
-            ),
-            actions: <Widget>[
-              Container(
-                width: 70,
-                child: RawMaterialButton(
-                  child: Container(
-                    height: 26.0,
-                    child: SvgPicture.asset(
-                      "assets/images/cart.svg",
-                      height: 18,
-                      color: MColors.textDark,
-                    ),
-                  ),
-                  onPressed: () {
-                    // _showAddedToBagDialog();
-                  },
-                ),
-              ),
-            ],
-          ),
-        ];
-      },
-      body: _buildProductDetails(_products),
-    );
-  }
-
-  Widget _buildProductImage() {
-    return Builder(
-      builder: (context) {
-        final Products product = _products;
-
-        return Container(
-          // height: (MediaQuery.of(context).size.height) / 2.8,
-          color: MColors.primaryWhite,
-          padding: const EdgeInsets.fromLTRB(20.0, 70.0, 20.0, 10.0),
-          child: _products == null
-              ? CircularProgressIndicator()
-              : Hero(
-                  child: product.productImage,
-                  tag: product.productID.toString(),
-                ),
-        );
-      },
-    );
   }
 
   ////
   int qty = 1;
 
-  Widget _buildProductDetails(_products) {
-    final Products product = _products;
-    double price = product.price;
-
+  Widget _buildProductDetails(prodDetails) {
     void addQty() {
       setState(() {
         if (qty > 9) {
           qty = 9;
-          price--;
         } else if (qty < 9) {
           setState(() {
             qty++;
-            price++;
           });
         }
       });
@@ -130,7 +50,6 @@ class _ProductDetailsState extends State<ProductDetails>
       setState(() {
         if (qty != 1) {
           qty--;
-          price--;
         } else if (qty < 1) {
           setState(() {
             qty = 1;
@@ -158,7 +77,7 @@ class _ProductDetailsState extends State<ProductDetails>
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                product.name,
+                prodDetails.name,
                 style: GoogleFonts.montserrat(
                   color: MColors.textDark,
                   fontWeight: FontWeight.w700,
@@ -168,7 +87,7 @@ class _ProductDetailsState extends State<ProductDetails>
               Container(
                 padding: const EdgeInsets.only(bottom: 10.0),
                 child: Text(
-                  "\$$price",
+                  "\$${prodDetails.price}",
                   style: GoogleFonts.montserrat(
                     color: MColors.primaryPurple,
                     fontWeight: FontWeight.bold,
@@ -250,7 +169,7 @@ class _ProductDetailsState extends State<ProductDetails>
               Container(
                 padding: const EdgeInsets.only(bottom: 6.0),
                 child: Text(
-                  product.desc,
+                  prodDetails.desc,
                   style: GoogleFonts.montserrat(
                     color: MColors.textGrey,
                     fontSize: 16.0,
@@ -275,7 +194,7 @@ class _ProductDetailsState extends State<ProductDetails>
                         right: 30.0,
                       ),
                       child: Text(
-                        product.moreDesc,
+                        prodDetails.moreDesc,
                         style: GoogleFonts.montserrat(
                           color: MColors.textGrey,
                           fontSize: 16.0,
@@ -315,7 +234,7 @@ class _ProductDetailsState extends State<ProductDetails>
                           ),
                           Expanded(
                             child: Text(
-                              product.foodType,
+                              prodDetails.foodType,
                               style: GoogleFonts.montserrat(
                                 color: MColors.textGrey,
                                 fontSize: 16.0,
@@ -344,7 +263,7 @@ class _ProductDetailsState extends State<ProductDetails>
                           ),
                           Expanded(
                             child: Text(
-                              product.lifeStage,
+                              prodDetails.lifeStage,
                               style: GoogleFonts.montserrat(
                                 color: MColors.textGrey,
                                 fontSize: 16.0,
@@ -373,7 +292,7 @@ class _ProductDetailsState extends State<ProductDetails>
                           ),
                           Expanded(
                             child: Text(
-                              product.weight,
+                              prodDetails.weight,
                               style: GoogleFonts.montserrat(
                                 color: MColors.textGrey,
                                 fontSize: 16.0,
@@ -402,7 +321,7 @@ class _ProductDetailsState extends State<ProductDetails>
                           ),
                           Expanded(
                             child: Text(
-                              product.flavor,
+                              prodDetails.flavor,
                               style: GoogleFonts.montserrat(
                                 color: MColors.textGrey,
                                 fontSize: 16.0,
@@ -433,7 +352,7 @@ class _ProductDetailsState extends State<ProductDetails>
                         right: 30.0,
                       ),
                       child: Text(
-                        product.directions,
+                        prodDetails.directions,
                         style: GoogleFonts.montserrat(
                           color: MColors.textGrey,
                           fontSize: 16.0,
@@ -461,7 +380,7 @@ class _ProductDetailsState extends State<ProductDetails>
                         right: 30.0,
                       ),
                       child: Text(
-                        product.ingredients,
+                        prodDetails.ingredients,
                         style: GoogleFonts.montserrat(
                           color: MColors.textGrey,
                           fontSize: 16.0,
@@ -529,7 +448,69 @@ class _ProductDetailsState extends State<ProductDetails>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _buildBody(),
+      body: NestedScrollView(
+        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+          var prod = prodDetails;
+          return <Widget>[
+            SliverAppBar(
+              elevation: 0.0,
+              brightness: Brightness.light,
+              backgroundColor: MColors.primaryWhite,
+              leading: IconButton(
+                icon: Icon(
+                  Icons.arrow_back_ios,
+                  color: MColors.textDark,
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop(prod);
+                },
+              ),
+              expandedHeight: (MediaQuery.of(context).size.height) / 2.3,
+              floating: false,
+              pinned: true,
+              flexibleSpace: FlexibleSpaceBar(
+                background: Builder(
+                  builder: (context) {
+                    return Container(
+                      // height: (MediaQuery.of(context).size.height) / 2.8,
+                      color: MColors.primaryWhite,
+                      padding:
+                          const EdgeInsets.fromLTRB(20.0, 70.0, 20.0, 10.0),
+                      child: prod == null
+                          ? Center(child: CircularProgressIndicator())
+                          : Hero(
+                              child: Image.network(prod.productImage),
+                              // child: product.productImage,
+                              tag: prod.productID.toString(),
+                            ),
+                    );
+                  },
+                ),
+              ),
+              actions: <Widget>[
+                Container(
+                  width: 70,
+                  child: RawMaterialButton(
+                    child: Container(
+                      height: 26.0,
+                      child: SvgPicture.asset(
+                        "assets/images/cart.svg",
+                        height: 18,
+                        color: MColors.textDark,
+                      ),
+                    ),
+                    onPressed: () {
+                      // _showAddedToBagDialog();
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ];
+        },
+        // body: Container(),
+        body: _buildProductDetails(prodDetails),
+      ),
       backgroundColor: MColors.primaryWhite,
       bottomNavigationBar: Container(
         color: MColors.primaryWhiteSmoke,
@@ -558,44 +539,5 @@ class _ProductDetailsState extends State<ProductDetails>
         ),
       ),
     );
-  }
-
-  @override
-  void onLoadCategoriesComplete(List<Products> items) {}
-
-  @override
-  void onLoadCategoriesError() {
-    // TODO: implement onLoadCategoriesError
-  }
-
-  @override
-  void onLoadPetsComplete(List<Products> items) {
-    // TODO: implement onLoadPetsComplete
-  }
-
-  @override
-  void onLoadPetsError() {
-    // TODO: implement onLoadPetsError
-  }
-
-  @override
-  void onLoadProductsComplete(List<Products> items) {
-    // _products = items;
-    // _isLoading = false;
-  }
-
-  @override
-  void onLoadProductsError() {
-    // TODO: implement onLoadProductsError
-  }
-
-  @override
-  void onLoadServicesComplete(List<Products> items) {
-    // TODO: implement onLoadServicesComplete
-  }
-
-  @override
-  void onLoadServicesError() {
-    // TODO: implement onLoadServicesError
   }
 }

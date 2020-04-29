@@ -4,10 +4,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mollet/dependency_injection.dart';
 import 'package:mollet/model/data/MOCK_productsData.dart';
 import 'package:mollet/model/data/carousel_data.dart';
 import 'package:mollet/model/data/products_data.dart';
 import 'package:mollet/model/modules/products_presenter.dart';
+import 'package:mollet/model/services/auth_service.dart';
+import 'package:mollet/prodModel/Product_service.dart';
+import 'package:mollet/prodModel/Products.dart';
+import 'package:mollet/prodModel/products_notifier.dart';
 import 'package:mollet/screens/home_screens/homeScreen_buttonPages/homeProductScreens/productDetailsScreen.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:mollet/widgets/provider.dart';
@@ -31,20 +36,26 @@ class _HomeScreenState extends State<HomeScreen>
   List<Products> _categories;
   List<Products> _services;
   List<Products> _brands;
+  Flavor _flavor;
   bool _isLoading;
 
   _HomeScreenState(this._products) {
     _presenter = ProductsListPresenter(this);
   }
+
   @override
   void initState() {
-    super.initState();
-    _isLoading = true;
+    ProductsNotifier productsNotifier =
+        Provider.of<ProductsNotifier>(context, listen: false);
 
+    getProdProducts(productsNotifier);
+
+    _isLoading = true;
     _presenter.loadProducts();
     _presenter.loadPets();
     _presenter.loadCategories();
     _presenter.loadServices();
+    super.initState();
   }
 
   Stream<QuerySnapshot> getUsersNameStreamSnapshot(
@@ -60,6 +71,10 @@ class _HomeScreenState extends State<HomeScreen>
 
   @override
   Widget build(BuildContext context) {
+    ProductsNotifier productsNotifier = Provider.of<ProductsNotifier>(context);
+    var prods = productsNotifier.productsList;
+    var prodDetails = productsNotifier.currentProdProduct;
+
     return Scaffold(
       appBar: AppBar(
         brightness: Brightness.light,
@@ -174,52 +189,60 @@ class _HomeScreenState extends State<HomeScreen>
         ),
         child: SingleChildScrollView(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Container(
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(
-                    maxHeight: (MediaQuery.of(context).size.height) / 7,
-                  ),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Container(
-                        padding: const EdgeInsets.only(bottom: 10.0),
-                        child: Text(
-                          "Shop by pet",
-                          style: GoogleFonts.montserrat(
-                            fontSize: 18.0,
-                            color: MColors.textDark,
-                            fontWeight: FontWeight.w600,
-                          ),
-                          textAlign: TextAlign.start,
-                        ),
+              Provider<Products>(
+                create: (BuildContext context) => Products(),
+                child: Consumer<Products>(builder: (context, p, child) {
+                  return Container(
+                    child: ConstrainedBox(
+                      constraints: BoxConstraints(
+                        maxHeight: (MediaQuery.of(context).size.height) / 7,
                       ),
-                      Expanded(
-                        child: _pets == null
-                            ? Center(
-                                child: CircularProgressIndicator(),
-                              )
-                            : ListView.builder(
-                                shrinkWrap: true,
-                                scrollDirection: Axis.horizontal,
-                                itemCount: _pets.length,
-                                itemBuilder: (context, i) {
-                                  final Products pet = _pets[i];
-
-                                  return _isLoading
-                                      ? Center(
-                                          child: CircularProgressIndicator(),
-                                        )
-                                      : _shopByPetBlock(pet);
-                                },
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Container(
+                            padding: const EdgeInsets.only(bottom: 10.0),
+                            child: Text(
+                              "Shop by pet",
+                              style: GoogleFonts.montserrat(
+                                fontSize: 18.0,
+                                color: MColors.textDark,
+                                fontWeight: FontWeight.w600,
                               ),
+                              textAlign: TextAlign.start,
+                            ),
+                          ),
+                          Expanded(
+                            child: _pets == null
+                                ? Center(
+                                    child: CircularProgressIndicator(),
+                                  )
+                                : ListView.builder(
+                                    shrinkWrap: true,
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount: _pets.length,
+                                    itemBuilder: (context, i) {
+                                      final Products pet = _pets[i];
+
+                                      return _isLoading
+                                          ? Center(
+                                              child:
+                                                  CircularProgressIndicator(),
+                                            )
+                                          : _shopByPetBlock(pet);
+                                    },
+                                  ),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                ),
+                    ),
+                  );
+                }),
               ),
               SizedBox(
                 height: 20.0,
@@ -264,23 +287,25 @@ class _HomeScreenState extends State<HomeScreen>
                           ],
                         ),
                       ),
-                      _isLoading
+                      prods.isEmpty
                           ? Center(
                               child: CircularProgressIndicator(),
                             )
                           : Expanded(
-                              child: _products == null
+                              child: prods == null
                                   ? Center(
                                       child: CircularProgressIndicator(),
                                     )
                                   : ListView.builder(
                                       shrinkWrap: true,
                                       scrollDirection: Axis.horizontal,
-                                      itemCount: _products.length,
+                                      itemCount: 8,
                                       itemBuilder: (context, i) {
-                                        final Products product = _products[i];
+                                        // final Products product = _products[i];
+                                        var prod = prods[i];
 
-                                        return _popularBlockWidget(product, i);
+                                        return _popularBlockWidget(
+                                            prod, i, prodDetails);
                                       },
                                     ),
                             ),
@@ -327,7 +352,10 @@ class _HomeScreenState extends State<HomeScreen>
                 Expanded(
                   child: Container(
                     padding: const EdgeInsets.all(10.0),
-                    child: pet.productImage,
+                    child: _flavor == Flavor.MOCK
+                        ? Image.network(pet.productImage)
+                        : Image.asset(pet.productImage),
+                    // child: pet.productImage,
                     // height: 120,
                   ),
                 ),
@@ -352,99 +380,108 @@ class _HomeScreenState extends State<HomeScreen>
     );
   }
 
-  Widget _popularBlockWidget(Products product, i) {
-    return Consumer<Products>(
-      builder: (context, prod, child) => Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          RawMaterialButton(
-            onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (_) => ProductDetails(_products[i]),
-                ),
-              );
-            },
-            shape: RoundedRectangleBorder(
-              borderRadius: new BorderRadius.circular(10.0),
-            ),
-            child: Container(
-              padding: const EdgeInsets.all(20.0),
-              width: 280,
-              decoration: BoxDecoration(
-                color: MColors.primaryWhite,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(10.0),
-                ),
-                boxShadow: [
-                  BoxShadow(
-                      color: Color.fromRGBO(0, 0, 0, 0.03),
-                      offset: Offset(0, 10),
-                      blurRadius: 10,
-                      spreadRadius: 0),
-                ],
+  Widget _popularBlockWidget(prod, i, prodDetails) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        RawMaterialButton(
+          onPressed: () {
+            prodDetails = prod;
+
+            print(prodDetails.name);
+
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => ProductDetails(prodDetails),
               ),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Container(
-                        padding: const EdgeInsets.all(5.0),
-                        width: 150.0,
-                        child: Text(
-                          product.name,
-                          maxLines: 4,
-                          overflow: TextOverflow.ellipsis,
-                          style: GoogleFonts.montserrat(
-                              fontSize: 16.0,
-                              color: MColors.textDark,
-                              fontWeight: FontWeight.w500),
-                          textAlign: TextAlign.left,
-                          softWrap: true,
-                        ),
-                      ),
-                      Spacer(),
-                      Container(
-                        padding: const EdgeInsets.only(top: 5.0),
-                        child: Text(
-                          "\$${product.price.toString()}",
-                          style: GoogleFonts.montserrat(
-                              fontSize: 28.0,
-                              color: MColors.primaryPurple,
-                              fontWeight: FontWeight.bold),
-                          textAlign: TextAlign.left,
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.only(top: 5.0),
-                        child: IconTheme(
-                          data: IconThemeData(
-                            color: Colors.amber,
-                            size: 18,
-                          ),
-                          child: StarDisplay(value: 4),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Expanded(
-                    child: Container(
-                      child: Hero(
-                        child: product.productImage,
-                        tag: product.productID.toString(),
+            );
+          },
+          shape: RoundedRectangleBorder(
+            borderRadius: new BorderRadius.circular(10.0),
+          ),
+          child: Container(
+            padding: const EdgeInsets.all(20.0),
+            width: 280,
+            decoration: BoxDecoration(
+              color: MColors.primaryWhite,
+              borderRadius: BorderRadius.all(
+                Radius.circular(10.0),
+              ),
+              boxShadow: [
+                BoxShadow(
+                    color: Color.fromRGBO(0, 0, 0, 0.03),
+                    offset: Offset(0, 10),
+                    blurRadius: 10,
+                    spreadRadius: 0),
+              ],
+            ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Container(
+                      padding: const EdgeInsets.all(5.0),
+                      width: 150.0,
+                      child: Text(
+                        prod.name,
+                        maxLines: 4,
+                        overflow: TextOverflow.ellipsis,
+                        style: GoogleFonts.montserrat(
+                            fontSize: 16.0,
+                            color: MColors.textDark,
+                            fontWeight: FontWeight.w500),
+                        textAlign: TextAlign.left,
+                        softWrap: true,
                       ),
                     ),
+                    Spacer(),
+                    Container(
+                      padding: const EdgeInsets.only(top: 5.0),
+                      child: Text(
+                        "\$${prod.price}",
+                        style: GoogleFonts.montserrat(
+                            fontSize: 28.0,
+                            color: MColors.primaryPurple,
+                            fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.left,
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.only(top: 5.0),
+                      child: IconTheme(
+                        data: IconThemeData(
+                          color: Colors.amber,
+                          size: 18,
+                        ),
+                        child: StarDisplay(value: 4),
+                      ),
+                    ),
+                  ],
+                ),
+                Expanded(
+                  child: Container(
+                    child: Hero(
+                      // child: _flavor == Flavor.MOCK
+                      //     ? Image.network(prod.productImage)
+                      //     : Image.asset(product.productImage),
+                      child: Image.network(
+                        prod.productImage,
+                        fit: BoxFit.fill,
+                        height: MediaQuery.of(context).size.height,
+                      ),
+                      tag: prod.productID,
+                    ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
-          SizedBox(width: 15.0),
-        ],
-      ),
+        ),
+        SizedBox(width: 15.0),
+      ],
     );
   }
 
@@ -531,5 +568,24 @@ class _HomeScreenState extends State<HomeScreen>
   @override
   void onLoadServicesError() {
     // TODO: implement onLoadServicesError
+  }
+
+  @override
+  void addListener(listener) {
+    // TODO: implement addListener
+  }
+
+  @override
+  // TODO: implement hasListeners
+  bool get hasListeners => null;
+
+  @override
+  void notifyListeners() {
+    // TODO: implement notifyListeners
+  }
+
+  @override
+  void removeListener(listener) {
+    // TODO: implement removeListener
   }
 }

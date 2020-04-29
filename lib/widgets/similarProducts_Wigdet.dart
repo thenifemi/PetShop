@@ -33,7 +33,7 @@ class SimilarProductsWidget extends StatelessWidget {
                 builder: (context, sim, child) => Column(
                   children: <Widget>[
                     Container(
-                      height: 200,
+                      height: 170,
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(10.0),
                         child: Image.asset(
@@ -42,17 +42,35 @@ class SimilarProductsWidget extends StatelessWidget {
                         ),
                       ),
                     ),
+                    Align(
+                      alignment: Alignment.bottomLeft,
+                      child: Container(
+                        padding: const EdgeInsets.only(top: 5.0),
+                        child: Text(
+                          sim.name[i],
+                          maxLines: 3,
+                          overflow: TextOverflow.ellipsis,
+                          style: GoogleFonts.montserrat(
+                            color: MColors.textDark,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 16.0,
+                          ),
+                        ),
+                      ),
+                    ),
                     Spacer(),
-                    Container(
-                      padding: const EdgeInsets.only(top: 5.0),
-                      child: Text(
-                        sim.name[i],
-                        maxLines: 3,
-                        overflow: TextOverflow.ellipsis,
-                        style: GoogleFonts.montserrat(
-                          color: MColors.textDark,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 16.0,
+                    Align(
+                      alignment: Alignment.bottomLeft,
+                      child: Container(
+                        padding: const EdgeInsets.only(top: 5.0, bottom: 10.0),
+                        child: Text(
+                          "\$${sim.price[i]}",
+                          style: GoogleFonts.montserrat(
+                            color: MColors.primaryPurple,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 20.0,
+                          ),
+                          textAlign: TextAlign.left,
                         ),
                       ),
                     ),

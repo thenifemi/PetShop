@@ -23,6 +23,7 @@ dependencies:
   flutter_svg: ^0.17.1
   firebase_auth: ^0.15.5+3
   cloud_firestore: ^0.13.4+2
+
   google_fonts:
   wc_flutter_share: ^0.2.0
   provider:
@@ -50,7 +51,6 @@ flutter:
   assets:
     - assets/images/
     - assets/images/productImages/
-
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 
 import 'products_data.dart';
 
-class MockProductsRepo implements ProductsRepo {
+class MockProductsRepo extends ChangeNotifier implements ProductsRepo {
   @override
   Future<List<Products>> fetchProducts() {
     return Future.value(products);
@@ -49,45 +49,27 @@ class MockProductsRepo implements ProductsRepo {
 
 var services = <Products>[
   Products(
-    productImage: Image.asset(
-      'assets/images/productImages/grooming.png',
-      fit: BoxFit.fill,
-    ),
+    productImage: 'assets/images/productImages/grooming.png',
     service: "Grooming",
   ),
   Products(
-    productImage: Image.asset(
-      'assets/images/productImages/training.jpg',
-      fit: BoxFit.fill,
-    ),
+    productImage: 'assets/images/productImages/training.jpg',
     service: "Training",
   ),
   Products(
-    productImage: Image.asset(
-      'assets/images/productImages/pethotel.jpg',
-      fit: BoxFit.fill,
-    ),
+    productImage: 'assets/images/productImages/pethotel.jpg',
     service: "Pet Hotels",
   ),
   Products(
-    productImage: Image.asset(
-      'assets/images/productImages/doggycamp.jpg',
-      fit: BoxFit.fill,
-    ),
+    productImage: 'assets/images/productImages/doggycamp.jpg',
     service: "Doggie Day Camp",
   ),
   Products(
-    productImage: Image.asset(
-      'assets/images/productImages/vetdoc.jpg',
-      fit: BoxFit.fill,
-    ),
+    productImage: 'assets/images/productImages/vetdoc.jpg',
     service: "Veterinary",
   ),
   Products(
-    productImage: Image.asset(
-      'assets/images/productImages/charities.png',
-      fit: BoxFit.fill,
-    ),
+    productImage: 'assets/images/productImages/charities.png',
     service: "Charities",
   ),
 ];
@@ -115,34 +97,34 @@ var categories = <Products>[
 
 var pets = <Products>[
   Products(
-    productImage: Image.asset('assets/images/productImages/dogs.png'),
+    productImage: 'assets/images/productImages/dogs.png',
     pet: "Dogs",
   ),
   Products(
-    productImage: Image.asset('assets/images/productImages/cat.png'),
+    productImage: 'assets/images/productImages/cat.png',
     pet: "Cats",
   ),
   Products(
-    productImage: Image.asset('assets/images/productImages/fish.png'),
+    productImage: 'assets/images/productImages/fish.png',
     pet: "Fish",
   ),
   Products(
-    productImage: Image.asset('assets/images/productImages/bird.png'),
+    productImage: 'assets/images/productImages/bird.png',
     pet: "Birds",
   ),
   Products(
-    productImage: Image.asset('assets/images/productImages/reptile.png'),
+    productImage: 'assets/images/productImages/reptile.png',
     pet: "Reptiles",
   ),
   Products(
-    productImage: Image.asset('assets/images/productImages/hedgehog.png'),
+    productImage: 'assets/images/productImages/hedgehog.png',
     pet: "Small pets",
   ),
 ];
 
 var products = <Products>[
   Products(
-    productImage: Image.asset('assets/images/productImages/buffalo.jpg'),
+    productImage: 'assets/images/productImages/buffalo.jpg',
     name:
         "Blue Buffalo Wilderness High Protein Grain Free, Natural Adult Dry Dog Food",
     price: 58.78,
@@ -163,7 +145,7 @@ var products = <Products>[
     productID: 0,
   ),
   Products(
-    productImage: Image.asset('assets/images/productImages/cesar.jpg'),
+    productImage: 'assets/images/productImages/cesar.jpg',
     name: "Cesar Small Breed Dry Dog Food, All Flavors",
     price: 68.33,
     brand: "Cesar",
@@ -183,7 +165,7 @@ var products = <Products>[
     productID: 1,
   ),
   Products(
-    productImage: Image.asset('assets/images/productImages/meowmix.jpg'),
+    productImage: 'assets/images/productImages/meowmix.jpg',
     name: "Meow Mix Original Choice Dry Cat Food",
     price: 33.8,
     brand: "Meow Mix",
@@ -203,7 +185,7 @@ var products = <Products>[
     productID: 2,
   ),
   Products(
-    productImage: Image.asset('assets/images/productImages/pedigree.jpg'),
+    productImage: 'assets/images/productImages/pedigree.jpg',
     name: "Pedigree Adult Dry Dog Food - Grilled Steak & Vegetable Flavor",
     price: 128.89,
     brand: "Pedigree",
@@ -223,7 +205,7 @@ var products = <Products>[
     productID: 3,
   ),
   Products(
-    productImage: Image.asset('assets/images/productImages/proplan.jpg'),
+    productImage: 'assets/images/productImages/proplan.jpg',
     name:
         "Purina Pro Plan FOCUS Sensitive Skin & Stomach Adult Dry Dog Food & Wet Dog Food",
     price: 47.12,
@@ -244,7 +226,7 @@ var products = <Products>[
     productID: 4,
   ),
   Products(
-    productImage: Image.asset('assets/images/productImages/temptations.jpg'),
+    productImage: 'assets/images/productImages/temptations.jpg',
     name: "Temptations Classic Crunchy and Soft Cat Treats, 30 oz.",
     price: 14.67,
     brand: "Temptations",
@@ -264,7 +246,7 @@ var products = <Products>[
     productID: 5,
   ),
   Products(
-    productImage: Image.asset('assets/images/productImages/todycats.jpg'),
+    productImage: 'assets/images/productImages/todycats.jpg',
     name: "Purina Tidy Cats 24/7 Performance Clumping Cat Litter",
     price: 24.10,
     brand: "Purina",
@@ -284,7 +266,7 @@ var products = <Products>[
     productID: 6,
   ),
   Products(
-    productImage: Image.asset('assets/images/productImages/9lives.jpg'),
+    productImage: 'assets/images/productImages/9lives.jpg',
     name: "9Lives Dry Cat Food",
     price: 18.78,
     brand: "9 Lives",

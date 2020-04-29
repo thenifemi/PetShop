@@ -1,4 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:mollet/prodModel/Products.dart';
+import 'package:mollet/prodModel/products_notifier.dart';
 
 class AuthService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -55,6 +58,8 @@ class AuthService {
   Future sendPasswordResetEmail(String email) async {
     return _firebaseAuth.sendPasswordResetEmail(email: email);
   }
+
+  
 }
 
 //VALIDATORS
