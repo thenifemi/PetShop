@@ -23,7 +23,7 @@ dependencies:
   flutter_svg: ^0.17.1
   firebase_auth: ^0.15.5+3
   cloud_firestore: ^0.13.4+2
-
+  flutter_launcher_icons: ^0.7.5
   google_fonts:
   wc_flutter_share: ^0.2.0
   provider:

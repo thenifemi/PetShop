@@ -85,6 +85,10 @@ class HomeController extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.active) {
             final bool signedIn = snapshot.hasData;
             return MaterialApp(
+              theme: ThemeData(
+                accentColor: MColors.primaryPurple,
+                primaryColor: MColors.primaryPurple,
+              ),
               debugShowCheckedModeBanner: false,
               home: signedIn
                   ? MultiProvider(
@@ -98,7 +102,6 @@ class HomeController extends StatelessWidget {
                         ChangeNotifierProvider(
                           create: (context) => ProductsNotifier(),
                         ),
-                        
                       ],
                       child: TabsLayout(),
                     )

@@ -289,7 +289,7 @@ class _HomeScreenState extends State<HomeScreen>
                       ),
                       prods.isEmpty
                           ? Center(
-                              child: CircularProgressIndicator(),
+                              child: Center(child: CircularProgressIndicator()),
                             )
                           : Expanded(
                               child: prods == null
@@ -305,7 +305,7 @@ class _HomeScreenState extends State<HomeScreen>
                                         var prod = prods[i];
 
                                         return _popularBlockWidget(
-                                            prod, i, prodDetails);
+                                            prod, i, prodDetails, prods);
                                       },
                                     ),
                             ),
@@ -380,7 +380,7 @@ class _HomeScreenState extends State<HomeScreen>
     );
   }
 
-  Widget _popularBlockWidget(prod, i, prodDetails) {
+  Widget _popularBlockWidget(prod, i, prodDetails, prods) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -393,7 +393,7 @@ class _HomeScreenState extends State<HomeScreen>
 
             Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (context) => ProductDetails(prodDetails),
+                builder: (context) => ProductDetails(prodDetails, prods),
               ),
             );
           },

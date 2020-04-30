@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -11,26 +13,25 @@ import 'package:provider/provider.dart';
 
 class ProductDetails extends StatefulWidget {
   ProdProducts prodDetails;
-  ProductDetails(this.prodDetails);
+  UnmodifiableListView<ProdProducts> prods;
+  ProductDetails(this.prodDetails, this.prods);
 
   @override
-  _ProductDetailsState createState() => _ProductDetailsState(prodDetails);
+  _ProductDetailsState createState() =>
+      _ProductDetailsState(prodDetails, prods);
 }
 
 class _ProductDetailsState extends State<ProductDetails> {
   ProdProducts prodDetails;
+  UnmodifiableListView<ProdProducts> prods;
 
-  _ProductDetailsState(this.prodDetails);
-  bool _isLoading;
+  _ProductDetailsState(this.prodDetails, this.prods);
 
   @override
   void initState() {
-    _isLoading = true;
-
     super.initState();
   }
 
-  ////
   int qty = 1;
 
   Widget _buildProductDetails(prodDetails) {
@@ -110,6 +111,8 @@ class _ProductDetailsState extends State<ProductDetails> {
                       ),
                     ),
                     Container(
+                      height: 45.0,
+                      padding: const EdgeInsets.all(5.0),
                       decoration: BoxDecoration(
                         borderRadius: new BorderRadius.circular(10.0),
                         color: MColors.dashPurple,
@@ -120,9 +123,9 @@ class _ProductDetailsState extends State<ProductDetails> {
                           child: RawMaterialButton(
                             onPressed: subQty,
                             child: Icon(
-                              Icons.remove_circle_outline,
+                              Icons.remove,
                               color: MColors.primaryPurple,
-                              size: 25.0,
+                              size: 30.0,
                             ),
                           ),
                         ),
@@ -139,14 +142,21 @@ class _ProductDetailsState extends State<ProductDetails> {
                             ),
                           ),
                         ),
+                        SizedBox(
+                          width: 2.0,
+                        ),
                         Container(
+                          decoration: BoxDecoration(
+                            borderRadius: new BorderRadius.circular(10.0),
+                            color: MColors.primaryPurple,
+                          ),
                           width: 35.0,
                           child: RawMaterialButton(
                             onPressed: addQty,
                             child: Icon(
-                              Icons.add_circle_outline,
-                              color: MColors.primaryPurple,
-                              size: 25.0,
+                              Icons.add,
+                              color: MColors.primaryWhiteSmoke,
+                              size: 30.0,
                             ),
                           ),
                         ),
@@ -404,7 +414,9 @@ class _ProductDetailsState extends State<ProductDetails> {
                   ),
                 ),
               ),
-              SimilarProductsWidget(),
+              SimilarProductsWidget(
+                prods: prods,
+              ),
             ],
           ),
         ),
