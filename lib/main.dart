@@ -1,14 +1,13 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mollet/dependency_injection.dart';
 import 'package:mollet/model/data/carousel_data.dart';
 import 'package:mollet/model/data/products_data.dart';
 import 'package:mollet/model/services/auth_service.dart';
-import 'package:mollet/prodModel/Product_service.dart';
 import 'package:mollet/prodModel/products_notifier.dart';
 import 'package:mollet/screens/getstarted_screens/intro_screen.dart';
 import 'package:mollet/screens/home_screens/home.dart';
-import 'package:mollet/screens/home_screens/homeScreen_buttonPages/homeProductScreens/productDetailsScreen.dart';
 import 'package:mollet/screens/home_screens/settings.dart';
 import 'package:mollet/screens/register_screens/login_screen.dart';
 import 'package:mollet/screens/register_screens/registration_screen.dart';
@@ -19,9 +18,9 @@ import 'package:mollet/screens/settings_screens/changePassword.dart';
 import 'package:mollet/screens/settings_screens/editProfile.dart';
 import 'package:mollet/screens/settings_screens/inviteFriend.dart';
 import 'package:mollet/screens/settings_screens/passwordSecurity.dart';
+import 'package:mollet/screens/splash_screen.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:mollet/widgets/provider.dart';
-import 'package:mollet/widgets/similarProducts_Wigdet.dart';
 import 'package:mollet/widgets/tabsLayout.dart';
 import 'package:provider/provider.dart';
 
@@ -72,9 +71,14 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class HomeController extends StatelessWidget {
+class HomeController extends StatefulWidget {
   const HomeController({Key key}) : super(key: key);
 
+  @override
+  _HomeControllerState createState() => _HomeControllerState();
+}
+
+class _HomeControllerState extends State<HomeController> {
   @override
   Widget build(BuildContext context) {
     final AuthService auth = MyProvider.of(context).auth;
@@ -85,6 +89,7 @@ class HomeController extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.active) {
             final bool signedIn = snapshot.hasData;
             return MaterialApp(
+              title: "Pet Shop",
               theme: ThemeData(
                 accentColor: MColors.primaryPurple,
                 primaryColor: MColors.primaryPurple,
@@ -108,11 +113,7 @@ class HomeController extends StatelessWidget {
                   : IntroScreen(),
             );
           }
-          return Center(
-            child: CircularProgressIndicator(
-              backgroundColor: MColors.primaryPurple,
-            ),
-          );
+          return SplashScreen();
         });
   }
 }

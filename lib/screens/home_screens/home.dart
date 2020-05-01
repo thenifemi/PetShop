@@ -288,26 +288,24 @@ class _HomeScreenState extends State<HomeScreen>
                         ),
                       ),
                       prods.isEmpty
-                          ? Center(
-                              child: Center(child: CircularProgressIndicator()),
+                          ? Expanded(
+                              child: Container(
+                                child:
+                                    Center(child: CircularProgressIndicator()),
+                              ),
                             )
                           : Expanded(
-                              child: prods == null
-                                  ? Center(
-                                      child: CircularProgressIndicator(),
-                                    )
-                                  : ListView.builder(
-                                      shrinkWrap: true,
-                                      scrollDirection: Axis.horizontal,
-                                      itemCount: 8,
-                                      itemBuilder: (context, i) {
-                                        // final Products product = _products[i];
-                                        var prod = prods[i];
+                              child: ListView.builder(
+                                shrinkWrap: true,
+                                scrollDirection: Axis.horizontal,
+                                itemCount: prods.length,
+                                itemBuilder: (context, i) {
+                                  var prod = prods[i];
 
-                                        return _popularBlockWidget(
-                                            prod, i, prodDetails, prods);
-                                      },
-                                    ),
+                                  return _popularBlockWidget(
+                                      prod, i, prodDetails, prods);
+                                },
+                              ),
                             ),
                     ],
                   ),
@@ -389,8 +387,6 @@ class _HomeScreenState extends State<HomeScreen>
           onPressed: () {
             prodDetails = prod;
 
-            print(prodDetails.name);
-
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) => ProductDetails(prodDetails, prods),
@@ -464,13 +460,13 @@ class _HomeScreenState extends State<HomeScreen>
                 Expanded(
                   child: Container(
                     child: Hero(
-                      // child: _flavor == Flavor.MOCK
-                      //     ? Image.network(prod.productImage)
-                      //     : Image.asset(product.productImage),
-                      child: Image.network(
-                        prod.productImage,
+                      child: FadeInImage.assetNetwork(
+                        image: prod.productImage,
                         fit: BoxFit.fill,
                         height: MediaQuery.of(context).size.height,
+                        placeholder: "assets/images/placeholder.jpg",
+                        placeholderScale:
+                            MediaQuery.of(context).size.height / 2,
                       ),
                       tag: prod.productID,
                     ),

@@ -2,36 +2,34 @@ import 'dart:collection';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mollet/model/data/MOCK_productsData.dart';
-import 'package:mollet/model/data/carousel_data.dart';
-import 'package:mollet/model/data/similarProducts_data.dart';
-import 'package:mollet/prodModel/Product_service.dart';
 import 'package:mollet/prodModel/Products.dart';
-import 'package:mollet/prodModel/products_notifier.dart';
 import 'package:mollet/screens/home_screens/homeScreen_buttonPages/homeProductScreens/productDetailsScreen.dart';
 import 'package:mollet/utils/colors.dart';
-import 'package:provider/provider.dart';
 
 class SimilarProductsWidget extends StatefulWidget {
+  ProdProducts prodDetails;
+
   UnmodifiableListView<ProdProducts> prods;
 
-  SimilarProductsWidget({Key key, this.prods}) : super(key: key);
+  SimilarProductsWidget({Key key, this.prods, this.prodDetails})
+      : super(key: key);
 
   @override
   _SimilarProductsWidgetState createState() =>
-      _SimilarProductsWidgetState(prods);
+      _SimilarProductsWidgetState(prods, prodDetails);
 }
 
 class _SimilarProductsWidgetState extends State<SimilarProductsWidget> {
+  ProdProducts prodDetails;
+
   UnmodifiableListView<ProdProducts> prods;
-  _SimilarProductsWidgetState(this.prods);
+  _SimilarProductsWidgetState(this.prods, this.prodDetails);
 
   @override
   Widget build(BuildContext context) {
     var sims = prods;
 
     var size = MediaQuery.of(context).size;
-
     /*24 is for notification bar on Android*/
     final double itemHeight = (size.height - kToolbarHeight - 24) / 2.4;
     final double itemWidth = size.width / 2;
@@ -46,13 +44,21 @@ class _SimilarProductsWidgetState extends State<SimilarProductsWidget> {
         mainAxisSpacing: 15.0,
         crossAxisSpacing: 15.0,
         children: List<Widget>.generate(4, (i) {
-          var sim = sims[i];
+          Iterable<ProdProducts> iterable = sims
+              .where((item) => item.pet == prodDetails.pet)
+              .skipWhile((item) => item.productID == prodDetails.productID);
+
+          List<ProdProducts> filteredList = iterable.toList();
+
+          var fil = filteredList[i];
+
+          //////////////////////
 
           return RawMaterialButton(
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => ProductDetails(sim, prods),
+                  builder: (context) => ProductDetails(fil, prods),
                 ),
               );
             },
@@ -66,12 +72,12 @@ class _SimilarProductsWidgetState extends State<SimilarProductsWidget> {
                     height: 170,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10.0),
-                      child: sims == null
+                      child: filteredList == null
                           ? Center(
                               child: CircularProgressIndicator(),
                             )
                           : Image.network(
-                              sim.productImage,
+                              fil.productImage,
                               fit: BoxFit.fill,
                             ),
                     ),
@@ -80,12 +86,12 @@ class _SimilarProductsWidgetState extends State<SimilarProductsWidget> {
                     alignment: Alignment.bottomLeft,
                     child: Container(
                       padding: const EdgeInsets.only(top: 5.0),
-                      child: sims == null
+                      child: filteredList == null
                           ? Center(
                               child: Text("..."),
                             )
                           : Text(
-                              sim.name,
+                              fil.name,
                               maxLines: 3,
                               overflow: TextOverflow.ellipsis,
                               style: GoogleFonts.montserrat(
@@ -101,12 +107,12 @@ class _SimilarProductsWidgetState extends State<SimilarProductsWidget> {
                     alignment: Alignment.bottomLeft,
                     child: Container(
                       padding: const EdgeInsets.only(top: 5.0, bottom: 10.0),
-                      child: sims == null
+                      child: filteredList == null
                           ? Center(
                               child: Text("..."),
                             )
                           : Text(
-                              "\$${sim.price}",
+                              "\$${fil.price}",
                               style: GoogleFonts.montserrat(
                                 color: MColors.primaryPurple,
                                 fontWeight: FontWeight.w600,

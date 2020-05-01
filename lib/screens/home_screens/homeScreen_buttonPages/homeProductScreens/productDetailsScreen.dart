@@ -416,6 +416,7 @@ class _ProductDetailsState extends State<ProductDetails> {
               ),
               SimilarProductsWidget(
                 prods: prods,
+                prodDetails: prodDetails,
               ),
             ],
           ),
