@@ -5,13 +5,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mollet/dependency_injection.dart';
-import 'package:mollet/model/data/MOCK_productsData.dart';
-import 'package:mollet/model/data/carousel_data.dart';
 import 'package:mollet/model/data/products_data.dart';
 import 'package:mollet/model/modules/products_presenter.dart';
-import 'package:mollet/model/services/auth_service.dart';
 import 'package:mollet/prodModel/Product_service.dart';
-import 'package:mollet/prodModel/Products.dart';
 import 'package:mollet/prodModel/brands_notifier.dart';
 import 'package:mollet/prodModel/products_notifier.dart';
 import 'package:mollet/screens/home_screens/homeScreen_buttonPages/homeProductScreens/productDetailsScreen.dart';
@@ -26,21 +22,17 @@ class HomeScreen extends StatefulWidget {
   HomeScreen({Key key}) : super(key: key);
 
   @override
-  _HomeScreenState createState() => _HomeScreenState(products);
+  _HomeScreenState createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen>
     implements ProductsListViewContract {
   ProductsListPresenter _presenter;
-  List<Products> _products;
   List<Products> _pets;
-  List<Products> _categories;
-  List<Products> _services;
-  List<Products> _brands;
   Flavor _flavor;
   bool _isLoading;
 
-  _HomeScreenState(this._products) {
+  _HomeScreenState() {
     _presenter = ProductsListPresenter(this);
   }
 
@@ -55,10 +47,8 @@ class _HomeScreenState extends State<HomeScreen>
     getBrands(brandsNotifier);
 
     _isLoading = true;
-    _presenter.loadProducts();
     _presenter.loadPets();
-    _presenter.loadCategories();
-    _presenter.loadServices();
+   
     super.initState();
   }
 
@@ -533,18 +523,7 @@ class _HomeScreenState extends State<HomeScreen>
     );
   }
 
-  @override
-  void onLoadProductsComplete(List<Products> items) {
-    setState(() {
-      _products = items;
-      _isLoading = false;
-    });
-  }
-
-  @override
-  void onLoadProductsError() {
-    // TODO: implement onLoadProductsError
-  }
+  
 
   @override
   void onLoadPetsComplete(List<Products> items) {
@@ -557,44 +536,5 @@ class _HomeScreenState extends State<HomeScreen>
     // TODO: implement onLoadPetsError
   }
 
-  @override
-  void onLoadCategoriesComplete(List<Products> items) {
-    _categories = items;
-    _isLoading = false;
-  }
-
-  @override
-  void onLoadCategoriesError() {
-    // TODO: implement onLoadCategoriesError
-  }
-
-  @override
-  void onLoadServicesComplete(List<Products> items) {
-    _services = items;
-    _isLoading = false;
-  }
-
-  @override
-  void onLoadServicesError() {
-    // TODO: implement onLoadServicesError
-  }
-
-  @override
-  void addListener(listener) {
-    // TODO: implement addListener
-  }
-
-  @override
-  // TODO: implement hasListeners
-  bool get hasListeners => null;
-
-  @override
-  void notifyListeners() {
-    // TODO: implement notifyListeners
-  }
-
-  @override
-  void removeListener(listener) {
-    // TODO: implement removeListener
-  }
+  
 }
