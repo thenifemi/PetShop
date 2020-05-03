@@ -46,13 +46,13 @@ class _SimilarProductsWidgetState extends State<SimilarProductsWidget> {
         children: List<Widget>.generate(4, (i) {
           Iterable<ProdProducts> iterable = sims
               .where((item) => item.pet == prodDetails.pet)
-              .skipWhile((item) => item.productID == prodDetails.productID);
+              .skipWhile((item) => item.productID == prodDetails.productID)
+              .toList()
+              .reversed;
 
           List<ProdProducts> filteredList = iterable.toList();
 
           var fil = filteredList[i];
-
-          //////////////////////
 
           return RawMaterialButton(
             onPressed: () {
@@ -76,9 +76,13 @@ class _SimilarProductsWidgetState extends State<SimilarProductsWidget> {
                           ? Center(
                               child: CircularProgressIndicator(),
                             )
-                          : Image.network(
-                              fil.productImage,
+                          : FadeInImage.assetNetwork(
+                              image: fil.productImage,
                               fit: BoxFit.fill,
+                              height: MediaQuery.of(context).size.height,
+                              placeholder: "assets/images/placeholder.jpg",
+                              placeholderScale:
+                                  MediaQuery.of(context).size.height / 2,
                             ),
                     ),
                   ),

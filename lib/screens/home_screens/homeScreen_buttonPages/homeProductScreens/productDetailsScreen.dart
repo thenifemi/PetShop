@@ -492,9 +492,13 @@ class _ProductDetailsState extends State<ProductDetails> {
                       child: prod == null
                           ? Center(child: CircularProgressIndicator())
                           : Hero(
-                              child: Image.network(prod.productImage),
-                              // child: product.productImage,
-                              tag: prod.productID.toString(),
+                              child: FadeInImage.assetNetwork(
+                                image: prod.productImage,
+                                placeholder: "assets/images/placeholder.jpg",
+                                placeholderScale:
+                                    MediaQuery.of(context).size.height / 2,
+                              ),
+                              tag: prod.productID,
                             ),
                     );
                   },

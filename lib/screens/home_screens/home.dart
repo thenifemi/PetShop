@@ -12,6 +12,7 @@ import 'package:mollet/model/modules/products_presenter.dart';
 import 'package:mollet/model/services/auth_service.dart';
 import 'package:mollet/prodModel/Product_service.dart';
 import 'package:mollet/prodModel/Products.dart';
+import 'package:mollet/prodModel/brands_notifier.dart';
 import 'package:mollet/prodModel/products_notifier.dart';
 import 'package:mollet/screens/home_screens/homeScreen_buttonPages/homeProductScreens/productDetailsScreen.dart';
 import 'package:mollet/utils/colors.dart';
@@ -47,8 +48,11 @@ class _HomeScreenState extends State<HomeScreen>
   void initState() {
     ProductsNotifier productsNotifier =
         Provider.of<ProductsNotifier>(context, listen: false);
-
     getProdProducts(productsNotifier);
+
+    BrandsNotifier brandsNotifier =
+        Provider.of<BrandsNotifier>(context, listen: false);
+    getBrands(brandsNotifier);
 
     _isLoading = true;
     _presenter.loadProducts();
@@ -74,6 +78,9 @@ class _HomeScreenState extends State<HomeScreen>
     ProductsNotifier productsNotifier = Provider.of<ProductsNotifier>(context);
     var prods = productsNotifier.productsList;
     var prodDetails = productsNotifier.currentProdProduct;
+
+    BrandsNotifier brandsNotifier = Provider.of<BrandsNotifier>(context);
+    var brands = brandsNotifier.brandsList;
 
     return Scaffold(
       appBar: AppBar(
@@ -298,7 +305,7 @@ class _HomeScreenState extends State<HomeScreen>
                               child: ListView.builder(
                                 shrinkWrap: true,
                                 scrollDirection: Axis.horizontal,
-                                itemCount: prods.length,
+                                itemCount: 8,
                                 itemBuilder: (context, i) {
                                   var prod = prods[i];
 
@@ -315,7 +322,12 @@ class _HomeScreenState extends State<HomeScreen>
                 height: 20.0,
               ),
               Container(
-                child: _buildCarouselBlock(),
+                child: brands.isEmpty
+                    ? Container(
+                        height: MediaQuery.of(context).size.height / 4.7,
+                        child: Center(child: CircularProgressIndicator()),
+                      )
+                    : _buildCarouselBlock(),
               ),
             ],
           ),
@@ -330,9 +342,7 @@ class _HomeScreenState extends State<HomeScreen>
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         RawMaterialButton(
-          onPressed: () {
-            // Navigator.of(context).pushNamed('/PetShop');
-          },
+          onPressed: () {},
           shape: RoundedRectangleBorder(
             borderRadius: new BorderRadius.circular(10.0),
           ),
@@ -482,41 +492,44 @@ class _HomeScreenState extends State<HomeScreen>
   }
 
   Widget _buildCarouselBlock() {
-    return CarouselSlider(
-      options:
-          CarouselOptions(height: (MediaQuery.of(context).size.height) / 4.7),
-      items: [0, 1, 2, 3, 4].map((i) {
-        return Builder(
-          builder: (BuildContext context) {
-            return Consumer<CarouselData>(
-              builder: (context, carousel, child) => Container(
-                decoration: BoxDecoration(
-                  color: MColors.primaryWhite,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(10.0),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                        color: Color.fromRGBO(0, 0, 0, 0.03),
-                        offset: Offset(0, 10),
-                        blurRadius: 10,
-                        spreadRadius: 0),
-                  ],
+    return Consumer<BrandsNotifier>(
+      builder: (context, brandsNotifier, child) => CarouselSlider(
+        options:
+            CarouselOptions(height: (MediaQuery.of(context).size.height) / 4.7),
+        items: [2, 3, 1, 4, 0].map(
+          (i) {
+            var brands = brandsNotifier.brandsList;
+            var brand = brands[i];
+            return Container(
+              decoration: BoxDecoration(
+                color: MColors.primaryWhite,
+                borderRadius: BorderRadius.all(
+                  Radius.circular(10.0),
                 ),
-                width: MediaQuery.of(context).size.width,
-                margin: EdgeInsets.symmetric(horizontal: 5.0),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10.0),
-                  child: Image.asset(
-                    carousel.carouselImages[i],
-                    fit: BoxFit.fill,
-                  ),
+                boxShadow: [
+                  BoxShadow(
+                      color: Color.fromRGBO(0, 0, 0, 0.03),
+                      offset: Offset(0, 10),
+                      blurRadius: 10,
+                      spreadRadius: 0),
+                ],
+              ),
+              width: MediaQuery.of(context).size.width,
+              margin: EdgeInsets.symmetric(horizontal: 5.0),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(10.0),
+                child: FadeInImage.assetNetwork(
+                  image: brand.brandImage,
+                  fit: BoxFit.fill,
+                  height: MediaQuery.of(context).size.height,
+                  placeholder: "assets/images/placeholder.jpg",
+                  placeholderScale: MediaQuery.of(context).size.width,
                 ),
               ),
             );
           },
-        );
-      }).toList(),
+        ).toList(),
+      ),
     );
   }
 
