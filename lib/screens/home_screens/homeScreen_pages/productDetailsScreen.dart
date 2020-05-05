@@ -3,13 +3,10 @@ import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mollet/model/data/MOCK_productsData.dart';
 import 'package:mollet/prodModel/Products.dart';
-import 'package:mollet/prodModel/products_notifier.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:mollet/widgets/similarProducts_Wigdet.dart';
 import 'package:mollet/widgets/starRatings.dart';
-import 'package:provider/provider.dart';
 
 class ProductDetails extends StatefulWidget {
   ProdProducts prodDetails;
@@ -425,42 +422,35 @@ class _ProductDetailsState extends State<ProductDetails> {
     );
   }
 
-  void _showAddedToBagDialog() {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            content: Text(
-              "This Item has been added to your bag.",
-              style: GoogleFonts.montserrat(),
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
+  void _showAddedToCartSnackBar() {
+    _scaffoldKey.currentState.showSnackBar(
+      SnackBar(
+        behavior: SnackBarBehavior.floating,
+        duration: Duration(milliseconds: 1000),
+        shape: RoundedRectangleBorder(
+          borderRadius: new BorderRadius.circular(10.0),
+        ),
+        content: Row(
+          children: <Widget>[
+            Expanded(
+              child: Text("Product added to cart"),
             ),
-            actions: <Widget>[
-              FlatButton(
-                onPressed: () async {
-                  try {
-                    //todo
-                    print("Item added added to cart");
-                    Navigator.of(context).pop();
-                  } catch (e) {
-                    print(e);
-                  }
-                },
-                child: Text(
-                  "Okay",
-                  style: GoogleFonts.montserrat(
-                    color: MColors.primaryPurple,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ),
-            ],
-          );
-        });
+            Icon(
+              Icons.check,
+              color: Colors.greenAccent,
+            )
+          ],
+        ),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       body: NestedScrollView(
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           var prod = prodDetails;
@@ -541,7 +531,7 @@ class _ProductDetailsState extends State<ProductDetails> {
               borderRadius: new BorderRadius.circular(10.0),
             ),
             onPressed: () {
-              // _showAddedToBagDialog();
+              _showAddedToCartSnackBar();
             },
             fillColor: MColors.primaryPurple,
             child: Text(

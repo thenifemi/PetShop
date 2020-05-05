@@ -27,11 +27,11 @@ class _TabsLayoutState extends State<TabsLayout> {
     HomeScreen(
       key: PageStorageKey("homeKey"),
     ),
-    HistoryScreen(
-      key: PageStorageKey("historyKey"),
-    ),
     FavoritesScreen(
       key: PageStorageKey("favoritesKey"),
+    ),
+    HistoryScreen(
+      key: PageStorageKey("historyKey"),
     ),
     InboxScreen(
       key: PageStorageKey("inboxKey"),
@@ -49,16 +49,16 @@ class _TabsLayoutState extends State<TabsLayout> {
 
   final _tabIcons = [
     "assets/images/home.svg",
-    "assets/images/clock.svg",
     "assets/images/cart.svg",
+    "assets/images/clock.svg",
     "assets/images/mail.svg",
     "assets/images/settings.svg",
   ];
 
   final _appBarTitle = [
     "Home",
-    "History",
     "Cart",
+    "History",
     "Inbox",
     "Settings",
   ];
