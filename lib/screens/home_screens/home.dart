@@ -10,7 +10,8 @@ import 'package:mollet/model/modules/products_presenter.dart';
 import 'package:mollet/prodModel/Product_service.dart';
 import 'package:mollet/prodModel/brands_notifier.dart';
 import 'package:mollet/prodModel/products_notifier.dart';
-import 'package:mollet/screens/home_screens/homeScreen_buttonPages/homeProductScreens/productDetailsScreen.dart';
+import 'package:mollet/screens/home_screens/homeScreen_pages/allProducts_screen.dart';
+import 'package:mollet/screens/home_screens/homeScreen_pages/productDetailsScreen.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:mollet/widgets/provider.dart';
 import 'package:mollet/widgets/starRatings.dart';
@@ -48,7 +49,7 @@ class _HomeScreenState extends State<HomeScreen>
 
     _isLoading = true;
     _presenter.loadPets();
-   
+
     super.initState();
   }
 
@@ -141,10 +142,9 @@ class _HomeScreenState extends State<HomeScreen>
                 Container(
                   padding: const EdgeInsets.only(bottom: 20.0, top: 10.0),
                   child: TextFormField(
-                    // onSaved: (val) => _email = val,
                     decoration: InputDecoration(
                       prefixIcon: Icon(Icons.search),
-                      labelText: "Search product or service here...",
+                      labelText: "Search product here...",
                       labelStyle: GoogleFonts.montserrat(
                         fontSize: 14.0,
                         color: MColors.textGrey,
@@ -270,7 +270,13 @@ class _HomeScreenState extends State<HomeScreen>
                               ),
                             ),
                             RawMaterialButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => AllProductsScreen(),
+                                  ),
+                                );
+                              },
                               child: Text(
                                 "SEE ALL",
                                 style: GoogleFonts.montserrat(
@@ -350,11 +356,7 @@ class _HomeScreenState extends State<HomeScreen>
                 Expanded(
                   child: Container(
                     padding: const EdgeInsets.all(10.0),
-                    child: _flavor == Flavor.MOCK
-                        ? Image.network(pet.productImage)
-                        : Image.asset(pet.productImage),
-                    // child: pet.productImage,
-                    // height: 120,
+                    child: Image.asset(pet.productImage),
                   ),
                 ),
                 Container(
@@ -523,8 +525,6 @@ class _HomeScreenState extends State<HomeScreen>
     );
   }
 
-  
-
   @override
   void onLoadPetsComplete(List<Products> items) {
     _pets = items;
@@ -535,6 +535,4 @@ class _HomeScreenState extends State<HomeScreen>
   void onLoadPetsError() {
     // TODO: implement onLoadPetsError
   }
-
-  
 }

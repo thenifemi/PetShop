@@ -55,7 +55,7 @@ class _TabsLayoutState extends State<TabsLayout> {
     "assets/images/settings.svg",
   ];
 
-  final appBarTitle = [
+  final _appBarTitle = [
     "Home",
     "History",
     "Cart",
@@ -70,7 +70,20 @@ class _TabsLayoutState extends State<TabsLayout> {
         brightness: Brightness.light,
         elevation: 0.0,
         backgroundColor: MColors.primaryWhiteSmoke,
-        title: buildAppBarTitle(),
+        title: Text(
+          _appBarTitle
+              .map((title) {
+                return title;
+              })
+              .where((title) => _appBarTitle.indexOf(title) == _currentIndex)
+              .toString()
+              .replaceAll("\)", "")
+              .replaceAll("\(", ""),
+          style: GoogleFonts.montserrat(
+              color: MColors.textGrey,
+              fontSize: 30.0,
+              fontWeight: FontWeight.bold),
+        ),
       ),
       body: PageStorage(
         child: _children[_currentIndex],
@@ -104,53 +117,5 @@ class _TabsLayoutState extends State<TabsLayout> {
         ),
       ),
     );
-  }
-
-  //Build Appbar Titles
-
-  Widget buildAppBarTitle() {
-    if (_currentIndex == 0) {
-      return Text(
-        "Home",
-        style: GoogleFonts.montserrat(
-            color: MColors.textGrey,
-            fontSize: 30.0,
-            fontWeight: FontWeight.bold),
-      );
-    } else if (_currentIndex == 1) {
-      return Text(
-        "History",
-        style: GoogleFonts.montserrat(
-            color: MColors.textGrey,
-            fontSize: 30.0,
-            fontWeight: FontWeight.bold),
-      );
-    } else if (_currentIndex == 2) {
-      return Text(
-        "Favorites",
-        style: GoogleFonts.montserrat(
-            color: MColors.textGrey,
-            fontSize: 30.0,
-            fontWeight: FontWeight.bold),
-      );
-    } else if (_currentIndex == 3) {
-      return Text(
-        "Inbox",
-        style: GoogleFonts.montserrat(
-            color: MColors.textGrey,
-            fontSize: 30.0,
-            fontWeight: FontWeight.bold),
-      );
-    } else if (_currentIndex == 4) {
-      return Text(
-        "Settings",
-        style: GoogleFonts.montserrat(
-            color: MColors.textGrey,
-            fontSize: 30.0,
-            fontWeight: FontWeight.bold),
-      );
-    } else {
-      return null;
-    }
   }
 }
