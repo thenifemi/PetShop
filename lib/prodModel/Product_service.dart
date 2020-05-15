@@ -1,7 +1,13 @@
+import 'dart:collection';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:mollet/prodModel/brands.dart';
+import 'package:mollet/prodModel/cart.dart';
 import 'package:mollet/prodModel/brands_notifier.dart';
+import 'package:mollet/prodModel/cart_notifier.dart';
 import 'package:mollet/prodModel/products_notifier.dart';
+import 'package:mollet/model/services/auth_service.dart';
+import 'package:mollet/widgets/provider.dart';
 
 import 'Products.dart';
 
@@ -32,4 +38,41 @@ getBrands(BrandsNotifier brandsNotifier) async {
   });
 
   brandsNotifier.brandsList = _brandsList;
+}
+
+getCart(CartNotifier cartNotifier) async {
+  final uid = await AuthService().getCurrentUID();
+
+  QuerySnapshot snapshot = await Firestore.instance
+      .collection("userCart")
+      .document(uid)
+      .collection("cartItem")
+      .getDocuments();
+
+  List<Cart> _cartList = [];
+
+  snapshot.documents.forEach((document) {
+    Cart cart = Cart.fromMap(document.data);
+    _cartList.add(cart);
+  });
+
+  cartNotifier.cartList = _cartList;
+
+  print(cartNotifier.cartList.length);
+  print("^^^^^^^^^^^^");
+}
+
+addProductToCart(product, UnmodifiableListView<ProdProducts> prods, context,
+    CartNotifier cartNotifier) async {
+  final db = Firestore.instance;
+  final uid = await MyProvider.of(context).auth.getCurrentUID();
+
+  await db
+      .collection("userCart")
+      .document(uid)
+      .collection("cartItem")
+      .add(product.toMap())
+      .catchError((e) {
+    print(e);
+  });
 }

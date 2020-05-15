@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mollet/prodModel/cart_notifier.dart';
+import 'package:mollet/prodModel/Product_service.dart';
 import 'package:mollet/utils/colors.dart';
+import 'package:provider/provider.dart';
 
 class FavoritesScreen extends StatefulWidget {
   FavoritesScreen({Key key}) : super(key: key);
@@ -11,10 +14,22 @@ class FavoritesScreen extends StatefulWidget {
 }
 
 class _FavoritesScreenState extends State<FavoritesScreen> {
+  @override
+  void initState() {
+    CartNotifier cartNotifier =
+        Provider.of<CartNotifier>(context, listen: false);
+    getCart(cartNotifier);
+
+    super.initState();
+  }
+
   int qty = 1;
 
   @override
   Widget build(BuildContext context) {
+    CartNotifier cartNotifier = Provider.of<CartNotifier>(context);
+    var cartList = cartNotifier.cartList;
+
     return Scaffold(
       body: Container(
         color: MColors.primaryWhite,
@@ -31,7 +46,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: <Widget>[
                   Text(
-                    "6 items",
+                    "${cartList.length} Items",
                     style: GoogleFonts.montserrat(
                       color: MColors.textGrey,
                       fontSize: 14.0,
@@ -53,171 +68,182 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
               ),
             ),
             Expanded(
-              child: Container(
-                color: MColors.primaryWhiteSmoke,
-                padding: const EdgeInsets.only(right: 20.0, left: 20.0),
-                height: MediaQuery.of(context).size.height,
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: 8,
-                  itemBuilder: (context, i) {
-                    void addQty() {
-                      setState(() {
-                        if (qty > 9) {
-                          qty = 9;
-                        } else if (qty < 9) {
-                          setState(() {
-                            qty++;
-                          });
-                        }
-                      });
-                    }
+              child: cartList.isEmpty
+                  ? Container(
+                      child: Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    )
+                  : Container(
+                      color: MColors.primaryWhiteSmoke,
+                      padding: const EdgeInsets.only(right: 20.0, left: 20.0),
+                      height: MediaQuery.of(context).size.height,
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: cartList.length,
+                        itemBuilder: (context, i) {
+                          var cartItem = cartList[i];
+                          void addQty() {
+                            setState(() {
+                              if (qty > 9) {
+                                qty = 9;
+                              } else if (qty < 9) {
+                                setState(() {
+                                  qty++;
+                                });
+                              }
+                            });
+                          }
 
-                    void subQty() {
-                      setState(() {
-                        if (qty != 1) {
-                          qty--;
-                        } else if (qty < 1) {
-                          setState(() {
-                            qty = 1;
-                          });
-                        }
-                      });
-                    }
+                          void subQty() {
+                            setState(() {
+                              if (qty != 1) {
+                                qty--;
+                              } else if (qty < 1) {
+                                setState(() {
+                                  qty = 1;
+                                });
+                              }
+                            });
+                          }
 
-                    return Container(
-                      padding: const EdgeInsets.only(bottom: 10.0),
-                      height: 160.0,
-                      child: Container(
-                        padding: const EdgeInsets.all(10.0),
-                        decoration: BoxDecoration(
-                          color: MColors.primaryWhite,
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(10.0),
-                          ),
-                        ),
-                        child: Row(
-                          children: <Widget>[
-                            Container(
-                              child: Image.asset(
-                                "assets/images/productImages/test_product.jpg",
-                                fit: BoxFit.fill,
-                                height: MediaQuery.of(context).size.height,
+                          return Container(
+                            padding: const EdgeInsets.only(bottom: 10.0),
+                            height: 160.0,
+                            child: Container(
+                              padding: const EdgeInsets.all(10.0),
+                              decoration: BoxDecoration(
+                                color: MColors.primaryWhite,
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(10.0),
+                                ),
                               ),
-                              // child: FadeInImage.assetNetwork(
-                              //   image: prod.productImage,
-                              //   fit: BoxFit.fill,
-                              //   height: MediaQuery.of(context).size.height,
-                              //   placeholder: "assets/images/placeholder.jpg",
-                              //   placeholderScale:
-                              //       MediaQuery.of(context).size.height / 2,
-                              // ),
-                            ),
-                            Container(
-                              width: 220.0,
-                              padding: const EdgeInsets.only(left: 10.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                              child: Row(
                                 children: <Widget>[
                                   Container(
-                                    padding: const EdgeInsets.all(5.0),
-                                    width: 200.0,
-                                    child: Text(
-                                      "Merrick Backcountry Grain Free Real Meat Wet Cat Food, 3 oz. Pouches, Case of 24",
-                                      maxLines: 3,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: GoogleFonts.montserrat(
-                                          fontSize: 16.0,
-                                          color: MColors.textDark,
-                                          fontWeight: FontWeight.w500),
-                                      textAlign: TextAlign.left,
-                                      softWrap: true,
+                                    child: FadeInImage.assetNetwork(
+                                      image: cartItem.productImage,
+                                      fit: BoxFit.fill,
+                                      height:
+                                          MediaQuery.of(context).size.height,
+                                      placeholder:
+                                          "assets/images/placeholder.jpg",
+                                      placeholderScale:
+                                          MediaQuery.of(context).size.height /
+                                              2,
                                     ),
                                   ),
                                   Container(
-                                    child: Text(
-                                      "\$${47.09}",
-                                      style: GoogleFonts.montserrat(
-                                          fontSize: 24.0,
-                                          color: MColors.primaryPurple,
-                                          fontWeight: FontWeight.bold),
-                                      textAlign: TextAlign.left,
-                                    ),
-                                  ),
-                                  Spacer(),
-                                  Container(
-                                    padding: const EdgeInsets.fromLTRB(
-                                        0.0, 0.0, 10.0, 10.0),
-                                    child: Row(
+                                    width: 220.0,
+                                    padding: const EdgeInsets.only(left: 10.0),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: <Widget>[
-                                        Icon(
-                                          Icons.info_outline,
-                                          color: Colors.redAccent,
-                                          size: 14.0,
-                                        ),
-                                        SizedBox(
-                                          width: 3.0,
-                                        ),
                                         Container(
-                                          width: 180.0,
+                                          padding: const EdgeInsets.all(5.0),
+                                          width: 200.0,
                                           child: Text(
-                                            "Swipe to remove this product from cart",
+                                            cartItem.name,
                                             maxLines: 3,
                                             overflow: TextOverflow.ellipsis,
                                             style: GoogleFonts.montserrat(
-                                              fontSize: 10.0,
-                                              color: Colors.redAccent,
-                                            ),
+                                                fontSize: 16.0,
+                                                color: MColors.textDark,
+                                                fontWeight: FontWeight.w500),
                                             textAlign: TextAlign.left,
                                             softWrap: true,
+                                          ),
+                                        ),
+                                        Container(
+                                          child: Text(
+                                            "\$${cartItem.price}",
+                                            style: GoogleFonts.montserrat(
+                                                fontSize: 24.0,
+                                                color: MColors.primaryPurple,
+                                                fontWeight: FontWeight.bold),
+                                            textAlign: TextAlign.left,
+                                          ),
+                                        ),
+                                        Spacer(),
+                                        Container(
+                                          padding: const EdgeInsets.fromLTRB(
+                                              0.0, 0.0, 10.0, 10.0),
+                                          child: Row(
+                                            children: <Widget>[
+                                              Icon(
+                                                Icons.info_outline,
+                                                color: Colors.redAccent,
+                                                size: 14.0,
+                                              ),
+                                              SizedBox(
+                                                width: 3.0,
+                                              ),
+                                              Container(
+                                                width: 180.0,
+                                                child: Text(
+                                                  "Swipe to remove this product from cart",
+                                                  maxLines: 3,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  style: GoogleFonts.montserrat(
+                                                    fontSize: 10.0,
+                                                    color: Colors.redAccent,
+                                                  ),
+                                                  textAlign: TextAlign.left,
+                                                  softWrap: true,
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ),
                                       ],
                                     ),
                                   ),
+                                  Expanded(
+                                    child: Container(
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: <Widget>[
+                                          Container(
+                                            child: IconButton(
+                                              color: MColors.textGrey,
+                                              icon: Icon(
+                                                  Icons.add_circle_outline),
+                                              onPressed: addQty,
+                                            ),
+                                          ),
+                                          Container(
+                                            child: Text(
+                                              qty.toString(),
+                                              style: GoogleFonts.montserrat(
+                                                color: MColors.textDark,
+                                                fontSize: 20.0,
+                                              ),
+                                            ),
+                                          ),
+                                          Container(
+                                            child: IconButton(
+                                              color: MColors.textGrey,
+                                              icon: Icon(
+                                                  Icons.remove_circle_outline),
+                                              onPressed: subQty,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
                                 ],
                               ),
                             ),
-                            Expanded(
-                              child: Container(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: <Widget>[
-                                    Container(
-                                      child: IconButton(
-                                        color: MColors.textGrey,
-                                        icon: Icon(Icons.add_circle_outline),
-                                        onPressed: addQty,
-                                      ),
-                                    ),
-                                    Container(
-                                      child: Text(
-                                        qty.toString(),
-                                        style: GoogleFonts.montserrat(
-                                          color: MColors.textDark,
-                                          fontSize: 20.0,
-                                        ),
-                                      ),
-                                    ),
-                                    Container(
-                                      child: IconButton(
-                                        color: MColors.textGrey,
-                                        icon: Icon(Icons.remove_circle_outline),
-                                        onPressed: subQty,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
+                          );
+                        },
                       ),
-                    );
-                  },
-                ),
-              ),
+                    ),
             ),
           ],
         ),
@@ -247,6 +273,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
         ),
       ),
     );
+
     // return Center(
     //   child: SingleChildScrollView(
     //     child: Column(

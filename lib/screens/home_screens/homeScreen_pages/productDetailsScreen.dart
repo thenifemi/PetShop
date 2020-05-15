@@ -3,10 +3,15 @@ import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mollet/prodModel/Product_service.dart';
+import 'package:mollet/prodModel/cart_notifier.dart';
 import 'package:mollet/prodModel/Products.dart';
+import 'package:mollet/screens/home_screens/favorites.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:mollet/widgets/similarProducts_Wigdet.dart';
 import 'package:mollet/widgets/starRatings.dart';
+import 'package:mollet/widgets/tabsLayout.dart';
+import 'package:provider/provider.dart';
 
 class ProductDetails extends StatefulWidget {
   ProdProducts prodDetails;
@@ -26,6 +31,7 @@ class _ProductDetailsState extends State<ProductDetails> {
 
   @override
   void initState() {
+    // addProductToCart(prodDetails, prods, context, cartNotifier);
     super.initState();
   }
 
@@ -435,7 +441,7 @@ class _ProductDetailsState extends State<ProductDetails> {
         content: Row(
           children: <Widget>[
             Expanded(
-              child: Text("Product added to cart"),
+              child: Text("Added to cart"),
             ),
             Icon(
               Icons.check,
@@ -449,97 +455,110 @@ class _ProductDetailsState extends State<ProductDetails> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: _scaffoldKey,
-      body: NestedScrollView(
-        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-          var prod = prodDetails;
-          return <Widget>[
-            SliverAppBar(
-              elevation: 0.0,
-              brightness: Brightness.light,
-              backgroundColor: MColors.primaryWhite,
-              leading: IconButton(
-                icon: Icon(
-                  Icons.arrow_back_ios,
-                  color: MColors.textDark,
-                ),
-                onPressed: () {
-                  Navigator.of(context).pop(prod);
-                },
-              ),
-              expandedHeight: (MediaQuery.of(context).size.height) / 2.3,
-              floating: false,
-              pinned: true,
-              flexibleSpace: FlexibleSpaceBar(
-                background: Builder(
-                  builder: (context) {
-                    return Container(
-                      // height: (MediaQuery.of(context).size.height) / 2.8,
-                      color: MColors.primaryWhite,
-                      padding:
-                          const EdgeInsets.fromLTRB(20.0, 70.0, 20.0, 10.0),
-                      child: prod == null
-                          ? Center(child: CircularProgressIndicator())
-                          : Hero(
-                              child: FadeInImage.assetNetwork(
-                                image: prod.productImage,
-                                placeholder: "assets/images/placeholder.jpg",
-                                placeholderScale:
-                                    MediaQuery.of(context).size.height / 2,
-                              ),
-                              tag: prod.productID,
-                            ),
-                    );
-                  },
-                ),
-              ),
-              actions: <Widget>[
-                Container(
-                  width: 70,
-                  child: RawMaterialButton(
-                    child: Container(
-                      height: 26.0,
-                      child: SvgPicture.asset(
-                        "assets/images/cart.svg",
-                        height: 18,
-                        color: MColors.textDark,
-                      ),
+    return ChangeNotifierProvider<CartNotifier>(
+      create: (BuildContext context) => CartNotifier(),
+      child: Consumer<CartNotifier>(
+        builder: (context, cartNotifier, child) => Scaffold(
+          key: _scaffoldKey,
+          body: NestedScrollView(
+            headerSliverBuilder:
+                (BuildContext context, bool innerBoxIsScrolled) {
+              var prod = prodDetails;
+              return <Widget>[
+                SliverAppBar(
+                  elevation: 0.0,
+                  brightness: Brightness.light,
+                  backgroundColor: MColors.primaryWhite,
+                  leading: IconButton(
+                    icon: Icon(
+                      Icons.arrow_back_ios,
+                      color: MColors.textDark,
                     ),
                     onPressed: () {
-                      // _showAddedToBagDialog();
+                      Navigator.of(context).pop(prod);
                     },
                   ),
+                  expandedHeight: (MediaQuery.of(context).size.height) / 2.3,
+                  floating: false,
+                  pinned: true,
+                  flexibleSpace: FlexibleSpaceBar(
+                    background: Builder(
+                      builder: (context) {
+                        return Container(
+                          // height: (MediaQuery.of(context).size.height) / 2.8,
+                          color: MColors.primaryWhite,
+                          padding:
+                              const EdgeInsets.fromLTRB(20.0, 70.0, 20.0, 10.0),
+                          child: prod == null
+                              ? Center(child: CircularProgressIndicator())
+                              : Hero(
+                                  child: FadeInImage.assetNetwork(
+                                    image: prod.productImage,
+                                    placeholder:
+                                        "assets/images/placeholder.jpg",
+                                    placeholderScale:
+                                        MediaQuery.of(context).size.height / 2,
+                                  ),
+                                  tag: prod.productID,
+                                ),
+                        );
+                      },
+                    ),
+                  ),
+                  actions: <Widget>[
+                    Container(
+                      width: 70,
+                      child: RawMaterialButton(
+                        child: Container(
+                          height: 26.0,
+                          child: SvgPicture.asset(
+                            "assets/images/cart.svg",
+                            height: 18,
+                            color: MColors.textDark,
+                          ),
+                        ),
+                        onPressed: () {
+                          // Navigator.of(context).push(
+                          //   MaterialPageRoute(
+                          //     builder: (context) => TabsLayout(),
+                          //   ),
+                          // );
+                        },
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          ];
-        },
-        // body: Container(),
-        body: _buildProductDetails(prodDetails),
-      ),
-      backgroundColor: MColors.primaryWhite,
-      bottomNavigationBar: Container(
-        color: MColors.primaryWhiteSmoke,
-        padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 20.0),
-        height: 80.0,
-        child: SizedBox(
-          width: double.infinity,
-          height: 60.0,
-          child: RawMaterialButton(
-            shape: RoundedRectangleBorder(
-              borderRadius: new BorderRadius.circular(10.0),
-            ),
-            onPressed: () {
-              _showAddedToCartSnackBar();
+              ];
             },
-            fillColor: MColors.primaryPurple,
-            child: Text(
-              "Add to cart",
-              style: GoogleFonts.montserrat(
-                color: MColors.primaryWhite,
-                fontSize: 18.0,
-                fontWeight: FontWeight.w500,
+            // body: Container(),
+            body: _buildProductDetails(prodDetails),
+          ),
+          backgroundColor: MColors.primaryWhite,
+          bottomNavigationBar: Container(
+            color: MColors.primaryWhiteSmoke,
+            padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 20.0),
+            height: 80.0,
+            child: SizedBox(
+              width: double.infinity,
+              height: 60.0,
+              child: RawMaterialButton(
+                shape: RoundedRectangleBorder(
+                  borderRadius: new BorderRadius.circular(10.0),
+                ),
+                onPressed: () {
+                  addProductToCart(prodDetails, prods, context, cartNotifier);
+
+                  _showAddedToCartSnackBar();
+                },
+                fillColor: MColors.primaryPurple,
+                child: Text(
+                  "Add to cart",
+                  style: GoogleFonts.montserrat(
+                    color: MColors.primaryWhite,
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
               ),
             ),
           ),

@@ -1,7 +1,4 @@
-import 'package:flutter/scheduler.dart';
-import 'package:mollet/model/data/PROD_productsData.dart';
-
-class ProdProducts {
+class Cart {
   String productImage;
   String name;
   String brand;
@@ -21,7 +18,7 @@ class ProdProducts {
   String subCategory;
   String service;
 
-  ProdProducts.fromMap(Map<String, dynamic> data) {
+  Cart.fromMap(Map<String, dynamic> data) {
     productImage = data["productImage"];
     name = data["name"];
     brand = data["brand"];
