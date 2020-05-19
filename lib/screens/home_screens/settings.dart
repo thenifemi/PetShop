@@ -3,7 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mollet/main.dart';
 import 'package:mollet/model/services/auth_service.dart';
-import 'package:mollet/model/services/user_management.dart';
+import 'package:mollet/prodModel/Product_service.dart';
 import 'package:mollet/screens/settings_screens/cards.dart';
 import 'package:mollet/screens/settings_screens/editProfile.dart';
 import 'package:mollet/screens/settings_screens/inviteFriend.dart';
@@ -322,13 +322,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 height: 60,
                 width: double.infinity,
                 child: RawMaterialButton(
-                  onPressed: () {
-                    // Navigator.of(context).push(
-                    //   MaterialPageRoute(
-                    //     builder: (_) => SecurityScreen(),
-                    //   ),
-                    // );
-                  },
+                  onPressed: () {},
                   child: Row(
                     children: <Widget>[
                       Container(

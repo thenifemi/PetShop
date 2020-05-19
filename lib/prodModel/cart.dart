@@ -2,7 +2,7 @@ class Cart {
   String productImage;
   String name;
   String brand;
-  String price;
+  double price;
   String desc;
   String moreDesc;
   String foodType;

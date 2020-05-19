@@ -7,6 +7,7 @@ import 'package:mollet/prodModel/Product_service.dart';
 import 'package:mollet/prodModel/cart_notifier.dart';
 import 'package:mollet/prodModel/Products.dart';
 import 'package:mollet/screens/home_screens/favorites.dart';
+import 'package:mollet/screens/home_screens/homeScreen_pages/cart2.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:mollet/widgets/similarProducts_Wigdet.dart';
 import 'package:mollet/widgets/starRatings.dart';
@@ -518,11 +519,11 @@ class _ProductDetailsState extends State<ProductDetails> {
                           ),
                         ),
                         onPressed: () {
-                          // Navigator.of(context).push(
-                          //   MaterialPageRoute(
-                          //     builder: (context) => TabsLayout(),
-                          //   ),
-                          // );
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => Cart1(),
+                            ),
+                          );
                         },
                       ),
                     ),

@@ -8,6 +8,7 @@ import 'package:mollet/prodModel/products_notifier.dart';
 import 'package:mollet/prodModel/cart_notifier.dart';
 import 'package:mollet/screens/getstarted_screens/intro_screen.dart';
 import 'package:mollet/screens/home_screens/home.dart';
+import 'package:mollet/screens/home_screens/homeScreen_pages/cart2.dart';
 import 'package:mollet/screens/home_screens/settings.dart';
 import 'package:mollet/screens/register_screens/login_screen.dart';
 import 'package:mollet/screens/register_screens/registration_screen.dart';

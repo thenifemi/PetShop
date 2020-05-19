@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -29,6 +31,11 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
   Widget build(BuildContext context) {
     CartNotifier cartNotifier = Provider.of<CartNotifier>(context);
     var cartList = cartNotifier.cartList;
+    var totalList = cartNotifier.cartList.map((e) => e.price);
+    var total1 = totalList.isEmpty
+        ? 0.0
+        : totalList.reduce((sum, element) => sum + element);
+    var total = total1.toStringAsFixed(2);
 
     return Scaffold(
       body: Container(
@@ -57,7 +64,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                     height: 5.0,
                   ),
                   Text(
-                    "\$400",
+                    "\$$total",
                     style: GoogleFonts.montserrat(
                       color: MColors.textGrey,
                       fontSize: 24.0,
@@ -121,6 +128,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                               child: Row(
                                 children: <Widget>[
                                   Container(
+                                    width: 80.0,
                                     child: FadeInImage.assetNetwork(
                                       image: cartItem.productImage,
                                       fit: BoxFit.fill,
