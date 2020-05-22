@@ -49,14 +49,17 @@ class _LoginScreenState extends State<LoginScreen> {
       final auth = MyProvider.of(context).auth;
       if (form.validate()) {
         form.save();
-        setState(() {
-          if (_state == 0) {
-            animateButton();
-          }
-        });
+        if (mounted) {
+          setState(() {
+            if (_state == 0) {
+              animateButton();
+            }
+          });
+        }
+
         String uid = await auth.signInWithEmailAndPassword(_email, _password);
         print("Signed in with $uid");
-        Navigator.of(context).pop();
+        // Navigator.of(context).pop();
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
             builder: (_) => MyApp(),
@@ -68,13 +71,18 @@ class _LoginScreenState extends State<LoginScreen> {
         });
       }
     } catch (e) {
-      setState(() {
-        _error = e.message;
-        _state = 0;
-        _isButtonDisabled = false;
-      });
+      if (mounted) {
+        setState(() {
+          _error = e.message;
+          _state = 0;
+          _isButtonDisabled = false;
+        });
+      }
+
+      print("ERRORRRRRRRRRRR");
 
       print(e);
+      print("ERRORRRRRRRRRRR");
     }
   }
 
@@ -156,8 +164,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
             ),
-
-            // ),
           ],
         ),
         height: 60,

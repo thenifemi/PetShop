@@ -1,4 +1,4 @@
-import 'dart:math';
+import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -16,10 +16,13 @@ class FavoritesScreen extends StatefulWidget {
 }
 
 class _FavoritesScreenState extends State<FavoritesScreen> {
+  Future cartFuture;
+
   @override
   void initState() {
     CartNotifier cartNotifier =
         Provider.of<CartNotifier>(context, listen: false);
+    cartFuture = getCart(cartNotifier);
     getCart(cartNotifier);
 
     super.initState();
@@ -32,11 +35,45 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
     CartNotifier cartNotifier = Provider.of<CartNotifier>(context);
     var cartList = cartNotifier.cartList;
     var totalList = cartNotifier.cartList.map((e) => e.price);
-    var total1 = totalList.isEmpty
+    var total = totalList.isEmpty
         ? 0.0
-        : totalList.reduce((sum, element) => sum + element);
-    var total = total1.toStringAsFixed(2);
+        : totalList.reduce((sum, element) => sum + element).toStringAsFixed(2);
 
+    return FutureBuilder(
+        future: cartFuture,
+        builder: (c, s) {
+          switch (s.connectionState) {
+            case ConnectionState.active:
+              return Container(
+                color: MColors.primaryWhiteSmoke,
+                child: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              );
+              break;
+            case ConnectionState.done:
+              return cartList.isEmpty ? emptyCart() : cart(cartList, total);
+              break;
+            case ConnectionState.waiting:
+              return Container(
+                color: MColors.primaryWhiteSmoke,
+                child: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              );
+              break;
+            default:
+              return Container(
+                color: MColors.primaryWhiteSmoke,
+                child: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              );
+          }
+        });
+  }
+
+  Widget cart(cartList, total) {
     return Scaffold(
       body: Container(
         color: MColors.primaryWhite,
@@ -75,183 +112,168 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
               ),
             ),
             Expanded(
-              child: cartList.isEmpty
-                  ? Container(
-                      child: Center(
-                        child: CircularProgressIndicator(),
-                      ),
-                    )
-                  : Container(
-                      color: MColors.primaryWhiteSmoke,
-                      padding: const EdgeInsets.only(right: 20.0, left: 20.0),
-                      height: MediaQuery.of(context).size.height,
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: cartList.length,
-                        itemBuilder: (context, i) {
-                          var cartItem = cartList[i];
-                          void addQty() {
-                            setState(() {
-                              if (qty > 9) {
-                                qty = 9;
-                              } else if (qty < 9) {
-                                setState(() {
-                                  qty++;
-                                });
-                              }
-                            });
-                          }
+              child: Container(
+                color: MColors.primaryWhiteSmoke,
+                padding: const EdgeInsets.only(right: 20.0, left: 20.0),
+                height: MediaQuery.of(context).size.height,
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: cartList.length,
+                  itemBuilder: (context, i) {
+                    var cartItem = cartList[i];
+                    void addQty() {
+                      setState(() {
+                        if (qty > 9) {
+                          qty = 9;
+                        } else if (qty < 9) {
+                          setState(() {
+                            qty++;
+                          });
+                        }
+                      });
+                    }
 
-                          void subQty() {
-                            setState(() {
-                              if (qty != 1) {
-                                qty--;
-                              } else if (qty < 1) {
-                                setState(() {
-                                  qty = 1;
-                                });
-                              }
-                            });
-                          }
+                    void subQty() {
+                      setState(() {
+                        if (qty != 1) {
+                          qty--;
+                        } else if (qty < 1) {
+                          setState(() {
+                            qty = 1;
+                          });
+                        }
+                      });
+                    }
 
-                          return Container(
-                            padding: const EdgeInsets.only(bottom: 10.0),
-                            height: 160.0,
-                            child: Container(
-                              padding: const EdgeInsets.all(10.0),
-                              decoration: BoxDecoration(
-                                color: MColors.primaryWhite,
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(10.0),
-                                ),
+                    return Container(
+                      padding: const EdgeInsets.only(bottom: 10.0),
+                      height: 160.0,
+                      child: Container(
+                        padding: const EdgeInsets.all(10.0),
+                        decoration: BoxDecoration(
+                          color: MColors.primaryWhite,
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(10.0),
+                          ),
+                        ),
+                        child: Row(
+                          children: <Widget>[
+                            Container(
+                              width: 80.0,
+                              child: FadeInImage.assetNetwork(
+                                image: cartItem.productImage,
+                                fit: BoxFit.fill,
+                                height: MediaQuery.of(context).size.height,
+                                placeholder: "assets/images/placeholder.jpg",
+                                placeholderScale:
+                                    MediaQuery.of(context).size.height / 2,
                               ),
-                              child: Row(
+                            ),
+                            Container(
+                              width: 220.0,
+                              padding: const EdgeInsets.only(left: 10.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
                                   Container(
-                                    width: 80.0,
-                                    child: FadeInImage.assetNetwork(
-                                      image: cartItem.productImage,
-                                      fit: BoxFit.fill,
-                                      height:
-                                          MediaQuery.of(context).size.height,
-                                      placeholder:
-                                          "assets/images/placeholder.jpg",
-                                      placeholderScale:
-                                          MediaQuery.of(context).size.height /
-                                              2,
+                                    padding: const EdgeInsets.all(5.0),
+                                    width: 200.0,
+                                    child: Text(
+                                      cartItem.name,
+                                      maxLines: 3,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: GoogleFonts.montserrat(
+                                          fontSize: 16.0,
+                                          color: MColors.textDark,
+                                          fontWeight: FontWeight.w500),
+                                      textAlign: TextAlign.left,
+                                      softWrap: true,
                                     ),
                                   ),
                                   Container(
-                                    width: 220.0,
-                                    padding: const EdgeInsets.only(left: 10.0),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                    child: Text(
+                                      "\$${cartItem.price}",
+                                      style: GoogleFonts.montserrat(
+                                          fontSize: 24.0,
+                                          color: MColors.primaryPurple,
+                                          fontWeight: FontWeight.bold),
+                                      textAlign: TextAlign.left,
+                                    ),
+                                  ),
+                                  Spacer(),
+                                  Container(
+                                    padding: const EdgeInsets.fromLTRB(
+                                        0.0, 0.0, 10.0, 10.0),
+                                    child: Row(
                                       children: <Widget>[
+                                        Icon(
+                                          Icons.info_outline,
+                                          color: Colors.redAccent,
+                                          size: 14.0,
+                                        ),
+                                        SizedBox(
+                                          width: 3.0,
+                                        ),
                                         Container(
-                                          padding: const EdgeInsets.all(5.0),
-                                          width: 200.0,
+                                          width: 180.0,
                                           child: Text(
-                                            cartItem.name,
+                                            "Swipe to remove this product from cart",
                                             maxLines: 3,
                                             overflow: TextOverflow.ellipsis,
                                             style: GoogleFonts.montserrat(
-                                                fontSize: 16.0,
-                                                color: MColors.textDark,
-                                                fontWeight: FontWeight.w500),
+                                              fontSize: 10.0,
+                                              color: Colors.redAccent,
+                                            ),
                                             textAlign: TextAlign.left,
                                             softWrap: true,
-                                          ),
-                                        ),
-                                        Container(
-                                          child: Text(
-                                            "\$${cartItem.price}",
-                                            style: GoogleFonts.montserrat(
-                                                fontSize: 24.0,
-                                                color: MColors.primaryPurple,
-                                                fontWeight: FontWeight.bold),
-                                            textAlign: TextAlign.left,
-                                          ),
-                                        ),
-                                        Spacer(),
-                                        Container(
-                                          padding: const EdgeInsets.fromLTRB(
-                                              0.0, 0.0, 10.0, 10.0),
-                                          child: Row(
-                                            children: <Widget>[
-                                              Icon(
-                                                Icons.info_outline,
-                                                color: Colors.redAccent,
-                                                size: 14.0,
-                                              ),
-                                              SizedBox(
-                                                width: 3.0,
-                                              ),
-                                              Container(
-                                                width: 180.0,
-                                                child: Text(
-                                                  "Swipe to remove this product from cart",
-                                                  maxLines: 3,
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                  style: GoogleFonts.montserrat(
-                                                    fontSize: 10.0,
-                                                    color: Colors.redAccent,
-                                                  ),
-                                                  textAlign: TextAlign.left,
-                                                  softWrap: true,
-                                                ),
-                                              ),
-                                            ],
                                           ),
                                         ),
                                       ],
                                     ),
                                   ),
-                                  Expanded(
-                                    child: Container(
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: <Widget>[
-                                          Container(
-                                            child: IconButton(
-                                              color: MColors.textGrey,
-                                              icon: Icon(
-                                                  Icons.add_circle_outline),
-                                              onPressed: addQty,
-                                            ),
-                                          ),
-                                          Container(
-                                            child: Text(
-                                              qty.toString(),
-                                              style: GoogleFonts.montserrat(
-                                                color: MColors.textDark,
-                                                fontSize: 20.0,
-                                              ),
-                                            ),
-                                          ),
-                                          Container(
-                                            child: IconButton(
-                                              color: MColors.textGrey,
-                                              icon: Icon(
-                                                  Icons.remove_circle_outline),
-                                              onPressed: subQty,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
                                 ],
                               ),
                             ),
-                          );
-                        },
+                            Expanded(
+                              child: Container(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: <Widget>[
+                                    Container(
+                                      child: IconButton(
+                                        color: MColors.textGrey,
+                                        icon: Icon(Icons.add_circle_outline),
+                                        onPressed: addQty,
+                                      ),
+                                    ),
+                                    Container(
+                                      child: Text(
+                                        qty.toString(),
+                                        style: GoogleFonts.montserrat(
+                                          color: MColors.textDark,
+                                          fontSize: 20.0,
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      child: IconButton(
+                                        color: MColors.textGrey,
+                                        icon: Icon(Icons.remove_circle_outline),
+                                        onPressed: subQty,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
+                    );
+                  },
+                ),
+              ),
             ),
           ],
         ),
@@ -281,49 +303,53 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
         ),
       ),
     );
+  }
 
-    // return Center(
-    //   child: SingleChildScrollView(
-    //     child: Column(
-    //       mainAxisAlignment: MainAxisAlignment.center,
-    //       crossAxisAlignment: CrossAxisAlignment.center,
-    //       children: <Widget>[
-    //         Container(
-    //           padding: const EdgeInsets.all(20.0),
-    //           child: SvgPicture.asset(
-    //             "assets/images/noFavs.svg",
-    //             height: 150,
-    //           ),
-    //         ),
-    //         Container(
-    //           child: Text(
-    //             "Cart is empty",
-    //             style: GoogleFonts.montserrat(
-    //               color: MColors.textDark,
-    //               fontSize: 25.0,
-    //               fontWeight: FontWeight.w500,
-    //             ),
-    //             textAlign: TextAlign.center,
-    //           ),
-    //         ),
-    //         Container(
-    //           padding: const EdgeInsets.only(
-    //             right: 30.0,
-    //             left: 30.0,
-    //             top: 10.0,
-    //           ),
-    //           child: Text(
-    //             "Products that you add to your cart will show up here. So lets get shopping.",
-    //             style: GoogleFonts.montserrat(
-    //               color: MColors.textGrey,
-    //               fontSize: 16.0,
-    //             ),
-    //             textAlign: TextAlign.center,
-    //           ),
-    //         ),
-    //       ],
-    //     ),
-    //   ),
-    // );
+  Widget emptyCart() {
+    return Container(
+      child: Center(
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                padding: const EdgeInsets.all(20.0),
+                child: SvgPicture.asset(
+                  "assets/images/noFavs.svg",
+                  height: 150,
+                ),
+              ),
+              Container(
+                child: Text(
+                  "Cart is empty",
+                  style: GoogleFonts.montserrat(
+                    color: MColors.textDark,
+                    fontSize: 25.0,
+                    fontWeight: FontWeight.w500,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.only(
+                  right: 30.0,
+                  left: 30.0,
+                  top: 10.0,
+                ),
+                child: Text(
+                  "Products that you add to your cart will show up here. So lets get shopping.",
+                  style: GoogleFonts.montserrat(
+                    color: MColors.textGrey,
+                    fontSize: 16.0,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

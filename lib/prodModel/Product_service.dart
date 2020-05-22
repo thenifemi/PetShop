@@ -75,3 +75,14 @@ addProductToCart(product, UnmodifiableListView<ProdProducts> prods, context,
     print(e);
   });
 }
+
+Stream<QuerySnapshot> checkCart(BuildContext context) async* {
+  final uid = await AuthService().getCurrentUID();
+
+  yield* Firestore.instance
+      .collection("userCart")
+      .document(uid)
+      .collection("cartItem")
+      .snapshots()
+      .asBroadcastStream();
+}
