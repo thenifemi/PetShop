@@ -79,8 +79,6 @@ class _LoginScreenState extends State<LoginScreen> {
         });
       }
 
-      print("ERRORRRRRRRRRRR");
-
       print(e);
       print("ERRORRRRRRRRRRR");
     }

@@ -11,8 +11,21 @@ import 'package:mollet/screens/home_screens/homeScreen_pages/cart2.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:mollet/widgets/similarProducts_Wigdet.dart';
 import 'package:mollet/widgets/starRatings.dart';
-import 'package:mollet/widgets/tabsLayout.dart';
 import 'package:provider/provider.dart';
+
+class ProductDetailsProv extends StatelessWidget {
+  ProdProducts prodDetails;
+  UnmodifiableListView<ProdProducts> prods;
+  ProductDetailsProv(this.prodDetails, this.prods);
+
+  @override
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider<CartNotifier>(
+      create: (BuildContext context) => CartNotifier(),
+      child: ProductDetails(prodDetails, prods),
+    );
+  }
+}
 
 class ProductDetails extends StatefulWidget {
   ProdProducts prodDetails;
@@ -25,14 +38,19 @@ class ProductDetails extends StatefulWidget {
 }
 
 class _ProductDetailsState extends State<ProductDetails> {
+  _ProductDetailsState(this.prodDetails, this.prods);
+
   ProdProducts prodDetails;
   UnmodifiableListView<ProdProducts> prods;
-
-  _ProductDetailsState(this.prodDetails, this.prods);
+  // Future cartFuture;
 
   @override
   void initState() {
-    // addProductToCart(prodDetails, prods, context, cartNotifier);
+    CartNotifier cartNotifier =
+        Provider.of<CartNotifier>(context, listen: false);
+    // cartFuture = getCart(cartNotifier);
+
+    getCart(cartNotifier);
     super.initState();
   }
 
@@ -454,115 +472,162 @@ class _ProductDetailsState extends State<ProductDetails> {
     );
   }
 
+  //Cart Button
+
+  bool _isbuttonDisabled = false;
+
+  void disableButton() {
+    setState(() {
+      _isbuttonDisabled = true;
+    });
+  }
+
+  void _submit(cartNotifier) {
+    try {
+      if (_isbuttonDisabled == false) {
+        disableButton();
+        addProductToCart(prodDetails, prods, context, cartNotifier);
+        _showAddedToCartSnackBar();
+      } else {
+        setState(() {
+          _isbuttonDisabled = false;
+        });
+      }
+    } catch (e) {
+      print("ERRORRRRRRRRRRR");
+      print(e);
+    }
+  }
+
+  Widget cartButton(cartNotifier) {
+    if (_isbuttonDisabled == true) {
+      return RawMaterialButton(
+        shape: RoundedRectangleBorder(
+          borderRadius: new BorderRadius.circular(10.0),
+        ),
+        onPressed: null,
+        fillColor: MColors.lightGrey,
+        child: Text(
+          "Product already in cart",
+          style: GoogleFonts.montserrat(
+            color: MColors.primaryWhite,
+            fontSize: 18.0,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+      );
+    } else {
+      return RawMaterialButton(
+        shape: RoundedRectangleBorder(
+          borderRadius: new BorderRadius.circular(10.0),
+        ),
+        onPressed: _isbuttonDisabled ? null : () => _submit(cartNotifier),
+        fillColor: MColors.primaryPurple,
+        child: Text(
+          "Add to cart",
+          style: GoogleFonts.montserrat(
+            color: MColors.primaryWhite,
+            fontSize: 18.0,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<CartNotifier>(
-      create: (BuildContext context) => CartNotifier(),
-      child: Consumer<CartNotifier>(
-        builder: (context, cartNotifier, child) => Scaffold(
-          key: _scaffoldKey,
-          body: NestedScrollView(
-            headerSliverBuilder:
-                (BuildContext context, bool innerBoxIsScrolled) {
-              var prod = prodDetails;
-              return <Widget>[
-                SliverAppBar(
-                  elevation: 0.0,
-                  brightness: Brightness.light,
-                  backgroundColor: MColors.primaryWhite,
-                  leading: IconButton(
-                    icon: Icon(
-                      Icons.arrow_back_ios,
-                      color: MColors.textDark,
-                    ),
-                    onPressed: () {
-                      Navigator.of(context).pop(prod);
-                    },
-                  ),
-                  expandedHeight: (MediaQuery.of(context).size.height) / 2.3,
-                  floating: false,
-                  pinned: true,
-                  flexibleSpace: FlexibleSpaceBar(
-                    background: Builder(
-                      builder: (context) {
-                        return Container(
-                          // height: (MediaQuery.of(context).size.height) / 2.8,
-                          color: MColors.primaryWhite,
-                          padding:
-                              const EdgeInsets.fromLTRB(20.0, 70.0, 20.0, 10.0),
-                          child: prod == null
-                              ? Center(child: CircularProgressIndicator())
-                              : Hero(
-                                  child: FadeInImage.assetNetwork(
-                                    image: prod.productImage,
-                                    placeholder:
-                                        "assets/images/placeholder.jpg",
-                                    placeholderScale:
-                                        MediaQuery.of(context).size.height / 2,
-                                  ),
-                                  tag: prod.productID,
-                                ),
-                        );
-                      },
-                    ),
-                  ),
-                  actions: <Widget>[
-                    Container(
-                      width: 70,
-                      child: RawMaterialButton(
-                        child: Container(
-                          height: 26.0,
-                          child: SvgPicture.asset(
-                            "assets/images/cart.svg",
-                            height: 18,
-                            color: MColors.textDark,
-                          ),
-                        ),
-                        onPressed: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => Cart1(),
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-              ];
-            },
-            // body: Container(),
-            body: _buildProductDetails(prodDetails),
-          ),
-          backgroundColor: MColors.primaryWhite,
-          bottomNavigationBar: Container(
-            color: MColors.primaryWhiteSmoke,
-            padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 20.0),
-            height: 80.0,
-            child: SizedBox(
-              width: double.infinity,
-              height: 60.0,
-              child: RawMaterialButton(
-                shape: RoundedRectangleBorder(
-                  borderRadius: new BorderRadius.circular(10.0),
+    CartNotifier cartNotifier = Provider.of<CartNotifier>(context);
+
+    var cartProdID = cartNotifier.cartList.map((e) => e.productID);
+
+    if (cartProdID.contains(prodDetails.productID)) {
+      setState(() {
+        _isbuttonDisabled = true;
+      });
+    }
+    return Scaffold(
+      key: _scaffoldKey,
+      body: NestedScrollView(
+        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+          var prod = prodDetails;
+          return <Widget>[
+            SliverAppBar(
+              elevation: 0.0,
+              brightness: Brightness.light,
+              backgroundColor: MColors.primaryWhite,
+              leading: IconButton(
+                icon: Icon(
+                  Icons.arrow_back_ios,
+                  color: MColors.textDark,
                 ),
                 onPressed: () {
-                  addProductToCart(prodDetails, prods, context, cartNotifier);
-
-                  _showAddedToCartSnackBar();
+                  Navigator.of(context).pop(prod);
                 },
-                fillColor: MColors.primaryPurple,
-                child: Text(
-                  "Add to cart",
-                  style: GoogleFonts.montserrat(
-                    color: MColors.primaryWhite,
-                    fontSize: 18.0,
-                    fontWeight: FontWeight.w500,
-                  ),
+              ),
+              expandedHeight: (MediaQuery.of(context).size.height) / 2.3,
+              floating: false,
+              pinned: true,
+              flexibleSpace: FlexibleSpaceBar(
+                background: Builder(
+                  builder: (context) {
+                    return Container(
+                      // height: (MediaQuery.of(context).size.height) / 2.8,
+                      color: MColors.primaryWhite,
+                      padding:
+                          const EdgeInsets.fromLTRB(20.0, 70.0, 20.0, 10.0),
+                      child: prod == null
+                          ? Center(child: CircularProgressIndicator())
+                          : Hero(
+                              child: FadeInImage.assetNetwork(
+                                image: prod.productImage,
+                                placeholder: "assets/images/placeholder.jpg",
+                                placeholderScale:
+                                    MediaQuery.of(context).size.height / 2,
+                              ),
+                              tag: prod.productID,
+                            ),
+                    );
+                  },
                 ),
               ),
+              actions: <Widget>[
+                Container(
+                  width: 70,
+                  child: RawMaterialButton(
+                    child: Container(
+                      height: 26.0,
+                      child: SvgPicture.asset(
+                        "assets/images/cart.svg",
+                        height: 18,
+                        color: MColors.textDark,
+                      ),
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => Cart1(),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ],
             ),
-          ),
+          ];
+        },
+        // body: Container(),
+        body: _buildProductDetails(prodDetails),
+      ),
+      backgroundColor: MColors.primaryWhite,
+      bottomNavigationBar: Container(
+        color: MColors.primaryWhiteSmoke,
+        padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 20.0),
+        height: 80.0,
+        child: SizedBox(
+          width: double.infinity,
+          height: 60.0,
+          child: cartButton(cartNotifier),
         ),
       ),
     );

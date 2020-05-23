@@ -58,7 +58,7 @@ class _SimilarProductsWidgetState extends State<SimilarProductsWidget> {
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => ProductDetails(fil, prods),
+                  builder: (context) => ProductDetailsProv(fil, prods),
                 ),
               );
             },

@@ -392,7 +392,7 @@ class _HomeScreenState extends State<HomeScreen>
 
             Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (context) => ProductDetails(prodDetails, prods),
+                builder: (context) => ProductDetailsProv(prodDetails, prods),
               ),
             );
           },

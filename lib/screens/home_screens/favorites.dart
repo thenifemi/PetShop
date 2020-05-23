@@ -34,7 +34,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
   Widget build(BuildContext context) {
     CartNotifier cartNotifier = Provider.of<CartNotifier>(context);
     var cartList = cartNotifier.cartList;
-    var totalList = cartNotifier.cartList.map((e) => e.price);
+    var totalList = cartList.map((e) => e.price);
     var total = totalList.isEmpty
         ? 0.0
         : totalList.reduce((sum, element) => sum + element).toStringAsFixed(2);
