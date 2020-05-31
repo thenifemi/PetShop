@@ -460,7 +460,7 @@ class _ProductDetailsState extends State<ProductDetails> {
         content: Row(
           children: <Widget>[
             Expanded(
-              child: Text("Added to cart"),
+              child: Text("Added to Bag"),
             ),
             Icon(
               Icons.check,
@@ -508,7 +508,7 @@ class _ProductDetailsState extends State<ProductDetails> {
         onPressed: null,
         fillColor: MColors.lightGrey,
         child: Text(
-          "Product already in cart",
+          "Product already in Bag",
           style: GoogleFonts.montserrat(
             color: MColors.primaryWhite,
             fontSize: 18.0,
@@ -524,7 +524,7 @@ class _ProductDetailsState extends State<ProductDetails> {
         onPressed: _isbuttonDisabled ? null : () => _submit(cartNotifier),
         fillColor: MColors.primaryPurple,
         child: Text(
-          "Add to cart",
+          "Add to Bag",
           style: GoogleFonts.montserrat(
             color: MColors.primaryWhite,
             fontSize: 18.0,
@@ -559,7 +559,8 @@ class _ProductDetailsState extends State<ProductDetails> {
               leading: IconButton(
                 icon: Icon(
                   Icons.arrow_back_ios,
-                  color: MColors.textDark,
+                  color: MColors.textGrey,
+                  size: 22.0,
                 ),
                 onPressed: () {
                   Navigator.of(context).pop(prod);
@@ -596,11 +597,11 @@ class _ProductDetailsState extends State<ProductDetails> {
                   width: 70,
                   child: RawMaterialButton(
                     child: Container(
-                      height: 26.0,
+                      height: 30.0,
                       child: SvgPicture.asset(
-                        "assets/images/cart.svg",
-                        height: 18,
-                        color: MColors.textDark,
+                        "assets/images/icons/Bag.svg",
+                        height: 24.0,
+                        color: MColors.textGrey,
                       ),
                     ),
                     onPressed: () {

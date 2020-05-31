@@ -76,7 +76,9 @@ class _Cart2State extends State<Cart2> {
               return Container(
                 color: MColors.primaryWhiteSmoke,
                 child: Center(
-                  child: CircularProgressIndicator(),
+                  child: CircularProgressIndicator(
+                    strokeWidth: 2.0,
+                  ),
                 ),
               );
               break;
@@ -87,7 +89,9 @@ class _Cart2State extends State<Cart2> {
               return Container(
                 color: MColors.primaryWhiteSmoke,
                 child: Center(
-                  child: CircularProgressIndicator(),
+                  child: CircularProgressIndicator(
+                    strokeWidth: 2.0,
+                  ),
                 ),
               );
               break;
@@ -95,7 +99,9 @@ class _Cart2State extends State<Cart2> {
               return Container(
                 color: MColors.primaryWhiteSmoke,
                 child: Center(
-                  child: CircularProgressIndicator(),
+                  child: CircularProgressIndicator(
+                    strokeWidth: 2.0,
+                  ),
                 ),
               );
           }
@@ -248,7 +254,7 @@ class _Cart2State extends State<Cart2> {
                                         Container(
                                           width: 180.0,
                                           child: Text(
-                                            "Swipe to remove this product from cart",
+                                            "Swipe to remove",
                                             maxLines: 3,
                                             overflow: TextOverflow.ellipsis,
                                             style: GoogleFonts.montserrat(
@@ -347,7 +353,7 @@ class _Cart2State extends State<Cart2> {
               Container(
                 padding: const EdgeInsets.all(20.0),
                 child: SvgPicture.asset(
-                  "assets/images/noFavs.svg",
+                  "assets/images/emptyCart.svg",
                   height: 150,
                 ),
               ),

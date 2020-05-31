@@ -129,11 +129,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         child: Padding(
                           padding: const EdgeInsets.all(15.0),
                           child: Container(
-                            width: 90.0,
-                            height: 90.0,
                             child: SvgPicture.asset(
                               "assets/images/femaleAvatar.svg",
-                              height: 150,
+                              height: 90.0,
                             ),
                             decoration: new BoxDecoration(
                               shape: BoxShape.circle,
@@ -250,7 +248,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       Container(
                         padding: const EdgeInsets.only(right: 20.0),
                         child: SvgPicture.asset(
-                          "assets/images/pay.svg",
+                          "assets/images/icons/Wallet.svg",
                           height: 20,
                           color: MColors.textGrey,
                         ),

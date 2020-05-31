@@ -1,8 +1,6 @@
 import 'dart:collection';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:mollet/model/data/PROD_productsData.dart';
 import 'package:mollet/prodModel/brands.dart';
 import 'package:mollet/prodModel/cart.dart';
 import 'package:mollet/prodModel/brands_notifier.dart';

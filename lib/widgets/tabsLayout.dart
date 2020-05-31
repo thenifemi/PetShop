@@ -48,16 +48,16 @@ class _TabsLayoutState extends State<TabsLayout> {
   }
 
   final _tabIcons = [
-    "assets/images/home.svg",
-    "assets/images/cart.svg",
-    "assets/images/clock.svg",
-    "assets/images/mail.svg",
-    "assets/images/settings.svg",
+    "assets/images/icons/Home.svg",
+    "assets/images/icons/Bag.svg",
+    "assets/images/icons/Chart.svg",
+    "assets/images/icons/Message.svg",
+    "assets/images/icons/Setting.svg",
   ];
 
   final _appBarTitle = [
-    "Home",
-    "Cart",
+    "Pet Shop",
+    "Bag",
     "History",
     "Inbox",
     "Settings",
@@ -70,6 +70,19 @@ class _TabsLayoutState extends State<TabsLayout> {
         brightness: Brightness.light,
         elevation: 0.0,
         backgroundColor: MColors.primaryWhiteSmoke,
+        leading: _currentIndex == 0
+            ? Container(
+                padding: const EdgeInsets.fromLTRB(
+                  10.0,
+                  10.0,
+                  0.0,
+                  10.0,
+                ),
+                child: Image.asset(
+                  "assets/images/footprint.png",
+                ),
+              )
+            : null,
         title: Text(
           _appBarTitle
               .map((title) {
@@ -80,8 +93,9 @@ class _TabsLayoutState extends State<TabsLayout> {
               .replaceAll("\)", "")
               .replaceAll("\(", ""),
           style: GoogleFonts.montserrat(
-              color: MColors.textGrey,
-              fontSize: 30.0,
+              color:
+                  _currentIndex == 0 ? MColors.primaryPurple : MColors.textGrey,
+              fontSize: 26.0,
               fontWeight: FontWeight.bold),
         ),
       ),
@@ -106,11 +120,13 @@ class _TabsLayoutState extends State<TabsLayout> {
                 padding: const EdgeInsets.only(top: 15.0),
                 child: SvgPicture.asset(
                   e,
-                  height: 20,
+                  height: 22,
                   color: isSelected ? MColors.primaryPurple : MColors.textGrey,
                 ),
               ),
-              title: Text(""),
+              title: Text(
+                "",
+              ),
               backgroundColor: MColors.primaryPurple,
             );
           }).toList(),

@@ -47,7 +47,9 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
               return Container(
                 color: MColors.primaryWhiteSmoke,
                 child: Center(
-                  child: CircularProgressIndicator(),
+                  child: CircularProgressIndicator(
+                    strokeWidth: 2.0,
+                  ),
                 ),
               );
               break;
@@ -58,7 +60,9 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
               return Container(
                 color: MColors.primaryWhiteSmoke,
                 child: Center(
-                  child: CircularProgressIndicator(),
+                  child: CircularProgressIndicator(
+                    strokeWidth: 2.0,
+                  ),
                 ),
               );
               break;
@@ -66,7 +70,9 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
               return Container(
                 color: MColors.primaryWhiteSmoke,
                 child: Center(
-                  child: CircularProgressIndicator(),
+                  child: CircularProgressIndicator(
+                    strokeWidth: 2.0,
+                  ),
                 ),
               );
           }
@@ -146,7 +152,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                     }
 
                     return Container(
-                      padding: const EdgeInsets.only(bottom: 10.0),
+                      padding: const EdgeInsets.all(5.0),
                       height: 160.0,
                       child: Container(
                         padding: const EdgeInsets.all(10.0),
@@ -170,7 +176,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                               ),
                             ),
                             Container(
-                              width: 220.0,
+                              width: MediaQuery.of(context).size.width / 2,
                               padding: const EdgeInsets.only(left: 10.0),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -202,6 +208,8 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                                   ),
                                   Spacer(),
                                   Container(
+                                    width:
+                                        MediaQuery.of(context).size.width / 2,
                                     padding: const EdgeInsets.fromLTRB(
                                         0.0, 0.0, 10.0, 10.0),
                                     child: Row(
@@ -215,9 +223,8 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                                           width: 3.0,
                                         ),
                                         Container(
-                                          width: 180.0,
                                           child: Text(
-                                            "Swipe to remove this product from cart",
+                                            "Swipe to remove",
                                             maxLines: 3,
                                             overflow: TextOverflow.ellipsis,
                                             style: GoogleFonts.montserrat(
@@ -236,11 +243,12 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                             ),
                             Expanded(
                               child: Container(
+                                // color: Colors.red,
                                 child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  // mainAxisAlignment: MainAxisAlignment.center,
+                                  // crossAxisAlignment: CrossAxisAlignment.center,
                                   children: <Widget>[
-                                    Container(
+                                    Center(
                                       child: IconButton(
                                         color: MColors.textGrey,
                                         icon: Icon(Icons.add_circle_outline),
@@ -248,19 +256,24 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                                       ),
                                     ),
                                     Container(
-                                      child: Text(
-                                        qty.toString(),
-                                        style: GoogleFonts.montserrat(
-                                          color: MColors.textDark,
-                                          fontSize: 20.0,
+                                      child: Center(
+                                        child: Text(
+                                          qty.toString(),
+                                          style: GoogleFonts.montserrat(
+                                            color: MColors.textDark,
+                                            fontSize: 20.0,
+                                          ),
                                         ),
                                       ),
                                     ),
                                     Container(
-                                      child: IconButton(
-                                        color: MColors.textGrey,
-                                        icon: Icon(Icons.remove_circle_outline),
-                                        onPressed: subQty,
+                                      child: Center(
+                                        child: IconButton(
+                                          color: MColors.textGrey,
+                                          icon:
+                                              Icon(Icons.remove_circle_outline),
+                                          onPressed: subQty,
+                                        ),
                                       ),
                                     ),
                                   ],
@@ -316,7 +329,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
               Container(
                 padding: const EdgeInsets.all(20.0),
                 child: SvgPicture.asset(
-                  "assets/images/noFavs.svg",
+                  "assets/images/emptyCart.svg",
                   height: 150,
                 ),
               ),

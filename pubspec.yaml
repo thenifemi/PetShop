@@ -27,6 +27,7 @@ dependencies:
   google_fonts:
   wc_flutter_share: ^0.2.0
   provider:
+  bubble_tab_indicator: ^0.1.4
   carousel_slider: ^2.0.0
 
 flutter_icons:
@@ -55,6 +56,7 @@ flutter:
   assets:
     - assets/images/
     - assets/images/productImages/
+    - assets/images/icons/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
