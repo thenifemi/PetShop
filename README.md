@@ -1,4 +1,4 @@
-<img align="left" src="https://raw.githubusercontent.com/wilburt/Jade-Player/master/images/icon.svg?sanitize=true" width="50px">
+<img align="left" src="https://raw.githubusercontent.com/thenifemi/PetShop/blob/master/assets/footprint.png?sanitize=true" width="50px">
 
 # Pet Shop
 https://github.com/thenifemi/PetShop/blob/master/assets/bag.jpg?raw=true
