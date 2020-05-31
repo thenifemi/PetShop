@@ -19,7 +19,7 @@ Pet Shop is an e-commerce application for Android built with Flutter (iOS to com
 
 - Provider architecture
 - FirebaseAuth for authentication 
-- FirebaseAuth for authentication 
+- Firebase Cloud Firestore as backend database 
 - Fetched store images from Amazon
 
 ## Building
