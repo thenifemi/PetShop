@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mollet/prodModel/Product_service.dart';
+import 'package:mollet/prodModel/cart_notifier.dart';
 import 'package:mollet/screens/home_screens/favorites.dart';
 import 'package:mollet/screens/home_screens/history.dart';
 import 'package:mollet/screens/home_screens/home.dart';
 import 'package:mollet/screens/home_screens/inbox.dart';
 import 'package:mollet/screens/home_screens/settings.dart';
 import 'package:mollet/utils/colors.dart';
+import 'package:provider/provider.dart';
 
 class TabsLayout extends StatefulWidget {
   @override
@@ -20,6 +23,9 @@ class _TabsLayoutState extends State<TabsLayout> {
 
   @override
   void initState() {
+    CartNotifier cartNotifier =
+        Provider.of<CartNotifier>(context, listen: false);
+    getCart(cartNotifier);
     super.initState();
   }
 
@@ -51,7 +57,7 @@ class _TabsLayoutState extends State<TabsLayout> {
     "assets/images/icons/Home.svg",
     "assets/images/icons/Bag.svg",
     "assets/images/icons/Chart.svg",
-    "assets/images/icons/Message.svg",
+    "assets/images/icons/Notification.svg",
     "assets/images/icons/Setting.svg",
   ];
 
@@ -65,6 +71,9 @@ class _TabsLayoutState extends State<TabsLayout> {
 
   @override
   Widget build(BuildContext context) {
+    CartNotifier cartNotifier = Provider.of<CartNotifier>(context);
+    var cartList = cartNotifier.cartList;
+
     return Scaffold(
       appBar: AppBar(
         brightness: Brightness.light,
@@ -115,13 +124,51 @@ class _TabsLayoutState extends State<TabsLayout> {
           onTap: onTabTapped,
           items: _tabIcons.map((e) {
             final bool isSelected = _tabIcons.indexOf(e) == _currentIndex;
+            final bool isCartSelected = _tabIcons.indexOf(e) == 1;
             return BottomNavigationBarItem(
-              icon: Container(
-                padding: const EdgeInsets.only(top: 15.0),
-                child: SvgPicture.asset(
-                  e,
-                  height: 22,
-                  color: isSelected ? MColors.primaryPurple : MColors.textGrey,
+              icon: Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: Stack(
+                  children: <Widget>[
+                    Container(
+                      padding: const EdgeInsets.only(top: 5.0),
+                      child: SvgPicture.asset(
+                        e,
+                        height: 22,
+                        color:
+                            isSelected ? MColors.primaryPurple : MColors.textGrey,
+                      ),
+                    ),
+                    isCartSelected && cartList.isNotEmpty
+                        ? Positioned(
+                            right: 0,
+                            child: new Container(
+                              padding: EdgeInsets.all(1),
+                              decoration: new BoxDecoration(
+                                color: Colors.redAccent,
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                              constraints: BoxConstraints(
+                                minWidth: 7,
+                                minHeight: 7,
+                              ),
+                            ),
+                          )
+                        : Positioned(
+                            right: 0,
+                            child: new Container(
+                              padding: EdgeInsets.all(1),
+                              decoration: new BoxDecoration(
+                                color: Colors.transparent,
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                              constraints: BoxConstraints(
+                                minWidth: 7,
+                                minHeight: 7,
+                              ),
+                            ),
+                          ),
+                  ],
                 ),
               ),
               title: Text(

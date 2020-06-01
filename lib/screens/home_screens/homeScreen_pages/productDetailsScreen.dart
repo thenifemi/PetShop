@@ -482,12 +482,17 @@ class _ProductDetailsState extends State<ProductDetails> {
     });
   }
 
+  bool isCartBadge = false;
+
   void _submit(cartNotifier) {
     try {
       if (_isbuttonDisabled == false) {
         disableButton();
         addProductToCart(prodDetails, prods, context, cartNotifier);
         _showAddedToCartSnackBar();
+        setState(() {
+          isCartBadge = true;
+        });
       } else {
         setState(() {
           _isbuttonDisabled = false;
@@ -538,6 +543,7 @@ class _ProductDetailsState extends State<ProductDetails> {
   @override
   Widget build(BuildContext context) {
     CartNotifier cartNotifier = Provider.of<CartNotifier>(context);
+    var cartList = cartNotifier.cartList;
 
     var cartProdID = cartNotifier.cartList.map((e) => e.productID);
 
@@ -598,10 +604,46 @@ class _ProductDetailsState extends State<ProductDetails> {
                   child: RawMaterialButton(
                     child: Container(
                       height: 30.0,
-                      child: SvgPicture.asset(
-                        "assets/images/icons/Bag.svg",
-                        height: 24.0,
-                        color: MColors.textGrey,
+                      child: Stack(
+                        children: <Widget>[
+                          Container(
+                            padding: const EdgeInsets.only(top: 5.0),
+                            child: SvgPicture.asset(
+                              "assets/images/icons/Bag.svg",
+                              height: 24.0,
+                              color: MColors.textGrey,
+                            ),
+                          ),
+                          cartList.isNotEmpty || isCartBadge
+                              ? Positioned(
+                                  right: 0,
+                                  child: new Container(
+                                    padding: EdgeInsets.all(1),
+                                    decoration: new BoxDecoration(
+                                      color: Colors.redAccent,
+                                      borderRadius: BorderRadius.circular(6),
+                                    ),
+                                    constraints: BoxConstraints(
+                                      minWidth: 7,
+                                      minHeight: 7,
+                                    ),
+                                  ),
+                                )
+                              : Positioned(
+                                  right: 0,
+                                  child: new Container(
+                                    padding: EdgeInsets.all(1),
+                                    decoration: new BoxDecoration(
+                                      color: MColors.primaryWhite,
+                                      borderRadius: BorderRadius.circular(6),
+                                    ),
+                                    constraints: BoxConstraints(
+                                      minWidth: 7,
+                                      minHeight: 7,
+                                    ),
+                                  ),
+                                ),
+                        ],
                       ),
                     ),
                     onPressed: () {

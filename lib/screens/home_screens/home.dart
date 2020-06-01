@@ -13,7 +13,6 @@ import 'package:mollet/model/modules/products_presenter.dart';
 import 'package:mollet/prodModel/Product_service.dart';
 import 'package:mollet/prodModel/brands_notifier.dart';
 import 'package:mollet/prodModel/products_notifier.dart';
-import 'package:mollet/screens/home_screens/homeScreen_pages/allProducts_screen.dart';
 import 'package:mollet/screens/home_screens/homeScreen_pages/productDetailsScreen.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:mollet/widgets/starRatings.dart';
