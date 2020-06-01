@@ -6,7 +6,7 @@ class Strings {
   static String appName = "mollet";
   static const String onBoardTitle1 = "Welcome to";
   static const String onBoardTitle_sub1 =
-      "Caring for your pets has never been so easy! With Mollet, you can get pet supplies, hire professional pet services and book Vet appointments.";
+      "Caring for your pets has never been so easy! With Pet Shop, you can get pet supplies, hire professional pet services and book Vet appointments.";
   static const String onBoardTitle2 = "the World of Pets";
   // static const String onBoardTitle_sub2 = "Visit any of the growing number of online outlets who accept mollet and make your purchase in a second.";
   // static const String onBoardTitle3 = "Manage your finances";
