@@ -60,7 +60,7 @@ class _Cart2State extends State<Cart2> {
           },
         ),
         title: Text(
-          "Cart",
+          "Bag",
           style: GoogleFonts.montserrat(
               fontSize: 20.0,
               color: MColors.primaryPurple,
