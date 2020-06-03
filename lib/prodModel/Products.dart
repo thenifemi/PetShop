@@ -20,6 +20,7 @@ class ProdProducts {
   String category;
   String subCategory;
   String service;
+  int quantity;
 
   ProdProducts.fromMap(Map<String, dynamic> data) {
     productImage = data["productImage"];
@@ -40,6 +41,7 @@ class ProdProducts {
     category = data["category"];
     subCategory = data["subCategory"];
     service = data["service"];
+    quantity = data["quantity"];
   }
 
   Map<String, dynamic> toMap() {
@@ -62,6 +64,7 @@ class ProdProducts {
       'category': category,
       'subCategory': subCategory,
       'service': service,
+      'quantity': quantity,
     };
   }
 }

@@ -34,8 +34,6 @@ class _Cart2State extends State<Cart2> {
     super.initState();
   }
 
-  int qty = 1;
-
   @override
   Widget build(BuildContext context) {
     CartNotifier cartNotifier = Provider.of<CartNotifier>(context);
@@ -158,6 +156,8 @@ class _Cart2State extends State<Cart2> {
                   itemCount: cartList.length,
                   itemBuilder: (context, i) {
                     var cartItem = cartList[i];
+                    var qty = cartItem.quantity;
+
                     void addQty() {
                       setState(() {
                         if (qty > 9) {

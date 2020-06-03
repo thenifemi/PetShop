@@ -73,3 +73,9 @@ addProductToCart(product, UnmodifiableListView<ProdProducts> prods, context,
     print(e);
   });
 }
+
+getAndUpdateQuantityStream() {
+  final db = Firestore.instance;
+  db.collection('food').snapshots();
+ 
+}
