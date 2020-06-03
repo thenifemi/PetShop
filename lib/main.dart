@@ -4,11 +4,10 @@ import 'package:mollet/dependency_injection.dart';
 import 'package:mollet/model/data/products_data.dart';
 import 'package:mollet/model/services/auth_service.dart';
 import 'package:mollet/prodModel/brands_notifier.dart';
-import 'package:mollet/prodModel/products_notifier.dart';
 import 'package:mollet/prodModel/cart_notifier.dart';
+import 'package:mollet/prodModel/products_notifier.dart';
 import 'package:mollet/screens/getstarted_screens/intro_screen.dart';
 import 'package:mollet/screens/home_screens/home.dart';
-import 'package:mollet/screens/home_screens/homeScreen_pages/cart2.dart';
 import 'package:mollet/screens/home_screens/settings.dart';
 import 'package:mollet/screens/register_screens/login_screen.dart';
 import 'package:mollet/screens/register_screens/registration_screen.dart';
@@ -53,6 +52,13 @@ final routes = {
   '/MyTabs': (BuildContext context) => TabsLayout(),
 };
 
+class HomeController extends StatefulWidget {
+  const HomeController({Key key}) : super(key: key);
+
+  @override
+  _HomeControllerState createState() => _HomeControllerState();
+}
+
 class MyApp extends StatelessWidget {
   const MyApp({Key key}) : super(key: key);
 
@@ -70,13 +76,6 @@ class MyApp extends StatelessWidget {
       ),
     );
   }
-}
-
-class HomeController extends StatefulWidget {
-  const HomeController({Key key}) : super(key: key);
-
-  @override
-  _HomeControllerState createState() => _HomeControllerState();
 }
 
 class _HomeControllerState extends State<HomeController> {

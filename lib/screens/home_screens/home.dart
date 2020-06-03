@@ -1,24 +1,16 @@
-import 'dart:async';
-import 'dart:math';
-
-import 'package:mollet/prodModel/Products.dart';
-import 'package:mollet/widgets/tabItems_Widget.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mollet/dependency_injection.dart';
 import 'package:mollet/model/data/products_data.dart';
 import 'package:mollet/model/modules/products_presenter.dart';
 import 'package:mollet/prodModel/Product_service.dart';
+import 'package:mollet/prodModel/Products.dart';
 import 'package:mollet/prodModel/brands_notifier.dart';
 import 'package:mollet/prodModel/products_notifier.dart';
 import 'package:mollet/screens/home_screens/homeScreen_pages/productDetailsScreen.dart';
 import 'package:mollet/utils/colors.dart';
-import 'package:mollet/widgets/starRatings.dart';
 import 'package:provider/provider.dart';
-
-import 'package:carousel_slider/carousel_slider.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key key}) : super(key: key);
@@ -31,9 +23,6 @@ class _HomeScreenState extends State<HomeScreen>
     with SingleTickerProviderStateMixin
     implements ProductsListViewContract {
   ProductsListPresenter _presenter;
-  List<Products> _pets;
-  Flavor _flavor;
-  bool _isLoading;
   TabController _tabController;
 
   _HomeScreenState() {
@@ -50,7 +39,6 @@ class _HomeScreenState extends State<HomeScreen>
         Provider.of<BrandsNotifier>(context, listen: false);
     getBrands(brandsNotifier);
 
-    _isLoading = true;
     _presenter.loadPets();
     _tabController = TabController(
       length: _tabItems.length,
@@ -73,10 +61,8 @@ class _HomeScreenState extends State<HomeScreen>
   Widget build(BuildContext context) {
     ProductsNotifier productsNotifier = Provider.of<ProductsNotifier>(context);
     var prods = productsNotifier.productsList;
-    var prodDetails = productsNotifier.currentProdProduct;
 
     BrandsNotifier brandsNotifier = Provider.of<BrandsNotifier>(context);
-    var brands = brandsNotifier.brandsList;
 
     //Tab Items
     final _tabBody = [
