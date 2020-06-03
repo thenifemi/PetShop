@@ -8,7 +8,7 @@ class SplashScreen extends StatelessWidget {
       color: MColors.primaryWhiteSmoke,
       child: Center(
         child: Container(
-          height: 50.0,
+          height: 47.0,
           child: Image.asset("assets/images/footprint.png"),
         ),
       ),
