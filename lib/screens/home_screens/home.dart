@@ -2,7 +2,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mollet/model/data/products_data.dart';
 import 'package:mollet/prodModel/Product_service.dart';
 import 'package:mollet/prodModel/Products.dart';
 import 'package:mollet/prodModel/brands_notifier.dart';
@@ -54,7 +53,6 @@ class _HomeScreenState extends State<HomeScreen>
     ProductsNotifier productsNotifier = Provider.of<ProductsNotifier>(context);
     var prods = productsNotifier.productsList;
 
-    BrandsNotifier brandsNotifier = Provider.of<BrandsNotifier>(context);
 
     //Tab Items
     final _tabBody = [
@@ -491,13 +489,4 @@ class _HomeScreenState extends State<HomeScreen>
     );
   }
 
-  @override
-  void onLoadPetsComplete(List<Products> items) {
-    // TODO: implement onLoadPetsComplete
-  }
-
-  @override
-  void onLoadPetsError() {
-    // TODO: implement onLoadPetsError
-  }
 }

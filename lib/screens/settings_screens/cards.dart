@@ -9,7 +9,6 @@ class Cards extends StatefulWidget {
 }
 
 class _CardsState extends State<Cards> {
-  String _error;
   bool _autoValidate = false;
   var _state = 0;
   bool _isButtonDisabled = false;

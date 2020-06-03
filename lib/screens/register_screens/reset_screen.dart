@@ -3,7 +3,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:mollet/model/services/auth_service.dart';
 import 'package:mollet/screens/register_screens/login_screen.dart';
 import 'package:mollet/utils/colors.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:mollet/widgets/provider.dart';
 
 class ResetScreen extends StatefulWidget {

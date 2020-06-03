@@ -1,6 +1,3 @@
-import 'package:flutter/scheduler.dart';
-import 'package:mollet/model/data/PROD_productsData.dart';
-
 class ProdProducts {
   String productImage;
   String name;
