@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mollet/model/data/products_data.dart';
-import 'package:mollet/model/modules/products_presenter.dart';
 import 'package:mollet/prodModel/Product_service.dart';
 import 'package:mollet/prodModel/Products.dart';
 import 'package:mollet/prodModel/brands_notifier.dart';
@@ -20,14 +19,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen>
-    with SingleTickerProviderStateMixin
-    implements ProductsListViewContract {
-  ProductsListPresenter _presenter;
+    with SingleTickerProviderStateMixin {
   TabController _tabController;
-
-  _HomeScreenState() {
-    _presenter = ProductsListPresenter(this);
-  }
 
   @override
   void initState() {
@@ -39,7 +32,6 @@ class _HomeScreenState extends State<HomeScreen>
         Provider.of<BrandsNotifier>(context, listen: false);
     getBrands(brandsNotifier);
 
-    _presenter.loadPets();
     _tabController = TabController(
       length: _tabItems.length,
       vsync: this,

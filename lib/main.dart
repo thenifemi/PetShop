@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:mollet/dependency_injection.dart';
-import 'package:mollet/model/data/products_data.dart';
 import 'package:mollet/model/services/auth_service.dart';
 import 'package:mollet/prodModel/brands_notifier.dart';
 import 'package:mollet/prodModel/cart_notifier.dart';
@@ -27,8 +25,6 @@ import 'package:provider/provider.dart';
 // import 'model/services/provider.dart';
 
 void main() async {
-  Injector.configure(Flavor.MOCK);
-
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
@@ -98,9 +94,6 @@ class _HomeControllerState extends State<HomeController> {
               home: signedIn
                   ? MultiProvider(
                       providers: [
-                        Provider<Products>(
-                          create: (context) => Products(),
-                        ),
                         ChangeNotifierProvider(
                           create: (context) => ProductsNotifier(),
                         ),
