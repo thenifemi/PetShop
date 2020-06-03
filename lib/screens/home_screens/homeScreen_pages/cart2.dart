@@ -272,36 +272,41 @@ class _Cart2State extends State<Cart2> {
                               ),
                             ),
                             Expanded(
-                              child: Container(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: <Widget>[
-                                    Container(
-                                      child: IconButton(
-                                        color: MColors.textGrey,
-                                        icon: Icon(Icons.add_circle_outline),
-                                        onPressed: addQty,
-                                      ),
-                                    ),
-                                    Container(
-                                      child: Text(
-                                        qty.toString(),
-                                        style: GoogleFonts.montserrat(
-                                          color: MColors.textDark,
-                                          fontSize: 20.0,
+                              child: StreamBuilder(
+                                stream: null,
+                                builder: (context, snapshot) {
+                                  return Container(
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: <Widget>[
+                                        Container(
+                                          child: IconButton(
+                                            color: MColors.textGrey,
+                                            icon: Icon(Icons.add_circle_outline),
+                                            onPressed: addQty,
+                                          ),
                                         ),
-                                      ),
+                                        Container(
+                                          child: Text(
+                                            qty.toString(),
+                                            style: GoogleFonts.montserrat(
+                                              color: MColors.textDark,
+                                              fontSize: 20.0,
+                                            ),
+                                          ),
+                                        ),
+                                        Container(
+                                          child: IconButton(
+                                            color: MColors.textGrey,
+                                            icon: Icon(Icons.remove_circle_outline),
+                                            onPressed: subQty,
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                    Container(
-                                      child: IconButton(
-                                        color: MColors.textGrey,
-                                        icon: Icon(Icons.remove_circle_outline),
-                                        onPressed: subQty,
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                                  );
+                                }
                               ),
                             ),
                           ],

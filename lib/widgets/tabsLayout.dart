@@ -65,7 +65,7 @@ class _TabsLayoutState extends State<TabsLayout> {
     "Pet Shop",
     "Bag",
     "History",
-    "Inbox",
+    "Notificatiions",
     "Settings",
   ];
 

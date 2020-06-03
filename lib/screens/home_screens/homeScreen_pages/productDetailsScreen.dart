@@ -192,7 +192,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                                 ),
                                 child: Text(
                                     !snapshot.hasData
-                                        ? '2'
+                                        ? '0'
                                         : quantity.toString(),
                                     style: GoogleFonts.montserrat(
                                       color: MColors.textDark,

@@ -28,7 +28,7 @@ class _InboxScreenState extends State<InboxScreen> {
             ),
             Container(
               child: Text(
-                "No Inbox",
+                "No Notifications",
                 style: GoogleFonts.montserrat(
                   color: MColors.textDark,
                   fontSize: 25.0,
