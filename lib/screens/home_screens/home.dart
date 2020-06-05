@@ -53,7 +53,6 @@ class _HomeScreenState extends State<HomeScreen>
     ProductsNotifier productsNotifier = Provider.of<ProductsNotifier>(context);
     var prods = productsNotifier.productsList;
 
-
     //Tab Items
     final _tabBody = [
       buildAllBody(prods),
@@ -197,14 +196,14 @@ class _HomeScreenState extends State<HomeScreen>
               child: Column(
                 children: <Widget>[
                   Container(
-                    height: 170,
+                    // height: MediaQuery.of(context).size.height / 4,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10.0),
                       child: Hero(
                         child: FadeInImage.assetNetwork(
                           image: fil.productImage,
                           fit: BoxFit.fill,
-                          height: MediaQuery.of(context).size.height,
+                          height: MediaQuery.of(context).size.height / 5.8,
                           placeholder: "assets/images/placeholder.jpg",
                           placeholderScale:
                               MediaQuery.of(context).size.height / 2,
@@ -307,14 +306,14 @@ class _HomeScreenState extends State<HomeScreen>
               child: Column(
                 children: <Widget>[
                   Container(
-                    height: 170,
+                    // height: 170,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10.0),
                       child: Hero(
                         child: FadeInImage.assetNetwork(
                           image: fil.productImage,
                           fit: BoxFit.fill,
-                          height: MediaQuery.of(context).size.height,
+                          height: MediaQuery.of(context).size.height / 5.8,
                           placeholder: "assets/images/placeholder.jpg",
                           placeholderScale:
                               MediaQuery.of(context).size.height / 2,
@@ -417,14 +416,14 @@ class _HomeScreenState extends State<HomeScreen>
               child: Column(
                 children: <Widget>[
                   Container(
-                    height: 170,
+                    // height: 170,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10.0),
                       child: Hero(
                         child: FadeInImage.assetNetwork(
                           image: fil.productImage,
                           fit: BoxFit.fill,
-                          height: MediaQuery.of(context).size.height,
+                          height: MediaQuery.of(context).size.height / 5.8,
                           placeholder: "assets/images/placeholder.jpg",
                           placeholderScale:
                               MediaQuery.of(context).size.height / 2,
@@ -488,5 +487,4 @@ class _HomeScreenState extends State<HomeScreen>
       ),
     );
   }
-
 }

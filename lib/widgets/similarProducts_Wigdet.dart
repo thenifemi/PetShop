@@ -69,7 +69,7 @@ class _SimilarProductsWidgetState extends State<SimilarProductsWidget> {
               child: Column(
                 children: <Widget>[
                   Container(
-                    height: 170,
+                    // height: 170,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10.0),
                       child: filteredList == null
@@ -79,7 +79,7 @@ class _SimilarProductsWidgetState extends State<SimilarProductsWidget> {
                           : FadeInImage.assetNetwork(
                               image: fil.productImage,
                               fit: BoxFit.fill,
-                              height: MediaQuery.of(context).size.height,
+                              height: MediaQuery.of(context).size.height / 5.8,
                               placeholder: "assets/images/placeholder.jpg",
                               placeholderScale:
                                   MediaQuery.of(context).size.height / 2,

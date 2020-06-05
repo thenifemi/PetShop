@@ -156,9 +156,7 @@ class _Cart2State extends State<Cart2> {
                   itemCount: cartList.length,
                   itemBuilder: (context, i) {
                     var cartItem = cartList[i];
-                    // var cartItemTotal = cartItem.price * cartItem.quantity;
-
-                    var qty = cartItem.quantity;
+                    int qty = cartItem.quantity;
 
                     void addQty() {
                       setState(() {
@@ -185,7 +183,7 @@ class _Cart2State extends State<Cart2> {
                     }
 
                     return Container(
-                      padding: const EdgeInsets.only(bottom: 10.0),
+                      padding: const EdgeInsets.all(5.0),
                       height: 160.0,
                       child: Container(
                         padding: const EdgeInsets.all(10.0),
@@ -209,7 +207,7 @@ class _Cart2State extends State<Cart2> {
                               ),
                             ),
                             Container(
-                              width: 220.0,
+                              width: MediaQuery.of(context).size.width / 2,
                               padding: const EdgeInsets.only(left: 10.0),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -241,6 +239,8 @@ class _Cart2State extends State<Cart2> {
                                   ),
                                   Spacer(),
                                   Container(
+                                    width:
+                                        MediaQuery.of(context).size.width / 2,
                                     padding: const EdgeInsets.fromLTRB(
                                         0.0, 0.0, 10.0, 10.0),
                                     child: Row(
@@ -254,7 +254,6 @@ class _Cart2State extends State<Cart2> {
                                           width: 3.0,
                                         ),
                                         Container(
-                                          width: 180.0,
                                           child: Text(
                                             "Swipe to remove",
                                             maxLines: 3,
@@ -274,45 +273,43 @@ class _Cart2State extends State<Cart2> {
                               ),
                             ),
                             Expanded(
-                              child: StreamBuilder(
-                                  stream: null,
-                                  builder: (context, snapshot) {
-                                    return Container(
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: <Widget>[
-                                          Container(
-                                            child: IconButton(
-                                              color: MColors.textGrey,
-                                              icon: Icon(
-                                                  Icons.add_circle_outline),
-                                              onPressed: addQty,
-                                            ),
-                                          ),
-                                          Container(
-                                            child: Text(
-                                              qty.toString(),
-                                              style: GoogleFonts.montserrat(
-                                                color: MColors.textDark,
-                                                fontSize: 20.0,
-                                              ),
-                                            ),
-                                          ),
-                                          Container(
-                                            child: IconButton(
-                                              color: MColors.textGrey,
-                                              icon: Icon(
-                                                  Icons.remove_circle_outline),
-                                              onPressed: subQty,
-                                            ),
-                                          ),
-                                        ],
+                              child: Container(
+                                // color: Colors.red,
+                                child: Column(
+                                  // mainAxisAlignment: MainAxisAlignment.center,
+                                  // crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: <Widget>[
+                                    Center(
+                                      child: IconButton(
+                                        color: MColors.textGrey,
+                                        icon: Icon(Icons.add_circle_outline),
+                                        onPressed: addQty,
                                       ),
-                                    );
-                                  }),
+                                    ),
+                                    Container(
+                                      child: Center(
+                                        child: Text(
+                                          qty.toString(),
+                                          style: GoogleFonts.montserrat(
+                                            color: MColors.textDark,
+                                            fontSize: 20.0,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      child: Center(
+                                        child: IconButton(
+                                          color: MColors.textGrey,
+                                          icon:
+                                              Icon(Icons.remove_circle_outline),
+                                          onPressed: subQty,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ),
                           ],
                         ),
@@ -327,7 +324,7 @@ class _Cart2State extends State<Cart2> {
       ),
       bottomNavigationBar: Container(
         color: MColors.primaryWhite,
-        padding: const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 15.0),
+        padding: const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 5.0),
         height: 80.0,
         child: SizedBox(
           width: double.infinity,
