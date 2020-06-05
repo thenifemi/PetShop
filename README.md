@@ -23,7 +23,7 @@ Pet Shop is an e-commerce application for Android built with Flutter (iOS to com
 - Fetched store images from Amazon
 
 ## Building
-1. Clone the repo to uour local computer
+1. Clone the repo to your local computer
 2. Make sure you have Flutter and firebase installed
 
 Please, remember to use a rule that allows unauthenticated reads.
