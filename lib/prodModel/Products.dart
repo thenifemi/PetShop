@@ -3,6 +3,7 @@ class ProdProducts {
   String name;
   String brand;
   double price;
+  double totalPrice;
   String desc;
   String moreDesc;
   String foodType;
@@ -24,6 +25,7 @@ class ProdProducts {
     name = data["name"];
     brand = data["brand"];
     price = data["price"];
+    totalPrice = data["totalPrice"];
     desc = data["desc"];
     moreDesc = data["moreDesc"];
     foodType = data["foodType"];
@@ -47,6 +49,7 @@ class ProdProducts {
       'name': name,
       'brand': brand,
       'price': price,
+      'totalPrice': totalPrice,
       'desc': desc,
       'moreDesc': moreDesc,
       'foodType': foodType,

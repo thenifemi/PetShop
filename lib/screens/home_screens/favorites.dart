@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -32,7 +33,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
   Widget build(BuildContext context) {
     CartNotifier cartNotifier = Provider.of<CartNotifier>(context);
     var cartList = cartNotifier.cartList;
-    var totalList = cartList.map((e) => e.price);
+    var totalList = cartList.map((e) => e.totalPrice);
     var total = totalList.isEmpty
         ? 0.0
         : totalList.reduce((sum, element) => sum + element).toStringAsFixed(2);

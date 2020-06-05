@@ -6,7 +6,7 @@ import 'package:mollet/prodModel/cart.dart';
 import 'package:mollet/prodModel/brands_notifier.dart';
 import 'package:mollet/prodModel/cart_notifier.dart';
 import 'package:mollet/prodModel/products_notifier.dart';
-import 'package:mollet/model/services/auth_service.dart';
+import 'package:mollet/services/auth_service.dart';
 import 'package:mollet/widgets/provider.dart';
 
 import 'Products.dart';
