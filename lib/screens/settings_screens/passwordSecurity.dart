@@ -103,14 +103,14 @@ class SecurityScreen extends StatelessWidget {
                       Container(
                         padding: const EdgeInsets.only(right: 20.0),
                         child: SvgPicture.asset(
-                          "assets/images/key.svg",
+                          "assets/images/icons/Location.svg",
                           height: 20,
                           color: MColors.textGrey,
                         ),
                       ),
                       Expanded(
                         child: Text(
-                          "Location feature",
+                          "Location",
                           style: GoogleFonts.montserrat(
                             color: MColors.primaryPurple,
                             fontSize: 15.0,
