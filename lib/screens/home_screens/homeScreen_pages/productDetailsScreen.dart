@@ -490,12 +490,14 @@ class _ProductDetailsState extends State<ProductDetails> {
     try {
       if (_isbuttonDisabled == false) {
         prodDetails.quantity = quantity;
+
         disableButton();
         addProductToCart(prodDetails, prods, context, cartNotifier);
         _showAddedToCartSnackBar();
         setState(() {
           isCartBadge = true;
         });
+        // prodDetails.price = prodDetails.price / prodDetails.quantity;
       } else {
         setState(() {
           _isbuttonDisabled = false;

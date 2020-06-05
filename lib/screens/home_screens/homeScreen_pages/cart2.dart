@@ -156,7 +156,7 @@ class _Cart2State extends State<Cart2> {
                   itemCount: cartList.length,
                   itemBuilder: (context, i) {
                     var cartItem = cartList[i];
-                    var cartItemTotal = cartItem.price * cartItem.quantity;
+                    // var cartItemTotal = cartItem.price * cartItem.quantity;
 
                     var qty = cartItem.quantity;
 
@@ -231,7 +231,7 @@ class _Cart2State extends State<Cart2> {
                                   ),
                                   Container(
                                     child: Text(
-                                      "\$$cartItemTotal",
+                                      "\$${cartItem.price}",
                                       style: GoogleFonts.montserrat(
                                           fontSize: 24.0,
                                           color: MColors.primaryPurple,
