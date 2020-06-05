@@ -228,13 +228,37 @@ class _Cart2State extends State<Cart2> {
                                     ),
                                   ),
                                   Container(
-                                    child: Text(
-                                      "\$${cartItem.price}",
-                                      style: GoogleFonts.montserrat(
-                                          fontSize: 24.0,
-                                          color: MColors.primaryPurple,
-                                          fontWeight: FontWeight.bold),
-                                      textAlign: TextAlign.left,
+                                    child: Row(
+                                      children: <Widget>[
+                                        Text(
+                                          "\$${cartItem.price}",
+                                          style: GoogleFonts.montserrat(
+                                              fontSize: 24.0,
+                                              color: MColors.primaryPurple,
+                                              fontWeight: FontWeight.bold),
+                                          textAlign: TextAlign.left,
+                                        ),
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(left: 10.0),
+                                          child: Container(
+                                            padding: const EdgeInsets.all(3.0),
+                                            decoration: BoxDecoration(
+                                              color: MColors.dashPurple,
+                                              borderRadius:
+                                                  new BorderRadius.circular(
+                                                      10.0),
+                                            ),
+                                            child: Text(
+                                              "${cartItem.quantity}X",
+                                              style: GoogleFonts.montserrat(
+                                                  fontSize: 14.0,
+                                                  color: MColors.textGrey),
+                                              textAlign: TextAlign.left,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                   Spacer(),
@@ -324,7 +348,7 @@ class _Cart2State extends State<Cart2> {
       ),
       bottomNavigationBar: Container(
         color: MColors.primaryWhite,
-        padding: const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 5.0),
+        padding: const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
         height: 80.0,
         child: SizedBox(
           width: double.infinity,
