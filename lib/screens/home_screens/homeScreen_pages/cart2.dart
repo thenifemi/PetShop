@@ -156,6 +156,8 @@ class _Cart2State extends State<Cart2> {
                   itemCount: cartList.length,
                   itemBuilder: (context, i) {
                     var cartItem = cartList[i];
+                    var cartItemTotal = cartItem.price * cartItem.quantity;
+
                     var qty = cartItem.quantity;
 
                     void addQty() {
@@ -229,7 +231,7 @@ class _Cart2State extends State<Cart2> {
                                   ),
                                   Container(
                                     child: Text(
-                                      "\$${cartItem.price}",
+                                      "\$$cartItemTotal",
                                       style: GoogleFonts.montserrat(
                                           fontSize: 24.0,
                                           color: MColors.primaryPurple,
@@ -273,41 +275,44 @@ class _Cart2State extends State<Cart2> {
                             ),
                             Expanded(
                               child: StreamBuilder(
-                                stream: null,
-                                builder: (context, snapshot) {
-                                  return Container(
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      children: <Widget>[
-                                        Container(
-                                          child: IconButton(
-                                            color: MColors.textGrey,
-                                            icon: Icon(Icons.add_circle_outline),
-                                            onPressed: addQty,
-                                          ),
-                                        ),
-                                        Container(
-                                          child: Text(
-                                            qty.toString(),
-                                            style: GoogleFonts.montserrat(
-                                              color: MColors.textDark,
-                                              fontSize: 20.0,
+                                  stream: null,
+                                  builder: (context, snapshot) {
+                                    return Container(
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: <Widget>[
+                                          Container(
+                                            child: IconButton(
+                                              color: MColors.textGrey,
+                                              icon: Icon(
+                                                  Icons.add_circle_outline),
+                                              onPressed: addQty,
                                             ),
                                           ),
-                                        ),
-                                        Container(
-                                          child: IconButton(
-                                            color: MColors.textGrey,
-                                            icon: Icon(Icons.remove_circle_outline),
-                                            onPressed: subQty,
+                                          Container(
+                                            child: Text(
+                                              qty.toString(),
+                                              style: GoogleFonts.montserrat(
+                                                color: MColors.textDark,
+                                                fontSize: 20.0,
+                                              ),
+                                            ),
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                }
-                              ),
+                                          Container(
+                                            child: IconButton(
+                                              color: MColors.textGrey,
+                                              icon: Icon(
+                                                  Icons.remove_circle_outline),
+                                              onPressed: subQty,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  }),
                             ),
                           ],
                         ),

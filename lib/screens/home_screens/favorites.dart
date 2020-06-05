@@ -28,8 +28,6 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
     super.initState();
   }
 
-  int qty = 1;
-
   @override
   Widget build(BuildContext context) {
     CartNotifier cartNotifier = Provider.of<CartNotifier>(context);
@@ -127,6 +125,8 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                   itemCount: cartList.length,
                   itemBuilder: (context, i) {
                     var cartItem = cartList[i];
+                    int qty = cartItem.quantity;
+
                     void addQty() {
                       setState(() {
                         if (qty > 9) {

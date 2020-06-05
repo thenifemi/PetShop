@@ -54,7 +54,35 @@ class _ProductDetailsState extends State<ProductDetails> {
     super.initState();
   }
 
+  var quantity = 1;
+
   Widget _buildProductDetails(prodDetails) {
+    // quantity = prodDetails.quantity;
+
+    void addQty() {
+      setState(() {
+        if (quantity > 9) {
+          quantity = 9;
+        } else if (quantity < 9) {
+          setState(() {
+            quantity++;
+          });
+        }
+      });
+    }
+
+    void subQty() {
+      setState(() {
+        if (quantity != 1) {
+          quantity--;
+        } else if (quantity < 1) {
+          setState(() {
+            quantity = 1;
+          });
+        }
+      });
+    }
+
     return Container(
       decoration: new BoxDecoration(
         color: MColors.primaryWhiteSmoke,
@@ -92,137 +120,75 @@ class _ProductDetailsState extends State<ProductDetails> {
                   ),
                 ),
               ),
-              StreamBuilder(
-                  stream: Firestore.instance
-                      .collection('food')
-                      .document(prodDetails.productID)
-                      .snapshots(),
-                  builder: (context, snapshot) {
-                    var quantity = snapshot.data['quantity'];
-
-                    void addQty() {
-                      setState(() {
-                        if (quantity > 9) {
-                          Firestore.instance
-                              .runTransaction((transaction) async {
-                            DocumentSnapshot freshSnap =
-                                await transaction.get(snapshot.data.reference);
-                            await transaction.update(freshSnap.reference, {
-                              'quantity': freshSnap['quantity'] - 1,
-                            });
-                          });
-                        } else if (quantity < 9) {
-                          setState(() {
-                            Firestore.instance
-                                .runTransaction((transaction) async {
-                              DocumentSnapshot freshSnap = await transaction
-                                  .get(snapshot.data.reference);
-                              await transaction.update(freshSnap.reference, {
-                                'quantity': freshSnap['quantity'] + 1,
-                              });
-                            });
-                          });
-                        }
-                      });
-                    }
-
-                    void subQty() {
-                      setState(() {
-                        if (quantity != 1) {
-                          Firestore.instance
-                              .runTransaction((transaction) async {
-                            DocumentSnapshot freshSnap =
-                                await transaction.get(snapshot.data.reference);
-                            await transaction.update(freshSnap.reference, {
-                              'quantity': freshSnap['quantity'] - 1,
-                            });
-                          });
-                        } else if (quantity < 1) {
-                          setState(() {
-                            Firestore.instance
-                                .runTransaction((transaction) async {
-                              DocumentSnapshot freshSnap = await transaction
-                                  .get(snapshot.data.reference);
-                              await transaction.update(freshSnap.reference, {
-                                'quantity': freshSnap['quantity'] + 1,
-                              });
-                            });
-                          });
-                        }
-                      });
-                    }
-
-                    return Container(
-                      child: Row(
-                        children: <Widget>[
-                          Expanded(
-                            child: Container(
-                              child: IconTheme(
-                                data: IconThemeData(
-                                  color: Colors.amberAccent,
-                                  size: 18,
-                                ),
-                                child: StarDisplay(value: 4),
+              Builder(builder: (context) {
+                return Container(
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: Container(
+                          child: IconTheme(
+                            data: IconThemeData(
+                              color: Colors.amberAccent,
+                              size: 18,
+                            ),
+                            child: StarDisplay(value: 4),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        height: 45.0,
+                        padding: const EdgeInsets.all(5.0),
+                        decoration: BoxDecoration(
+                          borderRadius: new BorderRadius.circular(10.0),
+                          color: MColors.dashPurple,
+                        ),
+                        child: Row(children: [
+                          Container(
+                            width: 35.0,
+                            child: RawMaterialButton(
+                              onPressed: subQty,
+                              child: Icon(
+                                Icons.remove,
+                                color: MColors.primaryPurple,
+                                size: 30.0,
                               ),
                             ),
                           ),
                           Container(
-                            height: 45.0,
-                            padding: const EdgeInsets.all(5.0),
+                            padding: const EdgeInsets.only(
+                              right: 5,
+                              left: 5.0,
+                            ),
+                            child: Text(quantity.toString(),
+                                style: GoogleFonts.montserrat(
+                                  color: MColors.textDark,
+                                  fontSize: 24.0,
+                                )),
+                          ),
+                          SizedBox(
+                            width: 2.0,
+                          ),
+                          Container(
                             decoration: BoxDecoration(
                               borderRadius: new BorderRadius.circular(10.0),
-                              color: MColors.dashPurple,
+                              color: MColors.primaryPurple,
                             ),
-                            child: Row(children: [
-                              Container(
-                                width: 35.0,
-                                child: RawMaterialButton(
-                                  onPressed: subQty,
-                                  child: Icon(
-                                    Icons.remove,
-                                    color: MColors.primaryPurple,
-                                    size: 30.0,
-                                  ),
-                                ),
+                            width: 35.0,
+                            child: RawMaterialButton(
+                              onPressed: addQty,
+                              child: Icon(
+                                Icons.add,
+                                color: MColors.primaryWhiteSmoke,
+                                size: 30.0,
                               ),
-                              Container(
-                                padding: const EdgeInsets.only(
-                                  right: 5,
-                                  left: 5.0,
-                                ),
-                                child: Text(
-                                    !snapshot.hasData
-                                        ? '0'
-                                        : quantity.toString(),
-                                    style: GoogleFonts.montserrat(
-                                      color: MColors.textDark,
-                                      fontSize: 24.0,
-                                    )),
-                              ),
-                              SizedBox(
-                                width: 2.0,
-                              ),
-                              Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: new BorderRadius.circular(10.0),
-                                  color: MColors.primaryPurple,
-                                ),
-                                width: 35.0,
-                                child: RawMaterialButton(
-                                  onPressed: addQty,
-                                  child: Icon(
-                                    Icons.add,
-                                    color: MColors.primaryWhiteSmoke,
-                                    size: 30.0,
-                                  ),
-                                ),
-                              ),
-                            ]),
+                            ),
                           ),
-                        ],
+                        ]),
                       ),
-                    );
-                  }),
+                    ],
+                  ),
+                );
+              }),
               Container(
                 padding: const EdgeInsets.only(bottom: 6.0),
                 child: Text(
@@ -523,6 +489,7 @@ class _ProductDetailsState extends State<ProductDetails> {
   void _submit(cartNotifier) {
     try {
       if (_isbuttonDisabled == false) {
+        prodDetails.quantity = quantity;
         disableButton();
         addProductToCart(prodDetails, prods, context, cartNotifier);
         _showAddedToCartSnackBar();
