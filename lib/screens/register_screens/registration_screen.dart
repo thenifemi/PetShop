@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mollet/model/services/auth_service.dart';
-import 'package:mollet/model/services/user_management.dart';
+import 'package:mollet/services/auth_service.dart';
+import 'package:mollet/services/user_management.dart';
 import 'package:mollet/screens/register_screens/login_screen.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:mollet/utils/strings.dart';
