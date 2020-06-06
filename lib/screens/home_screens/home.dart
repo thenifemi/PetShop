@@ -369,18 +369,47 @@ class _HomeScreenState extends State<HomeScreen>
                   ),
                   Spacer(),
                   Align(
-                    alignment: Alignment.bottomLeft,
-                    child: Container(
-                      padding: const EdgeInsets.only(top: 5.0, bottom: 10.0),
-                      child: Text(
-                        "\$${fil.price}",
-                        style: GoogleFonts.montserrat(
-                          color: MColors.primaryPurple,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 20.0,
+                    alignment: Alignment.bottomCenter,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Container(
+                          padding:
+                              const EdgeInsets.only(top: 5.0, bottom: 10.0),
+                          child: Text(
+                            "\$${fil.price}",
+                            style: GoogleFonts.montserrat(
+                              color: MColors.primaryPurple,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 20.0,
+                            ),
+                            textAlign: TextAlign.left,
+                          ),
                         ),
-                        textAlign: TextAlign.left,
-                      ),
+                        Container(
+                          width: 45.0,
+                          child: RawMaterialButton(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(10.0),
+                            ),
+                            onPressed: () {
+                              print("BUTTON IS PRESSED");
+                            },
+                            child: Container(
+                              padding: const EdgeInsets.all(10.0),
+                              decoration: BoxDecoration(
+                                color: MColors.dashPurple,
+                                borderRadius: new BorderRadius.circular(10.0),
+                              ),
+                              child: SvgPicture.asset(
+                                "assets/images/icons/Bag.svg",
+                                height: 24.0,
+                                color: MColors.textGrey,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],
@@ -479,18 +508,47 @@ class _HomeScreenState extends State<HomeScreen>
                   ),
                   Spacer(),
                   Align(
-                    alignment: Alignment.bottomLeft,
-                    child: Container(
-                      padding: const EdgeInsets.only(top: 5.0, bottom: 10.0),
-                      child: Text(
-                        "\$${fil.price}",
-                        style: GoogleFonts.montserrat(
-                          color: MColors.primaryPurple,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 20.0,
+                    alignment: Alignment.bottomCenter,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Container(
+                          padding:
+                              const EdgeInsets.only(top: 5.0, bottom: 10.0),
+                          child: Text(
+                            "\$${fil.price}",
+                            style: GoogleFonts.montserrat(
+                              color: MColors.primaryPurple,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 20.0,
+                            ),
+                            textAlign: TextAlign.left,
+                          ),
                         ),
-                        textAlign: TextAlign.left,
-                      ),
+                        Container(
+                          width: 45.0,
+                          child: RawMaterialButton(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(10.0),
+                            ),
+                            onPressed: () {
+                              print("BUTTON IS PRESSED");
+                            },
+                            child: Container(
+                              padding: const EdgeInsets.all(10.0),
+                              decoration: BoxDecoration(
+                                color: MColors.dashPurple,
+                                borderRadius: new BorderRadius.circular(10.0),
+                              ),
+                              child: SvgPicture.asset(
+                                "assets/images/icons/Bag.svg",
+                                height: 24.0,
+                                color: MColors.textGrey,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],
