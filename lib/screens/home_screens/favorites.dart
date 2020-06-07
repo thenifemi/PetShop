@@ -122,6 +122,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                 padding: const EdgeInsets.only(right: 20.0, left: 20.0),
                 height: MediaQuery.of(context).size.height,
                 child: ListView.builder(
+                  physics: BouncingScrollPhysics(),
                   shrinkWrap: true,
                   itemCount: cartList.length,
                   itemBuilder: (context, i) {

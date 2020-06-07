@@ -78,18 +78,18 @@ class _HomeScreenState extends State<HomeScreen>
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 Container(
-                  padding: const EdgeInsets.only(top: 5.0),
                   child: TextFormField(
                     decoration: InputDecoration(
-                      suffixIcon: Padding(
-                        padding: const EdgeInsets.only(right: 20.0, left: 25.0),
+                      prefixIcon: Padding(
+                        padding: const EdgeInsets.only(right: 20.0, left: 20.0),
                         child: SvgPicture.asset(
                           "assets/images/icons/Search.svg",
                           color: MColors.textGrey,
+                          height: 20.0,
                         ),
                       ),
                       suffixIconConstraints: BoxConstraints(maxHeight: 20.0),
-                      labelText: "Search product here...",
+                      labelText: "Search for products",
                       labelStyle: GoogleFonts.montserrat(
                         fontSize: 14.0,
                         color: MColors.textGrey,
@@ -122,9 +122,9 @@ class _HomeScreenState extends State<HomeScreen>
                     fontWeight: FontWeight.w300,
                     fontSize: 18.0,
                   ),
-                  labelColor: MColors.textDark,
+                  labelColor: MColors.primaryPurple,
                   labelStyle: GoogleFonts.montserrat(
-                    fontSize: 26.0,
+                    fontSize: 22.0,
                     fontWeight: FontWeight.bold,
                   ),
                   indicatorColor: MColors.primaryWhiteSmoke,
@@ -172,6 +172,7 @@ class _HomeScreenState extends State<HomeScreen>
         right: 20.0,
       ),
       child: GridView.count(
+        physics: BouncingScrollPhysics(),
         crossAxisCount: 2,
         childAspectRatio: (itemWidth / itemHeight),
         mainAxisSpacing: 15.0,
@@ -248,7 +249,7 @@ class _HomeScreenState extends State<HomeScreen>
                           ),
                         ),
                         Container(
-                          width: 45.0,
+                          width: 50.0,
                           child: RawMaterialButton(
                             shape: RoundedRectangleBorder(
                               borderRadius: new BorderRadius.circular(10.0),
@@ -257,6 +258,7 @@ class _HomeScreenState extends State<HomeScreen>
                               print("BUTTON IS PRESSED");
                             },
                             child: Container(
+                              width: 45.0,
                               padding: const EdgeInsets.all(10.0),
                               decoration: BoxDecoration(
                                 color: MColors.dashPurple,
@@ -311,6 +313,7 @@ class _HomeScreenState extends State<HomeScreen>
         right: 20.0,
       ),
       child: GridView.count(
+        physics: BouncingScrollPhysics(),
         crossAxisCount: 2,
         childAspectRatio: (itemWidth / itemHeight),
         mainAxisSpacing: 15.0,
@@ -450,6 +453,7 @@ class _HomeScreenState extends State<HomeScreen>
         right: 20.0,
       ),
       child: GridView.count(
+        physics: BouncingScrollPhysics(),
         crossAxisCount: 2,
         childAspectRatio: (itemWidth / itemHeight),
         mainAxisSpacing: 15.0,

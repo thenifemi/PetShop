@@ -97,6 +97,7 @@ class _ProductDetailsState extends State<ProductDetails> {
       ),
       child: Container(
         child: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[

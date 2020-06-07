@@ -103,6 +103,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       height: double.infinity,
       color: MColors.primaryWhiteSmoke,
       child: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
         child: Container(
           color: MColors.primaryWhiteSmoke,
           padding: const EdgeInsets.only(right: 20.0, left: 20.0),
