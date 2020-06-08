@@ -42,14 +42,14 @@ class _ProductDetailsState extends State<ProductDetails> {
   ProdProducts prodDetails;
   UnmodifiableListView<ProdProducts> prods;
   // Future cartFuture;
+  bool _isbuttonDisabled = false;
 
   @override
   void initState() {
     CartNotifier cartNotifier =
         Provider.of<CartNotifier>(context, listen: false);
-    // cartFuture = getCart(cartNotifier);
-
     getCart(cartNotifier);
+
     super.initState();
   }
 
@@ -467,7 +467,7 @@ class _ProductDetailsState extends State<ProductDetails> {
               child: Text("Added to Bag"),
             ),
             Icon(
-              Icons.check,
+              Icons.check_circle_outline,
               color: Colors.greenAccent,
             )
           ],
@@ -476,9 +476,30 @@ class _ProductDetailsState extends State<ProductDetails> {
     );
   }
 
-  //Cart Button
+  void _showAlreadyInCartSnackBar() {
+    _scaffoldKey.currentState.showSnackBar(
+      SnackBar(
+        behavior: SnackBarBehavior.floating,
+        duration: Duration(milliseconds: 1300),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        content: Row(
+          children: <Widget>[
+            Expanded(
+              child: Text("Product already in bag"),
+            ),
+            Icon(
+              Icons.error_outline,
+              color: Colors.amberAccent,
+            )
+          ],
+        ),
+      ),
+    );
+  }
 
-  bool _isbuttonDisabled = false;
+  //Cart Button
 
   void disableButton() {
     setState(() {
@@ -489,20 +510,23 @@ class _ProductDetailsState extends State<ProductDetails> {
   bool isCartBadge = false;
 
   void _submit(cartNotifier) {
+    var cartProdID = cartNotifier.cartList.map((e) => e.productID);
+    setState(() {
+      getCart(cartNotifier);
+    });
+
     try {
-      if (_isbuttonDisabled == false) {
+      if (cartProdID.contains(prodDetails.productID)) {
+        _showAlreadyInCartSnackBar();
+      } else {
         prodDetails.quantity = quantity;
         prodDetails.totalPrice = prodDetails.price * prodDetails.quantity;
 
-        disableButton();
         addProductToCart(prodDetails);
         _showAddedToCartSnackBar();
         setState(() {
+          getCart(cartNotifier);
           isCartBadge = true;
-        });
-      } else {
-        setState(() {
-          _isbuttonDisabled = false;
         });
       }
     } catch (e) {
@@ -552,13 +576,6 @@ class _ProductDetailsState extends State<ProductDetails> {
     CartNotifier cartNotifier = Provider.of<CartNotifier>(context);
     var cartList = cartNotifier.cartList;
 
-    var cartProdID = cartNotifier.cartList.map((e) => e.productID);
-
-    if (cartProdID.contains(prodDetails.productID)) {
-      setState(() {
-        _isbuttonDisabled = true;
-      });
-    }
     return Scaffold(
       key: _scaffoldKey,
       body: NestedScrollView(
