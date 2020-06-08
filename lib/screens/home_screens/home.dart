@@ -313,12 +313,10 @@ class _HomeScreenState extends State<HomeScreen>
                               borderRadius: new BorderRadius.circular(10.0),
                             ),
                             onPressed: () {
-                              print("BUTTON IS PRESSED");
                               if (cartProdID.contains(fil.productID)) {
                                 print(fil.productID);
                                 _showAlreadyInCartSnackBar();
                               } else {
-                                print('No product ID');
                                 addProductToCart(fil);
                                 _showAddtoCartSnackBar();
                               }
@@ -462,7 +460,13 @@ class _HomeScreenState extends State<HomeScreen>
                               borderRadius: new BorderRadius.circular(10.0),
                             ),
                             onPressed: () {
-                              print("BUTTON IS PRESSED");
+                              if (cartProdID.contains(fil.productID)) {
+                                print(fil.productID);
+                                _showAlreadyInCartSnackBar();
+                              } else {
+                                addProductToCart(fil);
+                                _showAddtoCartSnackBar();
+                              }
                             },
                             child: Container(
                               padding: const EdgeInsets.all(10.0),
@@ -602,7 +606,13 @@ class _HomeScreenState extends State<HomeScreen>
                               borderRadius: new BorderRadius.circular(10.0),
                             ),
                             onPressed: () {
-                              print("BUTTON IS PRESSED");
+                              if (cartProdID.contains(fil.productID)) {
+                                print(fil.productID);
+                                _showAlreadyInCartSnackBar();
+                              } else {
+                                addProductToCart(fil);
+                                _showAddtoCartSnackBar();
+                              }
                             },
                             child: Container(
                               padding: const EdgeInsets.all(10.0),
