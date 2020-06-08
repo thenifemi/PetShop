@@ -59,10 +59,9 @@ getCart(CartNotifier cartNotifier) async {
   cartNotifier.cartList = _cartList;
 }
 
-addProductToCart(product, UnmodifiableListView<ProdProducts> prods, context,
-    CartNotifier cartNotifier) async {
+addProductToCart(product) async {
   final db = Firestore.instance;
-  final uid = await MyProvider.of(context).auth.getCurrentUID();
+  final uid = await AuthService().getCurrentUID();
 
   await db
       .collection("userCart")
@@ -77,5 +76,4 @@ addProductToCart(product, UnmodifiableListView<ProdProducts> prods, context,
 getAndUpdateQuantityStream() {
   final db = Firestore.instance;
   db.collection('food').snapshots();
- 
 }

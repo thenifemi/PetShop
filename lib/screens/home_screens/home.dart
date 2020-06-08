@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -74,6 +73,7 @@ class _HomeScreenState extends State<HomeScreen>
     ];
 
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         brightness: Brightness.light,
         elevation: 0.0,
@@ -170,11 +170,11 @@ class _HomeScreenState extends State<HomeScreen>
   //Snackbar
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  void _showAddedToCartSnackBar() {
+  void _showAlreadyInCartSnackBar() {
     _scaffoldKey.currentState.showSnackBar(
       SnackBar(
         behavior: SnackBarBehavior.floating,
-        duration: Duration(milliseconds: 1000),
+        duration: Duration(milliseconds: 1300),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.0),
         ),
@@ -185,6 +185,29 @@ class _HomeScreenState extends State<HomeScreen>
             ),
             Icon(
               Icons.error_outline,
+              color: Colors.amberAccent,
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _showAddtoCartSnackBar() {
+    _scaffoldKey.currentState.showSnackBar(
+      SnackBar(
+        behavior: SnackBarBehavior.floating,
+        duration: Duration(milliseconds: 1300),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        content: Row(
+          children: <Widget>[
+            Expanded(
+              child: Text("Added to bag"),
+            ),
+            Icon(
+              Icons.check_circle_outline,
               color: Colors.greenAccent,
             )
           ],
@@ -293,9 +316,11 @@ class _HomeScreenState extends State<HomeScreen>
                               print("BUTTON IS PRESSED");
                               if (cartProdID.contains(fil.productID)) {
                                 print(fil.productID);
-                                _showAddedToCartSnackBar();
+                                _showAlreadyInCartSnackBar();
                               } else {
                                 print('No product ID');
+                                addProductToCart(fil);
+                                _showAddtoCartSnackBar();
                               }
                             },
                             child: Container(

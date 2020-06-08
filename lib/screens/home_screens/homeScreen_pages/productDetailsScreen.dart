@@ -495,7 +495,7 @@ class _ProductDetailsState extends State<ProductDetails> {
         prodDetails.totalPrice = prodDetails.price * prodDetails.quantity;
 
         disableButton();
-        addProductToCart(prodDetails, prods, context, cartNotifier);
+        addProductToCart(prodDetails);
         _showAddedToCartSnackBar();
         setState(() {
           isCartBadge = true;
