@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:mollet/prodModel/Product_service.dart';
 import 'package:mollet/prodModel/Products.dart';
 import 'package:mollet/prodModel/brands_notifier.dart';
+import 'package:mollet/prodModel/cart_notifier.dart';
 import 'package:mollet/prodModel/products_notifier.dart';
 import 'package:mollet/screens/home_screens/homeScreen_pages/productDetailsScreen.dart';
 import 'package:mollet/utils/colors.dart';
@@ -26,6 +27,10 @@ class _HomeScreenState extends State<HomeScreen>
     ProductsNotifier productsNotifier =
         Provider.of<ProductsNotifier>(context, listen: false);
     getProdProducts(productsNotifier);
+
+    CartNotifier cartNotifier =
+        Provider.of<CartNotifier>(context, listen: false);
+    getCart(cartNotifier);
 
     BrandsNotifier brandsNotifier =
         Provider.of<BrandsNotifier>(context, listen: false);
@@ -53,15 +58,19 @@ class _HomeScreenState extends State<HomeScreen>
     ProductsNotifier productsNotifier = Provider.of<ProductsNotifier>(context);
     var prods = productsNotifier.productsList;
 
+    CartNotifier cartNotifier = Provider.of<CartNotifier>(context);
+    var cartList = cartNotifier.cartList;
+    var cartProdID = cartList.map((e) => e.productID);
+
     //Tab Items
     final _tabBody = [
-      buildAllBody(prods),
-      buildDogBody(prods),
-      buildCatBody(prods),
-      buildDogBody(prods),
-      buildCatBody(prods),
-      buildDogBody(prods),
-      buildCatBody(prods),
+      buildAllBody(prods, cartProdID),
+      buildDogBody(prods, cartProdID),
+      buildCatBody(prods, cartProdID),
+      buildDogBody(prods, cartProdID),
+      buildCatBody(prods, cartProdID),
+      buildDogBody(prods, cartProdID),
+      buildCatBody(prods, cartProdID),
     ];
 
     return Scaffold(
@@ -158,7 +167,33 @@ class _HomeScreenState extends State<HomeScreen>
     );
   }
 
-  Widget buildAllBody(prods) {
+  //Snackbar
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  void _showAddedToCartSnackBar() {
+    _scaffoldKey.currentState.showSnackBar(
+      SnackBar(
+        behavior: SnackBarBehavior.floating,
+        duration: Duration(milliseconds: 1000),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        content: Row(
+          children: <Widget>[
+            Expanded(
+              child: Text("Product already in bag"),
+            ),
+            Icon(
+              Icons.error_outline,
+              color: Colors.greenAccent,
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget buildAllBody(prods, cartProdID) {
     Iterable<ProdProducts> all = prods.reversed;
 
     var size = MediaQuery.of(context).size;
@@ -256,6 +291,12 @@ class _HomeScreenState extends State<HomeScreen>
                             ),
                             onPressed: () {
                               print("BUTTON IS PRESSED");
+                              if (cartProdID.contains(fil.productID)) {
+                                print(fil.productID);
+                                _showAddedToCartSnackBar();
+                              } else {
+                                print('No product ID');
+                              }
                             },
                             child: Container(
                               width: 45.0,
@@ -265,8 +306,8 @@ class _HomeScreenState extends State<HomeScreen>
                                 borderRadius: new BorderRadius.circular(10.0),
                               ),
                               child: SvgPicture.asset(
-                                "assets/images/icons/Bag.svg",
-                                height: 24.0,
+                                "assets/images/icons/basket.svg",
+                                height: 22.0,
                                 color: MColors.textGrey,
                               ),
                             ),
@@ -299,7 +340,7 @@ class _HomeScreenState extends State<HomeScreen>
     );
   }
 
-  Widget buildDogBody(prods) {
+  Widget buildDogBody(prods, cartProdID) {
     Iterable<ProdProducts> dog = prods.where((e) => e.pet == "dog");
 
     var size = MediaQuery.of(context).size;
@@ -405,8 +446,8 @@ class _HomeScreenState extends State<HomeScreen>
                                 borderRadius: new BorderRadius.circular(10.0),
                               ),
                               child: SvgPicture.asset(
-                                "assets/images/icons/Bag.svg",
-                                height: 24.0,
+                                "assets/images/icons/basket.svg",
+                                height: 22.0,
                                 color: MColors.textGrey,
                               ),
                             ),
@@ -439,7 +480,7 @@ class _HomeScreenState extends State<HomeScreen>
     );
   }
 
-  Widget buildCatBody(prods) {
+  Widget buildCatBody(prods, cartProdID) {
     Iterable<ProdProducts> cat = prods.where((e) => e.pet == "cat");
 
     var size = MediaQuery.of(context).size;
@@ -545,8 +586,8 @@ class _HomeScreenState extends State<HomeScreen>
                                 borderRadius: new BorderRadius.circular(10.0),
                               ),
                               child: SvgPicture.asset(
-                                "assets/images/icons/Bag.svg",
-                                height: 24.0,
+                                "assets/images/icons/basket.svg",
+                                height: 22.0,
                                 color: MColors.textGrey,
                               ),
                             ),

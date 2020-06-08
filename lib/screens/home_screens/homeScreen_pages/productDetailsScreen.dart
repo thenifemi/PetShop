@@ -449,7 +449,9 @@ class _ProductDetailsState extends State<ProductDetails> {
     );
   }
 
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  //Snakbar
+
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   void _showAddedToCartSnackBar() {
     _scaffoldKey.currentState.showSnackBar(
@@ -457,7 +459,7 @@ class _ProductDetailsState extends State<ProductDetails> {
         behavior: SnackBarBehavior.floating,
         duration: Duration(milliseconds: 1000),
         shape: RoundedRectangleBorder(
-          borderRadius: new BorderRadius.circular(10.0),
+          borderRadius: BorderRadius.circular(10.0),
         ),
         content: Row(
           children: <Widget>[
