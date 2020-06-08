@@ -466,12 +466,18 @@ class _HomeScreenState extends State<HomeScreen>
                               borderRadius: new BorderRadius.circular(10.0),
                             ),
                             onPressed: () {
+                              CartNotifier cartNotifier =
+                                  Provider.of<CartNotifier>(context,
+                                      listen: false);
+
                               if (cartProdID.contains(fil.productID)) {
-                                print(fil.productID);
                                 _showAlreadyInCartSnackBar();
                               } else {
                                 addProductToCart(fil);
                                 _showAddtoCartSnackBar();
+                                setState(() {
+                                  getCart(cartNotifier);
+                                });
                               }
                             },
                             child: Container(
