@@ -316,7 +316,6 @@ class _HomeScreenState extends State<HomeScreen>
                               CartNotifier cartNotifier =
                                   Provider.of<CartNotifier>(context,
                                       listen: false);
-                              getCart(cartNotifier);
 
                               if (cartProdID.contains(fil.productID)) {
                                 _showAlreadyInCartSnackBar();
