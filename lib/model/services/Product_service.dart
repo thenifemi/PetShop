@@ -2,9 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:mollet/model/data/brands.dart';
 import 'package:mollet/model/data/cart.dart';
 import 'package:mollet/model/data/Products.dart';
-import 'package:mollet/model/brands_notifier.dart';
-import 'package:mollet/model/cart_notifier.dart';
-import 'package:mollet/model/products_notifier.dart';
+import 'package:mollet/model/notifiers/brands_notifier.dart';
+import 'package:mollet/model/notifiers/cart_notifier.dart';
+import 'package:mollet/model/notifiers/products_notifier.dart';
 import 'package:mollet/model/services/auth_service.dart';
 
 getProdProducts(ProductsNotifier productsNotifier) async {
