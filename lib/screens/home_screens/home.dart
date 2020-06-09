@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -216,6 +217,61 @@ class _HomeScreenState extends State<HomeScreen>
     );
   }
 
+  //Add to Bag dialog
+
+  void addToBagshowDialog(cartProdID, fil) {
+    CartNotifier cartNotifier =
+        Provider.of<CartNotifier>(context, listen: false);
+
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) {
+          return CupertinoAlertDialog(
+            content: Text(
+              "Add to Bag?",
+              style: GoogleFonts.montserrat(fontSize: 18.0),
+            ),
+            actions: <Widget>[
+              CupertinoDialogAction(
+                onPressed: () {
+                  setState(() {
+                    getCart(cartNotifier);
+                  });
+                  Navigator.of(context).pop();
+                },
+                child: Text(
+                  "Cancel",
+                  style: GoogleFonts.montserrat(
+                    fontSize: 16.0,
+                    color: Colors.redAccent,
+                  ),
+                ),
+              ),
+              CupertinoDialogAction(
+                onPressed: () {
+                  if (cartProdID.contains(fil.productID)) {
+                    _showAlreadyInCartSnackBar();
+                  } else {
+                    addProductToCart(fil);
+                    _showAddtoCartSnackBar();
+                    setState(() {
+                      getCart(cartNotifier);
+                    });
+                  }
+                  Navigator.of(context).pop();
+                },
+                isDefaultAction: true,
+                child: Text(
+                  "Yes",
+                  style: GoogleFonts.montserrat(fontSize: 16.0),
+                ),
+              ),
+            ],
+          );
+        });
+  }
+
   Widget buildAllBody(prods, cartProdID) {
     Iterable<ProdProducts> all = prods.reversed;
 
@@ -316,16 +372,10 @@ class _HomeScreenState extends State<HomeScreen>
                               CartNotifier cartNotifier =
                                   Provider.of<CartNotifier>(context,
                                       listen: false);
-
-                              if (cartProdID.contains(fil.productID)) {
-                                _showAlreadyInCartSnackBar();
-                              } else {
-                                addProductToCart(fil);
-                                _showAddtoCartSnackBar();
-                                setState(() {
-                                  getCart(cartNotifier);
-                                });
-                              }
+                              setState(() {
+                                getCart(cartNotifier);
+                              });
+                              addToBagshowDialog(cartProdID, fil);
                             },
                             child: Container(
                               width: 45.0,
