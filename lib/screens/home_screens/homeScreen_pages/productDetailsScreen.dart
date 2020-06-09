@@ -603,7 +603,6 @@ class _ProductDetailsState extends State<ProductDetails> {
                 background: Builder(
                   builder: (context) {
                     return Container(
-                      // height: (MediaQuery.of(context).size.height) / 2.8,
                       color: MColors.primaryWhite,
                       padding:
                           const EdgeInsets.fromLTRB(20.0, 70.0, 20.0, 10.0),
