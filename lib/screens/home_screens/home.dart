@@ -222,6 +222,7 @@ class _HomeScreenState extends State<HomeScreen>
   void addToBagshowDialog(cartProdID, fil) {
     CartNotifier cartNotifier =
         Provider.of<CartNotifier>(context, listen: false);
+    var cartProdID2 = cartNotifier.cartList.map((e) => e.productID);
 
     showDialog(
         barrierDismissible: false,
@@ -250,7 +251,10 @@ class _HomeScreenState extends State<HomeScreen>
               ),
               CupertinoDialogAction(
                 onPressed: () {
-                  if (cartProdID.contains(fil.productID)) {
+                  setState(() {
+                    getCart(cartNotifier);
+                  });
+                  if (cartProdID2.contains(fil.productID)) {
                     _showAlreadyInCartSnackBar();
                   } else {
                     addProductToCart(fil);
@@ -369,12 +373,6 @@ class _HomeScreenState extends State<HomeScreen>
                               borderRadius: new BorderRadius.circular(10.0),
                             ),
                             onPressed: () {
-                              CartNotifier cartNotifier =
-                                  Provider.of<CartNotifier>(context,
-                                      listen: false);
-                              setState(() {
-                                getCart(cartNotifier);
-                              });
                               addToBagshowDialog(cartProdID, fil);
                             },
                             child: Container(
