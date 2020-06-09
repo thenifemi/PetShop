@@ -1,4 +1,4 @@
-import 'package:mollet/model/Products.dart';
+import 'package:mollet/model/data/Products.dart';
 
 allProducts(prods) {
   Iterable<ProdProducts> all = prods;

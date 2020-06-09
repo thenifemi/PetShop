@@ -1,7 +1,7 @@
 import 'dart:collection';
 
 import 'package:flutter/foundation.dart';
-import 'package:mollet/model/brands.dart';
+import 'package:mollet/model/data/brands.dart';
 
 class BrandsNotifier with ChangeNotifier {
   List<Brands> _brandsList = [];

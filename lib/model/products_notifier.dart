@@ -2,7 +2,7 @@ import 'dart:collection';
 
 import 'package:flutter/foundation.dart';
 
-import 'Products.dart';
+import 'data/Products.dart';
 
 class ProductsNotifier with ChangeNotifier {
   List<ProdProducts> _prodProductsList = [];

@@ -5,7 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mollet/model/Product_service.dart';
 import 'package:mollet/model/cart_notifier.dart';
-import 'package:mollet/model/Products.dart';
+import 'package:mollet/model/data/Products.dart';
 import 'package:mollet/screens/home_screens/homeScreen_pages/cart2.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:mollet/widgets/similarProducts_Wigdet.dart';
