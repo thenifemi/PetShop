@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mollet/model/Product_service.dart';
+import 'package:mollet/model/services/Product_service.dart';
 import 'package:mollet/model/cart_notifier.dart';
 import 'package:mollet/screens/home_screens/favorites.dart';
 import 'package:mollet/screens/home_screens/history.dart';
@@ -135,8 +135,9 @@ class _TabsLayoutState extends State<TabsLayout> {
                       child: SvgPicture.asset(
                         e,
                         height: 22,
-                        color:
-                            isSelected ? MColors.primaryPurple : MColors.textGrey,
+                        color: isSelected
+                            ? MColors.primaryPurple
+                            : MColors.textGrey,
                       ),
                     ),
                     isCartSelected && cartList.isNotEmpty

@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mollet/model/Product_service.dart';
+import 'package:mollet/model/services/Product_service.dart';
 import 'package:mollet/model/data/Products.dart';
 import 'package:mollet/model/brands_notifier.dart';
 import 'package:mollet/model/cart_notifier.dart';
