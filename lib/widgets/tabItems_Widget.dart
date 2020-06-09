@@ -1,4 +1,4 @@
-import 'package:mollet/prodModel/Products.dart';
+import 'package:mollet/model/Products.dart';
 
 allProducts(prods) {
   Iterable<ProdProducts> all = prods;
@@ -34,5 +34,3 @@ smallpetProducts(prods) {
   Iterable<ProdProducts> smallpet = prods.where((e) => e.pet == "smallpet");
   return smallpet;
 }
-
-

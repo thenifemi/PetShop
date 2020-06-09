@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mollet/prodModel/Product_service.dart';
-import 'package:mollet/prodModel/cart_notifier.dart';
+import 'package:mollet/model/Product_service.dart';
+import 'package:mollet/model/cart_notifier.dart';
 import 'package:mollet/screens/home_screens/favorites.dart';
 import 'package:mollet/screens/home_screens/history.dart';
 import 'package:mollet/screens/home_screens/home.dart';

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mollet/services/auth_service.dart';
-import 'package:mollet/prodModel/brands_notifier.dart';
-import 'package:mollet/prodModel/cart_notifier.dart';
-import 'package:mollet/prodModel/products_notifier.dart';
+import 'package:mollet/model/brands_notifier.dart';
+import 'package:mollet/model/cart_notifier.dart';
+import 'package:mollet/model/products_notifier.dart';
 import 'package:mollet/screens/getstarted_screens/intro_screen.dart';
 import 'package:mollet/screens/home_screens/home.dart';
 import 'package:mollet/screens/home_screens/settings.dart';
