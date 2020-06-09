@@ -222,7 +222,6 @@ class _HomeScreenState extends State<HomeScreen>
   void addToBagshowDialog(cartProdID, fil) {
     CartNotifier cartNotifier =
         Provider.of<CartNotifier>(context, listen: false);
-    var cartProdID2 = cartNotifier.cartList.map((e) => e.productID);
 
     showDialog(
         barrierDismissible: false,
@@ -254,7 +253,7 @@ class _HomeScreenState extends State<HomeScreen>
                   setState(() {
                     getCart(cartNotifier);
                   });
-                  if (cartProdID2.contains(fil.productID)) {
+                  if (cartProdID.contains(fil.productID)) {
                     _showAlreadyInCartSnackBar();
                   } else {
                     addProductToCart(fil);
@@ -315,7 +314,6 @@ class _HomeScreenState extends State<HomeScreen>
               child: Column(
                 children: <Widget>[
                   Container(
-                    // height: MediaQuery.of(context).size.height / 4,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10.0),
                       child: Hero(
@@ -341,7 +339,6 @@ class _HomeScreenState extends State<HomeScreen>
                         overflow: TextOverflow.ellipsis,
                         style: GoogleFonts.montserrat(
                           color: MColors.textDark,
-                          // fontWeight: FontWeight.w400,
                           fontSize: 16.0,
                         ),
                       ),
@@ -456,7 +453,6 @@ class _HomeScreenState extends State<HomeScreen>
               child: Column(
                 children: <Widget>[
                   Container(
-                    // height: 170,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10.0),
                       child: Hero(
@@ -482,7 +478,6 @@ class _HomeScreenState extends State<HomeScreen>
                         overflow: TextOverflow.ellipsis,
                         style: GoogleFonts.montserrat(
                           color: MColors.textDark,
-                          // fontWeight: FontWeight.w400,
                           fontSize: 16.0,
                         ),
                       ),
@@ -514,19 +509,7 @@ class _HomeScreenState extends State<HomeScreen>
                               borderRadius: new BorderRadius.circular(10.0),
                             ),
                             onPressed: () {
-                              CartNotifier cartNotifier =
-                                  Provider.of<CartNotifier>(context,
-                                      listen: false);
-
-                              if (cartProdID.contains(fil.productID)) {
-                                _showAlreadyInCartSnackBar();
-                              } else {
-                                addProductToCart(fil);
-                                _showAddtoCartSnackBar();
-                                setState(() {
-                                  getCart(cartNotifier);
-                                });
-                              }
+                              addToBagshowDialog(cartProdID, fil);
                             },
                             child: Container(
                               padding: const EdgeInsets.all(10.0),
@@ -608,7 +591,6 @@ class _HomeScreenState extends State<HomeScreen>
               child: Column(
                 children: <Widget>[
                   Container(
-                    // height: 170,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10.0),
                       child: Hero(
@@ -634,7 +616,6 @@ class _HomeScreenState extends State<HomeScreen>
                         overflow: TextOverflow.ellipsis,
                         style: GoogleFonts.montserrat(
                           color: MColors.textDark,
-                          // fontWeight: FontWeight.w400,
                           fontSize: 16.0,
                         ),
                       ),
@@ -666,19 +647,7 @@ class _HomeScreenState extends State<HomeScreen>
                               borderRadius: new BorderRadius.circular(10.0),
                             ),
                             onPressed: () {
-                              CartNotifier cartNotifier =
-                                  Provider.of<CartNotifier>(context,
-                                      listen: false);
-
-                              if (cartProdID.contains(fil.productID)) {
-                                _showAlreadyInCartSnackBar();
-                              } else {
-                                addProductToCart(fil);
-                                _showAddtoCartSnackBar();
-                                setState(() {
-                                  getCart(cartNotifier);
-                                });
-                              }
+                              addToBagshowDialog(cartProdID, fil);
                             },
                             child: Container(
                               padding: const EdgeInsets.all(10.0),
