@@ -4,7 +4,7 @@ import 'package:mollet/model/cart.dart';
 import 'package:mollet/model/brands_notifier.dart';
 import 'package:mollet/model/cart_notifier.dart';
 import 'package:mollet/model/products_notifier.dart';
-import 'package:mollet/services/auth_service.dart';
+import 'package:mollet/model/services/auth_service.dart';
 
 import 'Products.dart';
 

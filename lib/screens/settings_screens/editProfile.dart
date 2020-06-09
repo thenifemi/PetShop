@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mollet/services/auth_service.dart';
+import 'package:mollet/model/services/auth_service.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:mollet/widgets/provider.dart';
 
@@ -271,7 +271,6 @@ class _EditProfileState extends State<EditProfile> {
             Navigator.of(context).pop();
           },
         ),
-        
         title: Text(
           "Profile",
           style: GoogleFonts.montserrat(
