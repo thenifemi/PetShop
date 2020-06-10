@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:mollet/model/services/auth_service.dart';
 import 'package:mollet/model/notifiers/brands_notifier.dart';
 import 'package:mollet/model/notifiers/cart_notifier.dart';
 import 'package:mollet/model/notifiers/products_notifier.dart';
+import 'package:mollet/model/services/auth_service.dart';
 import 'package:mollet/screens/getstarted_screens/intro_screen.dart';
+import 'package:mollet/screens/getstarted_screens/splash_screen.dart';
 import 'package:mollet/screens/home_screens/home.dart';
 import 'package:mollet/screens/home_screens/settings.dart';
 import 'package:mollet/screens/register_screens/login_screen.dart';
@@ -16,13 +17,10 @@ import 'package:mollet/screens/settings_screens/changePassword.dart';
 import 'package:mollet/screens/settings_screens/editProfile.dart';
 import 'package:mollet/screens/settings_screens/inviteFriend.dart';
 import 'package:mollet/screens/settings_screens/passwordSecurity.dart';
-import 'package:mollet/screens/splash_screen.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:mollet/widgets/provider.dart';
 import 'package:mollet/widgets/tabsLayout.dart';
 import 'package:provider/provider.dart';
-
-// import 'model/services/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
