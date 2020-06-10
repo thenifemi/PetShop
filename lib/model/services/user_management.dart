@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:mollet/widgets/provider.dart';
+import 'auth_service.dart';
 
 class UserManagement {
   storeNewUser(_name, _phoneNumber, _email, context) async {
     final db = Firestore.instance;
-    final uid = await MyProvider.of(context).auth.getCurrentUID();
+    final uid = await AuthService().getCurrentUID();
 
     var userUpdateInfo = new UserUpdateInfo();
     userUpdateInfo.displayName = _name;
