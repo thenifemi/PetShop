@@ -23,7 +23,6 @@ class _Cart1State extends State<Cart1> {
     CartNotifier cartNotifier =
         Provider.of<CartNotifier>(context, listen: false);
     cartFuture = getCart(cartNotifier);
-    getCart(cartNotifier);
 
     super.initState();
   }
@@ -126,31 +125,6 @@ class _Cart1State extends State<Cart1> {
                   itemCount: cartList.length,
                   itemBuilder: (context, i) {
                     var cartItem = cartList[i];
-                    int qty = cartItem.quantity;
-
-                    void addQty() {
-                      setState(() {
-                        if (qty > 9) {
-                          qty = 9;
-                        } else if (qty < 9) {
-                          setState(() {
-                            qty++;
-                          });
-                        }
-                      });
-                    }
-
-                    void subQty() {
-                      setState(() {
-                        if (qty != 1) {
-                          qty--;
-                        } else if (qty < 1) {
-                          setState(() {
-                            qty = 1;
-                          });
-                        }
-                      });
-                    }
 
                     return Container(
                       padding: const EdgeInsets.all(5.0),
@@ -267,42 +241,70 @@ class _Cart1State extends State<Cart1> {
                               ),
                             ),
                             Expanded(
-                              child: Container(
-                                // color: Colors.red,
-                                child: Column(
-                                  // mainAxisAlignment: MainAxisAlignment.center,
-                                  // crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: <Widget>[
-                                    Center(
-                                      child: IconButton(
-                                        color: MColors.textGrey,
-                                        icon: Icon(Icons.add_circle_outline),
-                                        onPressed: addQty,
-                                      ),
-                                    ),
-                                    Container(
-                                      child: Center(
-                                        child: Text(
-                                          qty.toString(),
-                                          style: GoogleFonts.montserrat(
-                                            color: MColors.textDark,
-                                            fontSize: 20.0,
+                              child: Builder(
+                                builder: (context) {
+                                  int qty = cartItem.quantity;
+
+                                  void addQty() {
+                                    setState(() {
+                                      if (qty > 9) {
+                                        qty = 9;
+                                      } else if (qty < 9) {
+                                        setState(() {
+                                          qty++;
+                                        });
+                                      }
+                                    });
+                                  }
+
+                                  void subQty() {
+                                    setState(() {
+                                      if (qty != 1) {
+                                        qty--;
+                                      } else if (qty < 1) {
+                                        setState(() {
+                                          qty = 1;
+                                        });
+                                      }
+                                    });
+                                  }
+
+                                  return Container(
+                                    child: Column(
+                                      children: <Widget>[
+                                        Center(
+                                          child: IconButton(
+                                            color: MColors.textGrey,
+                                            icon:
+                                                Icon(Icons.add_circle_outline),
+                                            onPressed: addQty,
                                           ),
                                         ),
-                                      ),
-                                    ),
-                                    Container(
-                                      child: Center(
-                                        child: IconButton(
-                                          color: MColors.textGrey,
-                                          icon:
-                                              Icon(Icons.remove_circle_outline),
-                                          onPressed: subQty,
+                                        Container(
+                                          child: Center(
+                                            child: Text(
+                                              qty.toString(),
+                                              style: GoogleFonts.montserrat(
+                                                color: MColors.textDark,
+                                                fontSize: 20.0,
+                                              ),
+                                            ),
+                                          ),
                                         ),
-                                      ),
+                                        Container(
+                                          child: Center(
+                                            child: IconButton(
+                                              color: MColors.textGrey,
+                                              icon: Icon(
+                                                  Icons.remove_circle_outline),
+                                              onPressed: subQty,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                  ],
-                                ),
+                                  );
+                                },
                               ),
                             ),
                           ],
