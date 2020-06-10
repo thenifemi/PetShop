@@ -7,6 +7,7 @@ import 'package:mollet/model/notifiers/cart_notifier.dart';
 import 'package:mollet/model/notifiers/products_notifier.dart';
 import 'package:mollet/model/services/auth_service.dart';
 
+//Getting products
 getProdProducts(ProductsNotifier productsNotifier) async {
   QuerySnapshot snapshot =
       await Firestore.instance.collection("food").getDocuments();
@@ -22,6 +23,7 @@ getProdProducts(ProductsNotifier productsNotifier) async {
   productsNotifier.productsList = _prodProductsList;
 }
 
+//Getting brands
 getBrands(BrandsNotifier brandsNotifier) async {
   QuerySnapshot snapshot =
       await Firestore.instance.collection("brands").getDocuments();
@@ -36,6 +38,7 @@ getBrands(BrandsNotifier brandsNotifier) async {
   brandsNotifier.brandsList = _brandsList;
 }
 
+//Getting users' cart
 getCart(CartNotifier cartNotifier) async {
   final uid = await AuthService().getCurrentUID();
 
@@ -55,6 +58,7 @@ getCart(CartNotifier cartNotifier) async {
   cartNotifier.cartList = _cartList;
 }
 
+//Adding users' product to cart
 addProductToCart(product) async {
   final db = Firestore.instance;
   final uid = await AuthService().getCurrentUID();
@@ -67,9 +71,4 @@ addProductToCart(product) async {
       .catchError((e) {
     print(e);
   });
-}
-
-getAndUpdateQuantityStream() {
-  final db = Firestore.instance;
-  db.collection('food').snapshots();
 }
