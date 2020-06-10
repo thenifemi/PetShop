@@ -4,7 +4,7 @@
 
 <p>
     <img src="https://raw.githubusercontent.com/thenifemi/PetShop/master/assets/onboard.jpg" width="150px" height="auto" hspace="5" vspace="20"/>
-    <img src="https://raw.githubusercontent.com/thenifemi/PetShop/master/assets/cats.jpg?raw=true" width="150px" height="auto" hspace="5" vspace="20"/>
+    <img src="https://raw.githubusercontent.com/thenifemi/PetShop/master/assets/all.jpg?raw=true" width="150px" height="auto" hspace="5" vspace="20"/>
    <img src="https://github.com/thenifemi/PetShop/blob/master/assets/bag.jpg?raw=true" width="150px" height="auto" hspace="5" vspace="20"/>
     <img src="https://raw.githubusercontent.com/thenifemi/PetShop/master/assets/product.jpg" width="150px" height="auto" hspace="5" vspace="20"/>
    <img src="https://raw.githubusercontent.com/thenifemi/PetShop/master/assets/login.jpg" width="150px" height="auto" hspace="5" vspace="20"/>
