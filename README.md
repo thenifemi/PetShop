@@ -1,4 +1,4 @@
-<img align="left" src="https://raw.githubusercontent.com/thenifemi/PetShop/master/assets/footprint.png?raw=true" width="50px">
+<img align="left" src="https://raw.githubusercontent.com/thenifemi/PetShop/master/assets/footprint.png?raw=true" width="40px">
 
 # Pet Shop
 
