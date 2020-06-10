@@ -3,7 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mollet/model/services/Product_service.dart';
 import 'package:mollet/model/notifiers/cart_notifier.dart';
-import 'package:mollet/screens/tab_screens/favorites.dart';
+import 'package:mollet/screens/tab_screens/cart1.dart';
 import 'package:mollet/screens/tab_screens/history.dart';
 import 'package:mollet/screens/tab_screens/home.dart';
 import 'package:mollet/screens/tab_screens/inbox.dart';
@@ -33,8 +33,8 @@ class _TabsLayoutState extends State<TabsLayout> {
     HomeScreen(
       key: PageStorageKey("homeKey"),
     ),
-    FavoritesScreen(
-      key: PageStorageKey("favoritesKey"),
+    Cart1(
+      key: PageStorageKey("cart1"),
     ),
     HistoryScreen(
       key: PageStorageKey("historyKey"),
