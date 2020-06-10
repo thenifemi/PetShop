@@ -3,7 +3,7 @@ import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mollet/model/data/Products.dart';
-import 'package:mollet/screens/home_screens/homeScreen_pages/productDetailsScreen.dart';
+import 'package:mollet/screens/tab_screens/homeScreen_pages/productDetailsScreen.dart';
 import 'package:mollet/utils/colors.dart';
 
 class SimilarProductsWidget extends StatefulWidget {
