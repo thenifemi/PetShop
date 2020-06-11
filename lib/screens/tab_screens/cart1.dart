@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -75,6 +76,121 @@ class _Cart1State extends State<Cart1> {
           }
         });
   }
+
+  // void quantityDialog(cartItem) {
+  //   var quantity = cartItem.quantity;
+
+  //   showDialog(
+  //       barrierDismissible: false,
+  //       context: context,
+  //       builder: (context) {
+  //         void addQty() {
+  //           setState(() {
+  //             if (quantity > 9) {
+  //               quantity = 9;
+  //             } else if (quantity < 9) {
+  //               setState(() {
+  //                 quantity++;
+  //               });
+  //             }
+  //           });
+  //         }
+
+  //         void subQty() {
+  //           setState(() {
+  //             if (quantity != 1) {
+  //               quantity--;
+  //             } else if (quantity < 1) {
+  //               setState(() {
+  //                 quantity = 1;
+  //               });
+  //             }
+  //           });
+  //         }
+
+  //         return CupertinoAlertDialog(
+  //           title: Text(
+  //             "Item quantity",
+  //             style: GoogleFonts.montserrat(fontSize: 16.0),
+  //           ),
+  //           content: Builder(builder: (context) {
+  //             return Container(
+  //               child: Row(
+  //                 mainAxisAlignment: MainAxisAlignment.center,
+  //                 children: <Widget>[
+  //                   Container(
+  //                     width: 36.0,
+  //                     height: 36.0,
+  //                     child: RawMaterialButton(
+  //                       onPressed: subQty,
+  //                       child: Icon(
+  //                         Icons.remove,
+  //                         color: MColors.primaryPurple,
+  //                         size: 30.0,
+  //                       ),
+  //                     ),
+  //                   ),
+  //                   Container(
+  //                     padding: const EdgeInsets.only(
+  //                       right: 5.0,
+  //                       left: 5.0,
+  //                     ),
+  //                     child: Text(quantity.toString(),
+  //                         style: GoogleFonts.montserrat(
+  //                           color: MColors.textDark,
+  //                           fontSize: 24.0,
+  //                         )),
+  //                   ),
+  //                   SizedBox(
+  //                     width: 2.0,
+  //                   ),
+  //                   Container(
+  //                     decoration: BoxDecoration(
+  //                       borderRadius: new BorderRadius.circular(10.0),
+  //                       color: MColors.primaryPurple,
+  //                     ),
+  //                     width: 36.0,
+  //                     height: 36.0,
+  //                     child: RawMaterialButton(
+  //                       onPressed: addQty,
+  //                       child: Icon(
+  //                         Icons.add,
+  //                         color: MColors.primaryWhiteSmoke,
+  //                         size: 30.0,
+  //                       ),
+  //                     ),
+  //                   ),
+  //                 ],
+  //               ),
+  //             );
+  //           }),
+  //           actions: <Widget>[
+  //             CupertinoDialogAction(
+  //               onPressed: () {
+  //                 Navigator.of(context).pop();
+  //               },
+  //               child: Text(
+  //                 "Cancel",
+  //                 style: GoogleFonts.montserrat(
+  //                   fontSize: 16.0,
+  //                   color: Colors.redAccent,
+  //                 ),
+  //               ),
+  //             ),
+  //             CupertinoDialogAction(
+  //               onPressed: () {
+  //                 Navigator.of(context).pop();
+  //               },
+  //               isDefaultAction: true,
+  //               child: Text(
+  //                 "Okay",
+  //                 style: GoogleFonts.montserrat(fontSize: 16.0),
+  //               ),
+  //             ),
+  //           ],
+  //         );
+  //       });
+  // }
 
   Widget cart(cartList, total) {
     return Scaffold(
@@ -245,42 +361,30 @@ class _Cart1State extends State<Cart1> {
                                 builder: (context) {
                                   int qty = cartItem.quantity;
 
-                                  void addQty() {
-                                    setState(() {
-                                      if (qty > 9) {
-                                        qty = 9;
-                                      } else if (qty < 9) {
-                                        setState(() {
-                                          qty++;
-                                        });
-                                      }
-                                    });
-                                  }
-
-                                  void subQty() {
-                                    setState(() {
-                                      if (qty != 1) {
-                                        qty--;
-                                      } else if (qty < 1) {
-                                        setState(() {
-                                          qty = 1;
-                                        });
-                                      }
-                                    });
-                                  }
-
                                   return Container(
                                     child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: <Widget>[
-                                        Center(
-                                          child: IconButton(
-                                            color: MColors.textGrey,
-                                            icon:
-                                                Icon(Icons.add_circle_outline),
-                                            onPressed: addQty,
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                new BorderRadius.circular(10.0),
+                                            color: MColors.primaryPurple,
+                                          ),
+                                          height: 34.0,
+                                          width: 34.0,
+                                          child: RawMaterialButton(
+                                            onPressed: null,
+                                            child: Icon(
+                                              Icons.add,
+                                              color: MColors.primaryWhiteSmoke,
+                                              size: 24.0,
+                                            ),
                                           ),
                                         ),
                                         Container(
+                                          padding: const EdgeInsets.all(5.0),
                                           child: Center(
                                             child: Text(
                                               qty.toString(),
@@ -292,12 +396,19 @@ class _Cart1State extends State<Cart1> {
                                           ),
                                         ),
                                         Container(
-                                          child: Center(
-                                            child: IconButton(
-                                              color: MColors.textGrey,
-                                              icon: Icon(
-                                                  Icons.remove_circle_outline),
-                                              onPressed: subQty,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                new BorderRadius.circular(10.0),
+                                            color: MColors.primaryWhiteSmoke,
+                                          ),
+                                          width: 34.0,
+                                          height: 34.0,
+                                          child: RawMaterialButton(
+                                            onPressed: null,
+                                            child: Icon(
+                                              Icons.remove,
+                                              color: MColors.primaryPurple,
+                                              size: 30.0,
                                             ),
                                           ),
                                         ),

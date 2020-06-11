@@ -156,7 +156,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                           ),
                           Container(
                             padding: const EdgeInsets.only(
-                              right: 5,
+                              right: 5.0,
                               left: 5.0,
                             ),
                             child: Text(quantity.toString(),
