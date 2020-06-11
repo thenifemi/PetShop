@@ -1,18 +1,11 @@
 class Strings {
-  //FONTS
-  static const String customFont = "poppins-regular";
-
   //GET STARTED STRINGS
   static String appName = "mollet";
   static const String onBoardTitle1 = "Welcome to";
   static const String onBoardTitle_sub1 =
       "Caring for your pets has never been so easy! With Pet Shop, you can get pet supplies, hire professional pet services and book Vet appointments.";
   static const String onBoardTitle2 = "the World of Pets";
-  // static const String onBoardTitle_sub2 = "Visit any of the growing number of online outlets who accept mollet and make your purchase in a second.";
-  // static const String onBoardTitle3 = "Manage your finances";
-  // static const String onBoardTitle_sub3 = "Just visit any of the growing number of outlets who accept mollet and make your purchase in a second.";
-  // static const String welcomeTitle = "Welcome to Mollet";
-  // static const String welcomeTitle_sub = "Never Better than now to start thinking how to manage all your finances with Mollet.";
+
   static const String skip = "Skip";
   static const String signin = "SIGN IN";
   static const String signin_small = "Sign in";
