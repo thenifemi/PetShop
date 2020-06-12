@@ -72,3 +72,5 @@ addProductToCart(product) async {
     print(e);
   });
 }
+
+

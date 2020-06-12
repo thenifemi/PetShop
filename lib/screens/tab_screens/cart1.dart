@@ -1,11 +1,14 @@
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mollet/model/notifiers/cart_notifier.dart';
 import 'package:mollet/model/services/Product_service.dart';
+import 'package:mollet/model/services/auth_service.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:provider/provider.dart';
 
@@ -77,120 +80,7 @@ class _Cart1State extends State<Cart1> {
         });
   }
 
-  // void quantityDialog(cartItem) {
-  //   var quantity = cartItem.quantity;
-
-  //   showDialog(
-  //       barrierDismissible: false,
-  //       context: context,
-  //       builder: (context) {
-  //         void addQty() {
-  //           setState(() {
-  //             if (quantity > 9) {
-  //               quantity = 9;
-  //             } else if (quantity < 9) {
-  //               setState(() {
-  //                 quantity++;
-  //               });
-  //             }
-  //           });
-  //         }
-
-  //         void subQty() {
-  //           setState(() {
-  //             if (quantity != 1) {
-  //               quantity--;
-  //             } else if (quantity < 1) {
-  //               setState(() {
-  //                 quantity = 1;
-  //               });
-  //             }
-  //           });
-  //         }
-
-  //         return CupertinoAlertDialog(
-  //           title: Text(
-  //             "Item quantity",
-  //             style: GoogleFonts.montserrat(fontSize: 16.0),
-  //           ),
-  //           content: Builder(builder: (context) {
-  //             return Container(
-  //               child: Row(
-  //                 mainAxisAlignment: MainAxisAlignment.center,
-  //                 children: <Widget>[
-  //                   Container(
-  //                     width: 36.0,
-  //                     height: 36.0,
-  //                     child: RawMaterialButton(
-  //                       onPressed: subQty,
-  //                       child: Icon(
-  //                         Icons.remove,
-  //                         color: MColors.primaryPurple,
-  //                         size: 30.0,
-  //                       ),
-  //                     ),
-  //                   ),
-  //                   Container(
-  //                     padding: const EdgeInsets.only(
-  //                       right: 5.0,
-  //                       left: 5.0,
-  //                     ),
-  //                     child: Text(quantity.toString(),
-  //                         style: GoogleFonts.montserrat(
-  //                           color: MColors.textDark,
-  //                           fontSize: 24.0,
-  //                         )),
-  //                   ),
-  //                   SizedBox(
-  //                     width: 2.0,
-  //                   ),
-  //                   Container(
-  //                     decoration: BoxDecoration(
-  //                       borderRadius: new BorderRadius.circular(10.0),
-  //                       color: MColors.primaryPurple,
-  //                     ),
-  //                     width: 36.0,
-  //                     height: 36.0,
-  //                     child: RawMaterialButton(
-  //                       onPressed: addQty,
-  //                       child: Icon(
-  //                         Icons.add,
-  //                         color: MColors.primaryWhiteSmoke,
-  //                         size: 30.0,
-  //                       ),
-  //                     ),
-  //                   ),
-  //                 ],
-  //               ),
-  //             );
-  //           }),
-  //           actions: <Widget>[
-  //             CupertinoDialogAction(
-  //               onPressed: () {
-  //                 Navigator.of(context).pop();
-  //               },
-  //               child: Text(
-  //                 "Cancel",
-  //                 style: GoogleFonts.montserrat(
-  //                   fontSize: 16.0,
-  //                   color: Colors.redAccent,
-  //                 ),
-  //               ),
-  //             ),
-  //             CupertinoDialogAction(
-  //               onPressed: () {
-  //                 Navigator.of(context).pop();
-  //               },
-  //               isDefaultAction: true,
-  //               child: Text(
-  //                 "Okay",
-  //                 style: GoogleFonts.montserrat(fontSize: 16.0),
-  //               ),
-  //             ),
-  //           ],
-  //         );
-  //       });
-  // }
+  void addCartItemQuantity(quantity) {}
 
   Widget cart(cartList, total) {
     return Scaffold(
@@ -357,9 +247,12 @@ class _Cart1State extends State<Cart1> {
                               ),
                             ),
                             Expanded(
-                              child: Builder(
-                                builder: (context) {
+                              child: FutureBuilder(
+                                future: null,
+                                builder: (context, s) {
                                   int qty = cartItem.quantity;
+                                  var qty2 = s.data;
+                                  print(qty2);
 
                                   return Container(
                                     child: Column(
@@ -375,7 +268,42 @@ class _Cart1State extends State<Cart1> {
                                           height: 34.0,
                                           width: 34.0,
                                           child: RawMaterialButton(
-                                            onPressed: null,
+                                            onPressed: () {
+                                              setState(() {
+                                                if (qty > 9) {
+                                                  Firestore.instance
+                                                      .runTransaction(
+                                                          (transaction) async {
+                                                    DocumentSnapshot freshSnap =
+                                                        await transaction.get(
+                                                            s.data.reference);
+                                                    await transaction.update(
+                                                        freshSnap.reference, {
+                                                      'quantity': freshSnap[
+                                                              'quantity'] -
+                                                          1,
+                                                    });
+                                                  });
+                                                } else if (qty < 9) {
+                                                  setState(() {
+                                                    Firestore.instance
+                                                        .runTransaction(
+                                                            (transaction) async {
+                                                      DocumentSnapshot
+                                                          freshSnap =
+                                                          await transaction.get(
+                                                              s.data.reference);
+                                                      await transaction.update(
+                                                          freshSnap.reference, {
+                                                        'quantity': freshSnap[
+                                                                'quantity'] +
+                                                            1,
+                                                      });
+                                                    });
+                                                  });
+                                                }
+                                              });
+                                            },
                                             child: Icon(
                                               Icons.add,
                                               color: MColors.primaryWhiteSmoke,
