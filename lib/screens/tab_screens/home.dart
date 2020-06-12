@@ -280,7 +280,7 @@ class _HomeScreenState extends State<HomeScreen>
 
     var size = MediaQuery.of(context).size;
     /*24 is for notification bar on Android*/
-    final double itemHeight = (size.height - kToolbarHeight - 24) / 2.4;
+    final double itemHeight = (size.height - kToolbarHeight - 24) / 2.2;
     final double itemWidth = size.width / 2;
     return Container(
       height: double.infinity,
@@ -374,6 +374,7 @@ class _HomeScreenState extends State<HomeScreen>
                             },
                             child: Container(
                               width: 45.0,
+                              height: 45.0,
                               padding: const EdgeInsets.all(10.0),
                               decoration: BoxDecoration(
                                 color: MColors.dashPurple,
@@ -405,7 +406,6 @@ class _HomeScreenState extends State<HomeScreen>
                       spreadRadius: 0),
                 ],
               ),
-              width: MediaQuery.of(context).size.width,
               padding: EdgeInsets.all(10),
             ),
           );
@@ -419,7 +419,7 @@ class _HomeScreenState extends State<HomeScreen>
 
     var size = MediaQuery.of(context).size;
     /*24 is for notification bar on Android*/
-    final double itemHeight = (size.height - kToolbarHeight - 24) / 2.4;
+    final double itemHeight = (size.height - kToolbarHeight - 24) / 2.2;
     final double itemWidth = size.width / 2;
     return Container(
       height: double.infinity,
@@ -557,7 +557,7 @@ class _HomeScreenState extends State<HomeScreen>
 
     var size = MediaQuery.of(context).size;
     /*24 is for notification bar on Android*/
-    final double itemHeight = (size.height - kToolbarHeight - 24) / 2.4;
+    final double itemHeight = (size.height - kToolbarHeight - 24) / 2.2;
     final double itemWidth = size.width / 2;
     return Container(
       height: double.infinity,
