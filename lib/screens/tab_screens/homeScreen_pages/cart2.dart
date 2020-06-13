@@ -167,6 +167,7 @@ class _Cart2State extends State<Cart2> {
 
   Widget cart(cartList, total) {
     return Scaffold(
+      key: _scaffoldKey,
       body: Container(
         color: MColors.primaryWhite,
         child: Column(
@@ -215,191 +216,220 @@ class _Cart2State extends State<Cart2> {
                   itemBuilder: (context, i) {
                     var cartItem = cartList[i];
 
-                    return Container(
-                      padding: const EdgeInsets.all(5.0),
-                      height: 160.0,
-                      child: Container(
-                        padding: const EdgeInsets.all(10.0),
-                        decoration: BoxDecoration(
-                          color: MColors.primaryWhite,
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(10.0),
-                          ),
+                    return Dismissible(
+                      key: ValueKey(i),
+                      confirmDismiss: (direction) => promptUser(cartItem),
+                      onDismissed: (direction) {
+                        _showRemovedtoCartSnackBar();
+                      },
+                      background: Container(
+                        color: Colors.redAccent,
+                        padding: EdgeInsets.symmetric(horizontal: 10.0),
+                        alignment: AlignmentDirectional.centerStart,
+                        child: Icon(
+                          Icons.delete,
+                          color: Colors.white,
                         ),
-                        child: Row(
-                          children: <Widget>[
-                            Container(
-                              width: 80.0,
-                              child: FadeInImage.assetNetwork(
-                                image: cartItem.productImage,
-                                fit: BoxFit.fill,
-                                height: MediaQuery.of(context).size.height,
-                                placeholder: "assets/images/placeholder.jpg",
-                                placeholderScale:
-                                    MediaQuery.of(context).size.height / 2,
-                              ),
+                      ),
+                      secondaryBackground: Container(
+                        color: Colors.redAccent,
+                        padding: EdgeInsets.symmetric(horizontal: 10.0),
+                        alignment: AlignmentDirectional.centerEnd,
+                        child: Icon(
+                          Icons.delete,
+                          color: Colors.white,
+                        ),
+                      ),
+                      child: Container(
+                        padding: const EdgeInsets.all(5.0),
+                        height: 160.0,
+                        child: Container(
+                          padding: const EdgeInsets.all(15.0),
+                          decoration: BoxDecoration(
+                            color: MColors.primaryWhite,
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(10.0),
                             ),
-                            Container(
-                              width: MediaQuery.of(context).size.width / 2,
-                              padding: const EdgeInsets.only(left: 10.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  Container(
-                                    padding: const EdgeInsets.all(5.0),
-                                    width: 200.0,
-                                    child: Text(
-                                      cartItem.name,
-                                      maxLines: 3,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: GoogleFonts.montserrat(
-                                          fontSize: 16.0,
-                                          color: MColors.textDark,
-                                          fontWeight: FontWeight.w500),
-                                      textAlign: TextAlign.left,
-                                      softWrap: true,
+                          ),
+                          child: Row(
+                            children: <Widget>[
+                              Container(
+                                width: 80.0,
+                                child: FadeInImage.assetNetwork(
+                                  image: cartItem.productImage,
+                                  fit: BoxFit.fill,
+                                  height: MediaQuery.of(context).size.height,
+                                  placeholder: "assets/images/placeholder.jpg",
+                                  placeholderScale:
+                                      MediaQuery.of(context).size.height / 2,
+                                ),
+                              ),
+                              Container(
+                                width: MediaQuery.of(context).size.width / 2,
+                                padding: const EdgeInsets.only(left: 10.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Container(
+                                      padding: const EdgeInsets.all(5.0),
+                                      width: 200.0,
+                                      child: Text(
+                                        cartItem.name,
+                                        maxLines: 3,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: GoogleFonts.montserrat(
+                                            fontSize: 16.0,
+                                            color: MColors.textDark,
+                                            fontWeight: FontWeight.w500),
+                                        textAlign: TextAlign.left,
+                                        softWrap: true,
+                                      ),
                                     ),
-                                  ),
-                                  Container(
-                                    child: Row(
-                                      children: <Widget>[
-                                        Text(
-                                          "\$${cartItem.price}",
-                                          style: GoogleFonts.montserrat(
-                                              fontSize: 24.0,
-                                              color: MColors.primaryPurple,
-                                              fontWeight: FontWeight.bold),
-                                          textAlign: TextAlign.left,
-                                        ),
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 10.0),
-                                          child: Container(
-                                            padding: const EdgeInsets.all(3.0),
-                                            decoration: BoxDecoration(
-                                              color: MColors.dashPurple,
-                                              borderRadius:
-                                                  new BorderRadius.circular(
-                                                      10.0),
-                                            ),
-                                            child: Text(
-                                              "${cartItem.quantity}X",
-                                              style: GoogleFonts.montserrat(
-                                                  fontSize: 14.0,
-                                                  color: MColors.textGrey),
-                                              textAlign: TextAlign.left,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Spacer(),
-                                  Container(
-                                    width:
-                                        MediaQuery.of(context).size.width / 2,
-                                    padding: const EdgeInsets.fromLTRB(
-                                        0.0, 0.0, 10.0, 10.0),
-                                    child: Row(
-                                      children: <Widget>[
-                                        Icon(
-                                          Icons.info_outline,
-                                          color: Colors.redAccent,
-                                          size: 14.0,
-                                        ),
-                                        SizedBox(
-                                          width: 3.0,
-                                        ),
-                                        Container(
-                                          child: Text(
-                                            "Swipe to remove",
-                                            maxLines: 3,
-                                            overflow: TextOverflow.ellipsis,
+                                    Container(
+                                      child: Row(
+                                        children: <Widget>[
+                                          Text(
+                                            "\$${cartItem.price}",
                                             style: GoogleFonts.montserrat(
-                                              fontSize: 10.0,
-                                              color: Colors.redAccent,
-                                            ),
+                                                fontSize: 24.0,
+                                                color: MColors.primaryPurple,
+                                                fontWeight: FontWeight.bold),
                                             textAlign: TextAlign.left,
-                                            softWrap: true,
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Expanded(
-                              child: Builder(
-                                builder: (context) {
-                                  CartNotifier cartNotifier =
-                                      Provider.of<CartNotifier>(context,
-                                          listen: false);
-
-                                  return Container(
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        Container(
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                new BorderRadius.circular(10.0),
-                                            color: MColors.primaryPurple,
-                                          ),
-                                          height: 34.0,
-                                          width: 34.0,
-                                          child: RawMaterialButton(
-                                            onPressed: () {
-                                              addAndApdateData(cartItem);
-                                              getCart(cartNotifier);
-                                            },
-                                            child: Icon(
-                                              Icons.add,
-                                              color: MColors.primaryWhiteSmoke,
-                                              size: 24.0,
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          padding: const EdgeInsets.all(5.0),
-                                          child: Center(
-                                            child: Text(
-                                              cartItem.quantity.toString(),
-                                              style: GoogleFonts.montserrat(
-                                                color: MColors.textDark,
-                                                fontSize: 20.0,
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 10.0),
+                                            child: Container(
+                                              padding:
+                                                  const EdgeInsets.all(3.0),
+                                              decoration: BoxDecoration(
+                                                color: MColors.dashPurple,
+                                                borderRadius:
+                                                    new BorderRadius.circular(
+                                                        10.0),
+                                              ),
+                                              child: Text(
+                                                "${cartItem.quantity}X",
+                                                style: GoogleFonts.montserrat(
+                                                    fontSize: 14.0,
+                                                    color: MColors.textGrey),
+                                                textAlign: TextAlign.left,
                                               ),
                                             ),
                                           ),
-                                        ),
-                                        Container(
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                new BorderRadius.circular(10.0),
-                                            color: MColors.primaryWhiteSmoke,
+                                        ],
+                                      ),
+                                    ),
+                                    Spacer(),
+                                    Container(
+                                      width:
+                                          MediaQuery.of(context).size.width / 2,
+                                      padding: const EdgeInsets.fromLTRB(
+                                          0.0, 0.0, 10.0, 10.0),
+                                      child: Row(
+                                        children: <Widget>[
+                                          Icon(
+                                            Icons.info_outline,
+                                            color: Colors.redAccent,
+                                            size: 14.0,
                                           ),
-                                          width: 34.0,
-                                          height: 34.0,
-                                          child: RawMaterialButton(
-                                            onPressed: () {
-                                              subAndApdateData(cartItem);
-                                              getCart(cartNotifier);
-                                            },
-                                            child: Icon(
-                                              Icons.remove,
-                                              color: MColors.primaryPurple,
-                                              size: 30.0,
+                                          SizedBox(
+                                            width: 3.0,
+                                          ),
+                                          Container(
+                                            child: Text(
+                                              "Swipe to remove",
+                                              maxLines: 3,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: GoogleFonts.montserrat(
+                                                fontSize: 10.0,
+                                                color: Colors.redAccent,
+                                              ),
+                                              textAlign: TextAlign.left,
+                                              softWrap: true,
                                             ),
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
-                                  );
-                                },
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
+                              Expanded(
+                                child: Builder(
+                                  builder: (context) {
+                                    CartNotifier cartNotifier =
+                                        Provider.of<CartNotifier>(context,
+                                            listen: false);
+
+                                    return Container(
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Container(
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  new BorderRadius.circular(
+                                                      10.0),
+                                              color: MColors.primaryPurple,
+                                            ),
+                                            height: 34.0,
+                                            width: 34.0,
+                                            child: RawMaterialButton(
+                                              onPressed: () {
+                                                addAndApdateData(cartItem);
+                                                getCart(cartNotifier);
+                                              },
+                                              child: Icon(
+                                                Icons.add,
+                                                color:
+                                                    MColors.primaryWhiteSmoke,
+                                                size: 24.0,
+                                              ),
+                                            ),
+                                          ),
+                                          Container(
+                                            padding: const EdgeInsets.all(5.0),
+                                            child: Center(
+                                              child: Text(
+                                                cartItem.quantity.toString(),
+                                                style: GoogleFonts.montserrat(
+                                                  color: MColors.textDark,
+                                                  fontSize: 20.0,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Container(
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  new BorderRadius.circular(
+                                                      10.0),
+                                              color: MColors.primaryWhiteSmoke,
+                                            ),
+                                            width: 34.0,
+                                            height: 34.0,
+                                            child: RawMaterialButton(
+                                              onPressed: () {
+                                                subAndApdateData(cartItem);
+                                                getCart(cartNotifier);
+                                              },
+                                              child: Icon(
+                                                Icons.remove,
+                                                color: MColors.primaryPurple,
+                                                size: 30.0,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     );
