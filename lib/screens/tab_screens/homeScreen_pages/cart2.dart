@@ -275,31 +275,9 @@ class _Cart2State extends State<Cart2> {
                             Expanded(
                               child: Builder(
                                 builder: (context) {
-                                  int qty = cartItem.quantity;
-
-                                  void addQty() {
-                                    setState(() {
-                                      if (qty > 9) {
-                                        qty = 9;
-                                      } else if (qty < 9) {
-                                        setState(() {
-                                          qty++;
-                                        });
-                                      }
-                                    });
-                                  }
-
-                                  void subQty() {
-                                    setState(() {
-                                      if (qty != 1) {
-                                        qty--;
-                                      } else if (qty < 1) {
-                                        setState(() {
-                                          qty = 1;
-                                        });
-                                      }
-                                    });
-                                  }
+                                  CartNotifier cartNotifier =
+                                      Provider.of<CartNotifier>(context,
+                                          listen: false);
 
                                   return Container(
                                     child: Column(
@@ -315,7 +293,10 @@ class _Cart2State extends State<Cart2> {
                                           height: 34.0,
                                           width: 34.0,
                                           child: RawMaterialButton(
-                                            onPressed: addQty,
+                                            onPressed: () {
+                                              addAndApdateData(cartItem);
+                                              getCart(cartNotifier);
+                                            },
                                             child: Icon(
                                               Icons.add,
                                               color: MColors.primaryWhiteSmoke,
@@ -327,7 +308,7 @@ class _Cart2State extends State<Cart2> {
                                           padding: const EdgeInsets.all(5.0),
                                           child: Center(
                                             child: Text(
-                                              qty.toString(),
+                                              cartItem.quantity.toString(),
                                               style: GoogleFonts.montserrat(
                                                 color: MColors.textDark,
                                                 fontSize: 20.0,
@@ -344,7 +325,10 @@ class _Cart2State extends State<Cart2> {
                                           width: 34.0,
                                           height: 34.0,
                                           child: RawMaterialButton(
-                                            onPressed: subQty,
+                                            onPressed: () {
+                                              subAndApdateData(cartItem);
+                                              getCart(cartNotifier);
+                                            },
                                             child: Icon(
                                               Icons.remove,
                                               color: MColors.primaryPurple,
