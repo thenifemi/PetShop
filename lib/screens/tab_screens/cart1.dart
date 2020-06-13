@@ -78,7 +78,6 @@ class _Cart1State extends State<Cart1> {
   }
 
   //Remove from cart
-
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   void _showRemovedtoCartSnackBar() {
@@ -132,6 +131,7 @@ class _Cart1State extends State<Cart1> {
         ) ??
         false;
   }
+  ////
 
   Widget cart(cartList, total) {
     return Scaffold(
