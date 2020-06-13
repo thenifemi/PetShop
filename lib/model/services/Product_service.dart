@@ -111,3 +111,16 @@ subAndApdateData(cartItem) async {
     {'quantity': cartItem.quantity, 'totalPrice': cartItem.totalPrice},
   );
 }
+
+//Removing cart item from cart
+removeItemFromCart(cartItem) async {
+  final db = Firestore.instance;
+  final uid = await AuthService().getCurrentUID();
+
+  await db
+      .collection("userCart")
+      .document(uid)
+      .collection("cartItem")
+      .document(cartItem.productID)
+      .delete();
+}

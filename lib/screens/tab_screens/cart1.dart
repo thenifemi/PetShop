@@ -104,7 +104,10 @@ class _Cart1State extends State<Cart1> {
     );
   }
 
-  Future<bool> promptUser() async {
+  Future<bool> promptUser(cartItem) async {
+    CartNotifier cartNotifier =
+        Provider.of<CartNotifier>(context, listen: false);
+
     return await showCupertinoDialog<bool>(
           context: context,
           builder: (context) => CupertinoAlertDialog(
@@ -114,6 +117,8 @@ class _Cart1State extends State<Cart1> {
                 child: Text("Yes"),
                 onPressed: () {
                   Navigator.of(context).pop(true);
+                  removeItemFromCart(cartItem);
+                  getCart(cartNotifier);
                 },
               ),
               CupertinoDialogAction(
@@ -180,7 +185,7 @@ class _Cart1State extends State<Cart1> {
 
                     return Dismissible(
                       key: ValueKey(i),
-                      confirmDismiss: (direction) => promptUser(),
+                      confirmDismiss: (direction) => promptUser(cartItem),
                       onDismissed: (direction) {
                         _showRemovedtoCartSnackBar();
                       },
