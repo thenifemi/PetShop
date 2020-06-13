@@ -67,10 +67,46 @@ addProductToCart(product) async {
       .collection("userCart")
       .document(uid)
       .collection("cartItem")
-      .add(product.toMap())
+      .document(product.productID)
+      .setData(product.toMap())
       .catchError((e) {
     print(e);
   });
 }
 
+//Update Cart
+addAndApdateData(cartItem) async {
+  final db = Firestore.instance;
+  final uid = await AuthService().getCurrentUID();
+  if (cartItem.quantity > 9) {
+    cartItem.quantity = cartItem.quantity = 9;
+  } else {
+    cartItem.quantity = cartItem.quantity + 1;
+  }
+  cartItem.totalPrice = cartItem.price * cartItem.quantity;
 
+  CollectionReference cartRef =
+      db.collection("userCart").document(uid).collection("cartItem");
+
+  await cartRef.document(cartItem.productID).updateData(
+    {'quantity': cartItem.quantity, 'totalPrice': cartItem.totalPrice},
+  );
+}
+
+subAndApdateData(cartItem) async {
+  final db = Firestore.instance;
+  final uid = await AuthService().getCurrentUID();
+  if (cartItem.quantity < 1) {
+    cartItem.quantity = cartItem.quantity = 1;
+  } else {
+    cartItem.quantity = cartItem.quantity - 1;
+  }
+  cartItem.totalPrice = cartItem.price * cartItem.quantity;
+
+  CollectionReference cartRef =
+      db.collection("userCart").document(uid).collection("cartItem");
+
+  await cartRef.document(cartItem.productID).updateData(
+    {'quantity': cartItem.quantity, 'totalPrice': cartItem.totalPrice},
+  );
+}

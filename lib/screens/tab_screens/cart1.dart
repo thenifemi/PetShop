@@ -1,14 +1,12 @@
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mollet/model/notifiers/cart_notifier.dart';
 import 'package:mollet/model/services/Product_service.dart';
-import 'package:mollet/model/services/auth_service.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:provider/provider.dart';
 
@@ -247,12 +245,12 @@ class _Cart1State extends State<Cart1> {
                               ),
                             ),
                             Expanded(
-                              child: FutureBuilder(
-                                future: null,
-                                builder: (context, s) {
+                              child: Builder(
+                                builder: (context) {
                                   int qty = cartItem.quantity;
-                                  var qty2 = s.data;
-                                  print(qty2);
+                                  CartNotifier cartNotifier =
+                                      Provider.of<CartNotifier>(context,
+                                          listen: false);
 
                                   return Container(
                                     child: Column(
@@ -269,40 +267,8 @@ class _Cart1State extends State<Cart1> {
                                           width: 34.0,
                                           child: RawMaterialButton(
                                             onPressed: () {
-                                              setState(() {
-                                                if (qty > 9) {
-                                                  Firestore.instance
-                                                      .runTransaction(
-                                                          (transaction) async {
-                                                    DocumentSnapshot freshSnap =
-                                                        await transaction.get(
-                                                            s.data.reference);
-                                                    await transaction.update(
-                                                        freshSnap.reference, {
-                                                      'quantity': freshSnap[
-                                                              'quantity'] -
-                                                          1,
-                                                    });
-                                                  });
-                                                } else if (qty < 9) {
-                                                  setState(() {
-                                                    Firestore.instance
-                                                        .runTransaction(
-                                                            (transaction) async {
-                                                      DocumentSnapshot
-                                                          freshSnap =
-                                                          await transaction.get(
-                                                              s.data.reference);
-                                                      await transaction.update(
-                                                          freshSnap.reference, {
-                                                        'quantity': freshSnap[
-                                                                'quantity'] +
-                                                            1,
-                                                      });
-                                                    });
-                                                  });
-                                                }
-                                              });
+                                              addAndApdateData(cartItem);
+                                              getCart(cartNotifier);
                                             },
                                             child: Icon(
                                               Icons.add,
@@ -332,7 +298,10 @@ class _Cart1State extends State<Cart1> {
                                           width: 34.0,
                                           height: 34.0,
                                           child: RawMaterialButton(
-                                            onPressed: null,
+                                            onPressed: () {
+                                              subAndApdateData(cartItem);
+                                              getCart(cartNotifier);
+                                            },
                                             child: Icon(
                                               Icons.remove,
                                               color: MColors.primaryPurple,
