@@ -69,7 +69,6 @@ class _SimilarProductsWidgetState extends State<SimilarProductsWidget> {
               child: Column(
                 children: <Widget>[
                   Container(
-                    // height: 170,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10.0),
                       child: filteredList == null
@@ -100,7 +99,6 @@ class _SimilarProductsWidgetState extends State<SimilarProductsWidget> {
                               overflow: TextOverflow.ellipsis,
                               style: GoogleFonts.montserrat(
                                 color: MColors.textDark,
-                                // fontWeight: FontWeight.w400,
                                 fontSize: 16.0,
                               ),
                             ),
