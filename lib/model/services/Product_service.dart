@@ -78,7 +78,7 @@ addProductToCart(product) async {
 addAndApdateData(cartItem) async {
   final db = Firestore.instance;
   final uid = await AuthService().getCurrentUID();
-  if (cartItem.quantity > 9) {
+  if (cartItem.quantity >= 9) {
     cartItem.quantity = cartItem.quantity = 9;
   } else {
     cartItem.quantity = cartItem.quantity + 1;
@@ -96,7 +96,7 @@ addAndApdateData(cartItem) async {
 subAndApdateData(cartItem) async {
   final db = Firestore.instance;
   final uid = await AuthService().getCurrentUID();
-  if (cartItem.quantity < 1) {
+  if (cartItem.quantity <= 1) {
     cartItem.quantity = cartItem.quantity = 1;
   } else {
     cartItem.quantity = cartItem.quantity - 1;

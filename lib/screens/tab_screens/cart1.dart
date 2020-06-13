@@ -247,7 +247,6 @@ class _Cart1State extends State<Cart1> {
                             Expanded(
                               child: Builder(
                                 builder: (context) {
-                                  int qty = cartItem.quantity;
                                   CartNotifier cartNotifier =
                                       Provider.of<CartNotifier>(context,
                                           listen: false);
@@ -281,7 +280,7 @@ class _Cart1State extends State<Cart1> {
                                           padding: const EdgeInsets.all(5.0),
                                           child: Center(
                                             child: Text(
-                                              qty.toString(),
+                                              cartItem.quantity.toString(),
                                               style: GoogleFonts.montserrat(
                                                 color: MColors.textDark,
                                                 fontSize: 20.0,
