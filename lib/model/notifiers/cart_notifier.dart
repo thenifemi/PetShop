@@ -7,8 +7,8 @@ class CartNotifier with ChangeNotifier {
   List<Cart> _cartList = [];
   Cart _cart;
 
-  UnmodifiableListView<Cart> get cartList => UnmodifiableListView(_cartList);
-
+  List<Cart> get cartList => _cartList;
+  
   Cart get cart => _cart;
 
   set cartList(List<Cart> cartList) {

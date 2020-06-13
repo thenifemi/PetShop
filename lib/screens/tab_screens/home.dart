@@ -219,18 +219,17 @@ class _HomeScreenState extends State<HomeScreen>
 
   //Add to Bag dialog
 
-  void addToBagshowDialog(cartProdID, fil) {
+  void addToBagshowDialog(cartProdID, fil) async {
     CartNotifier cartNotifier =
         Provider.of<CartNotifier>(context, listen: false);
 
-    showDialog(
-        barrierDismissible: false,
+    await showCupertinoDialog(
         context: context,
         builder: (context) {
           return CupertinoAlertDialog(
             content: Text(
-              "Add to Bag?",
-              style: GoogleFonts.montserrat(fontSize: 18.0),
+              "Sure you want to add to Bag?",
+              style: GoogleFonts.montserrat(),
             ),
             actions: <Widget>[
               CupertinoDialogAction(
@@ -243,7 +242,6 @@ class _HomeScreenState extends State<HomeScreen>
                 child: Text(
                   "Cancel",
                   style: GoogleFonts.montserrat(
-                    fontSize: 16.0,
                     color: Colors.redAccent,
                   ),
                 ),
@@ -267,7 +265,7 @@ class _HomeScreenState extends State<HomeScreen>
                 isDefaultAction: true,
                 child: Text(
                   "Yes",
-                  style: GoogleFonts.montserrat(fontSize: 16.0),
+                  style: GoogleFonts.montserrat(),
                 ),
               ),
             ],

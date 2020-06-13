@@ -91,7 +91,7 @@ class _Cart1State extends State<Cart1> {
         content: Row(
           children: <Widget>[
             Expanded(
-              child: Text("Removed to bag"),
+              child: Text("Removed from bag"),
             ),
             Icon(
               Icons.check_circle_outline,
@@ -113,19 +113,21 @@ class _Cart1State extends State<Cart1> {
             content: Text("Are you sure you want to remove?"),
             actions: <Widget>[
               CupertinoDialogAction(
+                child: Text('Cancel'),
+                onPressed: () {
+                  Navigator.of(context).pop(false);
+                  getCart(cartNotifier);
+                },
+              ),
+              CupertinoDialogAction(
                 child: Text("Yes"),
+                textStyle: GoogleFonts.montserrat(color: Colors.redAccent),
                 onPressed: () {
                   Navigator.of(context).pop(true);
                   removeItemFromCart(cartItem);
                   getCart(cartNotifier);
                 },
               ),
-              CupertinoDialogAction(
-                child: Text('Cancel'),
-                onPressed: () {
-                  return Navigator.of(context).pop(false);
-                },
-              )
             ],
           ),
         ) ??
@@ -184,9 +186,10 @@ class _Cart1State extends State<Cart1> {
                     var cartItem = cartList[i];
 
                     return Dismissible(
-                      key: ValueKey(i),
+                      key: UniqueKey(),
                       confirmDismiss: (direction) => promptUser(cartItem),
                       onDismissed: (direction) {
+                        cartList.remove(UniqueKey());
                         _showRemovedtoCartSnackBar();
                       },
                       background: Container(

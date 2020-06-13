@@ -123,7 +123,7 @@ class _Cart2State extends State<Cart2> {
         content: Row(
           children: <Widget>[
             Expanded(
-              child: Text("Removed to bag"),
+              child: Text("Removed from bag"),
             ),
             Icon(
               Icons.check_circle_outline,
@@ -145,19 +145,21 @@ class _Cart2State extends State<Cart2> {
             content: Text("Are you sure you want to remove?"),
             actions: <Widget>[
               CupertinoDialogAction(
+                child: Text('Cancel'),
+                onPressed: () {
+                  Navigator.of(context).pop(false);
+                  getCart(cartNotifier);
+                },
+              ),
+              CupertinoDialogAction(
                 child: Text("Yes"),
+                textStyle: GoogleFonts.montserrat(color: Colors.redAccent),
                 onPressed: () {
                   Navigator.of(context).pop(true);
                   removeItemFromCart(cartItem);
                   getCart(cartNotifier);
                 },
               ),
-              CupertinoDialogAction(
-                child: Text('Cancel'),
-                onPressed: () {
-                  return Navigator.of(context).pop(false);
-                },
-              )
             ],
           ),
         ) ??
@@ -187,7 +189,6 @@ class _Cart2State extends State<Cart2> {
                     style: GoogleFonts.montserrat(
                       color: MColors.textGrey,
                       fontSize: 14.0,
-                      // fontWeight: FontWeight.w500,
                     ),
                   ),
                   SizedBox(
@@ -217,9 +218,10 @@ class _Cart2State extends State<Cart2> {
                     var cartItem = cartList[i];
 
                     return Dismissible(
-                      key: ValueKey(i),
+                      key: UniqueKey(),
                       confirmDismiss: (direction) => promptUser(cartItem),
                       onDismissed: (direction) {
+                        cartList.remove(UniqueKey());
                         _showRemovedtoCartSnackBar();
                       },
                       background: Container(
