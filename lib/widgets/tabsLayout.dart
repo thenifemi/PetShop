@@ -6,7 +6,7 @@ import 'package:mollet/model/notifiers/cart_notifier.dart';
 import 'package:mollet/screens/tab_screens/cart1.dart';
 import 'package:mollet/screens/tab_screens/history.dart';
 import 'package:mollet/screens/tab_screens/home.dart';
-import 'package:mollet/screens/tab_screens/inbox.dart';
+import 'package:mollet/screens/tab_screens/notifications.dart';
 import 'package:mollet/screens/tab_screens/settings.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:provider/provider.dart';
