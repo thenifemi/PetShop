@@ -267,7 +267,7 @@ class _Cart2State extends State<Cart2> {
                                 ),
                               ),
                               Container(
-                                width: MediaQuery.of(context).size.width / 2,
+                                width: MediaQuery.of(context).size.width / 2.4,
                                 padding: const EdgeInsets.only(left: 10.0),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
