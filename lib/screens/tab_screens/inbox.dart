@@ -44,7 +44,7 @@ class _InboxScreenState extends State<InboxScreen> {
                 top: 10.0,
               ),
               child: Text(
-                "Messages, promotions and general information from stores, petsitters and the Mollet team will show up here.",
+                "Messages, promotions and general information from stores, pet news and the Pet Shop team will show up here.",
                 style: GoogleFonts.montserrat(
                   color: MColors.textGrey,
                   fontSize: 16.0,
