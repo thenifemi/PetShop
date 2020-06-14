@@ -74,7 +74,7 @@ addProductToCart(product) async {
   });
 }
 
-//Adding quantity, Price and updating data
+//Adding item quantity, Price and updating data in cart
 addAndApdateData(cartItem) async {
   final db = Firestore.instance;
   final uid = await AuthService().getCurrentUID();
@@ -93,7 +93,7 @@ addAndApdateData(cartItem) async {
   );
 }
 
-//Subtracting quantity, Price and updating data
+//Subtracting item quantity, Price and updating data in cart
 subAndApdateData(cartItem) async {
   final db = Firestore.instance;
   final uid = await AuthService().getCurrentUID();
@@ -112,7 +112,7 @@ subAndApdateData(cartItem) async {
   );
 }
 
-//Removing cart item from cart
+//Removing item from cart
 removeItemFromCart(cartItem) async {
   final db = Firestore.instance;
   final uid = await AuthService().getCurrentUID();
