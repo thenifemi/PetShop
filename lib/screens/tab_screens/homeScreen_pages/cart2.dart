@@ -274,7 +274,7 @@ class _Cart2State extends State<Cart2> {
                                     Container(
                                       padding: const EdgeInsets.all(5.0),
                                       width:
-                                          MediaQuery.of(context).size.width / 2,
+                                          MediaQuery.of(context).size.width / 2.2,
                                       child: Text(
                                         cartItem.name,
                                         maxLines: 2,

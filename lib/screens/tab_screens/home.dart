@@ -278,7 +278,7 @@ class _HomeScreenState extends State<HomeScreen>
 
     var size = MediaQuery.of(context).size;
     /*24 is for notification bar on Android*/
-    final double itemHeight = (size.height - kToolbarHeight - 24) / 2.2;
+    final double itemHeight = (size.height) / 2.7;
     final double itemWidth = size.width / 2;
     return Container(
       height: double.infinity,
@@ -333,7 +333,7 @@ class _HomeScreenState extends State<HomeScreen>
                       padding: const EdgeInsets.only(top: 5.0),
                       child: Text(
                         fil.name,
-                        maxLines: 3,
+                        maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: GoogleFonts.montserrat(
                           color: MColors.textDark,
@@ -417,7 +417,7 @@ class _HomeScreenState extends State<HomeScreen>
 
     var size = MediaQuery.of(context).size;
     /*24 is for notification bar on Android*/
-    final double itemHeight = (size.height - kToolbarHeight - 24) / 2.2;
+    final double itemHeight = (size.height) / 2.7;
     final double itemWidth = size.width / 2;
     return Container(
       height: double.infinity,
@@ -472,7 +472,7 @@ class _HomeScreenState extends State<HomeScreen>
                       padding: const EdgeInsets.only(top: 5.0),
                       child: Text(
                         fil.name,
-                        maxLines: 3,
+                        maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: GoogleFonts.montserrat(
                           color: MColors.textDark,
@@ -555,7 +555,7 @@ class _HomeScreenState extends State<HomeScreen>
 
     var size = MediaQuery.of(context).size;
     /*24 is for notification bar on Android*/
-    final double itemHeight = (size.height - kToolbarHeight - 24) / 2.2;
+    final double itemHeight = (size.height) / 2.7;
     final double itemWidth = size.width / 2;
     return Container(
       height: double.infinity,
@@ -610,7 +610,7 @@ class _HomeScreenState extends State<HomeScreen>
                       padding: const EdgeInsets.only(top: 5.0),
                       child: Text(
                         fil.name,
-                        maxLines: 3,
+                        maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: GoogleFonts.montserrat(
                           color: MColors.textDark,
