@@ -235,15 +235,14 @@ class _Cart1State extends State<Cart1> {
                                 ),
                               ),
                               Container(
-                                color: Colors.blue,
                                 padding: const EdgeInsets.only(left: 3.0),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
                                     Container(
                                       padding: const EdgeInsets.all(5.0),
-                                      width:
-                                          MediaQuery.of(context).size.width / 2.2,
+                                      width: MediaQuery.of(context).size.width /
+                                          2.2,
                                       child: Text(
                                         cartItem.name,
                                         maxLines: 2,

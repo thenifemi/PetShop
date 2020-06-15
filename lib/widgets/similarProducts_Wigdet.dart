@@ -31,7 +31,7 @@ class _SimilarProductsWidgetState extends State<SimilarProductsWidget> {
 
     var size = MediaQuery.of(context).size;
     /*24 is for notification bar on Android*/
-    final double itemHeight = (size.height - kToolbarHeight - 24) / 2.2;
+    final double itemHeight = (size.height ) / 2.7;
     final double itemWidth = size.width / 2;
 
     return Container(
@@ -95,7 +95,7 @@ class _SimilarProductsWidgetState extends State<SimilarProductsWidget> {
                             )
                           : Text(
                               fil.name,
-                              maxLines: 3,
+                              maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                               style: GoogleFonts.montserrat(
                                 color: MColors.textDark,
