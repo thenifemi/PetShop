@@ -224,7 +224,7 @@ class _Cart1State extends State<Cart1> {
                           child: Row(
                             children: <Widget>[
                               Container(
-                                width: 80.0,
+                                width:80.0,
                                 child: FadeInImage.assetNetwork(
                                   image: cartItem.productImage,
                                   fit: BoxFit.fill,
@@ -235,7 +235,6 @@ class _Cart1State extends State<Cart1> {
                                 ),
                               ),
                               Container(
-                                width: MediaQuery.of(context).size.width / 2.4,
                                 padding: const EdgeInsets.only(left: 10.0),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -333,6 +332,7 @@ class _Cart1State extends State<Cart1> {
                                             listen: false);
 
                                     return Container(
+                                     
                                       child: Column(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
