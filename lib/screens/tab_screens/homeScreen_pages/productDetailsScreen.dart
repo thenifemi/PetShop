@@ -428,7 +428,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                 height: 20.0,
               ),
               Container(
-                padding: const EdgeInsets.only(bottom: 6.0),
+                // padding: const EdgeInsets.only(bottom: 5.0),
                 child: Text(
                   "Similar products",
                   style: GoogleFonts.montserrat(

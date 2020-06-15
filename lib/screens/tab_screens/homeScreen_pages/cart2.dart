@@ -267,16 +267,17 @@ class _Cart2State extends State<Cart2> {
                                 ),
                               ),
                               Container(
-                                padding: const EdgeInsets.only(left: 10.0),
+                                padding: const EdgeInsets.only(left: 3.0),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
                                     Container(
                                       padding: const EdgeInsets.all(5.0),
-                                      width: 200.0,
+                                      width:
+                                          MediaQuery.of(context).size.width / 2,
                                       child: Text(
                                         cartItem.name,
-                                        maxLines: 3,
+                                        maxLines: 2,
                                         overflow: TextOverflow.ellipsis,
                                         style: GoogleFonts.montserrat(
                                             fontSize: 16.0,
@@ -323,10 +324,8 @@ class _Cart2State extends State<Cart2> {
                                     ),
                                     Spacer(),
                                     Container(
-                                      width:
-                                          MediaQuery.of(context).size.width / 2,
                                       padding: const EdgeInsets.fromLTRB(
-                                          0.0, 0.0, 10.0, 10.0),
+                                          0.0, 0.0, 0.0, 10.0),
                                       child: Row(
                                         children: <Widget>[
                                           Icon(

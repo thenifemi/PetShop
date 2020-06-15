@@ -31,11 +31,11 @@ class _SimilarProductsWidgetState extends State<SimilarProductsWidget> {
 
     var size = MediaQuery.of(context).size;
     /*24 is for notification bar on Android*/
-    final double itemHeight = (size.height - kToolbarHeight - 24) / 2.4;
+    final double itemHeight = (size.height - kToolbarHeight - 24) / 2.2;
     final double itemWidth = size.width / 2;
 
     return Container(
-      padding: const EdgeInsets.only(bottom: 10),
+      padding: const EdgeInsets.only(bottom: 5.0),
       height: size.height / 1.38,
       child: GridView.count(
         physics: NeverScrollableScrollPhysics(),
