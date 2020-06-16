@@ -13,15 +13,21 @@ import 'package:provider/provider.dart';
 
 class RegistrationScreen extends StatefulWidget {
   RegistrationScreen({Key key}) : super(key: key);
+  UserDataProfile profile;
 
   @override
-  _RegistrationScreenState createState() => _RegistrationScreenState();
+  _RegistrationScreenState createState() => _RegistrationScreenState(profile);
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
+  _RegistrationScreenState(this.profile);
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final formKey = GlobalKey<FormState>();
 
+  UserDataProfile profile;
+  String _name;
+  String _phone;
+  String _email;
   String _password;
   String _error;
   bool _autoValidate = false;
@@ -42,11 +48,14 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     });
   }
 
-  void _submit(profile) async {
+  void _submit(_name, _phone, _email, _password) async {
     final form = formKey.currentState;
 
     try {
       final auth = MyProvider.of(context).auth;
+      profile.name = _name;
+      profile.phone = _phone;
+      profile.email = _email;
 
       if (form.validate()) {
         form.save();
@@ -55,8 +64,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             animateButton();
           }
         });
-        String uid =
-            await auth.createUserWithEmailAndPassword(_password, profile);
+        String uid = await auth.createUserWithEmailAndPassword(
+          profile,
+          _password,
+        );
         UserManagement().storeNewUser(profile);
         print("Signed Up with new $uid");
 
@@ -100,7 +111,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     }
   }
 
-  Widget registerButton(profile) {
+  Widget registerButton(_name, _phone, _email, _password) {
     if (_isButtonDisabled == true) {
       return SizedBox(
         width: double.infinity,
@@ -128,7 +139,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           focusElevation: 0.0,
           highlightElevation: 0.0,
           fillColor: MColors.primaryPurple,
-          onPressed: _isButtonDisabled ? null : () => _submit(profile),
+          onPressed: _isButtonDisabled
+              ? null
+              : () => _submit(_name, _phone, _email, _password),
           child: buildRegisterButton(),
           shape: RoundedRectangleBorder(
             borderRadius: new BorderRadius.circular(10.0),
@@ -185,8 +198,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       create: (BuildContext context) => UserDataProfileNotifier(),
       child: Consumer<UserDataProfileNotifier>(
         builder: (context, profileNotifier, _) {
-          UserDataProfile profile;
-
           return Scaffold(
             backgroundColor: MColors.primaryWhiteSmoke,
             body: SingleChildScrollView(
@@ -277,7 +288,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                 padding: const EdgeInsets.only(bottom: 20.0),
                                 child: TextFormField(
                                   keyboardType: TextInputType.emailAddress,
-                                  onSaved: (val) => profile.name = val,
+                                  onSaved: (val) => _name = val,
                                   validator: NameValiditor.validate,
                                   decoration: InputDecoration(
                                     labelText: "e.g Remiola",
@@ -341,7 +352,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                   enableSuggestions: true,
                                   autovalidate: _autoValidate,
                                   validator: EmailValiditor.validate,
-                                  onSaved: (val) => profile.email = val,
+                                  onSaved: (val) => _email = val,
                                   decoration: InputDecoration(
                                     labelText: "e.g Remiola2034@gmail.com",
                                     labelStyle:
@@ -488,7 +499,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                   keyboardType:
                                       TextInputType.numberWithOptions(),
                                   validator: PhoneNumberValiditor.validate,
-                                  onSaved: (val) => profile.phone = val,
+                                  onSaved: (val) => _phone = val,
                                   decoration: InputDecoration(
                                     labelText: "e.g +55 47 12345-6789",
                                     labelStyle:
@@ -564,7 +575,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                 ),
                               ),
                               SizedBox(height: 20.0),
-                              registerButton(profile),
+                              Builder(
+                                builder: (BuildContext context) {
+                                  return registerButton(
+                                      _name, _phone, _email, _password);
+                                },
+                              ),
                             ],
                           ),
                         ],

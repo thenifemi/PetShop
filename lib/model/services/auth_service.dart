@@ -19,7 +19,7 @@ class AuthService {
   }
 
   //Email and Pasword Sign Up
-  Future<String> createUserWithEmailAndPassword(
+  Future createUserWithEmailAndPassword(
     profile,
     String password,
   ) async {
