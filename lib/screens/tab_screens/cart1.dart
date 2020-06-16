@@ -9,6 +9,8 @@ import 'package:mollet/model/services/Product_service.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:provider/provider.dart';
 
+import 'checkout_screens/address.dart';
+
 class Cart1 extends StatefulWidget {
   Cart1({Key key}) : super(key: key);
 
@@ -419,7 +421,13 @@ class _Cart1State extends State<Cart1> {
             shape: RoundedRectangleBorder(
               borderRadius: new BorderRadius.circular(10.0),
             ),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => AddressScreen(),
+                ),
+              );
+            },
             fillColor: MColors.primaryPurple,
             child: Text(
               "Proceed to checkout",

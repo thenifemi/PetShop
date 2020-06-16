@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mollet/model/services/Product_service.dart';
 import 'package:mollet/model/notifiers/cart_notifier.dart';
+import 'package:mollet/screens/tab_screens/checkout_screens/address.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:provider/provider.dart';
 
@@ -273,8 +274,8 @@ class _Cart2State extends State<Cart2> {
                                   children: <Widget>[
                                     Container(
                                       padding: const EdgeInsets.all(5.0),
-                                      width:
-                                          MediaQuery.of(context).size.width / 2.2,
+                                      width: MediaQuery.of(context).size.width /
+                                          2.2,
                                       child: Text(
                                         cartItem.name,
                                         maxLines: 2,
@@ -451,7 +452,13 @@ class _Cart2State extends State<Cart2> {
             shape: RoundedRectangleBorder(
               borderRadius: new BorderRadius.circular(10.0),
             ),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => AddressScreen(),
+                ),
+              );
+            },
             fillColor: MColors.primaryPurple,
             child: Text(
               "Proceed to checkout",
