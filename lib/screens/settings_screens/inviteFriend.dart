@@ -65,7 +65,7 @@ class _InviteFriendScreenState extends State<InviteFriendScreen> {
                 sharePopupTitle: 'Pet Mollet',
                 subject: 'Hi!',
                 text:
-                    'Hi, I use PetMollet to care for my pets fast and easy, Download it here at https://MKHHD.com and for every download, a dog gets a treat.',
+                    'Hi, I use PetMollet to care for my pets fast and easy, Download it here at https://github.com/thenifemi/PetShop and for every download, a dog gets a treat.',
                 mimeType: 'text/plain');
           },
           child: buildInviteButton(),

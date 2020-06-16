@@ -166,7 +166,7 @@ class _Cart2State extends State<Cart2> {
         ) ??
         false;
   }
-  ////
+  //
 
   Widget cart(cartList, total) {
     return Scaffold(
