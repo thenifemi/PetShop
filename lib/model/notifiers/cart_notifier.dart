@@ -1,5 +1,3 @@
-import 'dart:collection';
-
 import 'package:flutter/foundation.dart';
 import 'package:mollet/model/data/cart.dart';
 
@@ -8,7 +6,6 @@ class CartNotifier with ChangeNotifier {
   Cart _cart;
 
   List<Cart> get cartList => _cartList;
-  
   Cart get cart => _cart;
 
   set cartList(List<Cart> cartList) {

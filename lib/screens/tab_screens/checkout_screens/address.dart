@@ -71,7 +71,7 @@ class _AddressContainerState extends State<AddressContainer> {
                       padding: const EdgeInsets.only(bottom: 10.0),
                       child: Center(
                         child: Text(
-                          "No saved addresses",
+                          "No saved address",
                           style: GoogleFonts.montserrat(
                             fontSize: 16.0,
                             color: MColors.textGrey,
