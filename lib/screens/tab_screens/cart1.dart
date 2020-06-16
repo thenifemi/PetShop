@@ -419,7 +419,7 @@ class _Cart1State extends State<Cart1> {
           height: 60.0,
           child: RawMaterialButton(
             shape: RoundedRectangleBorder(
-              borderRadius: new BorderRadius.circular(10.0),
+              borderRadius: BorderRadius.circular(10.0),
             ),
             onPressed: () {
               Navigator.of(context).push(
