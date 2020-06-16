@@ -33,7 +33,6 @@ class AuthService {
     var userUpdateInfo = UserUpdateInfo();
     userUpdateInfo.displayName = profile.name;
     await currentUser.updateProfile(userUpdateInfo);
-    await currentUser.updateProfile(userUpdateInfo);
     await currentUser.reload();
     return currentUser.uid;
   }

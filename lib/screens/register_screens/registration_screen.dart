@@ -22,10 +22,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final formKey = GlobalKey<FormState>();
 
-  String _email;
   String _password;
-  String _name;
-  String _phoneNumber;
   String _error;
   bool _autoValidate = false;
   var _state = 0;
@@ -188,7 +185,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       create: (BuildContext context) => UserDataProfileNotifier(),
       child: Consumer<UserDataProfileNotifier>(
         builder: (context, profileNotifier, _) {
-          var profile = profileNotifier.userDataProfileList[0];
+          UserDataProfile profile;
 
           return Scaffold(
             backgroundColor: MColors.primaryWhiteSmoke,
