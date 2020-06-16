@@ -1,7 +1,8 @@
 import 'package:flutter/foundation.dart';
+import 'package:mollet/model/data/userData.dart';
 
 //For Users profile
-class UserDataProfile with ChangeNotifier {
+class UserDataProfileNotifier with ChangeNotifier {
   List<UserDataProfile> _userDataProfileList = [];
   UserDataProfile _userDataProfile;
 
@@ -20,7 +21,7 @@ class UserDataProfile with ChangeNotifier {
 }
 
 //For Users address
-class UserDataAddress with ChangeNotifier {
+class UserDataAddressNotifier with ChangeNotifier {
   List<UserDataAddress> _userDataAddressList = [];
   UserDataAddress _userDataAddress;
 
