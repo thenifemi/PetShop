@@ -280,7 +280,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                 padding: const EdgeInsets.only(bottom: 20.0),
                                 child: TextFormField(
                                   keyboardType: TextInputType.emailAddress,
-                                  onSaved: (val) => _name = val,
+                                  onSaved: (val) => profile.name = val,
                                   validator: NameValiditor.validate,
                                   decoration: InputDecoration(
                                     labelText: "e.g Remiola",
@@ -344,7 +344,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                   enableSuggestions: true,
                                   autovalidate: _autoValidate,
                                   validator: EmailValiditor.validate,
-                                  onSaved: (val) => _email = val,
+                                  onSaved: (val) => profile.email = val,
                                   decoration: InputDecoration(
                                     labelText: "e.g Remiola2034@gmail.com",
                                     labelStyle:
@@ -491,7 +491,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                   keyboardType:
                                       TextInputType.numberWithOptions(),
                                   validator: PhoneNumberValiditor.validate,
-                                  onSaved: (val) => _phoneNumber = val,
+                                  onSaved: (val) => profile.phone = val,
                                   decoration: InputDecoration(
                                     labelText: "e.g +55 47 12345-6789",
                                     labelStyle:
