@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'auth_service.dart';
 
 class UserManagement {
+  //Storing new user data
   storeNewUser(_name, _phoneNumber, _email, context) async {
     final db = Firestore.instance;
     final uid = await AuthService().getCurrentUID();
@@ -29,6 +30,21 @@ class UserManagement {
         .document(uid)
         .collection("usersEmail")
         .add({"email": _email}).catchError((e) {
+      print(e);
+    });
+  }
+
+  //adding new address
+  storeNewAddress(address) async {
+    final db = Firestore.instance;
+    final uid = await AuthService().getCurrentUID();
+    await db
+        .collection("userData")
+        .document(uid)
+        .collection("address")
+        .document(address.zipcode)
+        .setData(address.toMap())
+        .catchError((e) {
       print(e);
     });
   }
