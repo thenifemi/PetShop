@@ -8,6 +8,7 @@ import 'package:mollet/model/services/auth_service.dart';
 storeNewUser(_name, _phone, _email) async {
   final db = Firestore.instance;
   final uid = await AuthService().getCurrentUID();
+  final uEmail = await AuthService().getCurrentEmail();
 
   var userUpdateInfo = new UserUpdateInfo();
   userUpdateInfo.displayName = _name;
@@ -15,7 +16,7 @@ storeNewUser(_name, _phone, _email) async {
 
   await db
       .collection("userData")
-      .document(uid)
+      .document(uEmail)
       .collection("profile")
       .document(uid)
       .setData({
@@ -29,10 +30,12 @@ storeNewUser(_name, _phone, _email) async {
 
 //Getting User profile
 getProfile(UserDataProfileNotifier profileNotifier) async {
-  final uid = await AuthService().getCurrentUID();
+  // final uid = await AuthService().getCurrentUID();
+  final uEmail = await AuthService().getCurrentEmail();
+
   QuerySnapshot snapshot = await Firestore.instance
       .collection("userData")
-      .document(uid)
+      .document(uEmail)
       .collection("profile")
       .getDocuments();
 
@@ -51,8 +54,10 @@ getProfile(UserDataProfileNotifier profileNotifier) async {
 updateProfile(_name, _phone) async {
   final db = Firestore.instance;
   final uid = await AuthService().getCurrentUID();
+  final uEmail = await AuthService().getCurrentEmail();
+
   CollectionReference profileRef =
-      db.collection("userData").document(uid).collection("profile");
+      db.collection("userData").document(uEmail).collection("profile");
   await profileRef.document(uid).updateData(
     {'name': _name, 'phone': _phone},
   );
@@ -68,10 +73,12 @@ storeNewAddress(
   state,
 ) async {
   final db = Firestore.instance;
-  final uid = await AuthService().getCurrentUID();
+  // final uid = await AuthService().getCurrentUID();
+  final uEmail = await AuthService().getCurrentEmail();
+
   await db
       .collection("userData")
-      .document(uid)
+      .document(uEmail)
       .collection("address")
       .document(zip)
       .setData({
@@ -96,10 +103,12 @@ updateAddress(
   state,
 ) async {
   final db = Firestore.instance;
-  final uid = await AuthService().getCurrentUID();
+  // final uid = await AuthService().getCurrentUID();
+  final uEmail = await AuthService().getCurrentEmail();
+
   await db
       .collection("userData")
-      .document(uid)
+      .document(uEmail)
       .collection("address")
       .document(zip)
       .updateData({
