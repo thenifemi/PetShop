@@ -18,7 +18,7 @@ class UserManagement {
         .collection("userData")
         .document(uid)
         .collection("profile")
-        .document(_email)
+        .document(uid)
         .setData({
       'name': _name,
       'phone': _phone,
@@ -45,8 +45,6 @@ getProfile(UserDataProfileNotifier profileNotifier) async {
   });
 
   profileNotifier.userDataProfileList = _userDataProfileList;
-  print("hey");
-  print(profileNotifier.userDataProfileList);
 }
 
 //adding new address

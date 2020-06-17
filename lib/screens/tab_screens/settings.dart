@@ -33,6 +33,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    UserDataProfileNotifier profileNotifier =
+        Provider.of<UserDataProfileNotifier>(context);
+    var user = profileNotifier.userDataProfileList.first;
+  
     return Container(
       height: double.infinity,
       color: MColors.primaryWhiteSmoke,
@@ -80,7 +84,34 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           builder: (context, snapshot) {
                             if (snapshot.connectionState ==
                                 ConnectionState.done) {
-                              return displayUserInfo();
+                              return Column(
+                                children: <Widget>[
+                                  Text(
+                                    user.name,
+                                    style: GoogleFonts.montserrat(
+                                      color: MColors.primaryPurple,
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  Container(
+                                    padding: const EdgeInsets.only(
+                                      right: 30.0,
+                                      left: 30.0,
+                                      top: 3.0,
+                                    ),
+                                    child: Text(
+                                      user.email,
+                                      style: GoogleFonts.montserrat(
+                                        color: MColors.textGrey,
+                                        fontSize: 13.0,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                ],
+                              );
                             } else {
                               return Text("Loading...");
                             }
@@ -370,42 +401,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ),
         ),
       ),
-    );
-  }
-
-  Widget displayUserInfo() {
-    UserDataProfileNotifier profileNotifier =
-        Provider.of<UserDataProfileNotifier>(context);
-    var user = profileNotifier.userDataProfileList.first;
-    print("hey");
-    print(profileNotifier.userDataProfileList);
-    return Column(
-      children: <Widget>[
-        Text(
-          user.name,
-          style: GoogleFonts.montserrat(
-            color: MColors.primaryPurple,
-            fontSize: 18.0,
-            fontWeight: FontWeight.w500,
-          ),
-          textAlign: TextAlign.center,
-        ),
-        Container(
-          padding: const EdgeInsets.only(
-            right: 30.0,
-            left: 30.0,
-            top: 3.0,
-          ),
-          child: Text(
-            user.email,
-            style: GoogleFonts.montserrat(
-              color: MColors.textGrey,
-              fontSize: 13.0,
-            ),
-            textAlign: TextAlign.center,
-          ),
-        ),
-      ],
     );
   }
 
