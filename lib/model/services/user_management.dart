@@ -58,17 +58,58 @@ updateProfile(_name, _phone) async {
   );
 }
 
-//adding new address
-storeNewAddress(address) async {
+//Adding new address
+storeNewAddress(
+  fullLegalName,
+  addressLine1,
+  addressLine2,
+  city,
+  zip,
+  state,
+) async {
   final db = Firestore.instance;
   final uid = await AuthService().getCurrentUID();
   await db
       .collection("userData")
       .document(uid)
       .collection("address")
-      .document(address.zipcode)
-      .setData(address.toMap())
-      .catchError((e) {
+      .document(zip)
+      .setData({
+    'fullLegalName': fullLegalName,
+    'addressLine1': addressLine1,
+    'addressLine2': addressLine2,
+    'city': city,
+    'zipcode': zip,
+    'state': state,
+  }).catchError((e) {
+    print(e);
+  });
+}
+
+//Updating new address
+updateAddress(
+  fullLegalName,
+  addressLine1,
+  addressLine2,
+  city,
+  zip,
+  state,
+) async {
+  final db = Firestore.instance;
+  final uid = await AuthService().getCurrentUID();
+  await db
+      .collection("userData")
+      .document(uid)
+      .collection("address")
+      .document(zip)
+      .updateData({
+    'fullLegalName': fullLegalName,
+    'addressLine1': addressLine1,
+    'addressLine2': addressLine2,
+    'city': city,
+    'zipcode': zip,
+    'state': state,
+  }).catchError((e) {
     print(e);
   });
 }
