@@ -41,12 +41,6 @@ class _HomeScreenState extends State<HomeScreen>
         Provider.of<BrandsNotifier>(context, listen: false);
     getBrands(brandsNotifier);
 
-    UserDataProfileNotifier profileNotifier =
-        Provider.of<UserDataProfileNotifier>(context, listen: false);
-    getProfile(profileNotifier);
-    print("hey");
-    print(profileNotifier.userDataProfileList.length);
-
     _tabController = TabController(
       length: _tabItems.length,
       vsync: this,
@@ -245,18 +239,10 @@ class _HomeScreenState extends State<HomeScreen>
             actions: <Widget>[
               CupertinoDialogAction(
                 onPressed: () async {
-                  // setState(() {
-                  //   getCart(cartNotifier);
-                  // });
-                  final uid = await AuthService().getCurrentUser();
+                  setState(() {
+                    getCart(cartNotifier);
+                  });
 
-                  QuerySnapshot snapshot = await Firestore.instance
-                      .collection("userData")
-                      .document(uid)
-                      .collection("profile")
-                      .getDocuments();
-                  print("YOOOOO");
-                  print(snapshot.documents.length);
                   Navigator.of(context).pop();
                 },
                 child: Text(

@@ -28,7 +28,7 @@ storeNewUser(_name, _phone, _email) async {
 }
 
 getProfile(UserDataProfileNotifier profileNotifier) async {
-  final uid = await AuthService().getCurrentUser();
+  final uid = await AuthService().getCurrentUID();
   QuerySnapshot snapshot = await Firestore.instance
       .collection("userData")
       .document(uid)
