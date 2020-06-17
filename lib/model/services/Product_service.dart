@@ -40,11 +40,12 @@ getBrands(BrandsNotifier brandsNotifier) async {
 
 //Getting users' cart
 getCart(CartNotifier cartNotifier) async {
-  final uid = await AuthService().getCurrentUID();
+  // final uid = await AuthService().getCurrentUID();
+  final uEmail = await AuthService().getCurrentEmail();
 
   QuerySnapshot snapshot = await Firestore.instance
       .collection("userCart")
-      .document(uid)
+      .document(uEmail)
       .collection("cartItem")
       .getDocuments();
 
@@ -61,11 +62,12 @@ getCart(CartNotifier cartNotifier) async {
 //Adding users' product to cart
 addProductToCart(product) async {
   final db = Firestore.instance;
-  final uid = await AuthService().getCurrentUID();
+  final uEmail = await AuthService().getCurrentEmail();
+  // final uid = await AuthService().getCurrentUID();
 
   await db
       .collection("userCart")
-      .document(uid)
+      .document(uEmail)
       .collection("cartItem")
       .document(product.productID)
       .setData(product.toMap())
@@ -77,7 +79,9 @@ addProductToCart(product) async {
 //Adding item quantity, Price and updating data in cart
 addAndApdateData(cartItem) async {
   final db = Firestore.instance;
-  final uid = await AuthService().getCurrentUID();
+  // final uid = await AuthService().getCurrentUID();
+  final uEmail = await AuthService().getCurrentEmail();
+
   if (cartItem.quantity >= 9) {
     cartItem.quantity = cartItem.quantity = 9;
   } else {
@@ -86,7 +90,7 @@ addAndApdateData(cartItem) async {
   cartItem.totalPrice = cartItem.price * cartItem.quantity;
 
   CollectionReference cartRef =
-      db.collection("userCart").document(uid).collection("cartItem");
+      db.collection("userCart").document(uEmail).collection("cartItem");
 
   await cartRef.document(cartItem.productID).updateData(
     {'quantity': cartItem.quantity, 'totalPrice': cartItem.totalPrice},
@@ -96,7 +100,9 @@ addAndApdateData(cartItem) async {
 //Subtracting item quantity, Price and updating data in cart
 subAndApdateData(cartItem) async {
   final db = Firestore.instance;
-  final uid = await AuthService().getCurrentUID();
+  // final uid = await AuthService().getCurrentUID();
+  final uEmail = await AuthService().getCurrentEmail();
+
   if (cartItem.quantity <= 1) {
     cartItem.quantity = cartItem.quantity = 1;
   } else {
@@ -105,7 +111,7 @@ subAndApdateData(cartItem) async {
   cartItem.totalPrice = cartItem.price * cartItem.quantity;
 
   CollectionReference cartRef =
-      db.collection("userCart").document(uid).collection("cartItem");
+      db.collection("userCart").document(uEmail).collection("cartItem");
 
   await cartRef.document(cartItem.productID).updateData(
     {'quantity': cartItem.quantity, 'totalPrice': cartItem.totalPrice},
@@ -115,11 +121,12 @@ subAndApdateData(cartItem) async {
 //Removing item from cart
 removeItemFromCart(cartItem) async {
   final db = Firestore.instance;
-  final uid = await AuthService().getCurrentUID();
+  final uEmail = await AuthService().getCurrentEmail();
+  // final uid = await AuthService().getCurrentUID();
 
   await db
       .collection("userCart")
-      .document(uid)
+      .document(uEmail)
       .collection("cartItem")
       .document(cartItem.productID)
       .delete();

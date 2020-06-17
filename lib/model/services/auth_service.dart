@@ -50,7 +50,9 @@ class AuthService {
     String password,
   ) async {
     return ((await _firebaseAuth.signInWithEmailAndPassword(
-                email: email, password: password))
+      email: email,
+      password: password,
+    ))
             .user)
         .uid;
   }
