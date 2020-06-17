@@ -21,20 +21,20 @@ class UserDataProfileNotifier with ChangeNotifier {
 }
 
 //For Users address
-// class UserDataAddressNotifier with ChangeNotifier {
-//   List<UserDataAddress> _userDataAddressList = [];
-//   UserDataAddress _userDataAddress;
+class UserDataAddressNotifier with ChangeNotifier {
+  List<UserDataAddress> _userDataAddressList = [];
+  UserDataAddress _userDataAddress;
 
-//   List<UserDataAddress> get userDataAddressList => _userDataAddressList;
-//   UserDataAddress get userDataAddress => _userDataAddress;
+  List<UserDataAddress> get userDataAddressList => _userDataAddressList;
+  UserDataAddress get userDataAddress => _userDataAddress;
 
-//   set userDataAddressList(List<UserDataAddress> userDataAddressList) {
-//     _userDataAddressList = userDataAddressList;
-//     notifyListeners();
-//   }
+  set userDataAddressList(List<UserDataAddress> userDataAddressList) {
+    _userDataAddressList = userDataAddressList;
+    notifyListeners();
+  }
 
-//   set userDataAddress(UserDataAddress userDataAddress) {
-//     _userDataAddress = userDataAddress;
-//     notifyListeners();
-//   }
-// }
+  set userDataAddress(UserDataAddress userDataAddress) {
+    _userDataAddress = userDataAddress;
+    notifyListeners();
+  }
+}
