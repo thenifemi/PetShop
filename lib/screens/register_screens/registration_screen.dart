@@ -495,7 +495,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                   validator: PhoneNumberValiditor.validate,
                                   onSaved: (val) => _phone = val,
                                   decoration: InputDecoration(
-                                    labelText: "e.g +55 47 12345-6789",
+                                    labelText: "e.g 55 47 12345 6789",
                                     labelStyle:
                                         GoogleFonts.montserrat(fontSize: 16.0),
                                     contentPadding: new EdgeInsets.symmetric(

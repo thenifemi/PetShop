@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mollet/model/data/userData.dart';
 import 'package:mollet/model/notifiers/userData_notifier.dart';
 import 'package:mollet/model/services/auth_service.dart';
 import 'package:mollet/model/services/user_management.dart';
@@ -9,35 +10,32 @@ import 'package:mollet/utils/colors.dart';
 import 'package:mollet/widgets/provider.dart';
 import 'package:provider/provider.dart';
 
-class EditProfile1 extends StatelessWidget {
-  const EditProfile1({Key key}) : super(key: key);
+// class EditProfile1 extends StatelessWidget {
+//   const EditProfile1({Key key}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return ChangeNotifierProvider<UserDataProfileNotifier>(
-      create: (BuildContext context) => UserDataProfileNotifier(),
-      child: EditProfile(),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return ChangeNotifierProvider<UserDataProfileNotifier>(
+//       create: (BuildContext context) => UserDataProfileNotifier(),
+//       child: EditProfile(),
+//     );
+//   }
+// }
 
 class EditProfile extends StatefulWidget {
-  EditProfile({Key key}) : super(key: key);
+  UserDataProfile user;
+  EditProfile(this.user);
 
+  // EditProfile({Key key, this.user}) : super(key: key);
   @override
-  _EditProfileState createState() => _EditProfileState();
+  _EditProfileState createState() => _EditProfileState(user);
 }
 
 class _EditProfileState extends State<EditProfile> {
-  Future profileFuture;
+  UserDataProfile user;
 
-  @override
-  void initState() {
-    UserDataProfileNotifier profileNotifier =
-        Provider.of<UserDataProfileNotifier>(context, listen: false);
-    profileFuture = getProfile(profileNotifier);
-    super.initState();
-  }
+  _EditProfileState(this.user);
+  Future profileFuture;
 
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -78,58 +76,7 @@ class _EditProfileState extends State<EditProfile> {
 
   @override
   Widget build(BuildContext context) {
-    UserDataProfileNotifier profileNotifier =
-        Provider.of<UserDataProfileNotifier>(context);
-    var checkUser = profileNotifier.userDataProfileList;
-    var user = profileNotifier.userDataProfileList.first;
-    return FutureBuilder(
-      future: profileFuture,
-      builder: (c, s) {
-        switch (s.connectionState) {
-          case ConnectionState.active:
-            return Container(
-              color: MColors.primaryWhiteSmoke,
-              child: Center(
-                child: CircularProgressIndicator(
-                  strokeWidth: 2.0,
-                ),
-              ),
-            );
-            break;
-          case ConnectionState.done:
-            return checkUser.isEmpty || user == null
-                ? Container(
-                    color: MColors.primaryWhiteSmoke,
-                    child: Center(
-                      child: CircularProgressIndicator(
-                        strokeWidth: 2.0,
-                      ),
-                    ),
-                  )
-                : profile(user);
-            break;
-          case ConnectionState.waiting:
-            return Container(
-              color: MColors.primaryWhiteSmoke,
-              child: Center(
-                child: CircularProgressIndicator(
-                  strokeWidth: 2.0,
-                ),
-              ),
-            );
-            break;
-          default:
-            return Container(
-              color: MColors.primaryWhiteSmoke,
-              child: Center(
-                child: CircularProgressIndicator(
-                  strokeWidth: 2.0,
-                ),
-              ),
-            );
-        }
-      },
-    );
+    return profile(user);
   }
 
   Widget profile(user) {

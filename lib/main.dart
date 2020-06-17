@@ -38,7 +38,6 @@ final routes = {
   '/Login': (BuildContext context) => LoginScreen(),
   '/Reset': (BuildContext context) => ResetScreen(),
   '/home': (BuildContext context) => HomeController(),
-  '/EditProfile': (BuildContext context) => EditProfile(),
   '/Settings': (BuildContext context) => SettingsScreen(),
   '/Security': (BuildContext context) => SecurityScreen(),
   '/ChangePassword': (BuildContext context) => ChangePasswordScreen(),
