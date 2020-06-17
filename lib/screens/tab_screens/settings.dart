@@ -172,7 +172,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           onPressed: () {
                             Navigator.of(context).push(
                               MaterialPageRoute(
-                                builder: (_) => EditProfile(user),
+                                builder: (context) => EditProfile(user),
                               ),
                             );
                           },

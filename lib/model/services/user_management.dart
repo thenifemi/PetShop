@@ -27,6 +27,7 @@ storeNewUser(_name, _phone, _email) async {
   });
 }
 
+//Getting User profile
 getProfile(UserDataProfileNotifier profileNotifier) async {
   final uid = await AuthService().getCurrentUID();
   QuerySnapshot snapshot = await Firestore.instance
@@ -44,6 +45,17 @@ getProfile(UserDataProfileNotifier profileNotifier) async {
   });
 
   profileNotifier.userDataProfileList = _userDataProfileList;
+}
+
+//Updating User profile
+updateProfile(_name, _phone) async {
+  final db = Firestore.instance;
+  final uid = await AuthService().getCurrentUID();
+  CollectionReference profileRef =
+      db.collection("userData").document(uid).collection("profile");
+  await profileRef.document(uid).updateData(
+    {'name': _name, 'phone': _phone},
+  );
 }
 
 //adding new address

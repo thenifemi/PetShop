@@ -1,26 +1,13 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mollet/model/data/userData.dart';
-import 'package:mollet/model/notifiers/userData_notifier.dart';
 import 'package:mollet/model/services/auth_service.dart';
 import 'package:mollet/model/services/user_management.dart';
+import 'package:mollet/screens/tab_screens/settings.dart';
 import 'package:mollet/utils/colors.dart';
-import 'package:mollet/widgets/provider.dart';
-import 'package:provider/provider.dart';
 
-// class EditProfile1 extends StatelessWidget {
-//   const EditProfile1({Key key}) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return ChangeNotifierProvider<UserDataProfileNotifier>(
-//       create: (BuildContext context) => UserDataProfileNotifier(),
-//       child: EditProfile(),
-//     );
-//   }
-// }
+import '../../main.dart';
 
 class EditProfile extends StatefulWidget {
   UserDataProfile user;
@@ -38,11 +25,10 @@ class _EditProfileState extends State<EditProfile> {
   Future profileFuture;
 
   final formKey = GlobalKey<FormState>();
-  final scaffoldKey = GlobalKey<ScaffoldState>();
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  String _password;
   String _name;
-  String _phoneNumber;
+  String _phone;
   String _error;
   bool _autoValidate = false;
 
@@ -54,12 +40,14 @@ class _EditProfileState extends State<EditProfile> {
 
       if (form.validate()) {
         form.save();
+        _showProfileHasUpdated();
 
-        // String uid = await auth.createUserWithEmailAndPassword(
-        //     _email, _password, _name, _phoneNumber);
-        // UserManagement().storeNewUser(_name, _phoneNumber, _email, context);
-        // print("Signed Up with new $uid");
-        // Navigator.of(context).pushReplacementNamed("/Login");
+        updateProfile(_name, _phone);
+        // Navigator.of(context).push(
+        //   MaterialPageRoute(
+        //     builder: (_) => MyApp(),
+        //   ),
+        // );
       } else {
         setState(() {
           _autoValidate = true;
@@ -79,8 +67,32 @@ class _EditProfileState extends State<EditProfile> {
     return profile(user);
   }
 
+  void _showProfileHasUpdated() {
+    _scaffoldKey.currentState.showSnackBar(
+      SnackBar(
+        behavior: SnackBarBehavior.floating,
+        duration: Duration(milliseconds: 1300),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        content: Row(
+          children: <Widget>[
+            Expanded(
+              child: Text("Profile has been updated"),
+            ),
+            Icon(
+              Icons.check_circle_outline,
+              color: Colors.greenAccent,
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
   Widget profile(user) {
     return Scaffold(
+      key: _scaffoldKey,
       backgroundColor: MColors.primaryWhiteSmoke,
       appBar: AppBar(
         elevation: 0.0,
@@ -92,8 +104,8 @@ class _EditProfileState extends State<EditProfile> {
             color: MColors.textDark,
           ),
           onPressed: () {
-            Navigator.of(context).pop();
-          },
+           Navigator.of(context).pop();
+       },
         ),
         title: Text(
           "Profile",
@@ -341,7 +353,7 @@ class _EditProfileState extends State<EditProfile> {
                                     enableSuggestions: true,
                                     autovalidate: _autoValidate,
                                     validator: PhoneNumberValiditor.validate,
-                                    onSaved: (val) => _phoneNumber = val,
+                                    onSaved: (val) => _phone = val,
                                     decoration: InputDecoration(
                                       labelStyle: GoogleFonts.montserrat(
                                           color: MColors.primaryPurple,
