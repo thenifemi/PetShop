@@ -41,6 +41,10 @@ class _HomeScreenState extends State<HomeScreen>
         Provider.of<BrandsNotifier>(context, listen: false);
     getBrands(brandsNotifier);
 
+    UserDataProfileNotifier profileNotifier =
+        Provider.of<UserDataProfileNotifier>(context, listen: false);
+    getProfile(profileNotifier);
+
     _tabController = TabController(
       length: _tabItems.length,
       vsync: this,
