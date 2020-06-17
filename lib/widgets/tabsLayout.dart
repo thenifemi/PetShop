@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mollet/model/notifiers/userData_notifier.dart';
 import 'package:mollet/model/services/Product_service.dart';
 import 'package:mollet/model/notifiers/cart_notifier.dart';
 import 'package:mollet/screens/tab_screens/cart1.dart';
@@ -42,8 +43,11 @@ class _TabsLayoutState extends State<TabsLayout> {
     InboxScreen(
       key: PageStorageKey("inboxKey"),
     ),
-    SettingsScreen(
-      key: PageStorageKey("settingsKey"),
+    ChangeNotifierProvider<UserDataProfileNotifier>(
+      create: (BuildContext context) => UserDataProfileNotifier(),
+      child: SettingsScreen(
+        key: PageStorageKey("settingsKey"),
+      ),
     ),
   ];
 

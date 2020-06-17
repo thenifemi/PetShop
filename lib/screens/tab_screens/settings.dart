@@ -2,13 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mollet/main.dart';
+
+import 'package:mollet/model/notifiers/userData_notifier.dart';
 import 'package:mollet/model/services/auth_service.dart';
+import 'package:mollet/model/services/user_management.dart';
 import 'package:mollet/screens/settings_screens/cards.dart';
 import 'package:mollet/screens/settings_screens/editProfile.dart';
 import 'package:mollet/screens/settings_screens/inviteFriend.dart';
 import 'package:mollet/screens/settings_screens/passwordSecurity.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:mollet/widgets/provider.dart';
+import 'package:provider/provider.dart';
 
 class SettingsScreen extends StatefulWidget {
   SettingsScreen({Key key}) : super(key: key);
@@ -18,83 +22,13 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  Widget displayUserInfo(context, snapshot) {
-    final user = snapshot.data;
-
-    return Column(
-      children: <Widget>[
-        Text(
-          "${user.displayName}",
-          style: GoogleFonts.montserrat(
-            color: MColors.primaryPurple,
-            fontSize: 18.0,
-            fontWeight: FontWeight.w500,
-          ),
-          textAlign: TextAlign.center,
-        ),
-        Container(
-          padding: const EdgeInsets.only(
-            right: 30.0,
-            left: 30.0,
-            top: 3.0,
-          ),
-          child: Text(
-            "${user.email}",
-            style: GoogleFonts.montserrat(
-              color: MColors.textGrey,
-              fontSize: 13.0,
-            ),
-            textAlign: TextAlign.center,
-          ),
-        ),
-      ],
-    );
-  }
-
-  void _showLogOutDialog() {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            content: Text(
-              "Are you sure you want to sign out?",
-              style: GoogleFonts.montserrat(),
-            ),
-            actions: <Widget>[
-              FlatButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: Text(
-                  "Cancel",
-                  style: GoogleFonts.montserrat(color: MColors.textGrey),
-                ),
-              ),
-              FlatButton(
-                onPressed: () async {
-                  try {
-                    AuthService auth = MyProvider.of(context).auth;
-                    auth.signOut();
-                    Navigator.of(context).pop();
-                    Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(
-                        builder: (_) => MyApp(),
-                      ),
-                    );
-                    print("Signed out.");
-                  } catch (e) {
-                    print(e);
-                  }
-                },
-                child: Text(
-                  "Sign out",
-                  style: GoogleFonts.montserrat(
-                      color: Colors.redAccent, fontWeight: FontWeight.w500),
-                ),
-              ),
-            ],
-          );
-        });
+  Future profileFuture;
+  @override
+  void initState() {
+    UserDataProfileNotifier profileNotifier =
+        Provider.of<UserDataProfileNotifier>(context, listen: false);
+    profileFuture = getProfile(profileNotifier);
+    super.initState();
   }
 
   @override
@@ -142,11 +76,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ),
                       Container(
                         child: FutureBuilder(
-                          future: MyProvider.of(context).auth.getCurrentUser(),
+                          future: profileFuture,
                           builder: (context, snapshot) {
                             if (snapshot.connectionState ==
                                 ConnectionState.done) {
-                              return displayUserInfo(context, snapshot);
+                              return displayUserInfo();
                             } else {
                               return Text("Loading...");
                             }
@@ -437,5 +371,87 @@ class _SettingsScreenState extends State<SettingsScreen> {
         ),
       ),
     );
+  }
+
+  Widget displayUserInfo() {
+    UserDataProfileNotifier profileNotifier =
+        Provider.of<UserDataProfileNotifier>(context);
+    var user = profileNotifier.userDataProfileList.first;
+    print("hey");
+    print(profileNotifier.userDataProfileList);
+    return Column(
+      children: <Widget>[
+        Text(
+          user.name,
+          style: GoogleFonts.montserrat(
+            color: MColors.primaryPurple,
+            fontSize: 18.0,
+            fontWeight: FontWeight.w500,
+          ),
+          textAlign: TextAlign.center,
+        ),
+        Container(
+          padding: const EdgeInsets.only(
+            right: 30.0,
+            left: 30.0,
+            top: 3.0,
+          ),
+          child: Text(
+            user.email,
+            style: GoogleFonts.montserrat(
+              color: MColors.textGrey,
+              fontSize: 13.0,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ),
+      ],
+    );
+  }
+
+  void _showLogOutDialog() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            content: Text(
+              "Are you sure you want to sign out?",
+              style: GoogleFonts.montserrat(),
+            ),
+            actions: <Widget>[
+              FlatButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text(
+                  "Cancel",
+                  style: GoogleFonts.montserrat(color: MColors.textGrey),
+                ),
+              ),
+              FlatButton(
+                onPressed: () async {
+                  try {
+                    AuthService auth = MyProvider.of(context).auth;
+                    auth.signOut();
+                    Navigator.of(context).pop();
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        builder: (_) => MyApp(),
+                      ),
+                    );
+                    print("Signed out.");
+                  } catch (e) {
+                    print(e);
+                  }
+                },
+                child: Text(
+                  "Sign out",
+                  style: GoogleFonts.montserrat(
+                      color: Colors.redAccent, fontWeight: FontWeight.w500),
+                ),
+              ),
+            ],
+          );
+        });
   }
 }

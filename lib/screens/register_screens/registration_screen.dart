@@ -45,11 +45,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     });
   }
 
-  void _submit(_name, _phone, _email, _password) async {
+  void _submit() async {
     final form = formKey.currentState;
 
     try {
-      final auth =  MyProvider.of(context).auth;
+      final auth = MyProvider.of(context).auth;
 
       if (form.validate()) {
         form.save();
@@ -135,9 +135,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           focusElevation: 0.0,
           highlightElevation: 0.0,
           fillColor: MColors.primaryPurple,
-          onPressed: _isButtonDisabled
-              ? null
-              : () => _submit(_name, _phone, _email, _password),
+          onPressed: _isButtonDisabled ? null : _submit,
           child: buildRegisterButton(),
           shape: RoundedRectangleBorder(
             borderRadius: new BorderRadius.circular(10.0),
