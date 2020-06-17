@@ -4,21 +4,24 @@ import 'auth_service.dart';
 
 class UserManagement {
   //Storing new user data
-  storeNewUser(profile) async {
+  storeNewUser(_name, _phone, _email) async {
     final db = Firestore.instance;
     final uid = await AuthService().getCurrentUID();
 
     var userUpdateInfo = new UserUpdateInfo();
-    userUpdateInfo.displayName = profile.name;
+    userUpdateInfo.displayName = _name;
     print(userUpdateInfo.displayName);
 
     await db
         .collection("userData")
-        .document(uid)
+        .document(_email)
         .collection("profile")
-        .document(profile.email)
-        .setData(profile.toMap())
-        .catchError((e) {
+        .document(uid)
+        .setData({
+      'name': _name,
+      'phone': _phone,
+      'email': _email,
+    }).catchError((e) {
       print(e);
     });
   }

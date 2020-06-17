@@ -13,18 +13,15 @@ import 'package:provider/provider.dart';
 
 class RegistrationScreen extends StatefulWidget {
   RegistrationScreen({Key key}) : super(key: key);
-  UserDataProfile profile;
 
   @override
-  _RegistrationScreenState createState() => _RegistrationScreenState(profile);
+  _RegistrationScreenState createState() => _RegistrationScreenState();
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
-  _RegistrationScreenState(this.profile);
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final formKey = GlobalKey<FormState>();
 
-  UserDataProfile profile;
   String _name;
   String _phone;
   String _email;
@@ -52,10 +49,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     final form = formKey.currentState;
 
     try {
-      final auth = MyProvider.of(context).auth;
-      profile.name = _name;
-      profile.phone = _phone;
-      profile.email = _email;
+      final auth =  MyProvider.of(context).auth;
 
       if (form.validate()) {
         form.save();
@@ -65,10 +59,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           }
         });
         String uid = await auth.createUserWithEmailAndPassword(
-          profile,
+          _email,
           _password,
+          _phone,
         );
-        UserManagement().storeNewUser(profile);
+
+        UserManagement().storeNewUser(_name, _phone, _email);
         print("Signed Up with new $uid");
 
         Navigator.of(context).pushReplacement(
