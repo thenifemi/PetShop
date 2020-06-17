@@ -19,16 +19,17 @@ class AuthService {
   }
 
   //Email and Pasword Sign Up
-  Future createUserWithEmailAndPassword(
+  Future<String> createUserWithEmailAndPassword(
     email,
     String password,
     name,
   ) async {
-    final currentUser = (await _firebaseAuth.createUserWithEmailAndPassword(
+    final FirebaseUser currentUser =
+        (await _firebaseAuth.createUserWithEmailAndPassword(
       email: email,
       password: password,
     ))
-        .user;
+            .user;
 
     //Update the users name
     var userUpdateInfo = UserUpdateInfo();

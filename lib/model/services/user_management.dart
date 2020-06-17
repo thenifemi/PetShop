@@ -2,31 +2,29 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mollet/model/data/userData.dart';
 import 'package:mollet/model/notifiers/userData_notifier.dart';
-import 'auth_service.dart';
+import 'package:mollet/model/services/auth_service.dart';
 
-class UserManagement {
-  //Storing new user data
-  storeNewUser(_name, _phone, _email) async {
-    final db = Firestore.instance;
-    final uid = await AuthService().getCurrentUID();
+//Storing new user data
+storeNewUser(_name, _phone, _email) async {
+  final db = Firestore.instance;
+  final uid = await AuthService().getCurrentUID();
 
-    var userUpdateInfo = new UserUpdateInfo();
-    userUpdateInfo.displayName = _name;
-    print(userUpdateInfo.displayName);
+  var userUpdateInfo = new UserUpdateInfo();
+  userUpdateInfo.displayName = _name;
+  print(userUpdateInfo.displayName);
 
-    await db
-        .collection("userData")
-        .document(uid)
-        .collection("profile")
-        .document(uid)
-        .setData({
-      'name': _name,
-      'phone': _phone,
-      'email': _email,
-    }).catchError((e) {
-      print(e);
-    });
-  }
+  await db
+      .collection("userData")
+      .document(uid)
+      .collection("profile")
+      .document(uid)
+      .setData({
+    'name': _name,
+    'phone': _phone,
+    'email': _email,
+  }).catchError((e) {
+    print(e);
+  });
 }
 
 getProfile(UserDataProfileNotifier profileNotifier) async {
@@ -40,6 +38,7 @@ getProfile(UserDataProfileNotifier profileNotifier) async {
   List<UserDataProfile> _userDataProfileList = [];
 
   snapshot.documents.forEach((document) {
+    print(document.data);
     UserDataProfile userDataProfile = UserDataProfile.fromMap(document.data);
     _userDataProfileList.add(userDataProfile);
   });

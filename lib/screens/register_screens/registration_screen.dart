@@ -64,7 +64,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           _phone,
         );
 
-        UserManagement().storeNewUser(_name, _phone, _email);
+        storeNewUser(_name, _phone, _email);
         print("Signed Up with new $uid");
 
         Navigator.of(context).pushReplacement(
