@@ -53,12 +53,12 @@ getProfile(UserDataProfileNotifier profileNotifier) async {
 //Updating User profile
 updateProfile(_name, _phone) async {
   final db = Firestore.instance;
-  final uid = await AuthService().getCurrentUID();
+  // final uid = await AuthService().getCurrentUID();
   final uEmail = await AuthService().getCurrentEmail();
 
   CollectionReference profileRef =
       db.collection("userData").document(uEmail).collection("profile");
-  await profileRef.document(uid).updateData(
+  await profileRef.document(uEmail).updateData(
     {'name': _name, 'phone': _phone},
   );
 }
