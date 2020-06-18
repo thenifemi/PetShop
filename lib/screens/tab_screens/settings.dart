@@ -88,29 +88,48 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  void _showProfileHasUpdated() {
+    _scaffoldKey.currentState.showSnackBar(
+      SnackBar(
+        behavior: SnackBarBehavior.floating,
+        duration: Duration(milliseconds: 1300),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        content: Row(
+          children: <Widget>[
+            Expanded(
+              child: Text("Profile has been updated"),
+            ),
+            Icon(
+              Icons.check_circle_outline,
+              color: Colors.greenAccent,
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
   Widget showSettings(user) {
-    return Container(
-      height: double.infinity,
-      color: MColors.primaryWhiteSmoke,
-      child: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
-        child: Container(
-          color: MColors.primaryWhiteSmoke,
-          padding: const EdgeInsets.only(right: 20.0, left: 20.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              Container(
-                padding: const EdgeInsets.only(top: 20.0),
-                child: RawMaterialButton(
-                  onPressed: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (_) => EditProfile(user),
-                      ),
-                    );
-                  },
+    return Scaffold(
+      key: _scaffoldKey,
+      body: Container(
+        height: double.infinity,
+        color: MColors.primaryWhiteSmoke,
+        child: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
+          child: Container(
+            color: MColors.primaryWhiteSmoke,
+            padding: const EdgeInsets.only(right: 20.0, left: 20.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                Container(
+                  padding: const EdgeInsets.only(top: 20.0),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -130,315 +149,343 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           ),
                         ),
                       ),
-                      Container(
+                      RawMaterialButton(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: new BorderRadius.circular(10.0),
+                        ),
+                        elevation: 0.0,
+                        hoverElevation: 0.0,
+                        focusElevation: 0.0,
+                        highlightElevation: 0.0,
+                        onPressed: () async {
+                          UserDataProfileNotifier profileNotifier =
+                              Provider.of<UserDataProfileNotifier>(context,
+                                  listen: false);
+                          var navigationResult =
+                              await Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => EditProfile(user),
+                            ),
+                          );
+                          if (navigationResult == true) {
+                            setState(() {
+                              getProfile(profileNotifier);
+                            });
+                          }
+                          _showProfileHasUpdated();
+                        },
+                        child: Container(
+                          padding: EdgeInsets.all(10.0),
                           child: Column(
-                        children: <Widget>[
-                          Text(
-                            user.name,
-                            style: GoogleFonts.montserrat(
-                              color: MColors.primaryPurple,
-                              fontSize: 18.0,
-                              fontWeight: FontWeight.w500,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                          Container(
-                            padding: const EdgeInsets.only(
-                              right: 30.0,
-                              left: 30.0,
-                              top: 3.0,
-                            ),
-                            child: Text(
-                              user.email,
-                              style: GoogleFonts.montserrat(
-                                color: MColors.textGrey,
-                                fontSize: 13.0,
+                            children: <Widget>[
+                              Container(
+                                  child: Column(
+                                children: <Widget>[
+                                  Text(
+                                    user.name,
+                                    style: GoogleFonts.montserrat(
+                                      color: MColors.primaryPurple,
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  Container(
+                                    padding: const EdgeInsets.only(
+                                      right: 30.0,
+                                      left: 30.0,
+                                      top: 3.0,
+                                    ),
+                                    child: Text(
+                                      user.email,
+                                      style: GoogleFonts.montserrat(
+                                        color: MColors.textGrey,
+                                        fontSize: 13.0,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                ],
+                              )),
+                              SizedBox(height: 5.0),
+                              SizedBox(
+                                width: 100,
+                                height: 18.0,
+                                child: RawMaterialButton(
+                                  elevation: 0.0,
+                                  hoverElevation: 0.0,
+                                  focusElevation: 0.0,
+                                  highlightElevation: 0.0,
+                                  fillColor: MColors.dashPurple,
+                                  onPressed: () {},
+                                  child: Text(
+                                    "EDIT PROFILE",
+                                    style: GoogleFonts.montserrat(
+                                      color: MColors.primaryPurple,
+                                      fontSize: 12.0,
+                                    ),
+                                  ),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        new BorderRadius.circular(5.0),
+                                  ),
+                                ),
                               ),
-                              textAlign: TextAlign.center,
-                            ),
+                            ],
                           ),
-                        ],
-                      )),
-                      SizedBox(height: 5.0),
-                      SizedBox(
-                        width: 100,
-                        height: 18.0,
-                        child: RawMaterialButton(
-                          elevation: 0.0,
-                          hoverElevation: 0.0,
-                          focusElevation: 0.0,
-                          highlightElevation: 0.0,
-                          fillColor: MColors.dashPurple,
-                          onPressed: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => EditProfile(user),
-                              ),
-                            );
-                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 20.0),
+                Divider(
+                  height: 1.0,
+                ),
+                SizedBox(
+                  height: 60,
+                  width: double.infinity,
+                  child: RawMaterialButton(
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => SecurityScreen(),
+                        ),
+                      );
+                    },
+                    child: Row(
+                      children: <Widget>[
+                        Container(
+                          padding: const EdgeInsets.only(right: 20.0),
+                          child: SvgPicture.asset(
+                            "assets/images/password.svg",
+                            height: 20,
+                            color: MColors.textGrey,
+                          ),
+                        ),
+                        Expanded(
                           child: Text(
-                            "EDIT PROFILE",
+                            "Security",
                             style: GoogleFonts.montserrat(
                               color: MColors.primaryPurple,
-                              fontSize: 12.0,
+                              fontSize: 15.0,
                             ),
                           ),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: new BorderRadius.circular(5.0),
-                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              SizedBox(height: 20.0),
-              Divider(
-                height: 1.0,
-              ),
-              SizedBox(
-                height: 60,
-                width: double.infinity,
-                child: RawMaterialButton(
-                  onPressed: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (_) => SecurityScreen(),
-                      ),
-                    );
-                  },
-                  child: Row(
-                    children: <Widget>[
-                      Container(
-                        padding: const EdgeInsets.only(right: 20.0),
-                        child: SvgPicture.asset(
-                          "assets/images/password.svg",
-                          height: 20,
+                        Icon(
+                          Icons.arrow_forward_ios,
                           color: MColors.textGrey,
+                          size: 16.0,
                         ),
-                      ),
-                      Expanded(
-                        child: Text(
-                          "Security",
-                          style: GoogleFonts.montserrat(
-                            color: MColors.primaryPurple,
-                            fontSize: 15.0,
-                          ),
-                        ),
-                      ),
-                      Icon(
-                        Icons.arrow_forward_ios,
-                        color: MColors.textGrey,
-                        size: 16.0,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Divider(
-                height: 1.0,
-              ),
-              SizedBox(
-                height: 60,
-                width: double.infinity,
-                child: RawMaterialButton(
-                  onPressed: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (_) => Cards(),
-                      ),
-                    );
-                  },
-                  child: Row(
-                    children: <Widget>[
-                      Container(
-                        padding: const EdgeInsets.only(right: 20.0),
-                        child: SvgPicture.asset(
-                          "assets/images/icons/Wallet.svg",
-                          height: 20,
-                          color: MColors.textGrey,
-                        ),
-                      ),
-                      Expanded(
-                        child: Text(
-                          "Cards",
-                          style: GoogleFonts.montserrat(
-                            color: MColors.primaryPurple,
-                            fontSize: 15.0,
-                          ),
-                        ),
-                      ),
-                      Icon(
-                        Icons.arrow_forward_ios,
-                        color: MColors.textGrey,
-                        size: 16.0,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Divider(
-                height: 1.0,
-              ),
-              SizedBox(
-                height: 60,
-                width: double.infinity,
-                child: RawMaterialButton(
-                  onPressed: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (_) => InviteFriendScreen(),
-                      ),
-                    );
-                  },
-                  child: Row(
-                    children: <Widget>[
-                      Container(
-                        padding: const EdgeInsets.only(right: 20.0),
-                        child: SvgPicture.asset(
-                          "assets/images/gift.svg",
-                          height: 20,
-                          color: MColors.textGrey,
-                        ),
-                      ),
-                      Expanded(
-                        child: Text(
-                          "Invite a friend",
-                          style: GoogleFonts.montserrat(
-                            color: MColors.primaryPurple,
-                            fontSize: 15.0,
-                          ),
-                        ),
-                      ),
-                      Icon(
-                        Icons.arrow_forward_ios,
-                        color: MColors.textGrey,
-                        size: 16.0,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Divider(
-                height: 1.0,
-              ),
-              SizedBox(
-                height: 60,
-                width: double.infinity,
-                child: RawMaterialButton(
-                  onPressed: () {},
-                  child: Row(
-                    children: <Widget>[
-                      Container(
-                        padding: const EdgeInsets.only(right: 20.0),
-                        child: SvgPicture.asset(
-                          "assets/images/help.svg",
-                          height: 20,
-                          color: MColors.textGrey,
-                        ),
-                      ),
-                      Expanded(
-                        child: Text(
-                          "Help",
-                          style: GoogleFonts.montserrat(
-                            color: MColors.primaryPurple,
-                            fontSize: 15.0,
-                          ),
-                        ),
-                      ),
-                      Icon(
-                        Icons.arrow_forward_ios,
-                        color: MColors.textGrey,
-                        size: 16.0,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Divider(
-                height: 1.0,
-              ),
-              SizedBox(
-                height: 60,
-                width: double.infinity,
-                child: RawMaterialButton(
-                  onPressed: () {},
-                  child: Row(
-                    children: <Widget>[
-                      Container(
-                        padding: const EdgeInsets.only(right: 20.0),
-                        child: SvgPicture.asset(
-                          "assets/images/question.svg",
-                          height: 20,
-                          color: MColors.textGrey,
-                        ),
-                      ),
-                      Expanded(
-                        child: Text(
-                          "FAQs",
-                          style: GoogleFonts.montserrat(
-                            color: MColors.primaryPurple,
-                            fontSize: 15.0,
-                          ),
-                        ),
-                      ),
-                      Icon(
-                        Icons.arrow_forward_ios,
-                        color: MColors.textGrey,
-                        size: 16.0,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Divider(
-                height: 1.0,
-              ),
-              SizedBox(height: 100.0),
-              SizedBox(
-                height: 60,
-                width: double.infinity,
-                child: RawMaterialButton(
-                  onPressed: () {
-                    _showLogOutDialog();
-                  },
-                  child: Row(
-                    children: <Widget>[
-                      Container(
-                        padding: const EdgeInsets.only(right: 20.0),
-                        child: SvgPicture.asset(
-                          "assets/images/logout.svg",
-                          height: 20,
-                          color: Colors.redAccent,
-                        ),
-                      ),
-                      Expanded(
-                        child: Text(
-                          "Sign out",
-                          style: GoogleFonts.montserrat(
-                            color: Colors.redAccent,
-                            fontSize: 15.0,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Text(
-                    "Version 0.0.1",
-                    style: GoogleFonts.montserrat(
-                      color: MColors.textGrey,
-                      fontSize: 14.0,
+                      ],
                     ),
-                    textAlign: TextAlign.center,
                   ),
                 ),
-              ),
-            ],
+                Divider(
+                  height: 1.0,
+                ),
+                SizedBox(
+                  height: 60,
+                  width: double.infinity,
+                  child: RawMaterialButton(
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => Cards(),
+                        ),
+                      );
+                    },
+                    child: Row(
+                      children: <Widget>[
+                        Container(
+                          padding: const EdgeInsets.only(right: 20.0),
+                          child: SvgPicture.asset(
+                            "assets/images/icons/Wallet.svg",
+                            height: 20,
+                            color: MColors.textGrey,
+                          ),
+                        ),
+                        Expanded(
+                          child: Text(
+                            "Cards",
+                            style: GoogleFonts.montserrat(
+                              color: MColors.primaryPurple,
+                              fontSize: 15.0,
+                            ),
+                          ),
+                        ),
+                        Icon(
+                          Icons.arrow_forward_ios,
+                          color: MColors.textGrey,
+                          size: 16.0,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Divider(
+                  height: 1.0,
+                ),
+                SizedBox(
+                  height: 60,
+                  width: double.infinity,
+                  child: RawMaterialButton(
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => InviteFriendScreen(),
+                        ),
+                      );
+                    },
+                    child: Row(
+                      children: <Widget>[
+                        Container(
+                          padding: const EdgeInsets.only(right: 20.0),
+                          child: SvgPicture.asset(
+                            "assets/images/gift.svg",
+                            height: 20,
+                            color: MColors.textGrey,
+                          ),
+                        ),
+                        Expanded(
+                          child: Text(
+                            "Invite a friend",
+                            style: GoogleFonts.montserrat(
+                              color: MColors.primaryPurple,
+                              fontSize: 15.0,
+                            ),
+                          ),
+                        ),
+                        Icon(
+                          Icons.arrow_forward_ios,
+                          color: MColors.textGrey,
+                          size: 16.0,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Divider(
+                  height: 1.0,
+                ),
+                SizedBox(
+                  height: 60,
+                  width: double.infinity,
+                  child: RawMaterialButton(
+                    onPressed: () {},
+                    child: Row(
+                      children: <Widget>[
+                        Container(
+                          padding: const EdgeInsets.only(right: 20.0),
+                          child: SvgPicture.asset(
+                            "assets/images/help.svg",
+                            height: 20,
+                            color: MColors.textGrey,
+                          ),
+                        ),
+                        Expanded(
+                          child: Text(
+                            "Help",
+                            style: GoogleFonts.montserrat(
+                              color: MColors.primaryPurple,
+                              fontSize: 15.0,
+                            ),
+                          ),
+                        ),
+                        Icon(
+                          Icons.arrow_forward_ios,
+                          color: MColors.textGrey,
+                          size: 16.0,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Divider(
+                  height: 1.0,
+                ),
+                SizedBox(
+                  height: 60,
+                  width: double.infinity,
+                  child: RawMaterialButton(
+                    onPressed: () {},
+                    child: Row(
+                      children: <Widget>[
+                        Container(
+                          padding: const EdgeInsets.only(right: 20.0),
+                          child: SvgPicture.asset(
+                            "assets/images/question.svg",
+                            height: 20,
+                            color: MColors.textGrey,
+                          ),
+                        ),
+                        Expanded(
+                          child: Text(
+                            "FAQs",
+                            style: GoogleFonts.montserrat(
+                              color: MColors.primaryPurple,
+                              fontSize: 15.0,
+                            ),
+                          ),
+                        ),
+                        Icon(
+                          Icons.arrow_forward_ios,
+                          color: MColors.textGrey,
+                          size: 16.0,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Divider(
+                  height: 1.0,
+                ),
+                SizedBox(height: 100.0),
+                SizedBox(
+                  height: 60,
+                  width: double.infinity,
+                  child: RawMaterialButton(
+                    onPressed: () {
+                      _showLogOutDialog();
+                    },
+                    child: Row(
+                      children: <Widget>[
+                        Container(
+                          padding: const EdgeInsets.only(right: 20.0),
+                          child: SvgPicture.asset(
+                            "assets/images/logout.svg",
+                            height: 20,
+                            color: Colors.redAccent,
+                          ),
+                        ),
+                        Expanded(
+                          child: Text(
+                            "Sign out",
+                            style: GoogleFonts.montserrat(
+                              color: Colors.redAccent,
+                              fontSize: 15.0,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Text(
+                      "Version 0.0.1",
+                      style: GoogleFonts.montserrat(
+                        color: MColors.textGrey,
+                        fontSize: 14.0,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

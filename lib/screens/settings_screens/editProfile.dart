@@ -33,18 +33,10 @@ class _EditProfileState extends State<EditProfile> {
     final form = formKey.currentState;
 
     try {
-      // final auth = Provider.of(context).auth;
-
       if (form.validate()) {
         form.save();
-        _showProfileHasUpdated();
-
         updateProfile(_name, _phone);
-        // Navigator.of(context).push(
-        //   MaterialPageRoute(
-        //     builder: (_) => MyApp(),
-        //   ),
-        // );
+        Navigator.pop(context, true);
       } else {
         setState(() {
           _autoValidate = true;
@@ -62,29 +54,6 @@ class _EditProfileState extends State<EditProfile> {
   @override
   Widget build(BuildContext context) {
     return profile(user);
-  }
-
-  void _showProfileHasUpdated() {
-    _scaffoldKey.currentState.showSnackBar(
-      SnackBar(
-        behavior: SnackBarBehavior.floating,
-        duration: Duration(milliseconds: 1300),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-        content: Row(
-          children: <Widget>[
-            Expanded(
-              child: Text("Profile has been updated"),
-            ),
-            Icon(
-              Icons.check_circle_outline,
-              color: Colors.greenAccent,
-            )
-          ],
-        ),
-      ),
-    );
   }
 
   Widget profile(user) {
