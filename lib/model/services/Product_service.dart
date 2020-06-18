@@ -46,7 +46,7 @@ getCart(CartNotifier cartNotifier) async {
   QuerySnapshot snapshot = await Firestore.instance
       .collection("userCart")
       .document(uEmail)
-      .collection("cartItem")
+      .collection("cartItems")
       .getDocuments();
 
   List<Cart> _cartList = [];
@@ -68,7 +68,7 @@ addProductToCart(product) async {
   await db
       .collection("userCart")
       .document(uEmail)
-      .collection("cartItem")
+      .collection("cartItems")
       .document(product.productID)
       .setData(product.toMap())
       .catchError((e) {
@@ -90,7 +90,7 @@ addAndApdateData(cartItem) async {
   cartItem.totalPrice = cartItem.price * cartItem.quantity;
 
   CollectionReference cartRef =
-      db.collection("userCart").document(uEmail).collection("cartItem");
+      db.collection("userCart").document(uEmail).collection("cartItems");
 
   await cartRef.document(cartItem.productID).updateData(
     {'quantity': cartItem.quantity, 'totalPrice': cartItem.totalPrice},
@@ -111,7 +111,7 @@ subAndApdateData(cartItem) async {
   cartItem.totalPrice = cartItem.price * cartItem.quantity;
 
   CollectionReference cartRef =
-      db.collection("userCart").document(uEmail).collection("cartItem");
+      db.collection("userCart").document(uEmail).collection("cartItems");
 
   await cartRef.document(cartItem.productID).updateData(
     {'quantity': cartItem.quantity, 'totalPrice': cartItem.totalPrice},

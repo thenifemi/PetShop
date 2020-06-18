@@ -246,7 +246,6 @@ class _HomeScreenState extends State<HomeScreen>
                   setState(() {
                     getCart(cartNotifier);
                   });
-
                   Navigator.of(context).pop();
                 },
                 child: Text(

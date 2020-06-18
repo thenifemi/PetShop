@@ -7,7 +7,7 @@ import 'package:mollet/model/services/auth_service.dart';
 //Storing new user data
 storeNewUser(_name, _phone, _email) async {
   final db = Firestore.instance;
-  final uid = await AuthService().getCurrentUID();
+  // final uid = await AuthService().getCurrentUID();
   final uEmail = await AuthService().getCurrentEmail();
 
   var userUpdateInfo = new UserUpdateInfo();
@@ -18,7 +18,7 @@ storeNewUser(_name, _phone, _email) async {
       .collection("userData")
       .document(uEmail)
       .collection("profile")
-      .document(uid)
+      .document(uEmail)
       .setData({
     'name': _name,
     'phone': _phone,
