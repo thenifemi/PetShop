@@ -127,7 +127,7 @@ removeItemFromCart(cartItem) async {
   await db
       .collection("userCart")
       .document(uEmail)
-      .collection("cartItem")
+      .collection("cartItems")
       .document(cartItem.productID)
       .delete();
 }
