@@ -9,7 +9,7 @@ import 'package:mollet/model/services/Product_service.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:provider/provider.dart';
 
-import 'checkout_screens/address.dart';
+import 'checkout_screens/completeOrder.dart';
 
 class Cart1 extends StatefulWidget {
   Cart1({Key key}) : super(key: key);
