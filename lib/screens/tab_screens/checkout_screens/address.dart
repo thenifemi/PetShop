@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mollet/model/services/auth_service.dart';
 import 'package:mollet/screens/tab_screens/checkout_screens/addNewAddress.dart';
 import 'package:mollet/utils/colors.dart';
 

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mollet/model/services/user_management.dart';
@@ -20,6 +21,40 @@ class _AddNewAddressState extends State<AddNewAddress> {
   String _state;
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final formKey = GlobalKey<FormState>();
+
+  // void showSaveAddressDialog() async {
+  //   await showCupertinoDialog(
+  //       context: context,
+  //       builder: (context) {
+  //         return CupertinoAlertDialog(
+  //           content: Text(
+  //             "Sure you want to save this address?",
+  //             style: GoogleFonts.montserrat(),
+  //           ),
+  //           actions: <Widget>[
+  //             CupertinoDialogAction(
+  //               onPressed: () async {
+  //                 Navigator.of(context).pop();
+  //               },
+  //               child: Text(
+  //                 "Cancel",
+  //                 style: GoogleFonts.montserrat(
+  //                   color: Colors.redAccent,
+  //                 ),
+  //               ),
+  //             ),
+  //             CupertinoDialogAction(
+  //               onPressed: () {},
+  //               isDefaultAction: true,
+  //               child: Text(
+  //                 "Yes",
+  //                 style: GoogleFonts.montserrat(),
+  //               ),
+  //             ),
+  //           ],
+  //         );
+  //       });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -447,11 +482,7 @@ class _AddNewAddressState extends State<AddNewAddress> {
                         _zipcode,
                         _state,
                       );
-                      Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(
-                          builder: (context) => AddressScreen(),
-                        ),
-                      );
+                      Navigator.pop(context, true);
                     },
                     child: Center(
                       child: Text(

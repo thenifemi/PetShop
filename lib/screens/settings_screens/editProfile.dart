@@ -46,7 +46,6 @@ class _EditProfileState extends State<EditProfile> {
       setState(() {
         _error = e.message;
       });
-
       print(e);
     }
   }
