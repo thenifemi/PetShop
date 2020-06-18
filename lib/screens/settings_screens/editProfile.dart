@@ -4,10 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:mollet/model/data/userData.dart';
 import 'package:mollet/model/services/auth_service.dart';
 import 'package:mollet/model/services/user_management.dart';
-import 'package:mollet/screens/tab_screens/settings.dart';
 import 'package:mollet/utils/colors.dart';
-
-import '../../main.dart';
 
 class EditProfile extends StatefulWidget {
   UserDataProfile user;
@@ -104,8 +101,8 @@ class _EditProfileState extends State<EditProfile> {
             color: MColors.textDark,
           ),
           onPressed: () {
-           Navigator.of(context).pop();
-       },
+            Navigator.of(context).pop();
+          },
         ),
         title: Text(
           "Profile",
