@@ -231,4 +231,86 @@ class _AddressContainerState extends State<AddressContainer> {
       ),
     );
   }
+
+  Widget noSavedAddress() {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 20.0),
+      color: MColors.primaryWhiteSmoke,
+      height: double.infinity,
+      child: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
+        child: Column(
+          children: <Widget>[
+            Container(
+              height: MediaQuery.of(context).size.height / 3,
+              width: MediaQuery.of(context).size.width,
+              margin: EdgeInsets.symmetric(vertical: 10.0),
+              padding: EdgeInsets.all(15.0),
+              decoration: BoxDecoration(
+                color: MColors.primaryWhite,
+                borderRadius: BorderRadius.all(
+                  Radius.circular(10.0),
+                ),
+              ),
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    padding: const EdgeInsets.only(bottom: 10.0),
+                    child: Center(
+                      child: Text(
+                        "No saved address",
+                        style: GoogleFonts.montserrat(
+                          fontSize: 16.0,
+                          color: MColors.textGrey,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    child: SvgPicture.asset(
+                      "assets/images/address.svg",
+                      height: MediaQuery.of(context).size.height / 5,
+                    ),
+                  ),
+                  Spacer(),
+                  Container(
+                    height: 50.0,
+                    width: MediaQuery.of(context).size.height / 2.8,
+                    decoration: BoxDecoration(
+                      color: MColors.dashPurple,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10.0),
+                      ),
+                    ),
+                    child: RawMaterialButton(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => AddNewAddress(),
+                          ),
+                        );
+                      },
+                      child: Center(
+                        child: Text(
+                          "Add a new address",
+                          style: GoogleFonts.montserrat(
+                            fontSize: 16.0,
+                            color: MColors.textGrey,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }
