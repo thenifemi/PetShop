@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mollet/model/data/userData.dart';
 import 'package:mollet/model/notifiers/userData_notifier.dart';
 import 'package:mollet/model/services/auth_service.dart';
 import 'package:mollet/model/services/user_management.dart';
@@ -292,7 +291,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                         horizontal: 25.0),
                                     fillColor: MColors.primaryWhite,
                                     filled: true,
-                                    hasFloatingPlaceholder: false,
+                                    floatingLabelBehavior:
+                                        FloatingLabelBehavior.never,
                                     enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(8.0),
                                       borderSide: BorderSide(
@@ -354,7 +354,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                     contentPadding: new EdgeInsets.symmetric(
                                         horizontal: 25.0),
                                     fillColor: MColors.primaryWhite,
-                                    hasFloatingPlaceholder: false,
+                                    floatingLabelBehavior:
+                                        FloatingLabelBehavior.never,
                                     filled: true,
                                     enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(8.0),
@@ -427,7 +428,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                     contentPadding: new EdgeInsets.symmetric(
                                         horizontal: 25.0),
                                     fillColor: MColors.primaryWhite,
-                                    hasFloatingPlaceholder: false,
+                                    floatingLabelBehavior:
+                                        FloatingLabelBehavior.never,
                                     filled: true,
                                     enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(8.0),
@@ -501,7 +503,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                     contentPadding: new EdgeInsets.symmetric(
                                         horizontal: 25.0),
                                     fillColor: MColors.primaryWhite,
-                                    hasFloatingPlaceholder: false,
+                                    floatingLabelBehavior:
+                                        FloatingLabelBehavior.never,
                                     filled: true,
                                     enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(8.0),
