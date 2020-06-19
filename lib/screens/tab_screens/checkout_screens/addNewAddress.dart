@@ -6,8 +6,8 @@ import 'package:mollet/model/services/user_management.dart';
 import 'package:mollet/utils/colors.dart';
 
 class AddNewAddress extends StatefulWidget {
-  UserDataAddress address;
-  List<UserDataAddress> addressList;
+  final UserDataAddress address;
+  final List<UserDataAddress> addressList;
 
   AddNewAddress(this.address, this.addressList);
 
@@ -85,7 +85,7 @@ class _AddNewAddressState extends State<AddNewAddress> {
                           contentPadding:
                               new EdgeInsets.symmetric(horizontal: 25.0),
                           fillColor: MColors.primaryWhite,
-                          hasFloatingPlaceholder: false,
+                          floatingLabelBehavior: FloatingLabelBehavior.never,
                           filled: true,
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8.0),
@@ -146,7 +146,7 @@ class _AddNewAddressState extends State<AddNewAddress> {
                           contentPadding:
                               new EdgeInsets.symmetric(horizontal: 25.0),
                           fillColor: MColors.primaryWhite,
-                          hasFloatingPlaceholder: false,
+                          floatingLabelBehavior: FloatingLabelBehavior.never,
                           filled: true,
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8.0),
@@ -207,7 +207,7 @@ class _AddNewAddressState extends State<AddNewAddress> {
                           contentPadding:
                               EdgeInsets.symmetric(horizontal: 25.0),
                           fillColor: MColors.primaryWhite,
-                          hasFloatingPlaceholder: false,
+                          floatingLabelBehavior: FloatingLabelBehavior.never,
                           filled: true,
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8.0),
@@ -273,7 +273,8 @@ class _AddNewAddressState extends State<AddNewAddress> {
                                 contentPadding:
                                     EdgeInsets.symmetric(horizontal: 25.0),
                                 fillColor: MColors.primaryWhite,
-                                hasFloatingPlaceholder: false,
+                                floatingLabelBehavior:
+                                    FloatingLabelBehavior.never,
                                 filled: true,
                                 enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(8.0),
@@ -339,7 +340,8 @@ class _AddNewAddressState extends State<AddNewAddress> {
                                   contentPadding:
                                       EdgeInsets.symmetric(horizontal: 25.0),
                                   fillColor: MColors.primaryWhite,
-                                  hasFloatingPlaceholder: false,
+                                  floatingLabelBehavior:
+                                      FloatingLabelBehavior.never,
                                   filled: true,
                                   enabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(8.0),
