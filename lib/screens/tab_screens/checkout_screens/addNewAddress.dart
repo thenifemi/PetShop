@@ -1,17 +1,22 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mollet/model/data/userData.dart';
 import 'package:mollet/model/services/user_management.dart';
 import 'package:mollet/utils/colors.dart';
 
 class AddNewAddress extends StatefulWidget {
-  AddNewAddress({Key key}) : super(key: key);
+  UserDataAddress address;
+  AddNewAddress(this.address);
 
   @override
-  _AddNewAddressState createState() => _AddNewAddressState();
+  _AddNewAddressState createState() => _AddNewAddressState(address);
 }
 
 class _AddNewAddressState extends State<AddNewAddress> {
+  UserDataAddress address;
+  _AddNewAddressState(this.address);
+
   String _fullLegalName;
   String _addressLine1;
   String _addressLine2;
@@ -102,6 +107,7 @@ class _AddNewAddressState extends State<AddNewAddress> {
                     Padding(
                       padding: const EdgeInsets.only(bottom: 10.0),
                       child: TextFormField(
+                        initialValue: address.fullLegalName,
                         onSaved: (val) => _fullLegalName = val,
                         decoration: InputDecoration(
                           labelText: "",
@@ -161,6 +167,7 @@ class _AddNewAddressState extends State<AddNewAddress> {
                     Padding(
                       padding: const EdgeInsets.only(bottom: 10.0),
                       child: TextFormField(
+                        initialValue: address.addressLine1,
                         onSaved: (val) => _addressLine1 = val,
                         decoration: InputDecoration(
                           labelText: "",
@@ -220,6 +227,7 @@ class _AddNewAddressState extends State<AddNewAddress> {
                     Padding(
                       padding: const EdgeInsets.only(bottom: 10.0),
                       child: TextFormField(
+                        initialValue: address.addressLine2,
                         onSaved: (val) => _addressLine2 = val,
                         decoration: InputDecoration(
                           labelText: "",
@@ -284,6 +292,7 @@ class _AddNewAddressState extends State<AddNewAddress> {
                           Padding(
                             padding: const EdgeInsets.only(bottom: 10.0),
                             child: TextFormField(
+                              initialValue: address.city,
                               onSaved: (val) => _city = val,
                               decoration: InputDecoration(
                                 labelText: "",
@@ -347,6 +356,7 @@ class _AddNewAddressState extends State<AddNewAddress> {
                             Padding(
                               padding: const EdgeInsets.only(bottom: 10.0),
                               child: TextFormField(
+                                initialValue: address.zipcode,
                                 onSaved: (val) => _zipcode = val,
                                 keyboardType: TextInputType.numberWithOptions(),
                                 decoration: InputDecoration(
@@ -411,13 +421,14 @@ class _AddNewAddressState extends State<AddNewAddress> {
                     Padding(
                       padding: const EdgeInsets.only(bottom: 10.0),
                       child: TextFormField(
+                        initialValue: address.state,
                         onSaved: (val) => _state = val,
                         decoration: InputDecoration(
                           labelText: "",
                           contentPadding:
                               EdgeInsets.symmetric(horizontal: 25.0),
                           fillColor: MColors.primaryWhite,
-                          hasFloatingPlaceholder: false,
+                          floatingLabelBehavior: FloatingLabelBehavior.never,
                           filled: true,
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8.0),

@@ -35,6 +35,31 @@ class _AddressContainerState extends State<AddressContainer> {
     super.initState();
   }
 
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  void _showAddressHasUpdated() {
+    _scaffoldKey.currentState.showSnackBar(
+      SnackBar(
+        behavior: SnackBarBehavior.floating,
+        duration: Duration(milliseconds: 1300),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        content: Row(
+          children: <Widget>[
+            Expanded(
+              child: Text("Your address has been added"),
+            ),
+            Icon(
+              Icons.check_circle_outline,
+              color: Colors.greenAccent,
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     UserDataAddressNotifier addressNotifier =
@@ -43,6 +68,7 @@ class _AddressContainerState extends State<AddressContainer> {
     // var address = addressList.first;
 
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         elevation: 0.0,
         brightness: Brightness.light,
@@ -193,13 +219,14 @@ class _AddressContainerState extends State<AddressContainer> {
                             var navigationResult =
                                 await Navigator.of(context).push(
                               MaterialPageRoute(
-                                builder: (context) => AddNewAddress(),
+                                builder: (context) => AddNewAddress(address),
                               ),
                             );
                             if (navigationResult == true) {
                               setState(() {
                                 getAddress(addressNotifier);
                               });
+                              _showAddressHasUpdated();
                             }
                           },
                           child: Text(
@@ -320,7 +347,7 @@ class _AddressContainerState extends State<AddressContainer> {
                                 listen: false);
                         var navigationResult = await Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (context) => AddNewAddress(),
+                            builder: (context) => AddNewAddress(null),
                           ),
                         );
                         if (navigationResult == true) {

@@ -171,8 +171,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             setState(() {
                               getProfile(profileNotifier);
                             });
+                            _showProfileHasUpdated();
                           }
-                          _showProfileHasUpdated();
                         },
                         child: Container(
                           padding: EdgeInsets.all(10.0),
