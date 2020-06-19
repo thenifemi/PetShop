@@ -37,4 +37,4 @@ Feature requests, issues and pull requests are welcome.
 
 ## Credits
 
-Wilberforce Uwadiegwu: Mobile Developer ([github]) (https://github.com/wilburt)
+Wilberforce Uwadiegwu: Mobile Developer [( github )](https://github.com/wilburt)
