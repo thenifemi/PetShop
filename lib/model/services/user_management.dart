@@ -7,7 +7,6 @@ import 'package:mollet/model/services/auth_service.dart';
 //Storing new user data
 storeNewUser(_name, _phone, _email) async {
   final db = Firestore.instance;
-  // final uid = await AuthService().getCurrentUID();
   final uEmail = await AuthService().getCurrentEmail();
 
   var userUpdateInfo = new UserUpdateInfo();
@@ -30,7 +29,6 @@ storeNewUser(_name, _phone, _email) async {
 
 //Getting User profile
 getProfile(UserDataProfileNotifier profileNotifier) async {
-  // final uid = await AuthService().getCurrentUID();
   final uEmail = await AuthService().getCurrentEmail();
 
   QuerySnapshot snapshot = await Firestore.instance
@@ -53,7 +51,6 @@ getProfile(UserDataProfileNotifier profileNotifier) async {
 //Updating User profile
 updateProfile(_name, _phone) async {
   final db = Firestore.instance;
-  // final uid = await AuthService().getCurrentUID();
   final uEmail = await AuthService().getCurrentEmail();
 
   CollectionReference profileRef =
@@ -73,7 +70,6 @@ storeNewAddress(
   state,
 ) async {
   final db = Firestore.instance;
-  // final uid = await AuthService().getCurrentUID();
   final uEmail = await AuthService().getCurrentEmail();
 
   await db
@@ -124,7 +120,6 @@ updateAddress(
   state,
 ) async {
   final db = Firestore.instance;
-  // final uid = await AuthService().getCurrentUID();
   final uEmail = await AuthService().getCurrentEmail();
   CollectionReference addressRef =
       db.collection("userData").document(uEmail).collection("address");

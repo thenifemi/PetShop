@@ -13,8 +13,8 @@ import 'package:mollet/widgets/starRatings.dart';
 import 'package:provider/provider.dart';
 
 class ProductDetailsProv extends StatelessWidget {
-  ProdProducts prodDetails;
-  UnmodifiableListView<ProdProducts> prods;
+  final ProdProducts prodDetails;
+  final UnmodifiableListView<ProdProducts> prods;
   ProductDetailsProv(this.prodDetails, this.prods);
 
   @override
@@ -27,8 +27,8 @@ class ProductDetailsProv extends StatelessWidget {
 }
 
 class ProductDetails extends StatefulWidget {
-  ProdProducts prodDetails;
-  UnmodifiableListView<ProdProducts> prods;
+  final ProdProducts prodDetails;
+  final UnmodifiableListView<ProdProducts> prods;
   ProductDetails(this.prodDetails, this.prods);
 
   @override

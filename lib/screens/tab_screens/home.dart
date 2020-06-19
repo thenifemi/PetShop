@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -9,11 +8,9 @@ import 'package:mollet/model/data/Products.dart';
 import 'package:mollet/model/notifiers/brands_notifier.dart';
 import 'package:mollet/model/notifiers/cart_notifier.dart';
 import 'package:mollet/model/notifiers/products_notifier.dart';
-import 'package:mollet/model/services/auth_service.dart';
 import 'package:mollet/model/services/user_management.dart';
 import 'package:mollet/screens/tab_screens/homeScreen_pages/productDetailsScreen.dart';
 import 'package:mollet/utils/colors.dart';
-import 'package:mollet/widgets/provider.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -116,7 +113,7 @@ class _HomeScreenState extends State<HomeScreen>
                       contentPadding:
                           new EdgeInsets.symmetric(horizontal: 25.0),
                       fillColor: MColors.primaryWhite,
-                      hasFloatingPlaceholder: false,
+                      floatingLabelBehavior: FloatingLabelBehavior.never,
                       filled: true,
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8.0),
