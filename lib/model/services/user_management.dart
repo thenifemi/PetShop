@@ -93,6 +93,27 @@ storeNewAddress(
   });
 }
 
+//get users address
+getAddress(UserDataAddressNotifier addressNotifier) async {
+  final uEmail = await AuthService().getCurrentEmail();
+
+  QuerySnapshot snapshot = await Firestore.instance
+      .collection("userData")
+      .document(uEmail)
+      .collection("address")
+      .getDocuments();
+
+  List<UserDataAddress> _userDataAddressList = [];
+
+  snapshot.documents.forEach((document) {
+    print(document.data);
+    UserDataAddress userDataAddress = UserDataAddress.fromMap(document.data);
+    _userDataAddressList.add(userDataAddress);
+  });
+
+  addressNotifier.userDataAddressList = _userDataAddressList;
+}
+
 //Updating new address
 updateAddress(
   fullLegalName,

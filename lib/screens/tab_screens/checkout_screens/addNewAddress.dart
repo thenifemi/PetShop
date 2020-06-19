@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mollet/model/services/user_management.dart';
-import 'package:mollet/screens/tab_screens/checkout_screens/completeOrder.dart';
 import 'package:mollet/utils/colors.dart';
 
 class AddNewAddress extends StatefulWidget {
