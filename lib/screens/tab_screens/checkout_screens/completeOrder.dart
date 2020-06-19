@@ -291,7 +291,7 @@ class _AddressContainerState extends State<AddressContainer> {
     UserDataAddressNotifier addressNotifier =
         Provider.of<UserDataAddressNotifier>(context);
     var addressList = addressNotifier.userDataAddressList;
-    var address = addressList.first;
+    // var address = addressList.length;
 
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20.0),
@@ -354,7 +354,7 @@ class _AddressContainerState extends State<AddressContainer> {
                         var navigationResult = await Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (context) =>
-                                AddNewAddress(address, addressList),
+                                AddNewAddress(null, addressList),
                           ),
                         );
                         if (navigationResult == true) {

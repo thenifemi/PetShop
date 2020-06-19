@@ -126,20 +126,16 @@ updateAddress(
   final db = Firestore.instance;
   // final uid = await AuthService().getCurrentUID();
   final uEmail = await AuthService().getCurrentEmail();
-
-  await db
-      .collection("userData")
-      .document(uEmail)
-      .collection("address")
-      .document(zip)
-      .updateData({
-    'fullLegalName': fullLegalName,
-    'addressLine1': addressLine1,
-    'addressLine2': addressLine2,
-    'city': city,
-    'zipcode': zip,
-    'state': state,
-  }).catchError((e) {
-    print(e);
-  });
+  CollectionReference addressRef =
+      db.collection("userData").document(uEmail).collection("address");
+  await addressRef.document(uEmail).updateData(
+    {
+      'fullLegalName': fullLegalName,
+      'addressLine1': addressLine1,
+      'addressLine2': addressLine2,
+      'city': city,
+      'zipcode': zip,
+      'state': state,
+    },
+  );
 }
