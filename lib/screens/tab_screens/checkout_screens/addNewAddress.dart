@@ -7,15 +7,19 @@ import 'package:mollet/utils/colors.dart';
 
 class AddNewAddress extends StatefulWidget {
   UserDataAddress address;
-  AddNewAddress(this.address);
+  List<UserDataAddress> addressList;
+
+  AddNewAddress(this.address, this.addressList);
 
   @override
-  _AddNewAddressState createState() => _AddNewAddressState(address);
+  _AddNewAddressState createState() =>
+      _AddNewAddressState(address, addressList);
 }
 
 class _AddNewAddressState extends State<AddNewAddress> {
   UserDataAddress address;
-  _AddNewAddressState(this.address);
+  List<UserDataAddress> addressList;
+  _AddNewAddressState(this.address, this.addressList);
 
   String _fullLegalName;
   String _addressLine1;
@@ -25,40 +29,6 @@ class _AddNewAddressState extends State<AddNewAddress> {
   String _state;
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final formKey = GlobalKey<FormState>();
-
-  // void showSaveAddressDialog() async {
-  //   await showCupertinoDialog(
-  //       context: context,
-  //       builder: (context) {
-  //         return CupertinoAlertDialog(
-  //           content: Text(
-  //             "Sure you want to save this address?",
-  //             style: GoogleFonts.montserrat(),
-  //           ),
-  //           actions: <Widget>[
-  //             CupertinoDialogAction(
-  //               onPressed: () async {
-  //                 Navigator.of(context).pop();
-  //               },
-  //               child: Text(
-  //                 "Cancel",
-  //                 style: GoogleFonts.montserrat(
-  //                   color: Colors.redAccent,
-  //                 ),
-  //               ),
-  //             ),
-  //             CupertinoDialogAction(
-  //               onPressed: () {},
-  //               isDefaultAction: true,
-  //               child: Text(
-  //                 "Yes",
-  //                 style: GoogleFonts.montserrat(),
-  //               ),
-  //             ),
-  //           ],
-  //         );
-  //       });
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -107,7 +77,8 @@ class _AddNewAddressState extends State<AddNewAddress> {
                     Padding(
                       padding: const EdgeInsets.only(bottom: 10.0),
                       child: TextFormField(
-                        initialValue: address.fullLegalName,
+                        initialValue:
+                            addressList.isEmpty ? "" : address.fullLegalName,
                         onSaved: (val) => _fullLegalName = val,
                         decoration: InputDecoration(
                           labelText: "",
@@ -167,7 +138,8 @@ class _AddNewAddressState extends State<AddNewAddress> {
                     Padding(
                       padding: const EdgeInsets.only(bottom: 10.0),
                       child: TextFormField(
-                        initialValue: address.addressLine1,
+                        initialValue:
+                            addressList.isEmpty ? "" : address.addressLine1,
                         onSaved: (val) => _addressLine1 = val,
                         decoration: InputDecoration(
                           labelText: "",
@@ -227,7 +199,8 @@ class _AddNewAddressState extends State<AddNewAddress> {
                     Padding(
                       padding: const EdgeInsets.only(bottom: 10.0),
                       child: TextFormField(
-                        initialValue: address.addressLine2,
+                        initialValue:
+                            addressList.isEmpty ? "" : address.addressLine2,
                         onSaved: (val) => _addressLine2 = val,
                         decoration: InputDecoration(
                           labelText: "",
@@ -292,7 +265,8 @@ class _AddNewAddressState extends State<AddNewAddress> {
                           Padding(
                             padding: const EdgeInsets.only(bottom: 10.0),
                             child: TextFormField(
-                              initialValue: address.city,
+                              initialValue:
+                                  addressList.isEmpty ? "" : address.city,
                               onSaved: (val) => _city = val,
                               decoration: InputDecoration(
                                 labelText: "",
@@ -356,7 +330,8 @@ class _AddNewAddressState extends State<AddNewAddress> {
                             Padding(
                               padding: const EdgeInsets.only(bottom: 10.0),
                               child: TextFormField(
-                                initialValue: address.zipcode,
+                                initialValue:
+                                    addressList.isEmpty ? "" : address.zipcode,
                                 onSaved: (val) => _zipcode = val,
                                 keyboardType: TextInputType.numberWithOptions(),
                                 decoration: InputDecoration(
@@ -421,7 +396,7 @@ class _AddNewAddressState extends State<AddNewAddress> {
                     Padding(
                       padding: const EdgeInsets.only(bottom: 10.0),
                       child: TextFormField(
-                        initialValue: address.state,
+                        initialValue: addressList.isEmpty ? "" : address.state,
                         onSaved: (val) => _state = val,
                         decoration: InputDecoration(
                           labelText: "",
@@ -484,14 +459,23 @@ class _AddNewAddressState extends State<AddNewAddress> {
                     onPressed: () {
                       final form = formKey.currentState;
                       form.save();
-                      storeNewAddress(
-                        _fullLegalName,
-                        _addressLine1,
-                        _addressLine2,
-                        _city,
-                        _zipcode,
-                        _state,
-                      );
+                      addressList.isEmpty
+                          ? storeNewAddress(
+                              _fullLegalName,
+                              _addressLine1,
+                              _addressLine2,
+                              _city,
+                              _zipcode,
+                              _state,
+                            )
+                          : updateAddress(
+                              _fullLegalName,
+                              _addressLine1,
+                              _addressLine2,
+                              _city,
+                              _zipcode,
+                              _state,
+                            );
                       Navigator.pop(context, true);
                     },
                     child: Center(

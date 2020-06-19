@@ -219,7 +219,8 @@ class _AddressContainerState extends State<AddressContainer> {
                             var navigationResult =
                                 await Navigator.of(context).push(
                               MaterialPageRoute(
-                                builder: (context) => AddNewAddress(address),
+                                builder: (context) =>
+                                    AddNewAddress(address, addressList),
                               ),
                             );
                             if (navigationResult == true) {
@@ -287,6 +288,11 @@ class _AddressContainerState extends State<AddressContainer> {
   }
 
   Widget noSavedAddress() {
+    UserDataAddressNotifier addressNotifier =
+        Provider.of<UserDataAddressNotifier>(context);
+    var addressList = addressNotifier.userDataAddressList;
+    var address = addressList.first;
+
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20.0),
       color: MColors.primaryWhiteSmoke,
@@ -347,7 +353,8 @@ class _AddressContainerState extends State<AddressContainer> {
                                 listen: false);
                         var navigationResult = await Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (context) => AddNewAddress(null),
+                            builder: (context) =>
+                                AddNewAddress(address, addressList),
                           ),
                         );
                         if (navigationResult == true) {

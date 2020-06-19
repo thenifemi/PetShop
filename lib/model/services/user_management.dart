@@ -80,7 +80,7 @@ storeNewAddress(
       .collection("userData")
       .document(uEmail)
       .collection("address")
-      .document(zip)
+      .document(uEmail)
       .setData({
     'fullLegalName': fullLegalName,
     'addressLine1': addressLine1,
