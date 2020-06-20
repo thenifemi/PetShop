@@ -7,9 +7,8 @@ import 'package:mollet/screens/tab_screens/homeScreen_pages/productDetailsScreen
 import 'package:mollet/utils/colors.dart';
 
 class SimilarProductsWidget extends StatefulWidget {
-  ProdProducts prodDetails;
-
-  UnmodifiableListView<ProdProducts> prods;
+  final ProdProducts prodDetails;
+  final UnmodifiableListView<ProdProducts> prods;
 
   SimilarProductsWidget({Key key, this.prods, this.prodDetails})
       : super(key: key);
@@ -31,7 +30,7 @@ class _SimilarProductsWidgetState extends State<SimilarProductsWidget> {
 
     var size = MediaQuery.of(context).size;
     /*24 is for notification bar on Android*/
-    final double itemHeight = (size.height ) / 2.7;
+    final double itemHeight = (size.height) / 2.7;
     final double itemWidth = size.width / 2;
 
     return Container(
