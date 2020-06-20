@@ -397,6 +397,7 @@ class _AddressContainerState extends State<AddressContainer> {
     var total = totalList.isEmpty
         ? 0.0
         : totalList.reduce((sum, element) => sum + element).toStringAsFixed(2);
+
     return Container(
       height: MediaQuery.of(context).size.height / 3.4,
       width: MediaQuery.of(context).size.width,
