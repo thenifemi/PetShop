@@ -393,6 +393,10 @@ class _AddressContainerState extends State<AddressContainer> {
   }
 
   Widget cartSummary(cartList) {
+    var totalList = cartList.map((e) => e.totalPrice);
+    var total = totalList.isEmpty
+        ? 0.0
+        : totalList.reduce((sum, element) => sum + element).toStringAsFixed(2);
     return Container(
       height: MediaQuery.of(context).size.height / 2.6,
       width: MediaQuery.of(context).size.width,
@@ -484,6 +488,30 @@ class _AddressContainerState extends State<AddressContainer> {
                   ),
                 );
               },
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.only(left: 25, top: 5.0),
+            child: Row(
+              children: <Widget>[
+                Text(
+                  "Total",
+                  style: GoogleFonts.montserrat(
+                    fontSize: 16.0,
+                    color: MColors.primaryPurple,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                Spacer(),
+                Text(
+                  total,
+                  style: GoogleFonts.montserrat(
+                    fontSize: 16.0,
+                    color: MColors.primaryPurple,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ],
             ),
           ),
         ],
