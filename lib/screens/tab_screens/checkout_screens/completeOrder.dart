@@ -470,6 +470,9 @@ class _AddressContainerState extends State<AddressContainer> {
                         width: MediaQuery.of(context).size.width / 1.6,
                         child: Text(
                           cartItem.name,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          softWrap: true,
                           style: GoogleFonts.montserrat(
                             fontSize: 15.0,
                             color: MColors.textGrey,
