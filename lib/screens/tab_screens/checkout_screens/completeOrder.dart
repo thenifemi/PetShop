@@ -439,7 +439,7 @@ class _AddressContainerState extends State<AddressContainer> {
                 height: 14.0,
                 child: RawMaterialButton(
                   onPressed: () {
-                    _showModalSheet(cartList);
+                    _showModalSheet(cartList, total);
                   },
                   child: Text(
                     "See all",
@@ -466,7 +466,7 @@ class _AddressContainerState extends State<AddressContainer> {
                   child: Row(
                     children: <Widget>[
                       Container(
-                        width: MediaQuery.of(context).size.width / 1.6,
+                        width: MediaQuery.of(context).size.width / 1.8,
                         child: Text(
                           cartItem.name,
                           maxLines: 1,
@@ -480,11 +480,13 @@ class _AddressContainerState extends State<AddressContainer> {
                       ),
                       Spacer(),
                       Container(
-                        child: Text(cartItem.totalPrice.toStringAsFixed(2),
-                            style: GoogleFonts.montserrat(
-                              fontSize: 16.0,
-                              fontWeight: FontWeight.w600,
-                            )),
+                        child: Text(
+                          "\$" + cartItem.totalPrice.toStringAsFixed(2),
+                          style: GoogleFonts.montserrat(
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -506,7 +508,7 @@ class _AddressContainerState extends State<AddressContainer> {
                 ),
                 Spacer(),
                 Text(
-                  total,
+                  "\$" + total,
                   style: GoogleFonts.montserrat(
                     fontSize: 16.0,
                     color: MColors.primaryPurple,
@@ -521,13 +523,134 @@ class _AddressContainerState extends State<AddressContainer> {
     );
   }
 
-  void _showModalSheet(cartList) {
+  void _showModalSheet(cartList, total) {
     showModalBottomSheet(
       context: context,
       builder: (builder) {
         return Container(
-          height: MediaQuery.of(context).size.height / 1.5,
-          color: Colors.blue,
+          padding: EdgeInsets.all(20.0),
+          height: MediaQuery.of(context).size.height,
+          color: MColors.primaryWhiteSmoke,
+          child: SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
+            child: Column(
+              children: <Widget>[
+                Row(
+                  children: <Widget>[
+                    Container(
+                      child: Text(
+                        "Bag summary",
+                        style: GoogleFonts.montserrat(
+                            fontSize: 18.0,
+                            color: MColors.textDark,
+                            fontWeight: FontWeight.w500),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 5.0,
+                    ),
+                    Container(
+                      child: SvgPicture.asset(
+                        "assets/images/icons/Bag.svg",
+                        color: MColors.primaryPurple,
+                      ),
+                    ),
+                    Spacer(),
+                    Text(
+                      "\$" + total,
+                      style: GoogleFonts.montserrat(
+                        fontSize: 18.0,
+                        color: MColors.primaryPurple,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 10.0,
+                ),
+                Container(
+                  child: ListView.builder(
+                    itemCount: cartList.length,
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemBuilder: (context, i) {
+                      var cartItem = cartList[i];
+
+                      return Container(
+                        decoration: BoxDecoration(
+                          color: MColors.primaryWhite,
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(10.0),
+                          ),
+                        ),
+                        margin: EdgeInsets.symmetric(vertical: 4.0),
+                        padding: EdgeInsets.all(7.0),
+                        child: Row(
+                          children: <Widget>[
+                            Container(
+                              width: 30.0,
+                              height: 40.0,
+                              child: FadeInImage.assetNetwork(
+                                image: cartItem.productImage,
+                                fit: BoxFit.fill,
+                                height: MediaQuery.of(context).size.height,
+                                placeholder: "assets/images/placeholder.jpg",
+                                placeholderScale:
+                                    MediaQuery.of(context).size.height / 2,
+                              ),
+                            ),
+                            SizedBox(
+                              width: 5.0,
+                            ),
+                            Container(
+                              width: MediaQuery.of(context).size.width / 1.8,
+                              child: Text(
+                                cartItem.name,
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                softWrap: true,
+                                style: GoogleFonts.montserrat(
+                                  fontSize: 15.0,
+                                  color: MColors.textGrey,
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 5.0,
+                            ),
+                            Container(
+                              padding: const EdgeInsets.all(3.0),
+                              decoration: BoxDecoration(
+                                color: MColors.dashPurple,
+                                borderRadius: new BorderRadius.circular(10.0),
+                              ),
+                              child: Text(
+                                "X${cartItem.quantity}",
+                                style: GoogleFonts.montserrat(
+                                    fontSize: 14.0, color: MColors.textGrey),
+                                textAlign: TextAlign.left,
+                              ),
+                            ),
+                            Spacer(),
+                            Container(
+                              child: Text(
+                                "\$" + cartItem.totalPrice.toStringAsFixed(2),
+                                style: GoogleFonts.montserrat(
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
         );
       },
     );
