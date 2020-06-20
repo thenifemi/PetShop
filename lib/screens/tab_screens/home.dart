@@ -5,7 +5,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:mollet/model/notifiers/userData_notifier.dart';
 import 'package:mollet/model/services/Product_service.dart';
 import 'package:mollet/model/data/Products.dart';
-import 'package:mollet/model/notifiers/brands_notifier.dart';
 import 'package:mollet/model/notifiers/cart_notifier.dart';
 import 'package:mollet/model/notifiers/products_notifier.dart';
 import 'package:mollet/model/services/user_management.dart';
