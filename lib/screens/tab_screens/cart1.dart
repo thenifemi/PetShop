@@ -424,7 +424,7 @@ class _Cart1State extends State<Cart1> {
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => AddressScreen(),
+                  builder: (context) => AddressScreen(cartList),
                 ),
               );
             },

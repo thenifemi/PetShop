@@ -455,7 +455,7 @@ class _Cart2State extends State<Cart2> {
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => AddressScreen(),
+                  builder: (context) => AddressScreen(cartList),
                 ),
               );
             },
