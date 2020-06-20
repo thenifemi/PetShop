@@ -245,7 +245,7 @@ class _AddressContainerState extends State<AddressContainer> {
               ),
               Container(
                 width: 50.0,
-                height: 14.0,
+                height: 25.0,
                 child: RawMaterialButton(
                   onPressed: () async {
                     UserDataAddressNotifier addressNotifier =
@@ -436,7 +436,7 @@ class _AddressContainerState extends State<AddressContainer> {
               ),
               Container(
                 width: 50.0,
-                height: 14.0,
+                height: 25.0,
                 child: RawMaterialButton(
                   onPressed: () {
                     _showModalSheet(cartList, total);
