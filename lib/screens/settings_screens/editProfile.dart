@@ -7,7 +7,7 @@ import 'package:mollet/model/services/user_management.dart';
 import 'package:mollet/utils/colors.dart';
 
 class EditProfile extends StatefulWidget {
-  UserDataProfile user;
+  final UserDataProfile user;
   EditProfile(this.user);
 
   // EditProfile({Key key, this.user}) : super(key: key);
@@ -245,7 +245,8 @@ class _EditProfileState extends State<EditProfile> {
                                               new EdgeInsets.symmetric(
                                                   horizontal: 25.0),
                                           fillColor: MColors.primaryWhite,
-                                          hasFloatingPlaceholder: false,
+                                          floatingLabelBehavior:
+                                              FloatingLabelBehavior.never,
                                           filled: true,
                                           enabledBorder: OutlineInputBorder(
                                             borderRadius:
@@ -328,7 +329,8 @@ class _EditProfileState extends State<EditProfile> {
                                       contentPadding: new EdgeInsets.symmetric(
                                           horizontal: 25.0),
                                       fillColor: MColors.primaryWhite,
-                                      hasFloatingPlaceholder: false,
+                                      floatingLabelBehavior:
+                                          FloatingLabelBehavior.never,
                                       filled: true,
                                       enabledBorder: OutlineInputBorder(
                                         borderRadius:
