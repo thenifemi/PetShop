@@ -34,9 +34,9 @@ class _HomeScreenState extends State<HomeScreen>
         Provider.of<CartNotifier>(context, listen: false);
     getCart(cartNotifier);
 
-    BrandsNotifier brandsNotifier =
-        Provider.of<BrandsNotifier>(context, listen: false);
-    getBrands(brandsNotifier);
+    // BrandsNotifier brandsNotifier =
+    //     Provider.of<BrandsNotifier>(context, listen: false);
+    // getBrands(brandsNotifier);
 
     UserDataProfileNotifier profileNotifier =
         Provider.of<UserDataProfileNotifier>(context, listen: false);

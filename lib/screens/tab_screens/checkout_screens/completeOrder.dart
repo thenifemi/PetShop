@@ -333,6 +333,7 @@ class _AddressContainerState extends State<AddressContainer> {
         ),
       ),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Container(
             padding: const EdgeInsets.only(bottom: 10.0),
@@ -409,6 +410,7 @@ class _AddressContainerState extends State<AddressContainer> {
         ),
       ),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Row(
             children: <Widget>[
@@ -436,7 +438,9 @@ class _AddressContainerState extends State<AddressContainer> {
                 width: 50.0,
                 height: 14.0,
                 child: RawMaterialButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    _showModalSheet(cartList);
+                  },
                   child: Text(
                     "See all",
                     style: GoogleFonts.montserrat(
@@ -514,6 +518,18 @@ class _AddressContainerState extends State<AddressContainer> {
           ),
         ],
       ),
+    );
+  }
+
+  void _showModalSheet(cartList) {
+    showModalBottomSheet(
+      context: context,
+      builder: (builder) {
+        return Container(
+          height: MediaQuery.of(context).size.height / 1.5,
+          color: Colors.red,
+        );
+      },
     );
   }
 }
