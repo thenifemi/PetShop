@@ -101,7 +101,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                           contentPadding:
                               new EdgeInsets.symmetric(horizontal: 25.0),
                           fillColor: MColors.primaryWhite,
-                          hasFloatingPlaceholder: false,
+                          floatingLabelBehavior: FloatingLabelBehavior.never,
                           filled: true,
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8.0),

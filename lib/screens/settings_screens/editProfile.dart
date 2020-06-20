@@ -165,7 +165,8 @@ class _EditProfileState extends State<EditProfile> {
                                               new EdgeInsets.symmetric(
                                                   horizontal: 25.0),
                                           fillColor: MColors.primaryWhite,
-                                          hasFloatingPlaceholder: false,
+                                          floatingLabelBehavior:
+                                              FloatingLabelBehavior.never,
                                           filled: true,
                                           enabledBorder: OutlineInputBorder(
                                             borderRadius:
