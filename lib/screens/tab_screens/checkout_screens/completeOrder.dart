@@ -435,13 +435,7 @@ class _AddressContainerState extends State<AddressContainer> {
                 width: 50.0,
                 height: 14.0,
                 child: RawMaterialButton(
-                  onPressed: () {
-                    // Navigator.of(context).push(
-                    //   MaterialPageRoute(
-                    //     builder: (context) => null,
-                    //   ),
-                    // );
-                  },
+                  onPressed: () {},
                   child: Text(
                     "See all",
                     style: GoogleFonts.montserrat(
