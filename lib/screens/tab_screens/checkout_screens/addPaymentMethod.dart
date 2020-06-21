@@ -134,6 +134,7 @@ class _AddNewCardState extends State<AddNewCard> {
                     Padding(
                       padding: const EdgeInsets.only(bottom: 10.0),
                       child: TextFormField(
+                        keyboardType: TextInputType.numberWithOptions(),
                         initialValue: cardList.isEmpty ? "" : card.cardNumber,
                         onSaved: (val) => cardNumber = val,
                         decoration: InputDecoration(
@@ -200,6 +201,7 @@ class _AddNewCardState extends State<AddNewCard> {
                           Padding(
                             padding: const EdgeInsets.only(bottom: 10.0),
                             child: TextFormField(
+                              keyboardType: TextInputType.numberWithOptions(),
                               initialValue:
                                   cardList.isEmpty ? "" : card.validThrough,
                               onSaved: (val) => validThrough = val,

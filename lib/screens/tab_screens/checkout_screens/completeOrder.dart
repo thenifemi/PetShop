@@ -843,9 +843,7 @@ class _AddressContainerState extends State<AddressContainer> {
                         ),
                       ),
                     ),
-                    SizedBox(
-                      width: 5.0,
-                    ),
+                    Spacer(),
                     Container(
                       child: SvgPicture.asset(
                         "assets/images/mastercard.svg",
@@ -941,6 +939,7 @@ class _AddressContainerState extends State<AddressContainer> {
                   setState(() {
                     getCard(cardNotifier);
                   });
+                  _showUpdated("card");
                 }
               },
               child: Center(
