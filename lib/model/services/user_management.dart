@@ -131,6 +131,7 @@ updateAddress(
 ) async {
   final db = Firestore.instance;
   final uEmail = await AuthService().getCurrentEmail();
+
   CollectionReference addressRef =
       db.collection("userData").document(uEmail).collection("address");
   await addressRef.document(uEmail).updateData(
@@ -145,7 +146,7 @@ updateAddress(
   );
 }
 
-//Adding new address
+//Adding new card
 storeNewCard(
   cardHolder,
   cardNumber,
@@ -168,4 +169,47 @@ storeNewCard(
   }).catchError((e) {
     print(e);
   });
+}
+
+//get users card
+getCard(UserDataCardNotifier cardNotifier) async {
+  final uEmail = await AuthService().getCurrentEmail();
+
+  QuerySnapshot snapshot = await Firestore.instance
+      .collection("userData")
+      .document(uEmail)
+      .collection("card")
+      .getDocuments();
+
+  List<UserDataCard> _userDataCardList = [];
+
+  snapshot.documents.forEach((document) {
+    print(document.data);
+    UserDataCard userDataCard = UserDataCard.fromMap(document.data);
+    _userDataCardList.add(userDataCard);
+  });
+
+  cardNotifier.userDataCardList = _userDataCardList;
+}
+
+//Updating new card
+updateCard(
+  cardHolder,
+  cardNumber,
+  validThrough,
+  securityCode,
+) async {
+  final db = Firestore.instance;
+  final uEmail = await AuthService().getCurrentEmail();
+
+  CollectionReference cardRef =
+      db.collection("userData").document(uEmail).collection("card");
+  await cardRef.document(uEmail).updateData(
+    {
+      'cardHolder': cardHolder,
+      'cardNumber': cardNumber,
+      'valdThrough': validThrough,
+      'securityCode': securityCode,
+    },
+  );
 }
