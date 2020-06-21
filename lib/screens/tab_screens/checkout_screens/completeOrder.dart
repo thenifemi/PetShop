@@ -24,6 +24,9 @@ class AddressScreen extends StatelessWidget {
           ChangeNotifierProvider<CartNotifier>(
             create: (context) => CartNotifier(),
           ),
+          ChangeNotifierProvider<UserDataCardNotifier>(
+            create: (BuildContext context) => UserDataCardNotifier(),
+          ),
         ],
         child: AddressContainer(cartList),
       ),

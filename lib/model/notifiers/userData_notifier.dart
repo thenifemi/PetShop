@@ -39,7 +39,7 @@ class UserDataAddressNotifier with ChangeNotifier {
   }
 }
 
-class UserDataACardNotifier with ChangeNotifier {
+class UserDataCardNotifier with ChangeNotifier {
   List<UserDataCard> _userDataCardList = [];
   UserDataCard _userDataCard;
 
