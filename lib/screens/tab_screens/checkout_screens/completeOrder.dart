@@ -207,7 +207,7 @@ class _AddressContainerState extends State<AddressContainer> {
     var address = addressList.first;
 
     return Container(
-      height: MediaQuery.of(context).size.height / 6.5,
+      height: MediaQuery.of(context).size.height / 6,
       width: MediaQuery.of(context).size.width,
       // margin: EdgeInsets.symmetric(vertical: 10.0),
       padding: EdgeInsets.all(20.0),
@@ -244,7 +244,7 @@ class _AddressContainerState extends State<AddressContainer> {
                 ),
               ),
               Container(
-                width: 50.0,
+                width: 60.0,
                 height: 25.0,
                 child: RawMaterialButton(
                   onPressed: () async {
@@ -322,7 +322,7 @@ class _AddressContainerState extends State<AddressContainer> {
     var addressList = addressNotifier.userDataAddressList;
 
     return Container(
-      height: MediaQuery.of(context).size.height / 7,
+      height: MediaQuery.of(context).size.height / 6,
       width: MediaQuery.of(context).size.width,
       margin: EdgeInsets.symmetric(vertical: 10.0),
       padding: EdgeInsets.all(15.0),
@@ -400,7 +400,7 @@ class _AddressContainerState extends State<AddressContainer> {
         : totalList.reduce((sum, element) => sum + element).toStringAsFixed(2);
 
     return Container(
-      height: MediaQuery.of(context).size.height / 3.4,
+      height: MediaQuery.of(context).size.height / 2.5,
       width: MediaQuery.of(context).size.width,
       padding: const EdgeInsets.all(20.0),
       decoration: BoxDecoration(
@@ -604,7 +604,7 @@ class _AddressContainerState extends State<AddressContainer> {
                               width: 5.0,
                             ),
                             Container(
-                              width: MediaQuery.of(context).size.width / 1.8,
+                              width: MediaQuery.of(context).size.width / 2,
                               child: Text(
                                 cartItem.name,
                                 maxLines: 2,
