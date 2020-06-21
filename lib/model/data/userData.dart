@@ -46,3 +46,26 @@ class UserDataAddress {
     };
   }
 }
+
+class UserDataCard {
+  String cardHolder;
+  String cardNumber;
+  String valdThrough;
+  String securityCode;
+
+  UserDataCard.fromMap(Map<String, dynamic> data) {
+    cardHolder = data["cardHolder"];
+    cardNumber = data["cardNumber"];
+    valdThrough = data["valdThrough"];
+    securityCode = data["securityCode"];
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'cardHolder': cardHolder,
+      'cardNumber': cardNumber,
+      'valdThrough': valdThrough,
+      'securityCode': securityCode,
+    };
+  }
+}

@@ -61,14 +61,14 @@ updateProfile(_name, _phone) async {
 }
 
 //Updating User password
-updatePassword(password) async {
-  final user = await AuthService().getCurrentUser();
-  user.updatePassword(password).then((_) {
-    print("Password changed successfully");
-  }).catchError((e) {
-    print("ERROR ====>>>" + e);
-  });
-}
+// updatePassword(password) async {
+//   final user = await AuthService().getCurrentUser();
+//   user.updatePassword(password).then((_) {
+//     print("Password changed successfully");
+//   }).catchError((e) {
+//     print("ERROR ====>>>" + e);
+//   });
+// }
 
 //Adding new address
 storeNewAddress(
