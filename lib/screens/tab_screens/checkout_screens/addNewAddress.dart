@@ -18,6 +18,7 @@ class AddNewAddress extends StatefulWidget {
 class _AddNewAddressState extends State<AddNewAddress> {
   UserDataAddress address;
   List<UserDataAddress> addressList;
+
   _AddNewAddressState(this.address, this.addressList);
 
   String _fullLegalName;

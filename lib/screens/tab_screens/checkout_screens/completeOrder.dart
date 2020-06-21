@@ -6,6 +6,7 @@ import 'package:mollet/model/notifiers/cart_notifier.dart';
 import 'package:mollet/model/notifiers/userData_notifier.dart';
 import 'package:mollet/model/services/user_management.dart';
 import 'package:mollet/screens/tab_screens/checkout_screens/addNewAddress.dart';
+import 'package:mollet/screens/tab_screens/checkout_screens/addPaymentMethod.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:provider/provider.dart';
 
@@ -178,8 +179,8 @@ class _AddressContainerState extends State<AddressContainer> {
               ),
 
               Container(
-                child: noPaymentMethod(),
-              ),
+                  // child: noPaymentMethod(),
+                  ),
             ],
           ),
         ),
@@ -688,6 +689,124 @@ class _AddressContainerState extends State<AddressContainer> {
   }
 
   //Payment method
+  Widget savedPaymentMethod() {
+    UserDataCardNotifier cardNotifier =
+        Provider.of<UserDataCardNotifier>(context);
+    var cardList = cardNotifier.userDataCardList;
+    var card = cardList.first;
+
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      padding: EdgeInsets.all(20.0),
+      decoration: BoxDecoration(
+        color: MColors.primaryWhite,
+        borderRadius: BorderRadius.all(
+          Radius.circular(10.0),
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              Container(
+                child: SvgPicture.asset(
+                  "assets/images/icons/Wallet.svg",
+                  color: MColors.primaryPurple,
+                ),
+              ),
+              SizedBox(
+                width: 5.0,
+              ),
+              Expanded(
+                child: Container(
+                  child: Text(
+                    "Payment method",
+                    style: GoogleFonts.montserrat(
+                      fontSize: 14.0,
+                      color: MColors.textGrey,
+                    ),
+                  ),
+                ),
+              ),
+              Container(
+                width: 60.0,
+                height: 25.0,
+                child: RawMaterialButton(
+                  onPressed: () async {
+                    UserDataCardNotifier cardNotifier =
+                        Provider.of<UserDataCardNotifier>(context,
+                            listen: false);
+
+                    var navigationResult = await Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => AddNewCard(card, cardList),
+                      ),
+                    );
+                    if (navigationResult == true) {
+                      setState(() {
+                        getCard(cardNotifier);
+                      });
+                      _showAddressHasUpdated();
+                    }
+                  },
+                  child: Text(
+                    "Change",
+                    style: GoogleFonts.montserrat(
+                        fontSize: 14.0,
+                        color: MColors.primaryPurple,
+                        fontWeight: FontWeight.w600),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Container(
+            padding: EdgeInsets.only(left: 25.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Container(
+                  padding: const EdgeInsets.only(bottom: 5.0),
+                  child: Text(
+                    card.cardHolder,
+                    style: GoogleFonts.montserrat(
+                      fontSize: 16.0,
+                      color: MColors.textDark,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+                Row(
+                  children: <Widget>[
+                    Container(
+                      child: SvgPicture.asset(
+                        "assets/images/mc_symbol.svg",
+                      ),
+                    ),
+                    SizedBox(
+                      width: 5.0,
+                    ),
+                    Container(
+                      child: Text(
+                        card.cardNumber,
+                        style: GoogleFonts.montserrat(
+                          fontSize: 14.0,
+                          color: MColors.textGrey,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget noPaymentMethod() {
     return Container(
       width: MediaQuery.of(context).size.width,
