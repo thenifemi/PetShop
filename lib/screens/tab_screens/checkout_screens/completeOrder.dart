@@ -429,7 +429,6 @@ class _AddressContainerState extends State<AddressContainer> {
         : totalList.reduce((sum, element) => sum + element).toStringAsFixed(2);
 
     return Container(
-      // height: 250.0,
       width: MediaQuery.of(context).size.width,
       padding: const EdgeInsets.all(20.0),
       decoration: BoxDecoration(
