@@ -9,7 +9,7 @@ class ChangePasswordScreen extends StatefulWidget {
 }
 
 class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
-  String _password;
+  String password;
   bool _autoValidate = false;
   bool _obscureText = true;
 
@@ -79,7 +79,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       child: TextFormField(
                         autovalidate: _autoValidate,
                         validator: PasswordValiditor.validate,
-                        onSaved: (val) => _password = val,
+                        onSaved: (val) => password = val,
                         decoration: InputDecoration(
                           suffix: SizedBox(
                             height: 20.0,
@@ -155,7 +155,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       child: TextFormField(
                         autovalidate: _autoValidate,
                         validator: PasswordValiditor.validate,
-                        onSaved: (val) => _password = val,
+                        onSaved: (val) => password = val,
                         decoration: InputDecoration(
                           suffix: SizedBox(
                             height: 20.0,
@@ -231,7 +231,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       child: TextFormField(
                         autovalidate: _autoValidate,
                         validator: PasswordValiditor.validate,
-                        onSaved: (val) => _password = val,
+                        onSaved: (val) => password = val,
                         decoration: InputDecoration(
                           suffix: SizedBox(
                             height: 20.0,

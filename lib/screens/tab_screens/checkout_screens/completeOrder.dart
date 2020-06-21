@@ -169,6 +169,14 @@ class _AddressContainerState extends State<AddressContainer> {
               Container(
                 child: cartSummary(cartList),
               ),
+
+              SizedBox(
+                height: 20.0,
+              ),
+
+              Container(
+                child: noPaymentMethod(),
+              ),
             ],
           ),
         ),
@@ -207,9 +215,7 @@ class _AddressContainerState extends State<AddressContainer> {
     var address = addressList.first;
 
     return Container(
-      // height: MediaQuery.of(context).size.height / 6,
       width: MediaQuery.of(context).size.width,
-      // margin: EdgeInsets.symmetric(vertical: 10.0),
       padding: EdgeInsets.all(20.0),
       decoration: BoxDecoration(
         color: MColors.primaryWhite,
@@ -322,10 +328,8 @@ class _AddressContainerState extends State<AddressContainer> {
     var addressList = addressNotifier.userDataAddressList;
 
     return Container(
-      // height: MediaQuery.of(context).size.height / 6,
       width: MediaQuery.of(context).size.width,
-      margin: EdgeInsets.symmetric(vertical: 10.0),
-      padding: EdgeInsets.all(15.0),
+      padding: EdgeInsets.all(20.0),
       decoration: BoxDecoration(
         color: MColors.primaryWhite,
         borderRadius: BorderRadius.all(
@@ -333,25 +337,50 @@ class _AddressContainerState extends State<AddressContainer> {
         ),
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Container(
-            padding: const EdgeInsets.only(bottom: 10.0),
-            child: Center(
-              child: Text(
-                "You have no saved address",
-                style: GoogleFonts.montserrat(
-                  fontSize: 16.0,
-                  color: MColors.textGrey,
-                  fontWeight: FontWeight.w500,
+          Row(
+            children: <Widget>[
+              Container(
+                child: SvgPicture.asset(
+                  "assets/images/icons/Location.svg",
+                  color: MColors.primaryPurple,
                 ),
+              ),
+              SizedBox(
+                width: 5.0,
+              ),
+              Expanded(
+                child: Container(
+                  child: Text(
+                    "Shipping address",
+                    style: GoogleFonts.montserrat(
+                      fontSize: 14.0,
+                      color: MColors.textGrey,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Container(
+            padding: const EdgeInsets.only(
+              left: 25.0,
+              bottom: 10.0,
+              top: 10.0,
+            ),
+            child: Text(
+              "You have no shipping address",
+              style: GoogleFonts.montserrat(
+                fontSize: 16.0,
+                color: MColors.textGrey,
               ),
             ),
           ),
-          Spacer(),
           Container(
             height: 50.0,
-            width: MediaQuery.of(context).size.height / 2.8,
+            width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
               color: MColors.dashPurple,
               borderRadius: BorderRadius.all(
@@ -379,7 +408,7 @@ class _AddressContainerState extends State<AddressContainer> {
               },
               child: Center(
                 child: Text(
-                  "Add a new address",
+                  "Add a shipping method",
                   style: GoogleFonts.montserrat(
                     fontSize: 16.0,
                     color: MColors.textGrey,
@@ -653,6 +682,103 @@ class _AddressContainerState extends State<AddressContainer> {
           ),
         );
       },
+    );
+  }
+
+  //Payment method
+  Widget noPaymentMethod() {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      padding: EdgeInsets.all(20.0),
+      decoration: BoxDecoration(
+        color: MColors.primaryWhite,
+        borderRadius: BorderRadius.all(
+          Radius.circular(10.0),
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              Container(
+                child: SvgPicture.asset(
+                  "assets/images/icons/Wallet.svg",
+                  color: MColors.primaryPurple,
+                ),
+              ),
+              SizedBox(
+                width: 5.0,
+              ),
+              Expanded(
+                child: Container(
+                  child: Text(
+                    "Payment method",
+                    style: GoogleFonts.montserrat(
+                      fontSize: 14.0,
+                      color: MColors.textGrey,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Container(
+            padding: const EdgeInsets.only(
+              left: 25.0,
+              bottom: 10.0,
+              top: 10.0,
+            ),
+            child: Text(
+              "You have no payment method",
+              style: GoogleFonts.montserrat(
+                fontSize: 16.0,
+                color: MColors.textGrey,
+              ),
+            ),
+          ),
+          Container(
+            height: 50.0,
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(
+              color: MColors.dashPurple,
+              borderRadius: BorderRadius.all(
+                Radius.circular(10.0),
+              ),
+            ),
+            child: RawMaterialButton(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              onPressed: () async {
+                // UserDataAddressNotifier addressNotifier =
+                //     Provider.of<UserDataAddressNotifier>(context,
+                //         listen: false);
+                // var navigationResult = await Navigator.of(context).push(
+                //   MaterialPageRoute(
+                //     builder: (context) => AddNewAddress(null, addressList),
+                //   ),
+                // );
+                // if (navigationResult == true) {
+                //   setState(() {
+                //     getAddress(addressNotifier);
+                //   });
+                // }
+              },
+              child: Center(
+                child: Text(
+                  "Add a payment method",
+                  style: GoogleFonts.montserrat(
+                    fontSize: 16.0,
+                    color: MColors.textGrey,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
