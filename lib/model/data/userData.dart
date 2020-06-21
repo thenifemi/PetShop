@@ -50,13 +50,13 @@ class UserDataAddress {
 class UserDataCard {
   String cardHolder;
   String cardNumber;
-  String valdThrough;
+  String validThrough;
   String securityCode;
 
   UserDataCard.fromMap(Map<String, dynamic> data) {
     cardHolder = data["cardHolder"];
     cardNumber = data["cardNumber"];
-    valdThrough = data["valdThrough"];
+    validThrough = data["validThrough"];
     securityCode = data["securityCode"];
   }
 
@@ -64,7 +64,7 @@ class UserDataCard {
     return {
       'cardHolder': cardHolder,
       'cardNumber': cardNumber,
-      'valdThrough': valdThrough,
+      'validThrough': validThrough,
       'securityCode': securityCode,
     };
   }

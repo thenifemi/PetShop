@@ -144,3 +144,28 @@ updateAddress(
     },
   );
 }
+
+//Adding new address
+storeNewCard(
+  cardHolder,
+  cardNumber,
+  validThrough,
+  securityCode,
+) async {
+  final db = Firestore.instance;
+  final uEmail = await AuthService().getCurrentEmail();
+
+  await db
+      .collection("userData")
+      .document(uEmail)
+      .collection("card")
+      .document(uEmail)
+      .setData({
+    'cardHolder': cardHolder,
+    'cardNumber': cardNumber,
+    'valdThrough': validThrough,
+    'securityCode': securityCode,
+  }).catchError((e) {
+    print(e);
+  });
+}
