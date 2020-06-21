@@ -207,7 +207,7 @@ class _AddressContainerState extends State<AddressContainer> {
     var address = addressList.first;
 
     return Container(
-      height: MediaQuery.of(context).size.height / 6,
+      // height: MediaQuery.of(context).size.height / 6,
       width: MediaQuery.of(context).size.width,
       // margin: EdgeInsets.symmetric(vertical: 10.0),
       padding: EdgeInsets.all(20.0),
@@ -322,7 +322,7 @@ class _AddressContainerState extends State<AddressContainer> {
     var addressList = addressNotifier.userDataAddressList;
 
     return Container(
-      height: MediaQuery.of(context).size.height / 6,
+      // height: MediaQuery.of(context).size.height / 6,
       width: MediaQuery.of(context).size.width,
       margin: EdgeInsets.symmetric(vertical: 10.0),
       padding: EdgeInsets.all(15.0),
@@ -400,7 +400,7 @@ class _AddressContainerState extends State<AddressContainer> {
         : totalList.reduce((sum, element) => sum + element).toStringAsFixed(2);
 
     return Container(
-      height: MediaQuery.of(context).size.height / 2.5,
+      // height: 250.0,
       width: MediaQuery.of(context).size.width,
       padding: const EdgeInsets.all(20.0),
       decoration: BoxDecoration(
