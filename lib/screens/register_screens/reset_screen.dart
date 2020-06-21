@@ -19,7 +19,7 @@ class _ResetScreenState extends State<ResetScreen> {
   String _email;
   bool _autoValidate = false;
   var _state = 0;
-  bool _isButtonDisabled = false;
+  bool isButtonDisabled = false;
   String warning;
 
   void _showModalSheet() {
@@ -109,7 +109,7 @@ class _ResetScreenState extends State<ResetScreen> {
   void animateButton() {
     setState(() {
       _state = 1;
-      _isButtonDisabled = true;
+      isButtonDisabled = true;
     });
   }
 
@@ -138,7 +138,7 @@ class _ResetScreenState extends State<ResetScreen> {
       setState(() {
         warning = e.message;
         _state = 0;
-        _isButtonDisabled = false;
+        isButtonDisabled = false;
       });
 
       print(e);
