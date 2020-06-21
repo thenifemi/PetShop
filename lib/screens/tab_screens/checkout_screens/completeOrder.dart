@@ -207,7 +207,7 @@ class _AddressContainerState extends State<AddressContainer> {
     var address = addressList.first;
 
     return Container(
-      height: MediaQuery.of(context).size.height / 7,
+      height: MediaQuery.of(context).size.height / 6.5,
       width: MediaQuery.of(context).size.width,
       // margin: EdgeInsets.symmetric(vertical: 10.0),
       padding: EdgeInsets.all(20.0),
