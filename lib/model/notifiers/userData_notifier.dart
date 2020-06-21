@@ -38,3 +38,21 @@ class UserDataAddressNotifier with ChangeNotifier {
     notifyListeners();
   }
 }
+
+class UserDataACardNotifier with ChangeNotifier {
+  List<UserDataCard> _userDataCardList = [];
+  UserDataCard _userDataCard;
+
+  List<UserDataCard> get userDataCardList => _userDataCardList;
+  UserDataCard get userDataCard => _userDataCard;
+
+  set userDataCardList(List<UserDataCard> userDataCardList) {
+    _userDataCardList = userDataCardList;
+    notifyListeners();
+  }
+
+  set userDataCard(UserDataCard userDataCard) {
+    _userDataCard = userDataCard;
+    notifyListeners();
+  }
+}
