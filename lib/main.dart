@@ -33,7 +33,6 @@ void main() async {
 final routes = {
   '/Registration': (BuildContext context) => RegistrationScreen(),
   '/Homescreen': (BuildContext context) => HomeScreen(),
-  '/Verification': (BuildContext context) => VerificationScreen(),
   '/Login': (BuildContext context) => LoginScreen(),
   '/Reset': (BuildContext context) => ResetScreen(),
   '/home': (BuildContext context) => HomeController(),
