@@ -164,7 +164,7 @@ storeNewCard(
       .setData({
     'cardHolder': cardHolder,
     'cardNumber': cardNumber,
-    'valdThrough': validThrough,
+    'validThrough': validThrough,
     'securityCode': securityCode,
   }).catchError((e) {
     print(e);
@@ -208,7 +208,7 @@ updateCard(
     {
       'cardHolder': cardHolder,
       'cardNumber': cardNumber,
-      'valdThrough': validThrough,
+      'validThrough': validThrough,
       'securityCode': securityCode,
     },
   );

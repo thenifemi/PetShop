@@ -45,18 +45,26 @@ class AddressContainer extends StatefulWidget {
 class _AddressContainerState extends State<AddressContainer> {
   final List<Cart> cartList;
   _AddressContainerState(this.cartList);
+
   Future addressFuture;
+  Future cardFuture;
+
   @override
   void initState() {
     UserDataAddressNotifier addressNotifier =
         Provider.of<UserDataAddressNotifier>(context, listen: false);
     addressFuture = getAddress(addressNotifier);
+
+    UserDataCardNotifier cardNotifier =
+        Provider.of<UserDataCardNotifier>(context, listen: false);
+    cardFuture = getCard(cardNotifier);
+
     super.initState();
   }
 
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  void _showAddressHasUpdated() {
+  void _showUpdated(String value) {
     _scaffoldKey.currentState.showSnackBar(
       SnackBar(
         behavior: SnackBarBehavior.floating,
@@ -67,7 +75,7 @@ class _AddressContainerState extends State<AddressContainer> {
         content: Row(
           children: <Widget>[
             Expanded(
-              child: Text("Your address has been added"),
+              child: Text("Your $value has been added"),
             ),
             Icon(
               Icons.check_circle_outline,
@@ -84,6 +92,9 @@ class _AddressContainerState extends State<AddressContainer> {
     UserDataAddressNotifier addressNotifier =
         Provider.of<UserDataAddressNotifier>(context);
     var addressList = addressNotifier.userDataAddressList;
+    UserDataCardNotifier cardNotifier =
+        Provider.of<UserDataCardNotifier>(context);
+    var cardList = cardNotifier.userDataCardList;
 
     return Scaffold(
       key: _scaffoldKey,
@@ -179,8 +190,51 @@ class _AddressContainerState extends State<AddressContainer> {
               ),
 
               Container(
-                  // child: noPaymentMethod(),
-                  ),
+                child: FutureBuilder(
+                  future: cardFuture,
+                  builder: (c, s) {
+                    switch (s.connectionState) {
+                      case ConnectionState.active:
+                        return Container(
+                          height: MediaQuery.of(context).size.height / 7,
+                          color: MColors.primaryWhiteSmoke,
+                          child: Center(
+                            child: CircularProgressIndicator(
+                              strokeWidth: 2.0,
+                            ),
+                          ),
+                        );
+                        break;
+                      case ConnectionState.done:
+                        return cardList.isEmpty
+                            ? noPaymentMethod()
+                            : savedPaymentMethod();
+                        break;
+                      case ConnectionState.waiting:
+                        return Container(
+                          height: MediaQuery.of(context).size.height / 7,
+                          color: MColors.primaryWhiteSmoke,
+                          child: Center(
+                            child: CircularProgressIndicator(
+                              strokeWidth: 2.0,
+                            ),
+                          ),
+                        );
+                        break;
+                      default:
+                        return Container(
+                          height: MediaQuery.of(context).size.height / 7,
+                          color: MColors.primaryWhiteSmoke,
+                          child: Center(
+                            child: CircularProgressIndicator(
+                              strokeWidth: 2.0,
+                            ),
+                          ),
+                        );
+                    }
+                  },
+                ),
+              ),
             ],
           ),
         ),
@@ -271,7 +325,7 @@ class _AddressContainerState extends State<AddressContainer> {
                       setState(() {
                         getAddress(addressNotifier);
                       });
-                      _showAddressHasUpdated();
+                      _showUpdated("address");
                     }
                   },
                   child: Text(
@@ -748,7 +802,7 @@ class _AddressContainerState extends State<AddressContainer> {
                       setState(() {
                         getCard(cardNotifier);
                       });
-                      _showAddressHasUpdated();
+                      _showUpdated("card");
                     }
                   },
                   child: Text(
@@ -768,7 +822,7 @@ class _AddressContainerState extends State<AddressContainer> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Container(
-                  padding: const EdgeInsets.only(bottom: 5.0),
+                  padding: const EdgeInsets.only(top: 5.0),
                   child: Text(
                     card.cardHolder,
                     style: GoogleFonts.montserrat(
@@ -781,20 +835,21 @@ class _AddressContainerState extends State<AddressContainer> {
                 Row(
                   children: <Widget>[
                     Container(
-                      child: SvgPicture.asset(
-                        "assets/images/mc_symbol.svg",
+                      child: Text(
+                        card.cardNumber,
+                        style: GoogleFonts.montserrat(
+                          fontSize: 16.0,
+                          color: MColors.textGrey,
+                        ),
                       ),
                     ),
                     SizedBox(
                       width: 5.0,
                     ),
                     Container(
-                      child: Text(
-                        card.cardNumber,
-                        style: GoogleFonts.montserrat(
-                          fontSize: 14.0,
-                          color: MColors.textGrey,
-                        ),
+                      child: SvgPicture.asset(
+                        "assets/images/mastercard.svg",
+                        height: 30.0,
                       ),
                     ),
                   ],
@@ -808,6 +863,10 @@ class _AddressContainerState extends State<AddressContainer> {
   }
 
   Widget noPaymentMethod() {
+    UserDataCardNotifier cardNotifier =
+        Provider.of<UserDataCardNotifier>(context);
+    var cardList = cardNotifier.userDataCardList;
+
     return Container(
       width: MediaQuery.of(context).size.width,
       padding: EdgeInsets.all(20.0),
@@ -873,19 +932,16 @@ class _AddressContainerState extends State<AddressContainer> {
                 borderRadius: BorderRadius.circular(10.0),
               ),
               onPressed: () async {
-                // UserDataAddressNotifier addressNotifier =
-                //     Provider.of<UserDataAddressNotifier>(context,
-                //         listen: false);
-                // var navigationResult = await Navigator.of(context).push(
-                //   MaterialPageRoute(
-                //     builder: (context) => AddNewAddress(null, addressList),
-                //   ),
-                // );
-                // if (navigationResult == true) {
-                //   setState(() {
-                //     getAddress(addressNotifier);
-                //   });
-                // }
+                var navigationResult = await Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => AddNewCard(null, cardList),
+                  ),
+                );
+                if (navigationResult == true) {
+                  setState(() {
+                    getCard(cardNotifier);
+                  });
+                }
               },
               child: Center(
                 child: Text(
