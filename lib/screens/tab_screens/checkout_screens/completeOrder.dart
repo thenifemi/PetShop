@@ -909,7 +909,7 @@ class _AddressContainerState extends State<AddressContainer> {
               top: 10.0,
             ),
             child: Text(
-              "You have no payment method",
+              "No payment method added to this account",
               style: GoogleFonts.montserrat(
                 fontSize: 16.0,
                 color: MColors.textGrey,
