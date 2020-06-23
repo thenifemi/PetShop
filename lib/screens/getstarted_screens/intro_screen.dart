@@ -12,56 +12,64 @@ class IntroScreen extends StatelessWidget {
       flex: 1,
       child: Container(
         // color: MColors.primaryWhiteSmoke,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Container(
-              padding: const EdgeInsets.all(20.0),
-              child: SvgPicture.asset(
-                "assets/images/pets.svg",
-                height: 250,
+        child: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                padding: const EdgeInsets.all(20.0),
+                child: SvgPicture.asset(
+                  "assets/images/pets.svg",
+                  height: 250,
+                ),
               ),
-            ),
-            SizedBox(
-              height: 30.0,
-            ),
-            Container(
-              padding: const EdgeInsets.only(right: 50.0, left: 50.0),
-              child: Column(
-                children: <Widget>[
-                  Text(
-                    Strings.onBoardTitle1,
-                    style: GoogleFonts.montserrat(
+              SizedBox(
+                height: 30.0,
+              ),
+              Container(
+                padding: const EdgeInsets.only(right: 50.0, left: 50.0),
+                child: Column(
+                  children: <Widget>[
+                    Text(
+                      Strings.onBoardTitle1,
+                      style: GoogleFonts.montserrat(
+                          fontSize: 30.0,
+                          fontWeight: FontWeight.bold,
+                          color: MColors.textDark),
+                      textAlign: TextAlign.center,
+                    ),
+                    Text(
+                      Strings.onBoardTitle2,
+                      style: GoogleFonts.montserrat(
                         fontSize: 30.0,
                         fontWeight: FontWeight.bold,
-                        color: MColors.textDark),
-                    textAlign: TextAlign.center,
-                  ),
-                  Text(
-                    Strings.onBoardTitle2,
-                    style: GoogleFonts.montserrat(
-                      fontSize: 30.0,
-                      fontWeight: FontWeight.bold,
-                      color: MColors.textDark,
+                        color: MColors.textDark,
+                      ),
+                      textAlign: TextAlign.center,
                     ),
-                    textAlign: TextAlign.center,
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              padding: const EdgeInsets.all(30.0),
-              child: Text(
-                Strings.onBoardTitle_sub1,
-                style: GoogleFonts.montserrat(
-                  fontSize: 19.0,
-                  color: MColors.textGrey,
-                  height: 1.30,
+                  ],
                 ),
-                textAlign: TextAlign.center,
               ),
-            ),
-          ],
+              Container(
+                padding: const EdgeInsets.only(
+                  left: 30.0,
+                  right: 30.0,
+                  top: 10.0,
+                  bottom: 5.0,
+                ),
+                child: Text(
+                  Strings.onBoardTitle_sub1,
+                  style: GoogleFonts.montserrat(
+                    fontSize: 19.0,
+                    color: MColors.textGrey,
+                    height: 1.30,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
