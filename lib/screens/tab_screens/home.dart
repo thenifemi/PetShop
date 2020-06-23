@@ -11,7 +11,6 @@ import 'package:mollet/model/services/user_management.dart';
 import 'package:mollet/screens/tab_screens/homeScreen_pages/productDetailsScreen.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key key}) : super(key: key);
