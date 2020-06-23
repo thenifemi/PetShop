@@ -11,6 +11,7 @@ import 'package:mollet/model/services/user_management.dart';
 import 'package:mollet/screens/tab_screens/homeScreen_pages/productDetailsScreen.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key key}) : super(key: key);
@@ -72,7 +73,8 @@ class _HomeScreenState extends State<HomeScreen>
       buildAllBody(prods, cartProdID),
       buildDogBody(prods, cartProdID),
       buildCatBody(prods, cartProdID),
-      buildDogBody(prods, cartProdID),
+      buildFishBody(prods, cartProdID),
+      // buildDogBody(prods, cartProdID),
       buildCatBody(prods, cartProdID),
       buildDogBody(prods, cartProdID),
       buildCatBody(prods, cartProdID),
@@ -555,27 +557,21 @@ class _HomeScreenState extends State<HomeScreen>
     );
   }
 
-  Widget buildCatBody(prods, cartProdID) {
-    Iterable<ProdProducts> cat = prods.where((e) => e.pet == "cat");
+  Widget buildFishBody(prods, cartProdID) {
+    Iterable<ProdProducts> all = prods;
 
-    var size = MediaQuery.of(context).size;
-    /*24 is for notification bar on Android*/
-    final double itemHeight = (size.height) / 2.5;
-    final double itemWidth = size.width / 2;
     return Container(
       height: double.infinity,
       padding: const EdgeInsets.only(
         left: 20.0,
         right: 20.0,
       ),
-      child: GridView.count(
+      child: StaggeredGridView.countBuilder(
         physics: BouncingScrollPhysics(),
-        crossAxisCount: 2,
-        childAspectRatio: (itemWidth / itemHeight),
-        mainAxisSpacing: 15.0,
-        crossAxisSpacing: 15.0,
-        children: List<Widget>.generate(cat.length, (i) {
-          var cleanList = cat.toList();
+        crossAxisCount: 4,
+        itemCount: all.length,
+        itemBuilder: (BuildContext context, int i) {
+          var cleanList = all.toList();
 
           var fil = cleanList[i];
 
@@ -688,7 +684,151 @@ class _HomeScreenState extends State<HomeScreen>
               padding: EdgeInsets.all(10),
             ),
           );
-        }),
+        },
+        staggeredTileBuilder: (int index) => StaggeredTile.count(2, 3),
+        mainAxisSpacing: 15.0,
+        crossAxisSpacing: 15.0,
+      ),
+    );
+  }
+
+  Widget buildCatBody(prods, cartProdID) {
+    Iterable<ProdProducts> cat = prods.where((e) => e.pet == "cat");
+
+    var size = MediaQuery.of(context).size;
+    /*24 is for notification bar on Android*/
+    final double itemHeight = (size.height) / 2.5;
+    final double itemWidth = size.width / 2;
+    return Container(
+      height: double.infinity,
+      padding: const EdgeInsets.only(
+        left: 20.0,
+        right: 20.0,
+      ),
+      child: GridView.count(
+        physics: BouncingScrollPhysics(),
+        crossAxisCount: 2,
+        childAspectRatio: (itemWidth / itemHeight),
+        mainAxisSpacing: 15.0,
+        crossAxisSpacing: 15.0,
+        children: List<Widget>.generate(
+          cat.length,
+          (i) {
+            var cleanList = cat.toList();
+
+            var fil = cleanList[i];
+
+            return RawMaterialButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => ProductDetailsProv(fil, prods),
+                  ),
+                );
+              },
+              shape: RoundedRectangleBorder(
+                borderRadius: new BorderRadius.circular(10.0),
+              ),
+              child: Container(
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10.0),
+                        child: Hero(
+                          child: FadeInImage.assetNetwork(
+                            image: fil.productImage,
+                            fit: BoxFit.fill,
+                            height: MediaQuery.of(context).size.height / 5.8,
+                            placeholder: "assets/images/placeholder.jpg",
+                            placeholderScale:
+                                MediaQuery.of(context).size.height / 2,
+                          ),
+                          tag: fil.productID,
+                        ),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.bottomLeft,
+                      child: Container(
+                        padding: const EdgeInsets.only(top: 5.0),
+                        child: Text(
+                          fil.name,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: GoogleFonts.montserrat(
+                            color: MColors.textDark,
+                            fontSize: 16.0,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Spacer(),
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Container(
+                            padding:
+                                const EdgeInsets.only(top: 5.0, bottom: 10.0),
+                            child: Text(
+                              "\$${fil.price}",
+                              style: GoogleFonts.montserrat(
+                                color: MColors.primaryPurple,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 20.0,
+                              ),
+                              textAlign: TextAlign.left,
+                            ),
+                          ),
+                          Container(
+                            width: 45.0,
+                            child: RawMaterialButton(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: new BorderRadius.circular(10.0),
+                              ),
+                              onPressed: () {
+                                addToBagshowDialog(cartProdID, fil);
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.all(10.0),
+                                decoration: BoxDecoration(
+                                  color: MColors.dashPurple,
+                                  borderRadius: new BorderRadius.circular(10.0),
+                                ),
+                                child: SvgPicture.asset(
+                                  "assets/images/icons/basket.svg",
+                                  height: 22.0,
+                                  color: MColors.textGrey,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                decoration: BoxDecoration(
+                  color: MColors.primaryWhite,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(10.0),
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                        color: Color.fromRGBO(0, 0, 0, 0.03),
+                        offset: Offset(0, 10),
+                        blurRadius: 10,
+                        spreadRadius: 0),
+                  ],
+                ),
+                width: MediaQuery.of(context).size.width,
+                padding: EdgeInsets.all(10),
+              ),
+            );
+          },
+        ),
       ),
     );
   }
