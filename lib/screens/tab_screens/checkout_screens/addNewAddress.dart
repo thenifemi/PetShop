@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:mollet/model/data/userData.dart';
 import 'package:mollet/model/services/user_management.dart';
 import 'package:mollet/utils/colors.dart';
+import 'package:mollet/utils/cardUtils/cardStrings.dart';
 
 class AddNewAddress extends StatefulWidget {
   final UserDataAddress address;
@@ -29,6 +30,7 @@ class _AddNewAddressState extends State<AddNewAddress> {
   String _state;
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final formKey = GlobalKey<FormState>();
+  var _autoValidate = false;
 
   @override
   Widget build(BuildContext context) {
@@ -60,6 +62,7 @@ class _AddNewAddressState extends State<AddNewAddress> {
         physics: BouncingScrollPhysics(),
         child: Form(
           key: formKey,
+          autovalidate: _autoValidate,
           child: Container(
             padding: const EdgeInsets.all(30.0),
             child: Column(
@@ -77,6 +80,8 @@ class _AddNewAddressState extends State<AddNewAddress> {
                     Padding(
                       padding: const EdgeInsets.only(bottom: 10.0),
                       child: TextFormField(
+                        validator: (String value) =>
+                            value.isEmpty ? Strings.fieldReq : null,
                         initialValue:
                             addressList.isEmpty ? "" : address.fullLegalName,
                         onSaved: (val) => _fullLegalName = val,
@@ -140,6 +145,8 @@ class _AddNewAddressState extends State<AddNewAddress> {
                       child: TextFormField(
                         initialValue:
                             addressList.isEmpty ? "" : address.addressLine1,
+                        validator: (String value) =>
+                            value.isEmpty ? Strings.fieldReq : null,
                         onSaved: (val) => _addressLine1 = val,
                         decoration: InputDecoration(
                           labelText: "",
@@ -199,6 +206,8 @@ class _AddNewAddressState extends State<AddNewAddress> {
                     Padding(
                       padding: const EdgeInsets.only(bottom: 10.0),
                       child: TextFormField(
+                        validator: (String value) =>
+                            value.isEmpty ? Strings.fieldReq : null,
                         initialValue:
                             addressList.isEmpty ? "" : address.addressLine2,
                         onSaved: (val) => _addressLine2 = val,
@@ -265,6 +274,8 @@ class _AddNewAddressState extends State<AddNewAddress> {
                           Padding(
                             padding: const EdgeInsets.only(bottom: 10.0),
                             child: TextFormField(
+                              validator: (String value) =>
+                                  value.isEmpty ? Strings.fieldReq : null,
                               initialValue:
                                   addressList.isEmpty ? "" : address.city,
                               onSaved: (val) => _city = val,
@@ -334,7 +345,9 @@ class _AddNewAddressState extends State<AddNewAddress> {
                                 initialValue:
                                     addressList.isEmpty ? "" : address.zipcode,
                                 onSaved: (val) => _zipcode = val,
-                                keyboardType: TextInputType.numberWithOptions(),
+                                validator: (String value) =>
+                                    value.isEmpty ? Strings.fieldReq : null,
+                                keyboardType: TextInputType.number,
                                 decoration: InputDecoration(
                                   labelText: "",
                                   contentPadding:
@@ -400,6 +413,8 @@ class _AddNewAddressState extends State<AddNewAddress> {
                       child: TextFormField(
                         initialValue: addressList.isEmpty ? "" : address.state,
                         onSaved: (val) => _state = val,
+                        validator: (String value) =>
+                            value.isEmpty ? Strings.fieldReq : null,
                         decoration: InputDecoration(
                           labelText: "",
                           contentPadding:
@@ -460,25 +475,33 @@ class _AddNewAddressState extends State<AddNewAddress> {
                     ),
                     onPressed: () {
                       final form = formKey.currentState;
-                      form.save();
-                      addressList.isEmpty
-                          ? storeNewAddress(
-                              _fullLegalName,
-                              _addressLine1,
-                              _addressLine2,
-                              _city,
-                              _zipcode,
-                              _state,
-                            )
-                          : updateAddress(
-                              _fullLegalName,
-                              _addressLine1,
-                              _addressLine2,
-                              _city,
-                              _zipcode,
-                              _state,
-                            );
-                      Navigator.pop(context, true);
+                      if (!form.validate()) {
+                        setState(() {
+                          _autoValidate =
+                              true; // Start validating on every change.
+                        });
+                        _showInSnackBar('Please fix the errors');
+                      } else {
+                        form.save();
+                        addressList.isEmpty
+                            ? storeNewAddress(
+                                _fullLegalName,
+                                _addressLine1,
+                                _addressLine2,
+                                _city,
+                                _zipcode,
+                                _state,
+                              )
+                            : updateAddress(
+                                _fullLegalName,
+                                _addressLine1,
+                                _addressLine2,
+                                _city,
+                                _zipcode,
+                                _state,
+                              );
+                        Navigator.pop(context, true);
+                      }
                     },
                     child: Center(
                       child: Text(
@@ -532,6 +555,29 @@ class _AddNewAddressState extends State<AddNewAddress> {
               ],
             ),
           ),
+        ),
+      ),
+    );
+  }
+
+  void _showInSnackBar(String value) {
+    scaffoldKey.currentState.showSnackBar(
+      SnackBar(
+        behavior: SnackBarBehavior.floating,
+        duration: Duration(milliseconds: 1300),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        content: Row(
+          children: <Widget>[
+            Expanded(
+              child: Text(value),
+            ),
+            Icon(
+              Icons.error_outline,
+              color: Colors.red,
+            )
+          ],
         ),
       ),
     );

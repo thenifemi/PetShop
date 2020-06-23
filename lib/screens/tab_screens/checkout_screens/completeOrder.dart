@@ -836,7 +836,9 @@ class _AddressContainerState extends State<AddressContainer> {
                   children: <Widget>[
                     Container(
                       child: Text(
-                        card.cardNumber,
+                        "**** **** **** " +
+                            card.cardNumber
+                                .substring(card.cardNumber.length - 4),
                         style: GoogleFonts.montserrat(
                           fontSize: 16.0,
                           color: MColors.textGrey,

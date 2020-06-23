@@ -35,8 +35,6 @@ class _AddNewCardState extends State<AddNewCard> {
   var _paymentCard = PaymentCard();
   var _autoValidate = false;
 
-  var _card = PaymentCard();
-
   @override
   void initState() {
     _paymentCard.type = CardType.Others;
@@ -451,7 +449,7 @@ class _AddNewCardState extends State<AddNewCard> {
       setState(() {
         _autoValidate = true; // Start validating on every change.
       });
-      _showInSnackBar('Please fix the errors in red before submitting.');
+      _showInSnackBar('Please fix the errors');
     } else {
       form.save();
       // Encrypt and send send payment details to payment gateway
