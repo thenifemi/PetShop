@@ -429,7 +429,7 @@ class _AddressContainerState extends State<AddressContainer> {
               top: 10.0,
             ),
             child: Text(
-              "You have no shipping address",
+              "You  no shipping address",
               style: GoogleFonts.montserrat(
                 fontSize: 16.0,
                 color: MColors.textGrey,
