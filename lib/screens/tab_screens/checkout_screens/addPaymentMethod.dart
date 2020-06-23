@@ -165,8 +165,9 @@ class _AddNewCardState extends State<AddNewCard> {
                         onSaved: (val) => cardNumber = val,
                         validator: CardUtils.validateCardNum,
                         decoration: InputDecoration(
-                          suffixIcon: CardUtils.getCardIcon(_paymentCard.type),
-                          labelText: "",
+                          suffixIcon: Padding(
+                              padding: EdgeInsets.only(right: 5.0),
+                              child: CardUtils.getCardIcon(_paymentCard.type)),
                           contentPadding:
                               new EdgeInsets.symmetric(horizontal: 25.0),
                           fillColor: MColors.primaryWhite,
