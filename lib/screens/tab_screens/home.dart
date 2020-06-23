@@ -283,7 +283,7 @@ class _HomeScreenState extends State<HomeScreen>
 
     var size = MediaQuery.of(context).size;
     /*24 is for notification bar on Android*/
-    final double itemHeight = (size.height) / 2.6;
+    final double itemHeight = size.height / 2.5;
     final double itemWidth = size.width / 2;
     return Container(
       height: double.infinity,
@@ -422,7 +422,7 @@ class _HomeScreenState extends State<HomeScreen>
 
     var size = MediaQuery.of(context).size;
     /*24 is for notification bar on Android*/
-    final double itemHeight = (size.height) / 2.6;
+    final double itemHeight = (size.height) / 2.5;
     final double itemWidth = size.width / 2;
     return Container(
       height: double.infinity,
@@ -560,7 +560,7 @@ class _HomeScreenState extends State<HomeScreen>
 
     var size = MediaQuery.of(context).size;
     /*24 is for notification bar on Android*/
-    final double itemHeight = (size.height) / 2.6;
+    final double itemHeight = (size.height) / 2.5;
     final double itemWidth = size.width / 2;
     return Container(
       height: double.infinity,
