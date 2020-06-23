@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mollet/model/data/userData.dart';
 import 'package:mollet/model/services/user_management.dart';
@@ -134,8 +135,12 @@ class _AddNewCardState extends State<AddNewCard> {
                     Padding(
                       padding: const EdgeInsets.only(bottom: 10.0),
                       child: TextFormField(
-                        keyboardType: TextInputType.numberWithOptions(),
+                        keyboardType: TextInputType.number,
                         initialValue: cardList.isEmpty ? "" : card.cardNumber,
+                        inputFormatters: <TextInputFormatter>[
+                          WhitelistingTextInputFormatter.digitsOnly,
+                          LengthLimitingTextInputFormatter(19),
+                        ],
                         onSaved: (val) => cardNumber = val,
                         decoration: InputDecoration(
                           labelText: "",
@@ -205,6 +210,9 @@ class _AddNewCardState extends State<AddNewCard> {
                               initialValue:
                                   cardList.isEmpty ? "" : card.validThrough,
                               onSaved: (val) => validThrough = val,
+                              inputFormatters: <TextInputFormatter>[
+                                WhitelistingTextInputFormatter.digitsOnly
+                              ],
                               decoration: InputDecoration(
                                 labelText: "",
                                 contentPadding:
@@ -268,6 +276,9 @@ class _AddNewCardState extends State<AddNewCard> {
                               initialValue:
                                   cardList.isEmpty ? "" : card.securityCode,
                               onSaved: (val) => securityCode = val,
+                              inputFormatters: <TextInputFormatter>[
+                                WhitelistingTextInputFormatter.digitsOnly
+                              ],
                               keyboardType: TextInputType.numberWithOptions(),
                               decoration: InputDecoration(
                                 labelText: "",
