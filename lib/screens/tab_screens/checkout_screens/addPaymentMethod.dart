@@ -4,6 +4,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:mollet/model/data/userData.dart';
 import 'package:mollet/model/services/user_management.dart';
 import 'package:mollet/utils/colors.dart';
+import 'package:mollet/utils/cardUtils/payment_card.dart';
+import 'package:mollet/utils/cardUtils/input_formatter.dart';
+import 'package:mollet/utils/cardUtils/cardStrings.dart';
 
 class AddNewCard extends StatefulWidget {
   final UserDataCard card;
@@ -27,6 +30,19 @@ class _AddNewCardState extends State<AddNewCard> {
   String securityCode;
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final formKey = GlobalKey<FormState>();
+
+  var numberController = new TextEditingController();
+  var _paymentCard = PaymentCard();
+  var _autoValidate = false;
+
+  var _card = PaymentCard();
+
+  @override
+  void initState() {
+    _paymentCard.type = CardType.Others;
+    numberController.addListener(_getCardTypeFrmNumber);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,6 +73,7 @@ class _AddNewCardState extends State<AddNewCard> {
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(),
         child: Form(
+          autovalidate: _autoValidate,
           key: formKey,
           child: Container(
             padding: const EdgeInsets.all(30.0),
@@ -77,6 +94,8 @@ class _AddNewCardState extends State<AddNewCard> {
                       child: TextFormField(
                         initialValue: cardList.isEmpty ? "" : card.cardHolder,
                         onSaved: (val) => cardHolder = val,
+                        validator: (String value) =>
+                            value.isEmpty ? Strings.fieldReq : null,
                         decoration: InputDecoration(
                           labelText: "",
                           contentPadding:
@@ -135,14 +154,18 @@ class _AddNewCardState extends State<AddNewCard> {
                     Padding(
                       padding: const EdgeInsets.only(bottom: 10.0),
                       child: TextFormField(
+                        controller: numberController,
                         keyboardType: TextInputType.number,
-                        initialValue: cardList.isEmpty ? "" : card.cardNumber,
+                        initialValue: cardList.isEmpty ? null : null,
                         inputFormatters: <TextInputFormatter>[
                           WhitelistingTextInputFormatter.digitsOnly,
                           LengthLimitingTextInputFormatter(19),
+                          CardNumberInputFormatter(),
                         ],
                         onSaved: (val) => cardNumber = val,
+                        validator: CardUtils.validateCardNum,
                         decoration: InputDecoration(
+                          suffixIcon: CardUtils.getCardIcon(_paymentCard.type),
                           labelText: "",
                           contentPadding:
                               new EdgeInsets.symmetric(horizontal: 25.0),
@@ -206,12 +229,14 @@ class _AddNewCardState extends State<AddNewCard> {
                           Padding(
                             padding: const EdgeInsets.only(bottom: 10.0),
                             child: TextFormField(
-                              keyboardType: TextInputType.numberWithOptions(),
-                              initialValue:
-                                  cardList.isEmpty ? "" : card.validThrough,
+                              keyboardType: TextInputType.number,
+                              validator: CardUtils.validateDate,
+                              initialValue: cardList.isEmpty ? null : null,
                               onSaved: (val) => validThrough = val,
                               inputFormatters: <TextInputFormatter>[
-                                WhitelistingTextInputFormatter.digitsOnly
+                                WhitelistingTextInputFormatter.digitsOnly,
+                                LengthLimitingTextInputFormatter(4),
+                                CardMonthInputFormatter(),
                               ],
                               decoration: InputDecoration(
                                 labelText: "",
@@ -273,13 +298,14 @@ class _AddNewCardState extends State<AddNewCard> {
                           Padding(
                             padding: const EdgeInsets.only(bottom: 10.0),
                             child: TextFormField(
-                              initialValue:
-                                  cardList.isEmpty ? "" : card.securityCode,
+                              initialValue: cardList.isEmpty ? null : null,
                               onSaved: (val) => securityCode = val,
                               inputFormatters: <TextInputFormatter>[
-                                WhitelistingTextInputFormatter.digitsOnly
+                                WhitelistingTextInputFormatter.digitsOnly,
+                                LengthLimitingTextInputFormatter(3),
                               ],
-                              keyboardType: TextInputType.numberWithOptions(),
+                              keyboardType: TextInputType.number,
+                              validator: CardUtils.validateCVV,
                               decoration: InputDecoration(
                                 labelText: "",
                                 contentPadding:
@@ -343,22 +369,7 @@ class _AddNewCardState extends State<AddNewCard> {
                       borderRadius: BorderRadius.circular(10.0),
                     ),
                     onPressed: () {
-                      final form = formKey.currentState;
-                      form.save();
-                      cardList.isEmpty
-                          ? storeNewCard(
-                              cardHolder,
-                              cardNumber,
-                              validThrough,
-                              securityCode,
-                            )
-                          : updateCard(
-                              cardHolder,
-                              cardNumber,
-                              validThrough,
-                              securityCode,
-                            );
-                      Navigator.pop(context, true);
+                      _validateInputs();
                     },
                     child: Center(
                       child: Text(
@@ -412,6 +423,73 @@ class _AddNewCardState extends State<AddNewCard> {
               ],
             ),
           ),
+        ),
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    // Clean up the controller when the Widget is removed from the Widget tree
+    numberController.removeListener(_getCardTypeFrmNumber);
+    numberController.dispose();
+    super.dispose();
+  }
+
+  void _getCardTypeFrmNumber() {
+    String input = CardUtils.getCleanedNumber(numberController.text);
+    CardType cardType = CardUtils.getCardTypeFrmNumber(input);
+    setState(() {
+      this._paymentCard.type = cardType;
+    });
+  }
+
+  void _validateInputs() {
+    final FormState form = formKey.currentState;
+    if (!form.validate()) {
+      setState(() {
+        _autoValidate = true; // Start validating on every change.
+      });
+      _showInSnackBar('Please fix the errors in red before submitting.');
+    } else {
+      form.save();
+      // Encrypt and send send payment details to payment gateway
+
+      cardList.isEmpty
+          ? storeNewCard(
+              cardHolder,
+              cardNumber,
+              validThrough,
+              securityCode,
+            )
+          : updateCard(
+              cardHolder,
+              cardNumber,
+              validThrough,
+              securityCode,
+            );
+      Navigator.pop(context, true);
+    }
+  }
+
+  void _showInSnackBar(String value) {
+    scaffoldKey.currentState.showSnackBar(
+      SnackBar(
+        behavior: SnackBarBehavior.floating,
+        duration: Duration(milliseconds: 1300),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        content: Row(
+          children: <Widget>[
+            Expanded(
+              child: Text(value),
+            ),
+            Icon(
+              Icons.error_outline,
+              color: Colors.red,
+            )
+          ],
         ),
       ),
     );
