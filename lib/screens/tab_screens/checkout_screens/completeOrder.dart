@@ -892,7 +892,7 @@ class _AddressContainerState extends State<AddressContainer> {
               Expanded(
                 child: Container(
                   child: Text(
-                    "Payment",
+                    "Payment method",
                     style: GoogleFonts.montserrat(
                       fontSize: 14.0,
                       color: MColors.textGrey,
