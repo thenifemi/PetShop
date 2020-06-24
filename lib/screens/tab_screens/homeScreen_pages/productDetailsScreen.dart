@@ -56,8 +56,6 @@ class _ProductDetailsState extends State<ProductDetails> {
   var quantity = 1;
 
   Widget _buildProductDetails(prodDetails) {
-    // quantity = prodDetails.quantity;
-
     void addQty() {
       setState(() {
         if (quantity > 9) {
