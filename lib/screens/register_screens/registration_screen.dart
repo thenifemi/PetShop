@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mollet/model/notifiers/userData_notifier.dart';
-import 'package:mollet/model/services/auth_service.dart';
+import 'package:mollet/utils/textFieldFormaters.dart';
 import 'package:mollet/model/services/user_management.dart';
 import 'package:mollet/screens/register_screens/login_screen.dart';
 import 'package:mollet/utils/colors.dart';
@@ -491,13 +491,14 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                   bottom: 10.0,
                                 ),
                                 child: TextFormField(
+                                  inputFormatters: [maskTextInputFormatter],
                                   autovalidate: _autoValidate,
                                   keyboardType:
                                       TextInputType.numberWithOptions(),
                                   validator: PhoneNumberValiditor.validate,
                                   onSaved: (val) => _phone = val,
                                   decoration: InputDecoration(
-                                    labelText: "e.g 55 47 12345 6789",
+                                    labelText: "e.g +55 (47) 12345 6789",
                                     labelStyle:
                                         GoogleFonts.montserrat(fontSize: 16.0),
                                     contentPadding: new EdgeInsets.symmetric(

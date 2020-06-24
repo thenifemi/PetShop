@@ -323,15 +323,14 @@ class _EditProfileState extends State<EditProfile> {
                                 ),
                                 Expanded(
                                   child: TextFormField(
-                                    controller: textEditingController,
-                                    inputFormatters: [maskTextInputFormatter],
-                                    autocorrect: false,
                                     initialValue: user.phone,
+                                    inputFormatters: [maskTextInputFormatter],
+                                    autocorrect: true,
                                     textAlign: TextAlign.end,
                                     enableSuggestions: true,
                                     autovalidate: _autoValidate,
-                                    validator: PhoneNumberValiditor.validate,
                                     onSaved: (val) => _phone = val,
+                                    validator: PhoneNumberValiditor.validate,
                                     keyboardType: TextInputType.phone,
                                     decoration: InputDecoration(
                                       labelStyle: GoogleFonts.montserrat(
