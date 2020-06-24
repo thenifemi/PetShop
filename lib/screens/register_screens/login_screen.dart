@@ -215,10 +215,13 @@ class _LoginScreenState extends State<LoginScreen> {
                       textAlign: TextAlign.start,
                     ),
                   ),
+                  SizedBox(
+                    width: 3.0,
+                  ),
                   Container(
                     padding: const EdgeInsets.only(top: 18.0),
-                    child: FlatButton(
-                        onPressed: () {
+                    child: GestureDetector(
+                        onTap: () {
                           formKey.currentState.reset();
                           Navigator.of(context).pushReplacement(
                             MaterialPageRoute(

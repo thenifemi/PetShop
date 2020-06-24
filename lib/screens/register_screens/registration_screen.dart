@@ -280,6 +280,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               Padding(
                                 padding: const EdgeInsets.only(bottom: 20.0),
                                 child: TextFormField(
+                                  enableSuggestions: true,
                                   keyboardType: TextInputType.emailAddress,
                                   onSaved: (val) => _name = val,
                                   validator: NameValiditor.validate,
@@ -291,6 +292,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                         horizontal: 25.0),
                                     fillColor: MColors.primaryWhite,
                                     filled: true,
+                                    
                                     floatingLabelBehavior:
                                         FloatingLabelBehavior.never,
                                     enabledBorder: OutlineInputBorder(
