@@ -139,7 +139,9 @@ class _EditProfileState extends State<EditProfile> {
                               child: Container(
                                 child: Row(
                                   children: <Widget>[
-                                    Expanded(
+                                    Container(
+                                      width:
+                                          MediaQuery.of(context).size.width / 3,
                                       child: Text(
                                         "Name",
                                         style: GoogleFonts.montserrat(
@@ -221,15 +223,17 @@ class _EditProfileState extends State<EditProfile> {
                               child: Container(
                                 child: Row(
                                   children: <Widget>[
-                                    // Expanded(
-                                    Text(
-                                      "Email",
-                                      style: GoogleFonts.montserrat(
-                                        color: MColors.textGrey,
-                                        fontSize: 13.0,
+                                    Container(
+                                      width:
+                                          MediaQuery.of(context).size.width / 3,
+                                      child: Text(
+                                        "Email",
+                                        style: GoogleFonts.montserrat(
+                                          color: MColors.textGrey,
+                                          fontSize: 13.0,
+                                        ),
                                       ),
                                     ),
-                                    // ),
                                     Expanded(
                                       child: TextFormField(
                                         textAlign: TextAlign.end,
@@ -306,11 +310,14 @@ class _EditProfileState extends State<EditProfile> {
                           child: Container(
                             child: Row(
                               children: <Widget>[
-                                Text(
-                                  "Phone",
-                                  style: GoogleFonts.montserrat(
-                                    color: MColors.textGrey,
-                                    fontSize: 13.0,
+                                Container(
+                                  width: MediaQuery.of(context).size.width / 3,
+                                  child: Text(
+                                    "Phone",
+                                    style: GoogleFonts.montserrat(
+                                      color: MColors.textGrey,
+                                      fontSize: 13.0,
+                                    ),
                                   ),
                                 ),
                                 Expanded(
@@ -321,6 +328,7 @@ class _EditProfileState extends State<EditProfile> {
                                     autovalidate: _autoValidate,
                                     validator: PhoneNumberValiditor.validate,
                                     onSaved: (val) => _phone = val,
+                                    keyboardType: TextInputType.number,
                                     decoration: InputDecoration(
                                       labelStyle: GoogleFonts.montserrat(
                                           color: MColors.primaryPurple,

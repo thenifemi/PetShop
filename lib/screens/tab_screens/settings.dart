@@ -217,7 +217,24 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                   focusElevation: 0.0,
                                   highlightElevation: 0.0,
                                   fillColor: MColors.dashPurple,
-                                  onPressed: () {},
+                                  onPressed: () async {
+                                    UserDataProfileNotifier profileNotifier =
+                                        Provider.of<UserDataProfileNotifier>(
+                                            context,
+                                            listen: false);
+                                    var navigationResult =
+                                        await Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (context) => EditProfile(user),
+                                      ),
+                                    );
+                                    if (navigationResult == true) {
+                                      setState(() {
+                                        getProfile(profileNotifier);
+                                      });
+                                      _showProfileHasUpdated();
+                                    }
+                                  },
                                   child: Text(
                                     "EDIT PROFILE",
                                     style: GoogleFonts.montserrat(
