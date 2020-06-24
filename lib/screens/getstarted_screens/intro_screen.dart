@@ -16,7 +16,7 @@ class IntroScreen extends StatelessWidget {
             padding: const EdgeInsets.all(20.0),
             child: SvgPicture.asset(
               "assets/images/pets.svg",
-              height: 250,
+              height: 230,
             ),
           ),
           SizedBox(
@@ -74,7 +74,7 @@ class IntroScreen extends StatelessWidget {
       backgroundColor: MColors.primaryWhiteSmoke,
       body: buildOnboard(),
       bottomNavigationBar: Container(
-        height: MediaQuery.of(context).size.height / 5,
+        height: 180.0,
         color: MColors.primaryWhite,
         padding: const EdgeInsets.all(20.0),
         child: Column(
