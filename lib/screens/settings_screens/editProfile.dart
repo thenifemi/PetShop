@@ -5,6 +5,7 @@ import 'package:mollet/model/data/userData.dart';
 import 'package:mollet/model/services/auth_service.dart';
 import 'package:mollet/model/services/user_management.dart';
 import 'package:mollet/utils/colors.dart';
+import 'package:mollet/utils/textFieldFormaters.dart';
 
 class EditProfile extends StatefulWidget {
   final UserDataProfile user;
@@ -322,13 +323,16 @@ class _EditProfileState extends State<EditProfile> {
                                 ),
                                 Expanded(
                                   child: TextFormField(
+                                    controller: textEditingController,
+                                    inputFormatters: [maskTextInputFormatter],
+                                    autocorrect: false,
                                     initialValue: user.phone,
                                     textAlign: TextAlign.end,
                                     enableSuggestions: true,
                                     autovalidate: _autoValidate,
                                     validator: PhoneNumberValiditor.validate,
                                     onSaved: (val) => _phone = val,
-                                    keyboardType: TextInputType.number,
+                                    keyboardType: TextInputType.phone,
                                     decoration: InputDecoration(
                                       labelStyle: GoogleFonts.montserrat(
                                           color: MColors.primaryPurple,

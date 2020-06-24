@@ -32,7 +32,7 @@ dependencies:
   permission_handler: ^3.1.0
   geolocator: ^5.3.1
   geolocation: ^1.1.2
-  fzregex: ^1.0.1
+  mask_text_input_formatter: ^1.0.7
 
 flutter_icons:
   android: true
