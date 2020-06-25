@@ -153,6 +153,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               "Profile has been updated",
                               Icons.check_circle_outline,
                               Colors.green,
+          _scaffoldKey,
+
                             );
                           }
                         },
@@ -218,6 +220,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                         "Profile has been updated",
                                         Icons.check_circle_outline,
                                         Colors.green,
+          _scaffoldKey,
+
                                       );
                                     }
                                   },

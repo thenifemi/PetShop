@@ -206,6 +206,7 @@ class _CardsState extends State<Cards> {
                         "Card has been updated",
                         Icons.check_circle_outline,
                         Colors.green,
+                        _scaffoldKey,
                       );
                     }
                   },
@@ -335,6 +336,7 @@ class _CardsState extends State<Cards> {
                       "Card has been updated",
                       Icons.check_circle_outline,
                       Colors.green,
+                      _scaffoldKey,
                     );
                   }
                 },

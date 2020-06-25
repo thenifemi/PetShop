@@ -173,6 +173,7 @@ class _Cart1State extends State<Cart1> {
                           "Product removed from bag",
                           Icons.error_outline,
                           Colors.amber,
+                          _scaffoldKey,
                         );
                       },
                       background: Container(

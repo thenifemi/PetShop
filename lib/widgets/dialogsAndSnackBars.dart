@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-final _scaffoldKey = GlobalKey<ScaffoldState>();
-
-void showSimpleSnack(String value, IconData icon, Color iconColor) {
+void showSimpleSnack(String value, IconData icon, Color iconColor,
+    GlobalKey<ScaffoldState> _scaffoldKey) {
   _scaffoldKey.currentState.showSnackBar(
     SnackBar(
       behavior: SnackBarBehavior.floating,

@@ -26,6 +26,7 @@ class Cart2 extends StatefulWidget {
 
 class _Cart2State extends State<Cart2> {
   Future cartFuture;
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -47,7 +48,6 @@ class _Cart2State extends State<Cart2> {
         : totalList.reduce((sum, element) => sum + element).toStringAsFixed(2);
 
     return Scaffold(
-      key: _scaffoldKey,
       appBar: AppBar(
         elevation: 0.0,
         brightness: Brightness.light,
@@ -113,7 +113,6 @@ class _Cart2State extends State<Cart2> {
   }
 
   //Remove from cart
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   Future<bool> promptUser(cartItem) async {
     CartNotifier cartNotifier =
@@ -206,6 +205,7 @@ class _Cart2State extends State<Cart2> {
                           "Product removed from bag",
                           Icons.error_outline,
                           Colors.amber,
+                          _scaffoldKey,
                         );
                       },
                       background: Container(

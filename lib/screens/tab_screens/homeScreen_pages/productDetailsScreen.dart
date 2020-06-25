@@ -474,6 +474,8 @@ class _ProductDetailsState extends State<ProductDetails> {
           "Product is already in bag",
           Icons.error_outline,
           Colors.amber,
+          _scaffoldKey,
+
         );
       } else {
         prodDetails.quantity = quantity;
@@ -484,6 +486,7 @@ class _ProductDetailsState extends State<ProductDetails> {
           "Product added to bag",
           Icons.error_outline,
           Colors.amber,
+          _scaffoldKey,
         );
         setState(() {
           getCart(cartNotifier);

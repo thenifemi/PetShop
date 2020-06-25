@@ -23,6 +23,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen>
     with SingleTickerProviderStateMixin {
   TabController _tabController;
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -61,8 +62,6 @@ class _HomeScreenState extends State<HomeScreen>
 
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
     ProductsNotifier productsNotifier = Provider.of<ProductsNotifier>(context);
     var prods = productsNotifier.productsList;
 
@@ -177,7 +176,10 @@ class _HomeScreenState extends State<HomeScreen>
   }
 
   //Add to Bag dialog
-  void addToBagshowDialog(cartProdID, fil) async {
+  void addToBagshowDialog(
+    cartProdID,
+    fil,
+  ) async {
     CartNotifier cartNotifier =
         Provider.of<CartNotifier>(context, listen: false);
 
@@ -214,6 +216,7 @@ class _HomeScreenState extends State<HomeScreen>
                       "Product already in bag",
                       Icons.error_outline,
                       Colors.amber,
+                      _scaffoldKey,
                     );
                   } else {
                     addProductToCart(fil);
@@ -221,6 +224,7 @@ class _HomeScreenState extends State<HomeScreen>
                       "Product added to bag",
                       Icons.check_circle_outline,
                       Colors.green,
+                      _scaffoldKey,
                     );
                     setState(() {
                       getCart(cartNotifier);
@@ -334,7 +338,10 @@ class _HomeScreenState extends State<HomeScreen>
                               borderRadius: new BorderRadius.circular(10.0),
                             ),
                             onPressed: () {
-                              addToBagshowDialog(cartProdID, fil);
+                              addToBagshowDialog(
+                                cartProdID,
+                                fil,
+                              );
                             },
                             child: Container(
                               width: 45.0,
