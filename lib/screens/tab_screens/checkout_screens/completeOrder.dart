@@ -20,13 +20,13 @@ class AddressScreen extends StatelessWidget {
       child: MultiProvider(
         providers: [
           ChangeNotifierProvider<UserDataAddressNotifier>(
-            create: (BuildContext context) => UserDataAddressNotifier(),
+            create: (context) => UserDataAddressNotifier(),
           ),
           ChangeNotifierProvider<CartNotifier>(
             create: (context) => CartNotifier(),
           ),
           ChangeNotifierProvider<UserDataCardNotifier>(
-            create: (BuildContext context) => UserDataCardNotifier(),
+            create: (context) => UserDataCardNotifier(),
           ),
         ],
         child: AddressContainer(cartList),

@@ -308,7 +308,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     onPressed: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (_) => Cards(),
+                          builder: (_) => Cards1(),
                         ),
                       );
                     },
