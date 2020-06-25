@@ -6,6 +6,7 @@ import 'package:mollet/model/services/Product_service.dart';
 import 'package:mollet/model/notifiers/cart_notifier.dart';
 import 'package:mollet/screens/tab_screens/checkout_screens/completeOrder.dart';
 import 'package:mollet/utils/colors.dart';
+import 'package:mollet/widgets/dialogsAndSnackBars.dart';
 import 'package:provider/provider.dart';
 
 class Cart1 extends StatelessWidget {
@@ -46,6 +47,7 @@ class _Cart2State extends State<Cart2> {
         : totalList.reduce((sum, element) => sum + element).toStringAsFixed(2);
 
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         elevation: 0.0,
         brightness: Brightness.light,
@@ -112,29 +114,6 @@ class _Cart2State extends State<Cart2> {
 
   //Remove from cart
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
-  void _showRemovedtoCartSnackBar() {
-    _scaffoldKey.currentState.showSnackBar(
-      SnackBar(
-        behavior: SnackBarBehavior.floating,
-        duration: Duration(milliseconds: 1300),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-        content: Row(
-          children: <Widget>[
-            Expanded(
-              child: Text("Removed from bag"),
-            ),
-            Icon(
-              Icons.check_circle_outline,
-              color: Colors.greenAccent,
-            )
-          ],
-        ),
-      ),
-    );
-  }
 
   Future<bool> promptUser(cartItem) async {
     CartNotifier cartNotifier =
@@ -223,7 +202,11 @@ class _Cart2State extends State<Cart2> {
                       confirmDismiss: (direction) => promptUser(cartItem),
                       onDismissed: (direction) {
                         cartList.remove(UniqueKey());
-                        _showRemovedtoCartSnackBar();
+                        showSimpleSnack(
+                          "Product removed from bag",
+                          Icons.error_outline,
+                          Colors.amber,
+                        );
                       },
                       background: Container(
                         color: Colors.redAccent,

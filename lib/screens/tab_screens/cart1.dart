@@ -8,7 +8,7 @@ import 'package:mollet/model/notifiers/cart_notifier.dart';
 import 'package:mollet/model/services/Product_service.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:provider/provider.dart';
-
+import 'package:mollet/widgets/dialogsAndSnackBars.dart';
 import 'checkout_screens/completeOrder.dart';
 
 class Cart1 extends StatefulWidget {
@@ -81,29 +81,6 @@ class _Cart1State extends State<Cart1> {
 
   //Remove from cart
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
-  void _showRemovedtoCartSnackBar() {
-    _scaffoldKey.currentState.showSnackBar(
-      SnackBar(
-        behavior: SnackBarBehavior.floating,
-        duration: Duration(milliseconds: 1300),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-        content: Row(
-          children: <Widget>[
-            Expanded(
-              child: Text("Removed from bag"),
-            ),
-            Icon(
-              Icons.check_circle_outline,
-              color: Colors.greenAccent,
-            )
-          ],
-        ),
-      ),
-    );
-  }
 
   Future<bool> promptUser(cartItem) async {
     CartNotifier cartNotifier =
@@ -192,7 +169,11 @@ class _Cart1State extends State<Cart1> {
                       confirmDismiss: (direction) => promptUser(cartItem),
                       onDismissed: (direction) {
                         cartList.remove(UniqueKey());
-                        _showRemovedtoCartSnackBar();
+                        showSimpleSnack(
+                          "Product removed from bag",
+                          Icons.error_outline,
+                          Colors.amber,
+                        );
                       },
                       background: Container(
                         color: Colors.redAccent,
