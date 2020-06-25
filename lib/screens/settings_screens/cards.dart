@@ -5,6 +5,7 @@ import 'package:mollet/model/notifiers/userData_notifier.dart';
 import 'package:mollet/model/services/user_management.dart';
 import 'package:mollet/screens/tab_screens/checkout_screens/addPaymentMethod.dart';
 import 'package:mollet/utils/colors.dart';
+import 'package:mollet/widgets/dialogsAndSnackBars.dart';
 import 'package:provider/provider.dart';
 
 class Cards1 extends StatelessWidget {
@@ -201,7 +202,11 @@ class _CardsState extends State<Cards> {
                       setState(() {
                         getCard(cardNotifier);
                       });
-                      _showUpdated("card");
+                      showSimpleSnack(
+                        "Card has been updated",
+                        Icons.check_circle_outline,
+                        Colors.green,
+                      );
                     }
                   },
                   child: Text(
@@ -326,7 +331,11 @@ class _CardsState extends State<Cards> {
                     setState(() {
                       getCard(cardNotifier);
                     });
-                    _showUpdated("card");
+                    showSimpleSnack(
+                      "Card has been updated",
+                      Icons.check_circle_outline,
+                      Colors.green,
+                    );
                   }
                 },
                 child: Text(
