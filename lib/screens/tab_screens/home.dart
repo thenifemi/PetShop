@@ -10,6 +10,7 @@ import 'package:mollet/model/notifiers/products_notifier.dart';
 import 'package:mollet/model/services/user_management.dart';
 import 'package:mollet/screens/tab_screens/homeScreen_pages/productDetailsScreen.dart';
 import 'package:mollet/utils/colors.dart';
+import 'package:mollet/widgets/dialogsAndSnackBars.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -60,6 +61,8 @@ class _HomeScreenState extends State<HomeScreen>
 
   @override
   Widget build(BuildContext context) {
+    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
     ProductsNotifier productsNotifier = Provider.of<ProductsNotifier>(context);
     var prods = productsNotifier.productsList;
 
@@ -173,57 +176,7 @@ class _HomeScreenState extends State<HomeScreen>
     );
   }
 
-  //Snackbar
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
-  void _showAlreadyInCartSnackBar() {
-    _scaffoldKey.currentState.showSnackBar(
-      SnackBar(
-        behavior: SnackBarBehavior.floating,
-        duration: Duration(milliseconds: 1300),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-        content: Row(
-          children: <Widget>[
-            Expanded(
-              child: Text("Product already in bag"),
-            ),
-            Icon(
-              Icons.error_outline,
-              color: Colors.amberAccent,
-            )
-          ],
-        ),
-      ),
-    );
-  }
-
-  void _showAddtoCartSnackBar() {
-    _scaffoldKey.currentState.showSnackBar(
-      SnackBar(
-        behavior: SnackBarBehavior.floating,
-        duration: Duration(milliseconds: 1300),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-        content: Row(
-          children: <Widget>[
-            Expanded(
-              child: Text("Added to bag"),
-            ),
-            Icon(
-              Icons.check_circle_outline,
-              color: Colors.greenAccent,
-            )
-          ],
-        ),
-      ),
-    );
-  }
-
   //Add to Bag dialog
-
   void addToBagshowDialog(cartProdID, fil) async {
     CartNotifier cartNotifier =
         Provider.of<CartNotifier>(context, listen: false);
@@ -257,10 +210,18 @@ class _HomeScreenState extends State<HomeScreen>
                     getCart(cartNotifier);
                   });
                   if (cartProdID.contains(fil.productID)) {
-                    _showAlreadyInCartSnackBar();
+                    showSimpleSnack(
+                      "Product already in bag",
+                      Icons.error_outline,
+                      Colors.amber,
+                    );
                   } else {
                     addProductToCart(fil);
-                    _showAddtoCartSnackBar();
+                    showSimpleSnack(
+                      "Product added to bag",
+                      Icons.check_circle_outline,
+                      Colors.green,
+                    );
                     setState(() {
                       getCart(cartNotifier);
                     });
