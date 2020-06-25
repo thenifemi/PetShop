@@ -9,6 +9,7 @@ import 'package:mollet/model/data/Products.dart';
 import 'package:mollet/screens/tab_screens/homeScreen_pages/cart2.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:mollet/widgets/similarProducts_Wigdet.dart';
+import 'package:mollet/widgets/dialogsAndSnackBars.dart';
 import 'package:mollet/widgets/starRatings.dart';
 import 'package:provider/provider.dart';
 
@@ -451,52 +452,6 @@ class _ProductDetailsState extends State<ProductDetails> {
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  void _showAddedToCartSnackBar() {
-    _scaffoldKey.currentState.showSnackBar(
-      SnackBar(
-        behavior: SnackBarBehavior.floating,
-        duration: Duration(milliseconds: 1000),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-        content: Row(
-          children: <Widget>[
-            Expanded(
-              child: Text("Added to Bag"),
-            ),
-            Icon(
-              Icons.check_circle_outline,
-              color: Colors.greenAccent,
-            )
-          ],
-        ),
-      ),
-    );
-  }
-
-  void _showAlreadyInCartSnackBar() {
-    _scaffoldKey.currentState.showSnackBar(
-      SnackBar(
-        behavior: SnackBarBehavior.floating,
-        duration: Duration(milliseconds: 1300),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-        content: Row(
-          children: <Widget>[
-            Expanded(
-              child: Text("Product already in bag"),
-            ),
-            Icon(
-              Icons.error_outline,
-              color: Colors.amberAccent,
-            )
-          ],
-        ),
-      ),
-    );
-  }
-
   //Cart Button
 
   void disableButton() {
@@ -515,13 +470,21 @@ class _ProductDetailsState extends State<ProductDetails> {
 
     try {
       if (cartProdID.contains(prodDetails.productID)) {
-        _showAlreadyInCartSnackBar();
+        showSimpleSnack(
+          "Product is already in bag",
+          Icons.error_outline,
+          Colors.amber,
+        );
       } else {
         prodDetails.quantity = quantity;
         prodDetails.totalPrice = prodDetails.price * prodDetails.quantity;
 
         addProductToCart(prodDetails);
-        _showAddedToCartSnackBar();
+        showSimpleSnack(
+          "Product added to bag",
+          Icons.error_outline,
+          Colors.amber,
+        );
         setState(() {
           getCart(cartNotifier);
           isCartBadge = true;

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mollet/model/data/userData.dart';
-import 'package:mollet/model/services/auth_service.dart';
 import 'package:mollet/model/services/user_management.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:mollet/utils/textFieldFormaters.dart';

@@ -11,6 +11,7 @@ import 'package:mollet/screens/settings_screens/inviteFriend.dart';
 import 'package:mollet/screens/settings_screens/passwordSecurity.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:mollet/widgets/provider.dart';
+import 'package:mollet/widgets/dialogsAndSnackBars.dart';
 import 'package:provider/provider.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -90,29 +91,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  void _showProfileHasUpdated() {
-    _scaffoldKey.currentState.showSnackBar(
-      SnackBar(
-        behavior: SnackBarBehavior.floating,
-        duration: Duration(milliseconds: 1300),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-        content: Row(
-          children: <Widget>[
-            Expanded(
-              child: Text("Profile has been updated"),
-            ),
-            Icon(
-              Icons.check_circle_outline,
-              color: Colors.greenAccent,
-            )
-          ],
-        ),
-      ),
-    );
-  }
-
   Widget showSettings(user) {
     return Scaffold(
       key: _scaffoldKey,
@@ -171,7 +149,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             setState(() {
                               getProfile(profileNotifier);
                             });
-                            _showProfileHasUpdated();
+                            showSimpleSnack(
+                              "Profile has been updated",
+                              Icons.check_circle_outline,
+                              Colors.green,
+                            );
                           }
                         },
                         child: Container(
@@ -232,7 +214,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                       setState(() {
                                         getProfile(profileNotifier);
                                       });
-                                      _showProfileHasUpdated();
+                                      showSimpleSnack(
+                                        "Profile has been updated",
+                                        Icons.check_circle_outline,
+                                        Colors.green,
+                                      );
                                     }
                                   },
                                   child: Text(
