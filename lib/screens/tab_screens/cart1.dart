@@ -7,8 +7,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:mollet/model/notifiers/cart_notifier.dart';
 import 'package:mollet/model/services/Product_service.dart';
 import 'package:mollet/utils/colors.dart';
-import 'package:provider/provider.dart';
 import 'package:mollet/widgets/dialogsAndSnackBars.dart';
+import 'package:provider/provider.dart';
+
 import 'checkout_screens/completeOrder.dart';
 
 class Cart1 extends StatefulWidget {
