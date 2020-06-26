@@ -25,9 +25,7 @@ class _LoginScreenState extends State<LoginScreen> {
   String _password;
   String _error;
   bool _autoValidate = false;
-  var _state = 0;
   bool _isButtonDisabled = false;
-
   bool _obscureText = true;
 
   void _toggle() {
@@ -98,10 +96,7 @@ class _LoginScreenState extends State<LoginScreen> {
             Expanded(
               child: Text(
                 _error,
-                style: GoogleFonts.montserrat(
-                  color: Colors.redAccent,
-                  fontSize: 15.0,
-                ),
+                style: normalFont(Colors.redAccent, 15.0),
               ),
             ),
           ],
@@ -138,10 +133,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 padding: const EdgeInsets.only(top: 100.0),
                 child: Text(
                   Strings.login_to_account,
-                  style: GoogleFonts.montserrat(
-                      fontSize: 38.0,
-                      color: MColors.textDark,
-                      fontWeight: FontWeight.bold),
+                  style: boldFont(MColors.textDark, 38.0),
                   textAlign: TextAlign.start,
                 ),
               ),
@@ -151,10 +143,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     padding: const EdgeInsets.only(top: 18.0),
                     child: Text(
                       Strings.do_not_have_account,
-                      style: GoogleFonts.montserrat(
-                        fontSize: 17.0,
-                        color: MColors.textGrey,
-                      ),
+                      style: normalFont(MColors.textGrey, 16.0),
                       textAlign: TextAlign.start,
                     ),
                   ),
@@ -174,10 +163,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         },
                         child: Text(
                           "Create it!",
-                          style: GoogleFonts.montserrat(
-                            fontSize: 17.0,
-                            color: MColors.primaryPurple,
-                          ),
+                          style: normalFont(MColors.primaryPurple, 16.0),
                           textAlign: TextAlign.start,
                         )),
                   ),
@@ -205,8 +191,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           padding: const EdgeInsets.only(bottom: 5.0),
                           child: Text(
                             "Email",
-                            style:
-                                GoogleFonts.montserrat(color: MColors.textGrey),
+                            style: normalFont(MColors.textGrey, null),
                           ),
                         ),
                         Padding(
@@ -233,8 +218,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           padding: const EdgeInsets.only(bottom: 5.0),
                           child: Text(
                             "Password",
-                            style:
-                                GoogleFonts.montserrat(color: MColors.textGrey),
+                            style: normalFont(MColors.textGrey, null),
                           ),
                         ),
                         Padding(
@@ -244,7 +228,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             "",
                             (val) => _password = val,
                             PasswordValiditor.validate,
-                            true,
+                            _obscureText,
                             _autoValidate,
                             false,
                             TextInputType.text,
@@ -281,8 +265,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           Container(
                             child: Text(
                               "Remember me.",
-                              style: GoogleFonts.montserrat(
-                                  color: MColors.textDark),
+                              style: normalFont(MColors.textDark, null),
                             ),
                           ),
                         ],
@@ -317,8 +300,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         },
                         child: Text(
                           "Forgot password?",
-                          style:
-                              GoogleFonts.montserrat(color: MColors.textGrey),
+                          style: normalFont(MColors.textGrey, null),
                         ),
                       ),
                     ),

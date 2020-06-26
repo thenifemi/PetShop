@@ -50,6 +50,7 @@ Widget primaryButtonWhiteSmoke(
 //-------------------------------------------
 
 //PROGRESS INDICATOR-------------------------
+
 Widget progressIndicator(Color color) {
   return Container(
     child: Center(
