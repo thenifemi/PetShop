@@ -27,95 +27,6 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _isButtonDisabled = false;
   bool _obscureText = true;
 
-  void _toggle() {
-    setState(() {
-      _obscureText = !_obscureText;
-    });
-  }
-
-  void animateButton() {
-    setState(() {
-      _isButtonDisabled = true;
-    });
-  }
-
-  void _submit() async {
-    final form = formKey.currentState;
-
-    try {
-      final auth = MyProvider.of(context).auth;
-      if (form.validate()) {
-        form.save();
-        if (mounted) {
-          setState(() {
-            if (_isButtonDisabled = true) {
-              animateButton();
-            }
-          });
-        }
-
-        String uid = await auth.signInWithEmailAndPassword(_email, _password);
-        print("Signed in with $uid");
-        // Navigator.of(context).pop();
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(
-            builder: (_) => MyApp(),
-          ),
-        );
-      } else {
-        setState(() {
-          _autoValidate = true;
-        });
-      }
-    } catch (e) {
-      if (mounted) {
-        setState(() {
-          _error = e.message;
-          _isButtonDisabled = false;
-        });
-      }
-
-      print(e);
-      print("ERRORRRRRRRRRRR");
-    }
-  }
-
-  Widget showAlert() {
-    if (_error != null) {
-      return Container(
-        child: Row(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(right: 5.0),
-              child: Icon(
-                Icons.error_outline,
-                color: Colors.redAccent,
-              ),
-            ),
-            Expanded(
-              child: Text(
-                _error,
-                style: normalFont(Colors.redAccent, 15.0),
-              ),
-            ),
-          ],
-        ),
-        height: 60,
-        width: double.infinity,
-        padding: const EdgeInsets.all(10.0),
-        decoration: BoxDecoration(
-          color: MColors.primaryWhiteSmoke,
-          border: Border.all(width: 1.0, color: Colors.redAccent),
-          borderRadius: BorderRadius.all(
-            Radius.circular(4.0),
-          ),
-        ),
-      );
-    } else {
-      return null;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -309,5 +220,94 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+
+  void _toggle() {
+    setState(() {
+      _obscureText = !_obscureText;
+    });
+  }
+
+  void animateButton() {
+    setState(() {
+      _isButtonDisabled = true;
+    });
+  }
+
+  void _submit() async {
+    final form = formKey.currentState;
+
+    try {
+      final auth = MyProvider.of(context).auth;
+      if (form.validate()) {
+        form.save();
+        if (mounted) {
+          setState(() {
+            if (_isButtonDisabled = true) {
+              animateButton();
+            }
+          });
+        }
+
+        String uid = await auth.signInWithEmailAndPassword(_email, _password);
+        print("Signed in with $uid");
+        // Navigator.of(context).pop();
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (_) => MyApp(),
+          ),
+        );
+      } else {
+        setState(() {
+          _autoValidate = true;
+        });
+      }
+    } catch (e) {
+      if (mounted) {
+        setState(() {
+          _error = e.message;
+          _isButtonDisabled = false;
+        });
+      }
+
+      print(e);
+      print("ERRORRRRRRRRRRR");
+    }
+  }
+
+  Widget showAlert() {
+    if (_error != null) {
+      return Container(
+        child: Row(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(right: 5.0),
+              child: Icon(
+                Icons.error_outline,
+                color: Colors.redAccent,
+              ),
+            ),
+            Expanded(
+              child: Text(
+                _error,
+                style: normalFont(Colors.redAccent, 15.0),
+              ),
+            ),
+          ],
+        ),
+        height: 60,
+        width: double.infinity,
+        padding: const EdgeInsets.all(10.0),
+        decoration: BoxDecoration(
+          color: MColors.primaryWhiteSmoke,
+          border: Border.all(width: 1.0, color: Colors.redAccent),
+          borderRadius: BorderRadius.all(
+            Radius.circular(4.0),
+          ),
+        ),
+      );
+    } else {
+      return null;
+    }
   }
 }
