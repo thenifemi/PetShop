@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:mollet/main.dart';
 import 'package:mollet/screens/register_screens/registration_screen.dart';
 import 'package:mollet/screens/register_screens/reset_screen.dart';
