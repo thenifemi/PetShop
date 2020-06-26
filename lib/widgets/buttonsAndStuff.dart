@@ -3,6 +3,14 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mollet/utils/colors.dart';
 
+//SCAFFOLDS-----------------------------------
+Widget primaryScaffold() {
+  return Scaffold(
+    backgroundColor: MColors.primaryWhiteSmoke,
+  );
+}
+//--------------------------------------------
+
 //BUTTONS-------------------------------------
 Widget primaryButtonPurple(
   Widget buttonChild,
