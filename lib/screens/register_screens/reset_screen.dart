@@ -157,7 +157,7 @@ class _ResetScreenState extends State<ResetScreen> {
             fontWeight: FontWeight.bold),
       );
     } else if (_state == 1) {
-      return progressIndicator();
+      return progressIndicator(Colors.white);
     } else {
       return null;
     }
