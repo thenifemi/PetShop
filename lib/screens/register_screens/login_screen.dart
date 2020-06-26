@@ -37,7 +37,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void animateButton() {
     setState(() {
-      _state = 1;
       _isButtonDisabled = true;
     });
   }
@@ -51,7 +50,7 @@ class _LoginScreenState extends State<LoginScreen> {
         form.save();
         if (mounted) {
           setState(() {
-            if (_state == 0) {
+            if (_isButtonDisabled = true) {
               animateButton();
             }
           });
@@ -74,67 +73,12 @@ class _LoginScreenState extends State<LoginScreen> {
       if (mounted) {
         setState(() {
           _error = e.message;
-          _state = 0;
           _isButtonDisabled = false;
         });
       }
 
       print(e);
       print("ERRORRRRRRRRRRR");
-    }
-  }
-
-  Widget buildLoginButton() {
-    if (_state == 0) {
-      return Text(
-        "Sign in",
-        style: GoogleFonts.montserrat(
-            color: MColors.primaryWhite,
-            fontSize: 16.0,
-            fontWeight: FontWeight.bold),
-      );
-    } else if (_state == 1) {
-      return progressIndicator();
-    } else {
-      return null;
-    }
-  }
-
-  Widget loginButton() {
-    if (_isButtonDisabled == true) {
-      return SizedBox(
-        width: double.infinity,
-        height: 60.0,
-        child: RawMaterialButton(
-          elevation: 0.0,
-          hoverElevation: 0.0,
-          focusElevation: 0.0,
-          highlightElevation: 0.0,
-          fillColor: MColors.primaryPurple,
-          onPressed: null,
-          child: buildLoginButton(),
-          shape: RoundedRectangleBorder(
-            borderRadius: new BorderRadius.circular(10.0),
-          ),
-        ),
-      );
-    } else {
-      return SizedBox(
-        width: double.infinity,
-        height: 60.0,
-        child: RawMaterialButton(
-          elevation: 0.0,
-          hoverElevation: 0.0,
-          focusElevation: 0.0,
-          highlightElevation: 0.0,
-          fillColor: MColors.primaryPurple,
-          onPressed: _isButtonDisabled ? null : _submit,
-          child: buildLoginButton(),
-          shape: RoundedRectangleBorder(
-            borderRadius: new BorderRadius.circular(10.0),
-          ),
-        ),
-      );
     }
   }
 
@@ -433,7 +377,22 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     SizedBox(height: 20.0),
-                    loginButton(),
+                    _isButtonDisabled == true
+                        ? primaryButtonPurple(
+                            //if button is loading
+                            progressIndicator(Colors.white),
+                            null,
+                          )
+                        : primaryButtonPurple(
+                            Text(
+                              "Sign in",
+                              style: GoogleFonts.montserrat(
+                                  color: MColors.primaryWhite,
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            _isButtonDisabled ? null : _submit,
+                          ),
                     Padding(
                       padding: const EdgeInsets.only(top: 20.0, bottom: 10.0),
                       child: GestureDetector(

@@ -45,18 +45,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
       builder: (c, s) {
         switch (s.connectionState) {
           case ConnectionState.active:
-            return progressIndicator();
+            return progressIndicator(MColors.primaryPurple);
             break;
           case ConnectionState.done:
             return checkUser.isEmpty || user == null
-                ? progressIndicator()
+                ? progressIndicator(MColors.primaryPurple)
                 : showSettings(user);
             break;
           case ConnectionState.waiting:
-            return progressIndicator();
+            return progressIndicator(MColors.primaryPurple);
             break;
           default:
-            return progressIndicator();
+            return progressIndicator(MColors.primaryPurple);
         }
       },
     );

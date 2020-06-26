@@ -5,6 +5,7 @@ import 'package:mollet/utils/textFieldFormaters.dart';
 import 'package:mollet/screens/register_screens/login_screen.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:mollet/widgets/provider.dart';
+import 'package:mollet/widgets/buttonsAndStuff.dart';
 
 class ResetScreen extends StatefulWidget {
   ResetScreen({Key key}) : super(key: key);
@@ -156,10 +157,7 @@ class _ResetScreenState extends State<ResetScreen> {
             fontWeight: FontWeight.bold),
       );
     } else if (_state == 1) {
-      return CircularProgressIndicator(
-        strokeWidth: 2.0,
-        valueColor: AlwaysStoppedAnimation<Color>(MColors.primaryWhite),
-      );
+      return progressIndicator();
     } else {
       return null;
     }

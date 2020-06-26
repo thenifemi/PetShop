@@ -5,6 +5,7 @@ import 'package:mollet/screens/register_screens/registration_screen.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mollet/utils/strings.dart';
+import 'package:mollet/widgets/buttonsAndStuff.dart';
 
 class IntroScreen extends StatelessWidget {
   Widget buildOnboard() {
@@ -80,64 +81,40 @@ class IntroScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            SizedBox(
-              width: double.infinity,
-              height: 60.0,
-              child: RawMaterialButton(
-                elevation: 0.0,
-                hoverElevation: 0.0,
-                focusElevation: 0.0,
-                highlightElevation: 0.0,
-                fillColor: MColors.primaryPurple,
-                onPressed: () {
-                  Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(
-                      builder: (_) => LoginScreen(),
-                    ),
-                  );
-                },
-                child: Text(
-                  Strings.signin_small,
-                  style: GoogleFonts.montserrat(
-                      color: MColors.primaryWhite,
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.bold),
-                ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: new BorderRadius.circular(10.0),
-                ),
+            primaryButtonPurple(
+              Text(
+                "Sign in",
+                style: GoogleFonts.montserrat(
+                    color: MColors.primaryWhite,
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.bold),
               ),
+              () {
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(
+                    builder: (_) => LoginScreen(),
+                  ),
+                );
+              },
             ),
             SizedBox(
               height: 15.0,
             ),
-            SizedBox(
-              width: double.infinity,
-              height: 60.0,
-              child: RawMaterialButton(
-                fillColor: MColors.primaryWhiteSmoke,
-                elevation: 0.0,
-                hoverElevation: 0.0,
-                focusElevation: 0.0,
-                highlightElevation: 0.0,
-                onPressed: () {
-                  Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(
-                      builder: (_) => RegistrationScreen(),
-                    ),
-                  );
-                },
-                child: Text(
-                  Strings.register,
-                  style: GoogleFonts.montserrat(
-                      color: MColors.primaryPurple,
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.bold),
-                ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: new BorderRadius.circular(10.0),
-                ),
+            primaryButtonWhiteSmoke(
+              Text(
+                "Create an account",
+                style: GoogleFonts.montserrat(
+                    color: MColors.primaryPurple,
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.bold),
               ),
+              () {
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(
+                    builder: (_) => RegistrationScreen(),
+                  ),
+                );
+              },
             ),
           ],
         ),
