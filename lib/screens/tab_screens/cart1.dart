@@ -8,6 +8,7 @@ import 'package:mollet/model/notifiers/cart_notifier.dart';
 import 'package:mollet/model/services/Product_service.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:mollet/widgets/dialogsAndSnackBars.dart';
+import 'package:mollet/widgets/buttonsAndStuff.dart';
 import 'package:provider/provider.dart';
 
 import 'checkout_screens/completeOrder.dart';
@@ -45,37 +46,16 @@ class _Cart1State extends State<Cart1> {
         builder: (c, s) {
           switch (s.connectionState) {
             case ConnectionState.active:
-              return Container(
-                color: MColors.primaryWhiteSmoke,
-                child: Center(
-                  child: CircularProgressIndicator(
-                    strokeWidth: 2.0,
-                  ),
-                ),
-              );
+              return progressIndicator();
               break;
             case ConnectionState.done:
               return cartList.isEmpty ? emptyCart() : cart(cartList, total);
               break;
             case ConnectionState.waiting:
-              return Container(
-                color: MColors.primaryWhiteSmoke,
-                child: Center(
-                  child: CircularProgressIndicator(
-                    strokeWidth: 2.0,
-                  ),
-                ),
-              );
+              return progressIndicator();
               break;
             default:
-              return Container(
-                color: MColors.primaryWhiteSmoke,
-                child: Center(
-                  child: CircularProgressIndicator(
-                    strokeWidth: 2.0,
-                  ),
-                ),
-              );
+              return progressIndicator();
           }
         });
   }

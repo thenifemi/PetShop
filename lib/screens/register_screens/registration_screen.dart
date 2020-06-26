@@ -9,6 +9,7 @@ import 'package:mollet/utils/colors.dart';
 import 'package:mollet/utils/strings.dart';
 import 'package:mollet/widgets/provider.dart';
 import 'package:provider/provider.dart';
+import 'package:mollet/widgets/buttonsAndStuff.dart';
 
 class RegistrationScreen extends StatefulWidget {
   RegistrationScreen({Key key}) : super(key: key);
@@ -97,10 +98,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             fontWeight: FontWeight.bold),
       );
     } else if (_state == 1) {
-      return CircularProgressIndicator(
-        strokeWidth: 2.0,
-        valueColor: AlwaysStoppedAnimation<Color>(MColors.primaryWhite),
-      );
+      return progressIndicator();
     } else {
       return null;
     }
@@ -292,7 +290,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                         horizontal: 25.0),
                                     fillColor: MColors.primaryWhite,
                                     filled: true,
-                                    
                                     floatingLabelBehavior:
                                         FloatingLabelBehavior.never,
                                     enabledBorder: OutlineInputBorder(

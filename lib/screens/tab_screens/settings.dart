@@ -12,6 +12,7 @@ import 'package:mollet/screens/settings_screens/passwordSecurity.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:mollet/widgets/provider.dart';
 import 'package:mollet/widgets/dialogsAndSnackBars.dart';
+import 'package:mollet/widgets/buttonsAndStuff.dart';
 import 'package:provider/provider.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -44,46 +45,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
       builder: (c, s) {
         switch (s.connectionState) {
           case ConnectionState.active:
-            return Container(
-              color: MColors.primaryWhiteSmoke,
-              child: Center(
-                child: CircularProgressIndicator(
-                  strokeWidth: 2.0,
-                ),
-              ),
-            );
+            return progressIndicator();
             break;
           case ConnectionState.done:
             return checkUser.isEmpty || user == null
-                ? Container(
-                    color: MColors.primaryWhiteSmoke,
-                    child: Center(
-                      child: CircularProgressIndicator(
-                        strokeWidth: 2.0,
-                      ),
-                    ),
-                  )
+                ? progressIndicator()
                 : showSettings(user);
             break;
           case ConnectionState.waiting:
-            return Container(
-              color: MColors.primaryWhiteSmoke,
-              child: Center(
-                child: CircularProgressIndicator(
-                  strokeWidth: 2.0,
-                ),
-              ),
-            );
+            return progressIndicator();
             break;
           default:
-            return Container(
-              color: MColors.primaryWhiteSmoke,
-              child: Center(
-                child: CircularProgressIndicator(
-                  strokeWidth: 2.0,
-                ),
-              ),
-            );
+            return progressIndicator();
         }
       },
     );
@@ -153,8 +126,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               "Profile has been updated",
                               Icons.check_circle_outline,
                               Colors.green,
-          _scaffoldKey,
-
+                              _scaffoldKey,
                             );
                           }
                         },
@@ -220,8 +192,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                         "Profile has been updated",
                                         Icons.check_circle_outline,
                                         Colors.green,
-          _scaffoldKey,
-
+                                        _scaffoldKey,
                                       );
                                     }
                                   },

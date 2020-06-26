@@ -11,6 +11,7 @@ import 'package:mollet/model/services/user_management.dart';
 import 'package:mollet/screens/tab_screens/homeScreen_pages/productDetailsScreen.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:mollet/widgets/dialogsAndSnackBars.dart';
+import 'package:mollet/widgets/buttonsAndStuff.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -161,13 +162,7 @@ class _HomeScreenState extends State<HomeScreen>
         ),
       ),
       body: prods.isEmpty
-          ? Container(
-              child: Center(
-                child: CircularProgressIndicator(
-                  strokeWidth: 2.0,
-                ),
-              ),
-            )
+          ? progressIndicator()
           : TabBarView(
               children: _tabBody,
               controller: _tabController,
