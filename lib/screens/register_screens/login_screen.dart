@@ -5,6 +5,7 @@ import 'package:mollet/screens/register_screens/registration_screen.dart';
 import 'package:mollet/screens/register_screens/reset_screen.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:mollet/utils/strings.dart';
+import 'package:mollet/utils/textFieldFormaters.dart';
 import 'package:mollet/widgets/provider.dart';
 import 'package:mollet/widgets/buttonsAndStuff.dart';
 
@@ -210,62 +211,17 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         Padding(
                           padding: const EdgeInsets.only(bottom: 20.0),
-                          child: TextFormField(
-                            keyboardType: TextInputType.emailAddress,
-                            enableSuggestions: true,
-                            autovalidate: _autoValidate,
-                            validator: (val) {
-                              print(val);
-                              if (!val.contains("@") || !val.contains(".")) {
-                                return "Enter a valid Email address";
-                              } else if (val.isEmpty) {
-                                return "Enter your Email address";
-                              } else {
-                                return null;
-                              }
-                            },
-                            onSaved: (val) => _email = val,
-                            decoration: InputDecoration(
-                              labelText: "e.g Remiola2034@gmail.com",
-                              labelStyle:
-                                  GoogleFonts.montserrat(fontSize: 16.0),
-                              contentPadding:
-                                  new EdgeInsets.symmetric(horizontal: 25.0),
-                              fillColor: MColors.primaryWhite,
-                              floatingLabelBehavior:
-                                  FloatingLabelBehavior.never,
-                              filled: true,
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8.0),
-                                borderSide: BorderSide(
-                                  color: Colors.white,
-                                  width: 0.0,
-                                ),
-                              ),
-                              errorBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8.0),
-                                borderSide: BorderSide(
-                                  color: Colors.red,
-                                  width: 1.0,
-                                ),
-                              ),
-                              focusedErrorBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8.0),
-                                borderSide: BorderSide(
-                                  color: Colors.red,
-                                  width: 1.0,
-                                ),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8.0),
-                                borderSide: BorderSide(
-                                  color: Colors.white,
-                                  width: 0.0,
-                                ),
-                              ),
-                            ),
-                            style: GoogleFonts.montserrat(
-                                fontSize: 17.0, color: MColors.textDark),
+                          child: primaryTextField(
+                            null,
+                            "e.g Remiola2034@gmail.com",
+                            (val) => _email = val,
+                            EmailValiditor.validate,
+                            false,
+                            _autoValidate,
+                            true,
+                            TextInputType.emailAddress,
+                            null,
+                            null,
                           ),
                         ),
                       ],
@@ -283,74 +239,30 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         Padding(
                           padding: const EdgeInsets.only(bottom: 10.0),
-                          child: TextFormField(
-                            autovalidate: _autoValidate,
-                            validator: (val) {
-                              Pattern pattern =
-                                  r'(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])';
-                              RegExp regex = RegExp(pattern);
-                              print(val);
-                              if (val.length < 6 || (!regex.hasMatch(val))) {
-                                return "Hmm! That doesn't seem right.";
-                              } else {
-                                return null;
-                              }
-                            },
-                            onSaved: (val) => _password = val,
-                            decoration: InputDecoration(
-                              suffix: SizedBox(
-                                height: 20.0,
-                                width: 35.0,
-                                child: RawMaterialButton(
-                                  onPressed: _toggle,
-                                  child: new Text(
-                                    _obscureText ? "Show" : "Hide",
-                                    style: TextStyle(
-                                      color: MColors.primaryPurple,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                          child: primaryTextField(
+                            null,
+                            "",
+                            (val) => _password = val,
+                            PasswordValiditor.validate,
+                            true,
+                            _autoValidate,
+                            false,
+                            TextInputType.text,
+                            null,
+                            SizedBox(
+                              height: 20.0,
+                              width: 35.0,
+                              child: RawMaterialButton(
+                                onPressed: _toggle,
+                                child: new Text(
+                                  _obscureText ? "Show" : "Hide",
+                                  style: TextStyle(
+                                    color: MColors.primaryPurple,
+                                    fontWeight: FontWeight.bold,
                                   ),
                                 ),
                               ),
-                              labelText: "",
-                              contentPadding:
-                                  new EdgeInsets.symmetric(horizontal: 25.0),
-                              fillColor: MColors.primaryWhite,
-                              floatingLabelBehavior:
-                                  FloatingLabelBehavior.never,
-                              filled: true,
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8.0),
-                                borderSide: BorderSide(
-                                  color: Colors.white,
-                                  width: 0.0,
-                                ),
-                              ),
-                              errorBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8.0),
-                                borderSide: BorderSide(
-                                  color: Colors.red,
-                                  width: 1.0,
-                                ),
-                              ),
-                              focusedErrorBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8.0),
-                                borderSide: BorderSide(
-                                  color: Colors.red,
-                                  width: 1.0,
-                                ),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8.0),
-                                borderSide: BorderSide(
-                                  color: Colors.white,
-                                  width: 0.0,
-                                ),
-                              ),
                             ),
-                            obscureText: _obscureText,
-                            style: GoogleFonts.montserrat(
-                                fontSize: 17.0, color: MColors.textDark),
                           ),
                         ),
                       ],
@@ -386,10 +298,10 @@ class _LoginScreenState extends State<LoginScreen> {
                         : primaryButtonPurple(
                             Text(
                               "Sign in",
-                              style: GoogleFonts.montserrat(
-                                  color: MColors.primaryWhite,
-                                  fontSize: 16.0,
-                                  fontWeight: FontWeight.bold),
+                              style: boldFont(
+                                MColors.primaryWhite,
+                                16.0,
+                              ),
                             ),
                             _isButtonDisabled ? null : _submit,
                           ),
