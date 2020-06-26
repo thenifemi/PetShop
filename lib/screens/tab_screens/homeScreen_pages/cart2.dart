@@ -76,16 +76,16 @@ class _Cart2State extends State<Cart2> {
         builder: (c, s) {
           switch (s.connectionState) {
             case ConnectionState.active:
-              return progressIndicator();
+              return progressIndicator(MColors.primaryPurple);
               break;
             case ConnectionState.done:
               return cartList.isEmpty ? emptyCart() : cart(cartList, total);
               break;
             case ConnectionState.waiting:
-              return progressIndicator();
+              return progressIndicator(MColors.primaryPurple);
               break;
             default:
-              return progressIndicator();
+              return progressIndicator(MColors.primaryPurple);
           }
         },
       ),
