@@ -6,6 +6,7 @@ import 'package:mollet/screens/register_screens/reset_screen.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:mollet/utils/strings.dart';
 import 'package:mollet/widgets/provider.dart';
+import 'package:mollet/widgets/buttonsAndStuff.dart';
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({Key key}) : super(key: key);
@@ -93,10 +94,7 @@ class _LoginScreenState extends State<LoginScreen> {
             fontWeight: FontWeight.bold),
       );
     } else if (_state == 1) {
-      return CircularProgressIndicator(
-        strokeWidth: 2.0,
-        valueColor: AlwaysStoppedAnimation<Color>(MColors.primaryWhite),
-      );
+      return progressIndicator();
     } else {
       return null;
     }
