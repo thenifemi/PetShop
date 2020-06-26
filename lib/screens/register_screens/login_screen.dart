@@ -113,9 +113,7 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       );
     } else {
-      return Container(
-        height: 0.0,
-      );
+      return null;
     }
   }
 
