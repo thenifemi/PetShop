@@ -162,7 +162,7 @@ class _HomeScreenState extends State<HomeScreen>
         ),
       ),
       body: prods.isEmpty
-          ? progressIndicator()
+          ? progressIndicator(MColors.primaryPurple)
           : TabBarView(
               children: _tabBody,
               controller: _tabController,
