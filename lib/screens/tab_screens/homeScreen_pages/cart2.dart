@@ -6,7 +6,7 @@ import 'package:mollet/model/notifiers/cart_notifier.dart';
 import 'package:mollet/model/services/Product_service.dart';
 import 'package:mollet/screens/tab_screens/checkout_screens/completeOrder.dart';
 import 'package:mollet/utils/colors.dart';
-import 'package:mollet/widgets/buttonsAndStuff.dart';
+import 'package:mollet/widgets/allWidgets.dart';
 import 'package:provider/provider.dart';
 
 class Cart1 extends StatelessWidget {

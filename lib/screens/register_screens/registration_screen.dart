@@ -9,7 +9,7 @@ import 'package:mollet/utils/colors.dart';
 import 'package:mollet/utils/strings.dart';
 import 'package:mollet/widgets/provider.dart';
 import 'package:provider/provider.dart';
-import 'package:mollet/widgets/buttonsAndStuff.dart';
+import 'package:mollet/widgets/allWidgets.dart';
 
 class RegistrationScreen extends StatefulWidget {
   RegistrationScreen({Key key}) : super(key: key);

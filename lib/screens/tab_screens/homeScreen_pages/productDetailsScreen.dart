@@ -9,7 +9,7 @@ import 'package:mollet/model/data/Products.dart';
 import 'package:mollet/screens/tab_screens/homeScreen_pages/cart2.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:mollet/widgets/similarProducts_Wigdet.dart';
-import 'package:mollet/widgets/buttonsAndStuff.dart';
+import 'package:mollet/widgets/allWidgets.dart';
 import 'package:mollet/widgets/starRatings.dart';
 import 'package:provider/provider.dart';
 

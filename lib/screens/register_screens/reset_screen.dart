@@ -5,7 +5,7 @@ import 'package:mollet/utils/textFieldFormaters.dart';
 import 'package:mollet/screens/register_screens/login_screen.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:mollet/widgets/provider.dart';
-import 'package:mollet/widgets/buttonsAndStuff.dart';
+import 'package:mollet/widgets/allWidgets.dart';
 
 class ResetScreen extends StatefulWidget {
   ResetScreen({Key key}) : super(key: key);
