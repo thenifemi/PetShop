@@ -11,12 +11,15 @@ Widget primaryScaffold() {
 }
 
 //--------------------------------------------
-//SCAFFOLDS-----------------------------------
+
+//APPBARS-------------------------------------
 Widget primaryAppBar(
   Widget leading,
   Widget title,
   Color backgroundColor,
   PreferredSizeWidget bottom,
+  bool centerTile,
+  List<Widget> actions,
 ) {
   return AppBar(
     brightness: Brightness.light,
@@ -25,6 +28,34 @@ Widget primaryAppBar(
     leading: leading,
     title: title,
     bottom: bottom,
+    centerTitle: centerTile,
+    actions: actions,
+  );
+}
+
+Widget primarySliverAppBar(
+  Widget leading,
+  Widget title,
+  Color backgroundColor,
+  PreferredSizeWidget bottom,
+  bool centerTile,
+  bool floating,
+  bool pinned,
+  List<Widget> actions,
+  double expandedHeight,
+) {
+  return SliverAppBar(
+    brightness: Brightness.light,
+    elevation: 0.0,
+    backgroundColor: backgroundColor,
+    leading: leading,
+    title: title,
+    bottom: bottom,
+    centerTitle: centerTile,
+    floating: floating,
+    pinned: pinned,
+    actions: actions,
+    expandedHeight: expandedHeight,
   );
 }
 //--------------------------------------------
