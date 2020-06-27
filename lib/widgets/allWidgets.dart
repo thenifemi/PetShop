@@ -15,19 +15,16 @@ Widget primaryScaffold() {
 Widget primaryAppBar(
   Widget leading,
   Widget title,
+  Color backgroundColor,
+  PreferredSizeWidget bottom,
 ) {
   return AppBar(
     brightness: Brightness.light,
     elevation: 0.0,
-    backgroundColor: MColors.primaryWhiteSmoke,
+    backgroundColor: backgroundColor,
     leading: leading,
     title: title,
-  );
-}
-
-Widget appBarWithSearch() {
-  return AppBar(
-    backgroundColor: MColors.primaryWhiteSmoke,
+    bottom: bottom,
   );
 }
 //--------------------------------------------
