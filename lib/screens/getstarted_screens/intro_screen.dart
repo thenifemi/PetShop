@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:mollet/screens/register_screens/login_screen.dart';
 import 'package:mollet/screens/register_screens/registration_screen.dart';
 import 'package:mollet/utils/colors.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:mollet/utils/strings.dart';
 import 'package:mollet/widgets/allWidgets.dart';
 

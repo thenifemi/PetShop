@@ -3,7 +3,6 @@ import 'package:mollet/main.dart';
 import 'package:mollet/screens/register_screens/registration_screen.dart';
 import 'package:mollet/screens/register_screens/reset_screen.dart';
 import 'package:mollet/utils/colors.dart';
-import 'package:mollet/utils/strings.dart';
 import 'package:mollet/utils/textFieldFormaters.dart';
 import 'package:mollet/widgets/provider.dart';
 import 'package:mollet/widgets/allWidgets.dart';
@@ -32,34 +31,31 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       backgroundColor: MColors.primaryWhiteSmoke,
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(30.0),
-          child: Column(
+        child: primaryContainer(
+          Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               Container(
                 padding: const EdgeInsets.only(top: 100.0),
                 child: Text(
-                  Strings.login_to_account,
+                  "Sign in to your account",
                   style: boldFont(MColors.textDark, 38.0),
                   textAlign: TextAlign.start,
                 ),
               ),
+
+              SizedBox(height: 20.0),
+
               Row(
                 children: <Widget>[
                   Container(
-                    padding: const EdgeInsets.only(top: 18.0),
                     child: Text(
-                      Strings.do_not_have_account,
+                      "Do not have an account? ",
                       style: normalFont(MColors.textGrey, 16.0),
                       textAlign: TextAlign.start,
                     ),
                   ),
-                  SizedBox(
-                    width: 3.0,
-                  ),
                   Container(
-                    padding: const EdgeInsets.only(top: 18.0),
                     child: GestureDetector(
                         onTap: () {
                           formKey.currentState.reset();
@@ -77,14 +73,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ],
               ),
-              SizedBox(
-                height: 10.0,
-              ),
+
+              SizedBox(height: 10.0),
+
               showAlert(),
 
-              SizedBox(
-                height: 20.0,
-              ),
+              SizedBox(height: 10.0),
 
               //FORM
               Form(
@@ -102,23 +96,21 @@ class _LoginScreenState extends State<LoginScreen> {
                             style: normalFont(MColors.textGrey, null),
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 20.0),
-                          child: primaryTextField(
-                            null,
-                            "e.g Remiola2034@gmail.com",
-                            (val) => _email = val,
-                            EmailValiditor.validate,
-                            false,
-                            _autoValidate,
-                            true,
-                            TextInputType.emailAddress,
-                            null,
-                            null,
-                          ),
+                        primaryTextField(
+                          null,
+                          "e.g Remiola2034@gmail.com",
+                          (val) => _email = val,
+                          EmailValiditor.validate,
+                          false,
+                          _autoValidate,
+                          true,
+                          TextInputType.emailAddress,
+                          null,
+                          null,
                         ),
                       ],
                     ),
+                    SizedBox(height: 20.0),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
@@ -129,29 +121,26 @@ class _LoginScreenState extends State<LoginScreen> {
                             style: normalFont(MColors.textGrey, null),
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 10.0),
-                          child: primaryTextField(
-                            null,
-                            "",
-                            (val) => _password = val,
-                            PasswordValiditor.validate,
-                            _obscureText,
-                            _autoValidate,
-                            false,
-                            TextInputType.text,
-                            null,
-                            SizedBox(
-                              height: 20.0,
-                              width: 35.0,
-                              child: RawMaterialButton(
-                                onPressed: _toggle,
-                                child: new Text(
-                                  _obscureText ? "Show" : "Hide",
-                                  style: TextStyle(
-                                    color: MColors.primaryPurple,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                        primaryTextField(
+                          null,
+                          "",
+                          (val) => _password = val,
+                          PasswordValiditor.validate,
+                          _obscureText,
+                          _autoValidate,
+                          false,
+                          TextInputType.text,
+                          null,
+                          SizedBox(
+                            height: 20.0,
+                            width: 35.0,
+                            child: RawMaterialButton(
+                              onPressed: _toggle,
+                              child: new Text(
+                                _obscureText ? "Show" : "Hide",
+                                style: TextStyle(
+                                  color: MColors.primaryPurple,
+                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
                             ),
@@ -159,25 +148,21 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ],
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
-                      child: Row(
-                        children: <Widget>[
-                          Icon(
-                            Icons.check_box,
-                            color: MColors.primaryPurple,
+                    SizedBox(height: 20.0),
+                    Row(
+                      children: <Widget>[
+                        Icon(
+                          Icons.check_box,
+                          color: MColors.primaryPurple,
+                        ),
+                        SizedBox(width: 5.0),
+                        Container(
+                          child: Text(
+                            "Remember me.",
+                            style: normalFont(MColors.textDark, null),
                           ),
-                          SizedBox(
-                            width: 5.0,
-                          ),
-                          Container(
-                            child: Text(
-                              "Remember me.",
-                              style: normalFont(MColors.textDark, null),
-                            ),
-                          ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                     SizedBox(height: 20.0),
                     _isButtonDisabled == true
@@ -196,20 +181,18 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                             _isButtonDisabled ? null : _submit,
                           ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 20.0, bottom: 10.0),
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(
-                              builder: (_) => ResetScreen(),
-                            ),
-                          );
-                        },
-                        child: Text(
-                          "Forgot password?",
-                          style: normalFont(MColors.textGrey, null),
-                        ),
+                    SizedBox(height: 20.0),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                            builder: (_) => ResetScreen(),
+                          ),
+                        );
+                      },
+                      child: Text(
+                        "Forgot password?",
+                        style: normalFont(MColors.textGrey, null),
                       ),
                     ),
                   ],
@@ -251,7 +234,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
         String uid = await auth.signInWithEmailAndPassword(_email, _password);
         print("Signed in with $uid");
-        // Navigator.of(context).pop();
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
             builder: (_) => MyApp(),
@@ -270,8 +252,8 @@ class _LoginScreenState extends State<LoginScreen> {
         });
       }
 
+      print("ERRORR ==>");
       print(e);
-      print("ERRORRRRRRRRRRR");
     }
   }
 
@@ -307,7 +289,9 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       );
     } else {
-      return null;
+      return Container(
+        height: 0.0,
+      );
     }
   }
 }
