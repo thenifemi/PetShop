@@ -5,7 +5,7 @@ import 'package:mollet/screens/register_screens/registration_screen.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mollet/utils/strings.dart';
-import 'package:mollet/widgets/buttonsAndStuff.dart';
+import 'package:mollet/widgets/allWidgets.dart';
 
 class IntroScreen extends StatelessWidget {
   Widget buildOnboard() {

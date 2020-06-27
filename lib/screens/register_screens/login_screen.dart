@@ -6,7 +6,7 @@ import 'package:mollet/utils/colors.dart';
 import 'package:mollet/utils/strings.dart';
 import 'package:mollet/utils/textFieldFormaters.dart';
 import 'package:mollet/widgets/provider.dart';
-import 'package:mollet/widgets/buttonsAndStuff.dart';
+import 'package:mollet/widgets/allWidgets.dart';
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({Key key}) : super(key: key);
