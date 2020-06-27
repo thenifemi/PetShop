@@ -115,7 +115,7 @@ Widget primaryTextField(
       suffix: suffix,
       labelText: labelText,
       labelStyle: normalFont(null, 16.0),
-      contentPadding: new EdgeInsets.symmetric(horizontal: 25.0),
+      contentPadding: EdgeInsets.symmetric(horizontal: 25.0),
       fillColor: MColors.primaryWhite,
       floatingLabelBehavior: FloatingLabelBehavior.never,
       filled: true,
