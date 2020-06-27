@@ -7,6 +7,9 @@ import 'package:mollet/utils/colors.dart';
 Widget primaryScaffold() {
   return Scaffold(
     backgroundColor: MColors.primaryWhiteSmoke,
+    body: Container(
+      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+    ),
   );
 }
 
