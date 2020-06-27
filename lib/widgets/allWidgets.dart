@@ -43,6 +43,7 @@ Widget primarySliverAppBar(
   bool pinned,
   List<Widget> actions,
   double expandedHeight,
+  Widget flexibleSpace,
 ) {
   return SliverAppBar(
     brightness: Brightness.light,
@@ -56,6 +57,7 @@ Widget primarySliverAppBar(
     pinned: pinned,
     actions: actions,
     expandedHeight: expandedHeight,
+    flexibleSpace: flexibleSpace,
   );
 }
 //--------------------------------------------

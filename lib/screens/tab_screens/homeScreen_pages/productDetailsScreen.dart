@@ -475,7 +475,6 @@ class _ProductDetailsState extends State<ProductDetails> {
           Icons.error_outline,
           Colors.amber,
           _scaffoldKey,
-
         );
       } else {
         prodDetails.quantity = quantity;
