@@ -4,12 +4,13 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:mollet/utils/colors.dart';
 
 //SCAFFOLDS-----------------------------------
-Widget primaryScaffold() {
-  return Scaffold(
-    backgroundColor: MColors.primaryWhiteSmoke,
-    body: Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0),
-    ),
+Widget primaryContainer(
+  Widget containerChild,
+) {
+  return Container(
+    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+    color: MColors.primaryWhiteSmoke,
+    child: containerChild,
   );
 }
 

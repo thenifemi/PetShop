@@ -8,72 +8,45 @@ import 'package:mollet/utils/strings.dart';
 import 'package:mollet/widgets/allWidgets.dart';
 
 class IntroScreen extends StatelessWidget {
-  Widget buildOnboard() {
-    return Container(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Container(
-            padding: const EdgeInsets.all(20.0),
-            child: SvgPicture.asset(
-              "assets/images/pets.svg",
-              height: 230,
-            ),
-          ),
-          SizedBox(
-            height: 30.0,
-          ),
-          Container(
-            padding: const EdgeInsets.only(right: 50.0, left: 50.0),
-            child: Column(
-              children: <Widget>[
-                Text(
-                  Strings.onBoardTitle1,
-                  style: GoogleFonts.montserrat(
-                      fontSize: 30.0,
-                      fontWeight: FontWeight.bold,
-                      color: MColors.textDark),
-                  textAlign: TextAlign.center,
-                ),
-                Text(
-                  Strings.onBoardTitle2,
-                  style: GoogleFonts.montserrat(
-                    fontSize: 30.0,
-                    fontWeight: FontWeight.bold,
-                    color: MColors.textDark,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              ],
-            ),
-          ),
-          Container(
-            padding: const EdgeInsets.only(
-              left: 30.0,
-              right: 30.0,
-              top: 10.0,
-              bottom: 5.0,
-            ),
-            child: Text(
-              Strings.onBoardTitle_sub1,
-              style: GoogleFonts.montserrat(
-                fontSize: 19.0,
-                color: MColors.textGrey,
-                height: 1.30,
-              ),
-              textAlign: TextAlign.center,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: MColors.primaryWhiteSmoke,
-      body: buildOnboard(),
+      body: primaryContainer(
+        Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                padding: const EdgeInsets.all(20.0),
+                child: SvgPicture.asset(
+                  "assets/images/pets.svg",
+                  height: 200,
+                ),
+              ),
+              SizedBox(
+                height: 30.0,
+              ),
+              Container(
+                child: Text(
+                  "Welcome to Pet Shop",
+                  style: boldFont(MColors.textDark, 30.0),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              SizedBox(
+                height: 10.0,
+              ),
+              Container(
+                child: Text(
+                  Strings.onBoardTitle_sub1,
+                  style: normalFont(MColors.textGrey, 18.0),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
       bottomNavigationBar: Container(
         height: 180.0,
         color: MColors.primaryWhite,
@@ -84,10 +57,7 @@ class IntroScreen extends StatelessWidget {
             primaryButtonPurple(
               Text(
                 "Sign in",
-                style: GoogleFonts.montserrat(
-                    color: MColors.primaryWhite,
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.bold),
+                style: boldFont(MColors.primaryWhite, 16.0),
               ),
               () {
                 Navigator.of(context).pushReplacement(
@@ -103,10 +73,7 @@ class IntroScreen extends StatelessWidget {
             primaryButtonWhiteSmoke(
               Text(
                 "Create an account",
-                style: GoogleFonts.montserrat(
-                    color: MColors.primaryPurple,
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.bold),
+                style: boldFont(MColors.primaryPurple, 16.0),
               ),
               () {
                 Navigator.of(context).pushReplacement(
