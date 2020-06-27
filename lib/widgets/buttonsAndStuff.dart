@@ -9,6 +9,27 @@ Widget primaryScaffold() {
     backgroundColor: MColors.primaryWhiteSmoke,
   );
 }
+
+//--------------------------------------------
+//SCAFFOLDS-----------------------------------
+Widget primaryAppBar(
+  Widget leading,
+  Widget title,
+) {
+  return AppBar(
+    brightness: Brightness.light,
+    elevation: 0.0,
+    backgroundColor: MColors.primaryWhiteSmoke,
+    leading: leading,
+    title: title,
+  );
+}
+
+Widget appBarWithSearch() {
+  return AppBar(
+    backgroundColor: MColors.primaryWhiteSmoke,
+  );
+}
 //--------------------------------------------
 
 //BUTTONS-------------------------------------
