@@ -22,8 +22,19 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen>
     with SingleTickerProviderStateMixin {
-  TabController _tabController;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  TabController _tabController;
+
+  final _tabItems = [
+    "All",
+    "Dogs",
+    "Cats",
+    "Fish",
+    "Birds",
+    "Reptiles",
+    "Small Pets",
+  ];
 
   @override
   void initState() {
@@ -49,16 +60,6 @@ class _HomeScreenState extends State<HomeScreen>
     );
     super.initState();
   }
-
-  final _tabItems = [
-    "All",
-    "Dogs",
-    "Cats",
-    "Fish",
-    "Birds",
-    "Reptiles",
-    "Small Pets",
-  ];
 
   @override
   Widget build(BuildContext context) {
