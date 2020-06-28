@@ -166,6 +166,7 @@ Widget primaryTextField(
     autovalidate: autoValidate,
     enableSuggestions: enableSuggestions,
     style: normalFont(MColors.textDark, 16.0),
+    cursorColor: MColors.primaryPurple,
     decoration: InputDecoration(
       suffix: suffix,
       labelText: labelText,

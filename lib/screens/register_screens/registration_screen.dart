@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:mollet/main.dart';
 import 'package:mollet/model/notifiers/userData_notifier.dart';
-import 'package:mollet/utils/textFieldFormaters.dart';
 import 'package:mollet/model/services/user_management.dart';
 import 'package:mollet/screens/register_screens/login_screen.dart';
 import 'package:mollet/utils/colors.dart';
-import 'package:mollet/utils/strings.dart';
+import 'package:mollet/utils/textFieldFormaters.dart';
+import 'package:mollet/widgets/allWidgets.dart';
 import 'package:mollet/widgets/provider.dart';
 import 'package:provider/provider.dart';
-import 'package:mollet/widgets/allWidgets.dart';
 
 class RegistrationScreen extends StatefulWidget {
   RegistrationScreen({Key key}) : super(key: key);
@@ -28,118 +27,251 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   String _password;
   String _error;
   bool _autoValidate = false;
-  var _state = 0;
   bool _isButtonDisabled = false;
   bool _obscureText = true;
 
-  void _toggle() {
-    setState(() {
-      _obscureText = !_obscureText;
-    });
-  }
+  @override
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider<UserDataProfileNotifier>(
+      create: (BuildContext context) => UserDataProfileNotifier(),
+      child: Consumer<UserDataProfileNotifier>(
+        builder: (context, profileNotifier, _) {
+          return Scaffold(
+            backgroundColor: MColors.primaryWhiteSmoke,
+            body: SingleChildScrollView(
+              physics: BouncingScrollPhysics(),
+              child: primaryContainer(
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    Container(
+                      padding: const EdgeInsets.only(top: 100.0),
+                      child: Text(
+                        "Create your free account",
+                        style: boldFont(MColors.textDark, 38.0),
+                        textAlign: TextAlign.start,
+                      ),
+                    ),
 
-  void animateButton() {
-    setState(() {
-      _state = 1;
-      _isButtonDisabled = true;
-    });
-  }
+                    SizedBox(height: 20.0),
 
-  void _submit() async {
-    final form = formKey.currentState;
+                    Row(
+                      children: <Widget>[
+                        Container(
+                          child: Text(
+                            "Already have an account? ",
+                            style: normalFont(MColors.textGrey, 16.0),
+                            textAlign: TextAlign.start,
+                          ),
+                        ),
+                        Container(
+                          child: GestureDetector(
+                            child: Text(
+                              "Sign in!",
+                              style: normalFont(MColors.primaryPurple, 16.0),
+                              textAlign: TextAlign.start,
+                            ),
+                            onTap: () {
+                              formKey.currentState.reset();
+                              Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(
+                                  builder: (_) => LoginScreen(),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
 
-    try {
-      final auth = MyProvider.of(context).auth;
+                    SizedBox(height: 10.0),
 
-      if (form.validate()) {
-        form.save();
-        setState(() {
-          if (_state == 0) {
-            animateButton();
-          }
-        });
-        String uid = await auth.createUserWithEmailAndPassword(
-          _email,
-          _password,
-          _phone,
-        );
+                    showAlert(),
 
-        storeNewUser(_name, _phone, _email);
-        print("Signed Up with new $uid");
+                    SizedBox(height: 10.0),
 
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(
-            builder: (_) => LoginScreen(),
-          ),
-        );
-      } else {
-        setState(() {
-          _autoValidate = true;
-        });
-      }
-    } catch (e) {
-      setState(() {
-        _error = e.message;
-        _state = 0;
-        _isButtonDisabled = false;
-      });
-
-      print(e);
-    }
-  }
-
-  Widget buildRegisterButton() {
-    if (_state == 0) {
-      return Text(
-        "Next step",
-        style: GoogleFonts.montserrat(
-            color: MColors.primaryWhite,
-            fontSize: 16.0,
-            fontWeight: FontWeight.bold),
-      );
-    } else if (_state == 1) {
-      return progressIndicator(Colors.white);
-    } else {
-      return null;
-    }
-  }
-
-  Widget registerButton(_name, _phone, _email, _password) {
-    if (_isButtonDisabled == true) {
-      return SizedBox(
-        width: double.infinity,
-        height: 60.0,
-        child: RawMaterialButton(
-          elevation: 0.0,
-          hoverElevation: 0.0,
-          focusElevation: 0.0,
-          highlightElevation: 0.0,
-          fillColor: MColors.primaryPurple,
-          onPressed: null,
-          child: buildRegisterButton(),
-          shape: RoundedRectangleBorder(
-            borderRadius: new BorderRadius.circular(10.0),
-          ),
-        ),
-      );
-    } else {
-      return SizedBox(
-        width: double.infinity,
-        height: 60.0,
-        child: RawMaterialButton(
-          elevation: 0.0,
-          hoverElevation: 0.0,
-          focusElevation: 0.0,
-          highlightElevation: 0.0,
-          fillColor: MColors.primaryPurple,
-          onPressed: _isButtonDisabled ? null : _submit,
-          child: buildRegisterButton(),
-          shape: RoundedRectangleBorder(
-            borderRadius: new BorderRadius.circular(10.0),
-          ),
-        ),
-      );
-    }
+                    //FORM
+                    Form(
+                      key: formKey,
+                      autovalidate: _autoValidate,
+                      child: Column(
+                        children: <Widget>[
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Container(
+                                padding: const EdgeInsets.only(bottom: 5.0),
+                                child: Text(
+                                  "Name",
+                                  style: normalFont(MColors.textGrey, null),
+                                ),
+                              ),
+                              primaryTextField(
+                                null,
+                                "Remiola",
+                                (val) => _name = val,
+                                NameValiditor.validate,
+                                false,
+                                _autoValidate,
+                                true,
+                                TextInputType.text,
+                                null,
+                                null,
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 20.0),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Container(
+                                padding: const EdgeInsets.only(bottom: 5.0),
+                                child: Text(
+                                  "Email",
+                                  style: normalFont(MColors.textGrey, null),
+                                ),
+                              ),
+                              primaryTextField(
+                                null,
+                                "e.g Remiola2034@gmail.com",
+                                (val) => _email = val,
+                                EmailValiditor.validate,
+                                false,
+                                _autoValidate,
+                                true,
+                                TextInputType.emailAddress,
+                                null,
+                                null,
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 20.0),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Container(
+                                padding: const EdgeInsets.only(bottom: 5.0),
+                                child: Text(
+                                  "Password",
+                                  style: normalFont(MColors.textGrey, null),
+                                ),
+                              ),
+                              primaryTextField(
+                                null,
+                                null,
+                                (val) => _password = val,
+                                PasswordValiditor.validate,
+                                _obscureText,
+                                _autoValidate,
+                                false,
+                                TextInputType.text,
+                                null,
+                                SizedBox(
+                                  height: 20.0,
+                                  width: 35.0,
+                                  child: RawMaterialButton(
+                                    onPressed: _toggle,
+                                    child: new Text(
+                                      _obscureText ? "Show" : "Hide",
+                                      style: TextStyle(
+                                        color: MColors.primaryPurple,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 10.0),
+                          Container(
+                            child: Text(
+                              "Your password must have 6 or more characters, a capital letter and must contain at least one number.",
+                              style: normalFont(MColors.primaryPurple, null),
+                            ),
+                          ),
+                          SizedBox(height: 20.0),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Container(
+                                padding: const EdgeInsets.only(bottom: 5.0),
+                                child: Text(
+                                  "Phone number",
+                                  style: normalFont(MColors.textGrey, null),
+                                ),
+                              ),
+                              primaryTextField(
+                                null,
+                                "e.g +55 (47) 12345 6789",
+                                (val) => _phone = val,
+                                PhoneNumberValiditor.validate,
+                                false,
+                                _autoValidate,
+                                true,
+                                TextInputType.numberWithOptions(),
+                                [maskTextInputFormatter],
+                                null,
+                              ),
+                              SizedBox(height: 10.0),
+                              Container(
+                                child: Text(
+                                  "Your number should contain your country code and state code.",
+                                  style:
+                                      normalFont(MColors.primaryPurple, null),
+                                ),
+                              ),
+                              SizedBox(height: 20.0),
+                              Row(
+                                children: <Widget>[
+                                  Icon(
+                                    Icons.verified_user,
+                                    color: MColors.primaryPurple,
+                                  ),
+                                  SizedBox(
+                                    width: 5.0,
+                                  ),
+                                  Expanded(
+                                    child: Container(
+                                      child: Text(
+                                        "By continuing, you agree to our Terms of Service.",
+                                        style:
+                                            normalFont(MColors.textGrey, null),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 20.0),
+                              _isButtonDisabled == true
+                                  ? primaryButtonPurple(
+                                      //if button is loading
+                                      progressIndicator(Colors.white),
+                                      null,
+                                    )
+                                  : primaryButtonPurple(
+                                      Text(
+                                        "Next step",
+                                        style: boldFont(
+                                          MColors.primaryWhite,
+                                          16.0,
+                                        ),
+                                      ),
+                                      _isButtonDisabled ? null : _submit,
+                                    ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    );
   }
 
   Widget showAlert() {
@@ -157,10 +289,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             Expanded(
               child: Text(
                 _error,
-                style: GoogleFonts.montserrat(
-                  color: Colors.redAccent,
-                  fontSize: 15.0,
-                ),
+                style: normalFont(Colors.redAccent, 15.0),
               ),
             ),
           ],
@@ -183,413 +312,50 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     }
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return ChangeNotifierProvider<UserDataProfileNotifier>(
-      create: (BuildContext context) => UserDataProfileNotifier(),
-      child: Consumer<UserDataProfileNotifier>(
-        builder: (context, profileNotifier, _) {
-          return Scaffold(
-            backgroundColor: MColors.primaryWhiteSmoke,
-            body: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(30.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    Container(
-                      padding: const EdgeInsets.only(top: 75.0),
-                      child: Text(
-                        Strings.registraionTitle,
-                        style: GoogleFonts.montserrat(
-                            fontSize: 38.0,
-                            color: MColors.textDark,
-                            fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.start,
-                      ),
-                    ),
-                    Container(
-                      child: Row(
-                        children: <Widget>[
-                          Container(
-                            padding: const EdgeInsets.only(top: 18.0),
-                            child: Text(
-                              "Already have an account?",
-                              style: GoogleFonts.montserrat(
-                                fontSize: 17.0,
-                                color: MColors.textGrey,
-                              ),
-                              textAlign: TextAlign.start,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 3.0,
-                          ),
-                          Container(
-                            padding: const EdgeInsets.only(top: 18.0),
-                            child: GestureDetector(
-                                onTap: () {
-                                  formKey.currentState.reset();
-                                  Navigator.of(context).pushReplacement(
-                                    MaterialPageRoute(
-                                      builder: (_) => LoginScreen(),
-                                    ),
-                                  );
-                                },
-                                child: Text(
-                                  "Sign in!",
-                                  style: GoogleFonts.montserrat(
-                                    fontSize: 17.0,
-                                    color: MColors.primaryPurple,
-                                  ),
-                                  textAlign: TextAlign.start,
-                                )),
-                          ),
-                        ],
-                      ),
-                    ),
+  void _toggle() {
+    setState(() {
+      _obscureText = !_obscureText;
+    });
+  }
 
-                    SizedBox(
-                      height: 10.0,
-                    ),
-                    showAlert(),
+  void _submit() async {
+    final form = formKey.currentState;
 
-                    SizedBox(
-                      height: 20.0,
-                    ),
+    try {
+      final auth = MyProvider.of(context).auth;
 
-                    //FORM
-                    Form(
-                      key: formKey,
-                      autovalidate: _autoValidate,
-                      child: Column(
-                        children: <Widget>[
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Container(
-                                padding: const EdgeInsets.only(bottom: 5.0),
-                                child: Text(
-                                  "Name",
-                                  style: GoogleFonts.montserrat(
-                                      color: MColors.textGrey),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: 20.0),
-                                child: TextFormField(
-                                  enableSuggestions: true,
-                                  keyboardType: TextInputType.emailAddress,
-                                  onSaved: (val) => _name = val,
-                                  validator: NameValiditor.validate,
-                                  decoration: InputDecoration(
-                                    labelText: "e.g Remiola",
-                                    labelStyle:
-                                        GoogleFonts.montserrat(fontSize: 16.0),
-                                    contentPadding: new EdgeInsets.symmetric(
-                                        horizontal: 25.0),
-                                    fillColor: MColors.primaryWhite,
-                                    filled: true,
-                                    floatingLabelBehavior:
-                                        FloatingLabelBehavior.never,
-                                    enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      borderSide: BorderSide(
-                                        color: Colors.white,
-                                        width: 0.0,
-                                      ),
-                                    ),
-                                    errorBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      borderSide: BorderSide(
-                                        color: Colors.red,
-                                        width: 1.0,
-                                      ),
-                                    ),
-                                    focusedErrorBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      borderSide: BorderSide(
-                                        color: Colors.red,
-                                        width: 1.0,
-                                      ),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      borderSide: BorderSide(
-                                        color: Colors.white,
-                                        width: 0.0,
-                                      ),
-                                    ),
-                                  ),
-                                  textCapitalization: TextCapitalization.words,
-                                  style: GoogleFonts.montserrat(
-                                      fontSize: 17.0, color: MColors.textDark),
-                                ),
-                              ),
-                            ],
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Container(
-                                padding: const EdgeInsets.only(bottom: 5.0),
-                                child: Text(
-                                  "Email",
-                                  style: GoogleFonts.montserrat(
-                                      color: MColors.textGrey),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: 20.0),
-                                child: TextFormField(
-                                  enableSuggestions: true,
-                                  autovalidate: _autoValidate,
-                                  validator: EmailValiditor.validate,
-                                  onSaved: (val) => _email = val,
-                                  decoration: InputDecoration(
-                                    labelText: "e.g Remiola2034@gmail.com",
-                                    labelStyle:
-                                        GoogleFonts.montserrat(fontSize: 16.0),
-                                    contentPadding: new EdgeInsets.symmetric(
-                                        horizontal: 25.0),
-                                    fillColor: MColors.primaryWhite,
-                                    floatingLabelBehavior:
-                                        FloatingLabelBehavior.never,
-                                    filled: true,
-                                    enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      borderSide: BorderSide(
-                                        color: Colors.white,
-                                        width: 0.0,
-                                      ),
-                                    ),
-                                    errorBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      borderSide: BorderSide(
-                                        color: Colors.red,
-                                        width: 1.0,
-                                      ),
-                                    ),
-                                    focusedErrorBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      borderSide: BorderSide(
-                                        color: Colors.red,
-                                        width: 1.0,
-                                      ),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      borderSide: BorderSide(
-                                        color: Colors.white,
-                                        width: 0.0,
-                                      ),
-                                    ),
-                                  ),
-                                  style: GoogleFonts.montserrat(
-                                      fontSize: 17.0, color: MColors.textDark),
-                                ),
-                              ),
-                            ],
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Container(
-                                padding: const EdgeInsets.only(bottom: 5.0),
-                                child: Text(
-                                  "Password",
-                                  style: GoogleFonts.montserrat(
-                                      color: MColors.textGrey),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: 10.0),
-                                child: TextFormField(
-                                  autovalidate: _autoValidate,
-                                  validator: PasswordValiditor.validate,
-                                  onSaved: (val) => _password = val,
-                                  decoration: InputDecoration(
-                                    suffix: SizedBox(
-                                      height: 20.0,
-                                      width: 35.0,
-                                      child: RawMaterialButton(
-                                        onPressed: _toggle,
-                                        child: new Text(
-                                          _obscureText ? "Show" : "Hide",
-                                          style: TextStyle(
-                                            color: MColors.primaryPurple,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    labelText: "",
-                                    contentPadding: new EdgeInsets.symmetric(
-                                        horizontal: 25.0),
-                                    fillColor: MColors.primaryWhite,
-                                    floatingLabelBehavior:
-                                        FloatingLabelBehavior.never,
-                                    filled: true,
-                                    enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      borderSide: BorderSide(
-                                        color: Colors.white,
-                                        width: 0.0,
-                                      ),
-                                    ),
-                                    errorBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      borderSide: BorderSide(
-                                        color: Colors.red,
-                                        width: 1.0,
-                                      ),
-                                    ),
-                                    focusedErrorBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      borderSide: BorderSide(
-                                        color: Colors.red,
-                                        width: 1.0,
-                                      ),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      borderSide: BorderSide(
-                                        color: Colors.white,
-                                        width: 0.0,
-                                      ),
-                                    ),
-                                  ),
-                                  obscureText: _obscureText,
-                                  style: GoogleFonts.montserrat(
-                                      fontSize: 17.0, color: MColors.textDark),
-                                ),
-                              ),
-                            ],
-                          ),
-                          Container(
-                            padding: const EdgeInsets.only(bottom: 15.0),
-                            child: Text(
-                              "Your password must have 6 or more characters, a capital letter and must contain at least one number.",
-                              style: GoogleFonts.montserrat(
-                                  color: MColors.primaryPurple),
-                            ),
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Container(
-                                padding: const EdgeInsets.only(bottom: 5.0),
-                                child: Text(
-                                  "Phone number",
-                                  style: GoogleFonts.montserrat(
-                                      color: MColors.textGrey),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                  bottom: 10.0,
-                                ),
-                                child: TextFormField(
-                                  inputFormatters: [maskTextInputFormatter],
-                                  autovalidate: _autoValidate,
-                                  keyboardType:
-                                      TextInputType.numberWithOptions(),
-                                  validator: PhoneNumberValiditor.validate,
-                                  onSaved: (val) => _phone = val,
-                                  decoration: InputDecoration(
-                                    labelText: "e.g +55 (47) 12345 6789",
-                                    labelStyle:
-                                        GoogleFonts.montserrat(fontSize: 16.0),
-                                    contentPadding: new EdgeInsets.symmetric(
-                                        horizontal: 25.0),
-                                    fillColor: MColors.primaryWhite,
-                                    floatingLabelBehavior:
-                                        FloatingLabelBehavior.never,
-                                    filled: true,
-                                    enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      borderSide: BorderSide(
-                                        color: Colors.white,
-                                        width: 0.0,
-                                      ),
-                                    ),
-                                    errorBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      borderSide: BorderSide(
-                                        color: Colors.red,
-                                        width: 1.0,
-                                      ),
-                                    ),
-                                    focusedErrorBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      borderSide: BorderSide(
-                                        color: Colors.red,
-                                        width: 1.0,
-                                      ),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      borderSide: BorderSide(
-                                        color: Colors.white,
-                                        width: 0.0,
-                                      ),
-                                    ),
-                                  ),
-                                  style: GoogleFonts.montserrat(
-                                      fontSize: 17.0, color: MColors.textDark),
-                                ),
-                              ),
-                              Container(
-                                padding: const EdgeInsets.only(bottom: 15.0),
-                                child: Text(
-                                  "Your number should contain your country code and state code.",
-                                  style: GoogleFonts.montserrat(
-                                      color: MColors.primaryPurple),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    top: 10.0, bottom: 10.0),
-                                child: Row(
-                                  children: <Widget>[
-                                    Icon(
-                                      Icons.verified_user,
-                                      color: MColors.primaryPurple,
-                                    ),
-                                    SizedBox(
-                                      width: 5.0,
-                                    ),
-                                    Expanded(
-                                      child: Container(
-                                        child: Text(
-                                          "By continuing, you agree to our Terms of Service.",
-                                          style: GoogleFonts.montserrat(
-                                              color: MColors.textDark),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(height: 20.0),
-                              Builder(
-                                builder: (BuildContext context) {
-                                  return registerButton(
-                                      _name, _phone, _email, _password);
-                                },
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          );
-        },
-      ),
-    );
+      if (form.validate()) {
+        form.save();
+        setState(() {
+          _isButtonDisabled = true;
+        });
+        String uid = await auth.createUserWithEmailAndPassword(
+          _email,
+          _password,
+          _phone,
+        );
+
+        storeNewUser(_name, _phone, _email);
+        print("Signed Up with new $uid");
+
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (_) => MyApp(),
+          ),
+        );
+      } else {
+        setState(() {
+          _autoValidate = true;
+        });
+      }
+    } catch (e) {
+      setState(() {
+        _error = e.message;
+        _isButtonDisabled = false;
+      });
+
+      print("ERRORR ==>");
+      print(e);
+    }
   }
 }

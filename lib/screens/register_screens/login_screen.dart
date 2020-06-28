@@ -57,19 +57,20 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   Container(
                     child: GestureDetector(
-                        onTap: () {
-                          formKey.currentState.reset();
-                          Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(
-                              builder: (_) => RegistrationScreen(),
-                            ),
-                          );
-                        },
-                        child: Text(
-                          "Create it!",
-                          style: normalFont(MColors.primaryPurple, 16.0),
-                          textAlign: TextAlign.start,
-                        )),
+                      child: Text(
+                        "Create it!",
+                        style: normalFont(MColors.primaryPurple, 16.0),
+                        textAlign: TextAlign.start,
+                      ),
+                      onTap: () {
+                        formKey.currentState.reset();
+                        Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                            builder: (_) => RegistrationScreen(),
+                          ),
+                        );
+                      },
+                    ),
                   ),
                 ],
               ),
@@ -123,7 +124,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         primaryTextField(
                           null,
-                          "",
+                          null,
                           (val) => _password = val,
                           PasswordValiditor.validate,
                           _obscureText,
@@ -211,12 +212,6 @@ class _LoginScreenState extends State<LoginScreen> {
     });
   }
 
-  void animateButton() {
-    setState(() {
-      _isButtonDisabled = true;
-    });
-  }
-
   void _submit() async {
     final form = formKey.currentState;
 
@@ -226,9 +221,7 @@ class _LoginScreenState extends State<LoginScreen> {
         form.save();
         if (mounted) {
           setState(() {
-            if (_isButtonDisabled = true) {
-              animateButton();
-            }
+            _isButtonDisabled = true;
           });
         }
 
