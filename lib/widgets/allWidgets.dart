@@ -15,23 +15,6 @@ Widget primaryContainer(
 }
 //--------------------------------------------
 
-//FONTS---------------------------------------
-TextStyle boldFont(Color color, double size) {
-  return GoogleFonts.montserrat(
-    color: color,
-    fontSize: size,
-    fontWeight: FontWeight.w600,
-  );
-}
-
-TextStyle normalFont(Color color, double size) {
-  return GoogleFonts.montserrat(
-    color: color,
-    fontSize: size,
-  );
-}
-//--------------------------------------------
-
 //APPBARS-------------------------------------
 
 Widget primaryAppBar(
@@ -79,6 +62,23 @@ Widget primarySliverAppBar(
     actions: actions,
     expandedHeight: expandedHeight,
     flexibleSpace: flexibleSpace,
+  );
+}
+//--------------------------------------------
+
+//FONTS---------------------------------------
+TextStyle boldFont(Color color, double size) {
+  return GoogleFonts.montserrat(
+    color: color,
+    fontSize: size,
+    fontWeight: FontWeight.w600,
+  );
+}
+
+TextStyle normalFont(Color color, double size) {
+  return GoogleFonts.montserrat(
+    color: color,
+    fontSize: size,
   );
 }
 //--------------------------------------------
@@ -155,7 +155,10 @@ Widget primaryTextField(
     style: normalFont(MColors.textDark, 16.0),
     cursorColor: MColors.primaryPurple,
     decoration: InputDecoration(
-      suffix: suffix,
+      suffixIcon: Padding(
+        padding: const EdgeInsets.only(right: 15.0, left: 15.0),
+        child: suffix,
+      ),
       labelText: labelText,
       labelStyle: normalFont(null, 16.0),
       contentPadding: EdgeInsets.symmetric(horizontal: 25.0),

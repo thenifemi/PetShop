@@ -83,69 +83,41 @@ class _HomeScreenState extends State<HomeScreen>
 
     return Scaffold(
       key: _scaffoldKey,
-      appBar: AppBar(
-        brightness: Brightness.light,
-        elevation: 0.0,
-        backgroundColor: MColors.primaryWhiteSmoke,
-        bottom: PreferredSize(
+      appBar: primaryAppBar(
+        null,
+        null,
+        MColors.primaryWhiteSmoke,
+        PreferredSize(
           preferredSize: const Size.fromHeight(54),
-          child: Container(
-            padding: const EdgeInsets.only(right: 20.0, left: 20.0),
-            child: Column(
+          child: primaryContainer(
+            Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 Container(
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                      prefixIcon: Padding(
-                        padding: const EdgeInsets.only(right: 20.0, left: 20.0),
-                        child: SvgPicture.asset(
-                          "assets/images/icons/Search.svg",
-                          color: MColors.textGrey,
-                          height: 20.0,
-                        ),
-                      ),
-                      suffixIconConstraints: BoxConstraints(maxHeight: 20.0),
-                      labelText: "Search for products",
-                      labelStyle: GoogleFonts.montserrat(
-                        fontSize: 14.0,
-                        color: MColors.textGrey,
-                      ),
-                      contentPadding:
-                          new EdgeInsets.symmetric(horizontal: 25.0),
-                      fillColor: MColors.primaryWhite,
-                      floatingLabelBehavior: FloatingLabelBehavior.never,
-                      filled: true,
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                        borderSide: BorderSide(
-                          color: Colors.white,
-                          width: 0.0,
-                        ),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                        borderSide: BorderSide(
-                          color: Colors.white,
-                          width: 0.0,
-                        ),
-                      ),
+                  child: primaryTextField(
+                    null,
+                    "Search for products",
+                    null,
+                    null,
+                    false,
+                    false,
+                    true,
+                    TextInputType.text,
+                    null,
+                    SvgPicture.asset(
+                      "assets/images/icons/Search.svg",
+                      color: MColors.textGrey,
+                      height: 16.0,
                     ),
                   ),
                 ),
                 TabBar(
                   unselectedLabelColor: MColors.textGrey,
-                  unselectedLabelStyle: TextStyle(
-                    fontWeight: FontWeight.w300,
-                    fontSize: 18.0,
-                  ),
+                  unselectedLabelStyle: normalFont(MColors.textGrey, 16.0),
                   labelColor: MColors.primaryPurple,
-                  labelStyle: GoogleFonts.montserrat(
-                    fontSize: 22.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  indicatorColor: MColors.primaryWhiteSmoke,
+                  labelStyle: boldFont(MColors.primaryPurple, 20.0),
+                  indicatorWeight: 0.01,
                   isScrollable: true,
                   tabs: _tabItems.map((e) {
                     return Tab(
@@ -160,13 +132,18 @@ class _HomeScreenState extends State<HomeScreen>
             ),
           ),
         ),
+        false,
+        null,
       ),
-      body: prods.isEmpty
-          ? progressIndicator(MColors.primaryPurple)
-          : TabBarView(
-              children: _tabBody,
-              controller: _tabController,
-            ),
+      body: Container(
+        color: MColors.primaryWhiteSmoke,
+        child: prods.isEmpty
+            ? progressIndicator(MColors.primaryPurple)
+            : TabBarView(
+                children: _tabBody,
+                controller: _tabController,
+              ),
+      ),
     );
   }
 
@@ -184,24 +161,27 @@ class _HomeScreenState extends State<HomeScreen>
           return CupertinoAlertDialog(
             content: Text(
               "Sure you want to add to Bag?",
-              style: GoogleFonts.montserrat(),
+              style: normalFont(MColors.textDark, null),
             ),
             actions: <Widget>[
               CupertinoDialogAction(
+                child: Text(
+                  "Cancel",
+                  style: normalFont(Colors.red, null),
+                ),
                 onPressed: () async {
                   setState(() {
                     getCart(cartNotifier);
                   });
                   Navigator.of(context).pop();
                 },
-                child: Text(
-                  "Cancel",
-                  style: GoogleFonts.montserrat(
-                    color: Colors.redAccent,
-                  ),
-                ),
               ),
               CupertinoDialogAction(
+                isDefaultAction: true,
+                child: Text(
+                  "Yes",
+                  style: normalFont(Colors.blue, null),
+                ),
                 onPressed: () {
                   setState(() {
                     getCart(cartNotifier);
@@ -227,11 +207,6 @@ class _HomeScreenState extends State<HomeScreen>
                   }
                   Navigator.of(context).pop();
                 },
-                isDefaultAction: true,
-                child: Text(
-                  "Yes",
-                  style: GoogleFonts.montserrat(),
-                ),
               ),
             ],
           );
@@ -245,13 +220,8 @@ class _HomeScreenState extends State<HomeScreen>
     /*24 is for notification bar on Android*/
     final double itemHeight = size.height / 2.5;
     final double itemWidth = size.width / 2;
-    return Container(
-      height: double.infinity,
-      padding: const EdgeInsets.only(
-        left: 20.0,
-        right: 20.0,
-      ),
-      child: GridView.count(
+    return primaryContainer(
+      GridView.count(
         physics: BouncingScrollPhysics(),
         crossAxisCount: 2,
         childAspectRatio: (itemWidth / itemHeight),
@@ -387,13 +357,8 @@ class _HomeScreenState extends State<HomeScreen>
     /*24 is for notification bar on Android*/
     final double itemHeight = (size.height) / 2.5;
     final double itemWidth = size.width / 2;
-    return Container(
-      height: double.infinity,
-      padding: const EdgeInsets.only(
-        left: 20.0,
-        right: 20.0,
-      ),
-      child: GridView.count(
+    return primaryContainer(
+      GridView.count(
         physics: BouncingScrollPhysics(),
         crossAxisCount: 2,
         childAspectRatio: (itemWidth / itemHeight),
@@ -525,13 +490,8 @@ class _HomeScreenState extends State<HomeScreen>
     /*24 is for notification bar on Android*/
     final double itemHeight = (size.height) / 2.5;
     final double itemWidth = size.width / 2;
-    return Container(
-      height: double.infinity,
-      padding: const EdgeInsets.only(
-        left: 20.0,
-        right: 20.0,
-      ),
-      child: GridView.count(
+    return primaryContainer(
+      GridView.count(
         physics: BouncingScrollPhysics(),
         crossAxisCount: 2,
         childAspectRatio: (itemWidth / itemHeight),
