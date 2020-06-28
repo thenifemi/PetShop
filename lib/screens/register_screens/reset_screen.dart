@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mollet/utils/textFieldFormaters.dart';
-
 import 'package:mollet/screens/register_screens/login_screen.dart';
 import 'package:mollet/utils/colors.dart';
-import 'package:mollet/widgets/provider.dart';
+import 'package:mollet/utils/textFieldFormaters.dart';
 import 'package:mollet/widgets/allWidgets.dart';
+import 'package:mollet/widgets/provider.dart';
 
 class ResetScreen extends StatefulWidget {
   ResetScreen({Key key}) : super(key: key);
@@ -126,38 +125,6 @@ class _ResetScreenState extends State<ResetScreen> {
     );
   }
 
-  void _submit() async {
-    final form = formKey.currentState;
-
-    try {
-      final auth = MyProvider.of(context).auth;
-      if (form.validate()) {
-        form.save();
-
-        setState(() {
-          _isButtonDisabled = true;
-        });
-
-        await auth.sendPasswordResetEmail(_email);
-        print("Password reset link sent to $_email");
-
-        _showModalSheet();
-      } else {
-        setState(() {
-          _autoValidate = true;
-        });
-      }
-    } catch (e) {
-      setState(() {
-        warning = e.message;
-        _isButtonDisabled = false;
-      });
-
-      print("ERRORR ==>");
-      print(e);
-    }
-  }
-
   Widget showAlert() {
     if (warning != null) {
       return Container(
@@ -247,5 +214,37 @@ class _ResetScreenState extends State<ResetScreen> {
         );
       },
     );
+  }
+
+  void _submit() async {
+    final form = formKey.currentState;
+
+    try {
+      final auth = MyProvider.of(context).auth;
+      if (form.validate()) {
+        form.save();
+
+        setState(() {
+          _isButtonDisabled = true;
+        });
+
+        await auth.sendPasswordResetEmail(_email);
+        print("Password reset link sent to $_email");
+
+        _showModalSheet();
+      } else {
+        setState(() {
+          _autoValidate = true;
+        });
+      }
+    } catch (e) {
+      setState(() {
+        warning = e.message;
+        _isButtonDisabled = false;
+      });
+
+      print("ERRORR ==>");
+      print(e);
+    }
   }
 }
