@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:mollet/screens/register_screens/login_screen.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:mollet/utils/textFieldFormaters.dart';
@@ -140,10 +139,7 @@ class _ResetScreenState extends State<ResetScreen> {
             Expanded(
               child: Text(
                 warning,
-                style: GoogleFonts.montserrat(
-                  color: Colors.redAccent,
-                  fontSize: 15.0,
-                ),
+                style: normalFont(Colors.red, 15),
               ),
             ),
           ],
