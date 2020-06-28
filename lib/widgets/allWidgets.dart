@@ -4,19 +4,23 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:mollet/utils/colors.dart';
 
 //SCAFFOLDS-----------------------------------
-Widget primaryContainer(
-  Widget containerChild,
-) {
-  return Container(
-    padding: const EdgeInsets.symmetric(horizontal: 20.0),
-    color: MColors.primaryWhiteSmoke,
-    child: containerChild,
+TextStyle boldFont(Color color, double size) {
+  return GoogleFonts.montserrat(
+    color: color,
+    fontSize: size,
+    fontWeight: FontWeight.w600,
   );
 }
-
 //--------------------------------------------
 
 //APPBARS-------------------------------------
+TextStyle normalFont(Color color, double size) {
+  return GoogleFonts.montserrat(
+    color: color,
+    fontSize: size,
+  );
+}
+
 Widget primaryAppBar(
   Widget leading,
   Widget title,
@@ -34,34 +38,6 @@ Widget primaryAppBar(
     bottom: bottom,
     centerTitle: centerTile,
     actions: actions,
-  );
-}
-
-Widget primarySliverAppBar(
-  Widget leading,
-  Widget title,
-  Color backgroundColor,
-  PreferredSizeWidget bottom,
-  bool centerTile,
-  bool floating,
-  bool pinned,
-  List<Widget> actions,
-  double expandedHeight,
-  Widget flexibleSpace,
-) {
-  return SliverAppBar(
-    brightness: Brightness.light,
-    elevation: 0.0,
-    backgroundColor: backgroundColor,
-    leading: leading,
-    title: title,
-    bottom: bottom,
-    centerTitle: centerTile,
-    floating: floating,
-    pinned: pinned,
-    actions: actions,
-    expandedHeight: expandedHeight,
-    flexibleSpace: flexibleSpace,
   );
 }
 //--------------------------------------------
@@ -114,36 +90,46 @@ Widget primaryButtonWhiteSmoke(
 
 //PROGRESS INDICATOR-------------------------
 
-Widget progressIndicator(Color color) {
+Widget primaryContainer(
+  Widget containerChild,
+) {
   return Container(
-    child: Center(
-      child: CircularProgressIndicator(
-        strokeWidth: 2.0,
-        backgroundColor: color,
-      ),
-    ),
+    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+    color: MColors.primaryWhiteSmoke,
+    child: containerChild,
   );
 }
 //------------------------------------------
 
 //FONTSIZES---------------------------------
-TextStyle boldFont(Color color, double size) {
-  return GoogleFonts.montserrat(
-    color: color,
-    fontSize: size,
-    fontWeight: FontWeight.w600,
+Widget primarySliverAppBar(
+  Widget leading,
+  Widget title,
+  Color backgroundColor,
+  PreferredSizeWidget bottom,
+  bool centerTile,
+  bool floating,
+  bool pinned,
+  List<Widget> actions,
+  double expandedHeight,
+  Widget flexibleSpace,
+) {
+  return SliverAppBar(
+    brightness: Brightness.light,
+    elevation: 0.0,
+    backgroundColor: backgroundColor,
+    leading: leading,
+    title: title,
+    bottom: bottom,
+    centerTitle: centerTile,
+    floating: floating,
+    pinned: pinned,
+    actions: actions,
+    expandedHeight: expandedHeight,
+    flexibleSpace: flexibleSpace,
   );
 }
 
-TextStyle normalFont(Color color, double size) {
-  return GoogleFonts.montserrat(
-    color: color,
-    fontSize: size,
-  );
-}
-//-------------------------------------------
-
-//TEXTFIELDS---------------------------------
 Widget primaryTextField(
   String initialValue,
   String labelText,
@@ -202,6 +188,19 @@ Widget primaryTextField(
           color: MColors.primaryPurple,
           width: 1.0,
         ),
+      ),
+    ),
+  );
+}
+//-------------------------------------------
+
+//TEXTFIELDS---------------------------------
+Widget progressIndicator(Color color) {
+  return Container(
+    child: Center(
+      child: CircularProgressIndicator(
+        strokeWidth: 2.0,
+        backgroundColor: color,
       ),
     ),
   );
