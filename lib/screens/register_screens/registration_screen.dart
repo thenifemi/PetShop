@@ -259,6 +259,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                       ),
                                       _isButtonDisabled ? null : _submit,
                                     ),
+                              SizedBox(height: 20.0),
                             ],
                           ),
                         ],

@@ -19,133 +19,10 @@ class _ResetScreenState extends State<ResetScreen> {
   final formKey = GlobalKey<FormState>();
 
   String _email;
+  String warning;
   bool _autoValidate = false;
   var _state = 0;
-  bool isButtonDisabled = false;
-  String warning;
-
-  void _showModalSheet() {
-    showModalBottomSheet(
-        context: context,
-        builder: (builder) {
-          return Container(
-            height: 330.0,
-            color: MColors.primaryWhiteSmoke,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(top: 20.0),
-                  child: Text(
-                    "Reset link sent!",
-                    style: GoogleFonts.montserrat(
-                        fontSize: 30.0,
-                        color: MColors.textDark,
-                        fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.start,
-                  ),
-                ),
-                Container(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Icon(Icons.check_circle_outline,
-                      color: Colors.green, size: 40.0),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                    right: 30.0,
-                    left: 30.0,
-                    bottom: 20.0,
-                  ),
-                  child: Text(
-                    "Please reset your password with the link sent to $_email and proceed to login.",
-                    style: GoogleFonts.montserrat(
-                      fontSize: 17.0,
-                      color: MColors.textGrey,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                    right: 30.0,
-                    left: 30.0,
-                    bottom: 10.0,
-                  ),
-                  child: SizedBox(
-                    width: double.infinity,
-                    height: 60.0,
-                    child: RawMaterialButton(
-                      elevation: 0.0,
-                      hoverElevation: 0.0,
-                      focusElevation: 0.0,
-                      highlightElevation: 0.0,
-                      fillColor: MColors.primaryPurple,
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                        Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(
-                            builder: (_) => LoginScreen(),
-                          ),
-                        );
-                      },
-                      child: Text(
-                        "Proceed to login",
-                        style: GoogleFonts.montserrat(
-                            color: MColors.primaryWhite,
-                            fontSize: 16.0,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: new BorderRadius.circular(10.0),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          );
-        });
-  }
-
-  void animateButton() {
-    setState(() {
-      _state = 1;
-      isButtonDisabled = true;
-    });
-  }
-
-  void _submit() async {
-    final form = formKey.currentState;
-
-    try {
-      final auth = MyProvider.of(context).auth;
-      if (form.validate()) {
-        form.save();
-        setState(() {
-          if (_state == 0) {
-            animateButton();
-          }
-        });
-        await auth.sendPasswordResetEmail(_email);
-        print("Password reset link sent to $_email");
-        _showModalSheet();
-        _state = 0;
-      } else {
-        setState(() {
-          _autoValidate = true;
-        });
-      }
-    } catch (e) {
-      setState(() {
-        warning = e.message;
-        _state = 0;
-        isButtonDisabled = false;
-      });
-
-      print(e);
-    }
-  }
+  bool _isButtonDisabled = false;
 
   Widget buildResetButton() {
     if (_state == 0) {
@@ -208,144 +85,95 @@ class _ResetScreenState extends State<ResetScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: MColors.primaryWhiteSmoke,
-      appBar: AppBar(
-        elevation: 0.0,
-        backgroundColor: MColors.primaryWhiteSmoke,
-        leading: IconButton(
+      appBar: primaryAppBar(
+        IconButton(
           icon: Icon(
             Icons.arrow_back_ios,
             color: MColors.textDark,
           ),
           onPressed: () {
             Navigator.of(context).pop();
-            Navigator.of(context).pushReplacement(
-              MaterialPageRoute(
-                builder: (_) => LoginScreen(),
-              ),
-            );
           },
         ),
+        null,
+        MColors.primaryWhiteSmoke,
+        null,
+        false,
+        null,
       ),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(30.0),
-          child: Column(
+        child: primaryContainer(
+          Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               Container(
+                padding: const EdgeInsets.only(top: 30.0),
                 alignment: AlignmentDirectional.topStart,
-                padding: const EdgeInsets.only(top: 20.0),
                 child: Text(
                   "Forgot password?",
-                  style: GoogleFonts.montserrat(
-                      fontSize: 38.0,
-                      color: MColors.textDark,
-                      fontWeight: FontWeight.bold),
+                  style: boldFont(MColors.textDark, 38.0),
                   textAlign: TextAlign.start,
                 ),
               ),
 
-              Container(
-                padding: const EdgeInsets.only(top: 18.0),
-                child: Text(
-                  "Enter the email address associated with your account.",
-                  style: GoogleFonts.montserrat(
-                    fontSize: 17.0,
-                    color: MColors.textGrey,
-                  ),
-                  textAlign: TextAlign.start,
-                ),
-              ),
-
-              SizedBox(
-                height: 60.0,
-              ),
+              SizedBox(height: 10.0),
 
               showAlert(),
 
-              SizedBox(
-                height: 20.0,
-              ),
+              SizedBox(height: 10.0),
 
               //FORM
               Form(
                 key: formKey,
                 autovalidate: _autoValidate,
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Padding(
+                    Container(
                       padding: const EdgeInsets.only(bottom: 10.0),
-                      child: TextFormField(
-                        autovalidate: _autoValidate,
-                        validator: EmailValiditor.validate,
-                        onSaved: (val) => _email = val,
-                        decoration: InputDecoration(
-                          labelText: "e.g Remiola2030@example.com",
-                          contentPadding:
-                              new EdgeInsets.symmetric(horizontal: 25.0),
-                          fillColor: MColors.primaryWhite,
-                          floatingLabelBehavior: FloatingLabelBehavior.never,
-                          filled: true,
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8.0),
-                            borderSide: BorderSide(
-                              color: Colors.white,
-                              width: 0.0,
-                            ),
-                          ),
-                          errorBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8.0),
-                            borderSide: BorderSide(
-                              color: Colors.red,
-                              width: 1.0,
-                            ),
-                          ),
-                          focusedErrorBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8.0),
-                            borderSide: BorderSide(
-                              color: Colors.red,
-                              width: 1.0,
-                            ),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8.0),
-                            borderSide: BorderSide(
-                              color: Colors.white,
-                              width: 0.0,
-                            ),
-                          ),
-                        ),
-                        style: GoogleFonts.montserrat(
-                            fontSize: 17.0, color: MColors.textDark),
+                      child: Text(
+                        "Enter the email address associated with your account.",
+                        style: normalFont(MColors.textGrey, 16.0),
+                        textAlign: TextAlign.start,
                       ),
                     ),
+                    primaryTextField(
+                      null,
+                      "e.g Remiola2034@gmail.com",
+                      (val) => _email = val,
+                      EmailValiditor.validate,
+                      false,
+                      _autoValidate,
+                      true,
+                      TextInputType.emailAddress,
+                      null,
+                      null,
+                    ),
+                    SizedBox(height: 10.0),
                     Container(
-                      padding: const EdgeInsets.all(20.0),
                       child: Text(
                         "We will send a link to reset your password to that email.",
-                        style: GoogleFonts.montserrat(
-                          color: MColors.textGrey,
-                        ),
+                        style: normalFont(MColors.primaryPurple, null),
                       ),
                     ),
-                    SizedBox(
-                      width: double.infinity,
-                      height: 60.0,
-                      child: RawMaterialButton(
-                        elevation: 0.0,
-                        hoverElevation: 0.0,
-                        focusElevation: 0.0,
-                        highlightElevation: 0.0,
-                        fillColor: MColors.primaryPurple,
-                        onPressed: () {
-                          _submit();
-                        },
-                        child: buildResetButton(),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: new BorderRadius.circular(10.0),
-                        ),
-                      ),
-                    ),
+                    SizedBox(height: 20.0),
+                    _isButtonDisabled == true
+                        ? primaryButtonPurple(
+                            //if button is loading
+                            progressIndicator(Colors.white),
+                            null,
+                          )
+                        : primaryButtonPurple(
+                            Text(
+                              "Reset password",
+                              style: boldFont(
+                                MColors.primaryWhite,
+                                16.0,
+                              ),
+                            ),
+                            _isButtonDisabled ? null : _submit,
+                          ),
                   ],
                 ),
               ),
@@ -353,6 +181,88 @@ class _ResetScreenState extends State<ResetScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  void _submit() async {
+    final form = formKey.currentState;
+
+    try {
+      final auth = MyProvider.of(context).auth;
+      if (form.validate()) {
+        form.save();
+
+        setState(() {
+          _isButtonDisabled = true;
+        });
+
+        await auth.sendPasswordResetEmail(_email);
+        print("Password reset link sent to $_email");
+
+        _showModalSheet();
+      } else {
+        setState(() {
+          _autoValidate = true;
+        });
+      }
+    } catch (e) {
+      setState(() {
+        warning = e.message;
+        _isButtonDisabled = false;
+      });
+
+      print("ERRORR ==>");
+      print(e);
+    }
+  }
+
+  void _showModalSheet() {
+    showModalBottomSheet(
+      context: context,
+      builder: (builder) {
+        return primaryContainer(
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              SizedBox(height: 20.0),
+              Text(
+                "Reset link sent!",
+                style: boldFont(MColors.textDark, 26.0),
+                textAlign: TextAlign.start,
+              ),
+              Container(
+                padding: const EdgeInsets.all(20.0),
+                child: Icon(Icons.check_circle_outline,
+                    color: Colors.green, size: 40.0),
+              ),
+              Text(
+                "Please reset your password with the link sent to $_email and proceed to login.",
+                style: normalFont(MColors.textGrey, 16.0),
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(height: 20.0),
+              primaryButtonPurple(
+                Text(
+                  "Proceed to login",
+                  style: boldFont(
+                    MColors.primaryWhite,
+                    16.0,
+                  ),
+                ),
+                () {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(
+                      builder: (_) => LoginScreen(),
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }

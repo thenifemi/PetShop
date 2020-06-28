@@ -185,7 +185,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     SizedBox(height: 20.0),
                     GestureDetector(
                       onTap: () {
-                        Navigator.of(context).pushReplacement(
+                        Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (_) => ResetScreen(),
                           ),
