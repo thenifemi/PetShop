@@ -212,7 +212,7 @@ class _Cart2State extends State<Cart2> {
                             ),
                           ),
                           child: Icon(
-                            Icons.delete,
+                            Icons.delete_outline,
                             color: Colors.white,
                           ),
                         ),
@@ -237,7 +237,7 @@ class _Cart2State extends State<Cart2> {
                             ),
                           ),
                           child: Icon(
-                            Icons.delete,
+                            Icons.delete_outline,
                             color: Colors.white,
                           ),
                         ),
