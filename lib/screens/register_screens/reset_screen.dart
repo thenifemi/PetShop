@@ -21,65 +21,7 @@ class _ResetScreenState extends State<ResetScreen> {
   String _email;
   String warning;
   bool _autoValidate = false;
-  var _state = 0;
   bool _isButtonDisabled = false;
-
-  Widget buildResetButton() {
-    if (_state == 0) {
-      return Text(
-        "Reset",
-        style: GoogleFonts.montserrat(
-            color: MColors.primaryWhite,
-            fontSize: 16.0,
-            fontWeight: FontWeight.bold),
-      );
-    } else if (_state == 1) {
-      return progressIndicator(Colors.white);
-    } else {
-      return null;
-    }
-  }
-
-  Widget showAlert() {
-    if (warning != null) {
-      return Container(
-        child: Row(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(right: 5.0),
-              child: Icon(
-                Icons.error_outline,
-                color: Colors.redAccent,
-              ),
-            ),
-            Expanded(
-              child: Text(
-                warning,
-                style: GoogleFonts.montserrat(
-                  color: Colors.redAccent,
-                  fontSize: 15.0,
-                ),
-              ),
-            ),
-          ],
-        ),
-        height: 60,
-        width: double.infinity,
-        padding: const EdgeInsets.all(10.0),
-        decoration: BoxDecoration(
-          color: MColors.primaryWhiteSmoke,
-          border: Border.all(width: 1.0, color: Colors.redAccent),
-          borderRadius: BorderRadius.all(
-            Radius.circular(4.0),
-          ),
-        ),
-      );
-    } else {
-      return Container(
-        height: 0.0,
-      );
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -213,6 +155,47 @@ class _ResetScreenState extends State<ResetScreen> {
 
       print("ERRORR ==>");
       print(e);
+    }
+  }
+
+  Widget showAlert() {
+    if (warning != null) {
+      return Container(
+        child: Row(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(right: 5.0),
+              child: Icon(
+                Icons.error_outline,
+                color: Colors.redAccent,
+              ),
+            ),
+            Expanded(
+              child: Text(
+                warning,
+                style: GoogleFonts.montserrat(
+                  color: Colors.redAccent,
+                  fontSize: 15.0,
+                ),
+              ),
+            ),
+          ],
+        ),
+        height: 60,
+        width: double.infinity,
+        padding: const EdgeInsets.all(10.0),
+        decoration: BoxDecoration(
+          color: MColors.primaryWhiteSmoke,
+          border: Border.all(width: 1.0, color: Colors.redAccent),
+          borderRadius: BorderRadius.all(
+            Radius.circular(4.0),
+          ),
+        ),
+      );
+    } else {
+      return Container(
+        height: 0.0,
+      );
     }
   }
 
