@@ -326,9 +326,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
       if (form.validate()) {
         form.save();
+
         setState(() {
           _isButtonDisabled = true;
         });
+
         String uid = await auth.createUserWithEmailAndPassword(
           _email,
           _password,

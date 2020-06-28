@@ -219,6 +219,7 @@ class _LoginScreenState extends State<LoginScreen> {
       final auth = MyProvider.of(context).auth;
       if (form.validate()) {
         form.save();
+
         if (mounted) {
           setState(() {
             _isButtonDisabled = true;
@@ -227,6 +228,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
         String uid = await auth.signInWithEmailAndPassword(_email, _password);
         print("Signed in with $uid");
+
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
             builder: (_) => MyApp(),
