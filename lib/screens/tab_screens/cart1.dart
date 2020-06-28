@@ -134,7 +134,12 @@ class _Cart1State extends State<Cart1> {
             ),
             Expanded(
               child: Container(
-                color: MColors.primaryWhiteSmoke,
+                decoration: BoxDecoration(
+                  color: MColors.primaryWhiteSmoke,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(10.0),
+                  ),
+                ),
                 padding: const EdgeInsets.only(right: 20.0, left: 20.0),
                 height: MediaQuery.of(context).size.height,
                 child: ListView.builder(
@@ -157,25 +162,62 @@ class _Cart1State extends State<Cart1> {
                         );
                       },
                       background: Container(
-                        color: Colors.redAccent,
-                        padding: EdgeInsets.symmetric(horizontal: 10.0),
+                        decoration: BoxDecoration(
+                          color: MColors.primaryWhiteSmoke,
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(10.0),
+                          ),
+                        ),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 10.0, vertical: 5.0),
                         alignment: AlignmentDirectional.centerStart,
-                        child: Icon(
-                          Icons.delete,
-                          color: Colors.white,
+                        child: Container(
+                          height: MediaQuery.of(context).size.height,
+                          width: 50.0,
+                          decoration: BoxDecoration(
+                            color: Colors.red,
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(10.0),
+                            ),
+                          ),
+                          child: Icon(
+                            Icons.delete,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                       secondaryBackground: Container(
-                        color: Colors.redAccent,
-                        padding: EdgeInsets.symmetric(horizontal: 10.0),
+                        decoration: BoxDecoration(
+                          color: MColors.primaryWhiteSmoke,
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(10.0),
+                          ),
+                        ),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 10.0, vertical: 5.0),
                         alignment: AlignmentDirectional.centerEnd,
-                        child: Icon(
-                          Icons.delete,
-                          color: Colors.white,
+                        child: Container(
+                          height: MediaQuery.of(context).size.height,
+                          width: 50.0,
+                          decoration: BoxDecoration(
+                            color: Colors.red,
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(10.0),
+                            ),
+                          ),
+                          child: Icon(
+                            Icons.delete,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                       child: Container(
-                        padding: const EdgeInsets.all(5.0),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(10.0),
+                          ),
+                        ),
+                        margin: const EdgeInsets.symmetric(vertical: 5.0),
                         height: 160.0,
                         child: Container(
                           padding: const EdgeInsets.all(15.0),
