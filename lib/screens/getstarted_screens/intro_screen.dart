@@ -22,9 +22,7 @@ class IntroScreen extends StatelessWidget {
                   height: 200,
                 ),
               ),
-              SizedBox(
-                height: 30.0,
-              ),
+              SizedBox(height: 30.0),
               Container(
                 child: Text(
                   "Welcome to Pet Shop",
@@ -32,9 +30,7 @@ class IntroScreen extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
               ),
-              SizedBox(
-                height: 10.0,
-              ),
+              SizedBox(height: 10.0),
               Container(
                 child: Text(
                   Strings.onBoardTitle_sub1,
