@@ -230,7 +230,6 @@ class _HomeScreenState extends State<HomeScreen>
         crossAxisSpacing: 15.0,
         children: List<Widget>.generate(all.length, (i) {
           var cleanList = all.toList();
-
           var fil = cleanList[i];
 
           return GestureDetector(
@@ -348,7 +347,6 @@ class _HomeScreenState extends State<HomeScreen>
         crossAxisSpacing: 15.0,
         children: List<Widget>.generate(dog.length, (i) {
           var cleanList = dog.toList();
-
           var fil = cleanList[i];
 
           return GestureDetector(
@@ -466,7 +464,6 @@ class _HomeScreenState extends State<HomeScreen>
         crossAxisSpacing: 15.0,
         children: List<Widget>.generate(cat.length, (i) {
           var cleanList = cat.toList();
-
           var fil = cleanList[i];
 
           return GestureDetector(
