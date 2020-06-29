@@ -220,6 +220,7 @@ class _HomeScreenState extends State<HomeScreen>
     /*24 is for notification bar on Android*/
     final double itemHeight = size.height / 2.5;
     final double itemWidth = size.width / 2;
+
     return primaryContainer(
       GridView.count(
         physics: BouncingScrollPhysics(),
@@ -232,18 +233,29 @@ class _HomeScreenState extends State<HomeScreen>
 
           var fil = cleanList[i];
 
-          return RawMaterialButton(
-            onPressed: () {
+          return GestureDetector(
+            onTap: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) => ProductDetailsProv(fil, prods),
                 ),
               );
             },
-            shape: RoundedRectangleBorder(
-              borderRadius: new BorderRadius.circular(10.0),
-            ),
             child: Container(
+              padding: EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: MColors.primaryWhite,
+                borderRadius: BorderRadius.all(
+                  Radius.circular(10.0),
+                ),
+                boxShadow: [
+                  BoxShadow(
+                      color: Color.fromRGBO(0, 0, 0, 0.03),
+                      offset: Offset(0, 10),
+                      blurRadius: 10,
+                      spreadRadius: 0),
+                ],
+              ),
               child: Column(
                 children: <Widget>[
                   Container(
@@ -262,65 +274,49 @@ class _HomeScreenState extends State<HomeScreen>
                       ),
                     ),
                   ),
+                  SizedBox(height: 10.0),
                   Align(
                     alignment: Alignment.bottomLeft,
                     child: Container(
-                      padding: const EdgeInsets.only(top: 5.0),
                       child: Text(
                         fil.name,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
-                        style: GoogleFonts.montserrat(
-                          color: MColors.textDark,
-                          fontSize: 16.0,
-                        ),
+                        style: normalFont(MColors.textDark, 16.0),
                       ),
                     ),
                   ),
                   Spacer(),
-                  Align(
-                    alignment: Alignment.bottomCenter,
+                  Container(
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         Container(
-                          padding:
-                              const EdgeInsets.only(top: 5.0, bottom: 10.0),
                           child: Text(
                             "\$${fil.price}",
-                            style: GoogleFonts.montserrat(
-                              color: MColors.primaryPurple,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 20.0,
-                            ),
-                            textAlign: TextAlign.left,
+                            style: boldFont(MColors.primaryPurple, 20.0),
                           ),
                         ),
-                        Container(
-                          width: 50.0,
-                          child: RawMaterialButton(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: new BorderRadius.circular(10.0),
+                        Spacer(),
+                        GestureDetector(
+                          onTap: () {
+                            addToBagshowDialog(
+                              cartProdID,
+                              fil,
+                            );
+                          },
+                          child: Container(
+                            width: 40.0,
+                            height: 40.0,
+                            padding: const EdgeInsets.all(8.0),
+                            decoration: BoxDecoration(
+                              color: MColors.dashPurple,
+                              borderRadius: new BorderRadius.circular(8.0),
                             ),
-                            onPressed: () {
-                              addToBagshowDialog(
-                                cartProdID,
-                                fil,
-                              );
-                            },
-                            child: Container(
-                              width: 45.0,
-                              height: 45.0,
-                              padding: const EdgeInsets.all(10.0),
-                              decoration: BoxDecoration(
-                                color: MColors.dashPurple,
-                                borderRadius: new BorderRadius.circular(10.0),
-                              ),
-                              child: SvgPicture.asset(
-                                "assets/images/icons/basket.svg",
-                                height: 22.0,
-                                color: MColors.textGrey,
-                              ),
+                            child: SvgPicture.asset(
+                              "assets/images/icons/basket.svg",
+                              height: 22.0,
+                              color: MColors.textGrey,
                             ),
                           ),
                         ),
@@ -329,20 +325,6 @@ class _HomeScreenState extends State<HomeScreen>
                   ),
                 ],
               ),
-              decoration: BoxDecoration(
-                color: MColors.primaryWhite,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(10.0),
-                ),
-                boxShadow: [
-                  BoxShadow(
-                      color: Color.fromRGBO(0, 0, 0, 0.03),
-                      offset: Offset(0, 10),
-                      blurRadius: 10,
-                      spreadRadius: 0),
-                ],
-              ),
-              padding: EdgeInsets.all(10),
             ),
           );
         }),
@@ -369,18 +351,29 @@ class _HomeScreenState extends State<HomeScreen>
 
           var fil = cleanList[i];
 
-          return RawMaterialButton(
-            onPressed: () {
+          return GestureDetector(
+            onTap: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) => ProductDetailsProv(fil, prods),
                 ),
               );
             },
-            shape: RoundedRectangleBorder(
-              borderRadius: new BorderRadius.circular(10.0),
-            ),
             child: Container(
+              padding: EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: MColors.primaryWhite,
+                borderRadius: BorderRadius.all(
+                  Radius.circular(10.0),
+                ),
+                boxShadow: [
+                  BoxShadow(
+                      color: Color.fromRGBO(0, 0, 0, 0.03),
+                      offset: Offset(0, 10),
+                      blurRadius: 10,
+                      spreadRadius: 0),
+                ],
+              ),
               child: Column(
                 children: <Widget>[
                   Container(
@@ -399,60 +392,49 @@ class _HomeScreenState extends State<HomeScreen>
                       ),
                     ),
                   ),
+                  SizedBox(height: 10.0),
                   Align(
                     alignment: Alignment.bottomLeft,
                     child: Container(
-                      padding: const EdgeInsets.only(top: 5.0),
                       child: Text(
                         fil.name,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
-                        style: GoogleFonts.montserrat(
-                          color: MColors.textDark,
-                          fontSize: 16.0,
-                        ),
+                        style: normalFont(MColors.textDark, 16.0),
                       ),
                     ),
                   ),
                   Spacer(),
-                  Align(
-                    alignment: Alignment.bottomCenter,
+                  Container(
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         Container(
-                          padding:
-                              const EdgeInsets.only(top: 5.0, bottom: 10.0),
                           child: Text(
                             "\$${fil.price}",
-                            style: GoogleFonts.montserrat(
-                              color: MColors.primaryPurple,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 20.0,
-                            ),
-                            textAlign: TextAlign.left,
+                            style: boldFont(MColors.primaryPurple, 20.0),
                           ),
                         ),
-                        Container(
-                          width: 45.0,
-                          child: RawMaterialButton(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: new BorderRadius.circular(10.0),
+                        Spacer(),
+                        GestureDetector(
+                          onTap: () {
+                            addToBagshowDialog(
+                              cartProdID,
+                              fil,
+                            );
+                          },
+                          child: Container(
+                            width: 40.0,
+                            height: 40.0,
+                            padding: const EdgeInsets.all(8.0),
+                            decoration: BoxDecoration(
+                              color: MColors.dashPurple,
+                              borderRadius: new BorderRadius.circular(8.0),
                             ),
-                            onPressed: () {
-                              addToBagshowDialog(cartProdID, fil);
-                            },
-                            child: Container(
-                              padding: const EdgeInsets.all(10.0),
-                              decoration: BoxDecoration(
-                                color: MColors.dashPurple,
-                                borderRadius: new BorderRadius.circular(10.0),
-                              ),
-                              child: SvgPicture.asset(
-                                "assets/images/icons/basket.svg",
-                                height: 22.0,
-                                color: MColors.textGrey,
-                              ),
+                            child: SvgPicture.asset(
+                              "assets/images/icons/basket.svg",
+                              height: 22.0,
+                              color: MColors.textGrey,
                             ),
                           ),
                         ),
@@ -461,21 +443,6 @@ class _HomeScreenState extends State<HomeScreen>
                   ),
                 ],
               ),
-              decoration: BoxDecoration(
-                color: MColors.primaryWhite,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(10.0),
-                ),
-                boxShadow: [
-                  BoxShadow(
-                      color: Color.fromRGBO(0, 0, 0, 0.03),
-                      offset: Offset(0, 10),
-                      blurRadius: 10,
-                      spreadRadius: 0),
-                ],
-              ),
-              width: MediaQuery.of(context).size.width,
-              padding: EdgeInsets.all(10),
             ),
           );
         }),
@@ -497,124 +464,106 @@ class _HomeScreenState extends State<HomeScreen>
         childAspectRatio: (itemWidth / itemHeight),
         mainAxisSpacing: 15.0,
         crossAxisSpacing: 15.0,
-        children: List<Widget>.generate(
-          cat.length,
-          (i) {
-            var cleanList = cat.toList();
+        children: List<Widget>.generate(cat.length, (i) {
+          var cleanList = cat.toList();
 
-            var fil = cleanList[i];
+          var fil = cleanList[i];
 
-            return RawMaterialButton(
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => ProductDetailsProv(fil, prods),
-                  ),
-                );
-              },
-              shape: RoundedRectangleBorder(
-                borderRadius: new BorderRadius.circular(10.0),
+          return GestureDetector(
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => ProductDetailsProv(fil, prods),
+                ),
+              );
+            },
+            child: Container(
+              padding: EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: MColors.primaryWhite,
+                borderRadius: BorderRadius.all(
+                  Radius.circular(10.0),
+                ),
+                boxShadow: [
+                  BoxShadow(
+                      color: Color.fromRGBO(0, 0, 0, 0.03),
+                      offset: Offset(0, 10),
+                      blurRadius: 10,
+                      spreadRadius: 0),
+                ],
               ),
-              child: Container(
-                child: Column(
-                  children: <Widget>[
-                    Container(
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10.0),
-                        child: Hero(
-                          child: FadeInImage.assetNetwork(
-                            image: fil.productImage,
-                            fit: BoxFit.fill,
-                            height: MediaQuery.of(context).size.height / 5.8,
-                            placeholder: "assets/images/placeholder.jpg",
-                            placeholderScale:
-                                MediaQuery.of(context).size.height / 2,
-                          ),
-                          tag: fil.productID,
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10.0),
+                      child: Hero(
+                        child: FadeInImage.assetNetwork(
+                          image: fil.productImage,
+                          fit: BoxFit.fill,
+                          height: MediaQuery.of(context).size.height / 5.8,
+                          placeholder: "assets/images/placeholder.jpg",
+                          placeholderScale:
+                              MediaQuery.of(context).size.height / 2,
                         ),
+                        tag: fil.productID,
                       ),
                     ),
-                    Align(
-                      alignment: Alignment.bottomLeft,
-                      child: Container(
-                        padding: const EdgeInsets.only(top: 5.0),
-                        child: Text(
-                          fil.name,
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          style: GoogleFonts.montserrat(
-                            color: MColors.textDark,
-                            fontSize: 16.0,
-                          ),
-                        ),
+                  ),
+                  SizedBox(height: 10.0),
+                  Align(
+                    alignment: Alignment.bottomLeft,
+                    child: Container(
+                      child: Text(
+                        fil.name,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: normalFont(MColors.textDark, 16.0),
                       ),
                     ),
-                    Spacer(),
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Container(
-                            padding:
-                                const EdgeInsets.only(top: 5.0, bottom: 10.0),
-                            child: Text(
-                              "\$${fil.price}",
-                              style: GoogleFonts.montserrat(
-                                color: MColors.primaryPurple,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 20.0,
-                              ),
-                              textAlign: TextAlign.left,
+                  ),
+                  Spacer(),
+                  Container(
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Container(
+                          child: Text(
+                            "\$${fil.price}",
+                            style: boldFont(MColors.primaryPurple, 20.0),
+                          ),
+                        ),
+                        Spacer(),
+                        GestureDetector(
+                          onTap: () {
+                            addToBagshowDialog(
+                              cartProdID,
+                              fil,
+                            );
+                          },
+                          child: Container(
+                            width: 40.0,
+                            height: 40.0,
+                            padding: const EdgeInsets.all(8.0),
+                            decoration: BoxDecoration(
+                              color: MColors.dashPurple,
+                              borderRadius: new BorderRadius.circular(8.0),
+                            ),
+                            child: SvgPicture.asset(
+                              "assets/images/icons/basket.svg",
+                              height: 22.0,
+                              color: MColors.textGrey,
                             ),
                           ),
-                          Container(
-                            width: 45.0,
-                            child: RawMaterialButton(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: new BorderRadius.circular(10.0),
-                              ),
-                              onPressed: () {
-                                addToBagshowDialog(cartProdID, fil);
-                              },
-                              child: Container(
-                                padding: const EdgeInsets.all(10.0),
-                                decoration: BoxDecoration(
-                                  color: MColors.dashPurple,
-                                  borderRadius: new BorderRadius.circular(10.0),
-                                ),
-                                child: SvgPicture.asset(
-                                  "assets/images/icons/basket.svg",
-                                  height: 22.0,
-                                  color: MColors.textGrey,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-                decoration: BoxDecoration(
-                  color: MColors.primaryWhite,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(10.0),
                   ),
-                  boxShadow: [
-                    BoxShadow(
-                        color: Color.fromRGBO(0, 0, 0, 0.03),
-                        offset: Offset(0, 10),
-                        blurRadius: 10,
-                        spreadRadius: 0),
-                  ],
-                ),
-                width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.all(10),
+                ],
               ),
-            );
-          },
-        ),
+            ),
+          );
+        }),
       ),
     );
   }

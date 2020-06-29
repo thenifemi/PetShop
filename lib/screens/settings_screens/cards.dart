@@ -121,29 +121,6 @@ class _CardsState extends State<Cards> {
 
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  void _showUpdated(String value) {
-    _scaffoldKey.currentState.showSnackBar(
-      SnackBar(
-        behavior: SnackBarBehavior.floating,
-        duration: Duration(milliseconds: 1300),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-        content: Row(
-          children: <Widget>[
-            Expanded(
-              child: Text("Your $value has been added"),
-            ),
-            Icon(
-              Icons.check_circle_outline,
-              color: Colors.greenAccent,
-            )
-          ],
-        ),
-      ),
-    );
-  }
-
   Widget savedPaymentMethod() {
     UserDataCardNotifier cardNotifier =
         Provider.of<UserDataCardNotifier>(context);
