@@ -63,7 +63,6 @@ getCart(CartNotifier cartNotifier) async {
 addProductToCart(product) async {
   final db = Firestore.instance;
   final uEmail = await AuthService().getCurrentEmail();
-  // final uid = await AuthService().getCurrentUID();
 
   await db
       .collection("userCart")
