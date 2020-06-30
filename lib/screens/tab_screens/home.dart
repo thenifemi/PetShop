@@ -238,7 +238,7 @@ class _HomeScreenState extends State<HomeScreen>
                         child: FadeInImage.assetNetwork(
                           image: fil.productImage,
                           fit: BoxFit.fill,
-                          height: MediaQuery.of(context).size.height / 5.8,
+                          height: itemHeight / 2,
                           placeholder: "assets/images/placeholder.jpg",
                           placeholderScale:
                               MediaQuery.of(context).size.height / 2,
@@ -355,7 +355,7 @@ class _HomeScreenState extends State<HomeScreen>
                         child: FadeInImage.assetNetwork(
                           image: fil.productImage,
                           fit: BoxFit.fill,
-                          height: MediaQuery.of(context).size.height / 5.8,
+                          height: itemHeight / 2,
                           placeholder: "assets/images/placeholder.jpg",
                           placeholderScale:
                               MediaQuery.of(context).size.height / 2,
@@ -472,7 +472,7 @@ class _HomeScreenState extends State<HomeScreen>
                         child: FadeInImage.assetNetwork(
                           image: fil.productImage,
                           fit: BoxFit.fill,
-                          height: MediaQuery.of(context).size.height / 5.8,
+                          height: itemHeight / 2,
                           placeholder: "assets/images/placeholder.jpg",
                           placeholderScale:
                               MediaQuery.of(context).size.height / 2,
