@@ -35,71 +35,6 @@ class _HomeScreenState extends State<HomeScreen>
     "Small Pets",
   ];
 
-  void addToBagshowDialog(
-    cartProdID,
-    fil,
-  ) async {
-    CartNotifier cartNotifier =
-        Provider.of<CartNotifier>(context, listen: false);
-
-    await showCupertinoDialog(
-        context: context,
-        builder: (context) {
-          return CupertinoAlertDialog(
-            content: Text(
-              "Sure you want to add to Bag?",
-              style: normalFont(MColors.textDark, null),
-            ),
-            actions: <Widget>[
-              CupertinoDialogAction(
-                child: Text(
-                  "Cancel",
-                  style: normalFont(Colors.red, null),
-                ),
-                onPressed: () async {
-                  setState(() {
-                    getCart(cartNotifier);
-                  });
-                  Navigator.of(context).pop();
-                },
-              ),
-              CupertinoDialogAction(
-                isDefaultAction: true,
-                child: Text(
-                  "Yes",
-                  style: normalFont(Colors.blue, null),
-                ),
-                onPressed: () {
-                  setState(() {
-                    getCart(cartNotifier);
-                  });
-                  if (cartProdID.contains(fil.productID)) {
-                    showSimpleSnack(
-                      "Product already in bag",
-                      Icons.error_outline,
-                      Colors.amber,
-                      _scaffoldKey,
-                    );
-                  } else {
-                    addProductToCart(fil);
-                    showSimpleSnack(
-                      "Product added to bag",
-                      Icons.check_circle_outline,
-                      Colors.green,
-                      _scaffoldKey,
-                    );
-                    setState(() {
-                      getCart(cartNotifier);
-                    });
-                  }
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          );
-        });
-  }
-
   @override
   Widget build(BuildContext context) {
     ProductsNotifier productsNotifier = Provider.of<ProductsNotifier>(context);
@@ -184,6 +119,71 @@ class _HomeScreenState extends State<HomeScreen>
               ),
       ),
     );
+  }
+
+  void addToBagshowDialog(
+    cartProdID,
+    fil,
+  ) async {
+    CartNotifier cartNotifier =
+        Provider.of<CartNotifier>(context, listen: false);
+
+    await showCupertinoDialog(
+        context: context,
+        builder: (context) {
+          return CupertinoAlertDialog(
+            content: Text(
+              "Sure you want to add to Bag?",
+              style: normalFont(MColors.textDark, null),
+            ),
+            actions: <Widget>[
+              CupertinoDialogAction(
+                child: Text(
+                  "Cancel",
+                  style: normalFont(Colors.red, null),
+                ),
+                onPressed: () async {
+                  setState(() {
+                    getCart(cartNotifier);
+                  });
+                  Navigator.of(context).pop();
+                },
+              ),
+              CupertinoDialogAction(
+                isDefaultAction: true,
+                child: Text(
+                  "Yes",
+                  style: normalFont(Colors.blue, null),
+                ),
+                onPressed: () {
+                  setState(() {
+                    getCart(cartNotifier);
+                  });
+                  if (cartProdID.contains(fil.productID)) {
+                    showSimpleSnack(
+                      "Product already in bag",
+                      Icons.error_outline,
+                      Colors.amber,
+                      _scaffoldKey,
+                    );
+                  } else {
+                    addProductToCart(fil);
+                    showSimpleSnack(
+                      "Product added to bag",
+                      Icons.check_circle_outline,
+                      Colors.green,
+                      _scaffoldKey,
+                    );
+                    setState(() {
+                      getCart(cartNotifier);
+                    });
+                  }
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        });
   }
 
   //Add to Bag dialog
