@@ -32,7 +32,7 @@ class _HomeScreenState extends State<HomeScreen>
     "Fish",
     "Birds",
     "Reptiles",
-    "Small Pets",
+    "Others",
   ];
 
   @override
