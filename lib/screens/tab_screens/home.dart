@@ -326,12 +326,14 @@ class _HomeScreenState extends State<HomeScreen>
     final double itemHeight = (size.height) / 2.5;
     final double itemWidth = size.width / 2;
     double _picHeight;
-    if (itemHeight > 315) {
+    if (itemHeight >= 315) {
       _picHeight = itemHeight / 2;
-    } else if (itemHeight < 315 && itemHeight > 280) {
+    } else if (itemHeight <= 315 && itemHeight >= 280) {
       _picHeight = itemHeight / 2.2;
+    } else if (itemHeight <= 280 && itemHeight >= 200) {
+      _picHeight = itemHeight / 2.7;
     } else {
-      _picHeight = 120;
+      _picHeight = 30;
     }
     return primaryContainer(
       GridView.count(
@@ -451,12 +453,14 @@ class _HomeScreenState extends State<HomeScreen>
     final double itemHeight = (size.height) / 2.5;
     final double itemWidth = size.width / 2;
     double _picHeight;
-    if (itemHeight > 315) {
+    if (itemHeight >= 315) {
       _picHeight = itemHeight / 2;
-    } else if (itemHeight < 315 && itemHeight > 280) {
+    } else if (itemHeight <= 315 && itemHeight >= 280) {
       _picHeight = itemHeight / 2.2;
+    } else if (itemHeight <= 280 && itemHeight >= 200) {
+      _picHeight = itemHeight / 2.7;
     } else {
-      _picHeight = 120;
+      _picHeight = 30;
     }
     return primaryContainer(
       GridView.count(
