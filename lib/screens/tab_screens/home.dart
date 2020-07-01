@@ -194,6 +194,19 @@ class _HomeScreenState extends State<HomeScreen>
     /*24 is for notification bar on Android*/
     final double itemHeight = size.height / 2.5;
     final double itemWidth = size.width / 2;
+    double _picHeight;
+    if (itemHeight >= 315) {
+      _picHeight = itemHeight / 2;
+    } else if (itemHeight <= 315 && itemHeight >= 280) {
+      _picHeight = itemHeight / 2.2;
+    } else if (itemHeight <= 280 && itemHeight >= 200) {
+      _picHeight = itemHeight / 2.7;
+    } else {
+      _picHeight = 30;
+    }
+    print(size.height);
+    print(itemHeight);
+    print(_picHeight);
 
     return primaryContainer(
       GridView.count(
@@ -238,7 +251,7 @@ class _HomeScreenState extends State<HomeScreen>
                         child: FadeInImage.assetNetwork(
                           image: fil.productImage,
                           fit: BoxFit.fill,
-                          height: itemHeight / 2,
+                          height: _picHeight,
                           placeholder: "assets/images/placeholder.jpg",
                           placeholderScale:
                               MediaQuery.of(context).size.height / 2,
@@ -312,6 +325,14 @@ class _HomeScreenState extends State<HomeScreen>
     /*24 is for notification bar on Android*/
     final double itemHeight = (size.height) / 2.5;
     final double itemWidth = size.width / 2;
+    double _picHeight;
+    if (itemHeight > 315) {
+      _picHeight = itemHeight / 2;
+    } else if (itemHeight < 315 && itemHeight > 280) {
+      _picHeight = itemHeight / 2.2;
+    } else {
+      _picHeight = 120;
+    }
     return primaryContainer(
       GridView.count(
         physics: BouncingScrollPhysics(),
@@ -355,7 +376,7 @@ class _HomeScreenState extends State<HomeScreen>
                         child: FadeInImage.assetNetwork(
                           image: fil.productImage,
                           fit: BoxFit.fill,
-                          height: itemHeight / 2,
+                          height: _picHeight,
                           placeholder: "assets/images/placeholder.jpg",
                           placeholderScale:
                               MediaQuery.of(context).size.height / 2,
@@ -429,6 +450,14 @@ class _HomeScreenState extends State<HomeScreen>
     /*24 is for notification bar on Android*/
     final double itemHeight = (size.height) / 2.5;
     final double itemWidth = size.width / 2;
+    double _picHeight;
+    if (itemHeight > 315) {
+      _picHeight = itemHeight / 2;
+    } else if (itemHeight < 315 && itemHeight > 280) {
+      _picHeight = itemHeight / 2.2;
+    } else {
+      _picHeight = 120;
+    }
     return primaryContainer(
       GridView.count(
         physics: BouncingScrollPhysics(),
@@ -472,7 +501,7 @@ class _HomeScreenState extends State<HomeScreen>
                         child: FadeInImage.assetNetwork(
                           image: fil.productImage,
                           fit: BoxFit.fill,
-                          height: itemHeight / 2,
+                          height: _picHeight,
                           placeholder: "assets/images/placeholder.jpg",
                           placeholderScale:
                               MediaQuery.of(context).size.height / 2,
