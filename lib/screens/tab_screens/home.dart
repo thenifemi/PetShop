@@ -229,9 +229,6 @@ class _HomeScreenState extends State<HomeScreen>
     } else {
       _picHeight = 30;
     }
-    print(size.height);
-    print(itemHeight);
-    print(_picHeight);
 
     return primaryContainer(
       GridView.count(
