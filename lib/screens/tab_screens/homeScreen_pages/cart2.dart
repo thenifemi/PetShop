@@ -29,16 +29,6 @@ class _Cart2State extends State<Cart2> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
-  void initState() {
-    CartNotifier cartNotifier =
-        Provider.of<CartNotifier>(context, listen: false);
-    cartFuture = getCart(cartNotifier);
-    getCart(cartNotifier);
-
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     CartNotifier cartNotifier = Provider.of<CartNotifier>(context);
     var cartList = cartNotifier.cartList;
@@ -442,6 +432,16 @@ class _Cart2State extends State<Cart2> {
         ),
       ),
     );
+  }
+
+  @override
+  void initState() {
+    CartNotifier cartNotifier =
+        Provider.of<CartNotifier>(context, listen: false);
+    cartFuture = getCart(cartNotifier);
+    getCart(cartNotifier);
+
+    super.initState();
   }
 
   //Remove from cart
