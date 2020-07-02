@@ -271,7 +271,7 @@ Widget emptyCart() {
             SizedBox(height: 10.0),
             Container(
               child: Text(
-                "Products that you add to your cart will show up here. So lets get shopping.",
+                "Products you add to your cart will show up here. So lets get shopping.",
                 style: normalFont(MColors.textGrey, 16),
                 textAlign: TextAlign.center,
               ),
