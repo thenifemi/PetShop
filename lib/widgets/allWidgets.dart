@@ -230,7 +230,7 @@ void showSimpleSnack(
           Expanded(
             child: Text(
               value,
-              style: GoogleFonts.montserrat(),
+              style: normalFont(null, null),
             ),
           ),
           Icon(
