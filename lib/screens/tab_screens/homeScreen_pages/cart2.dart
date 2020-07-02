@@ -91,40 +91,6 @@ class _Cart2State extends State<Cart2> {
     );
   }
 
-  //Remove from cart
-
-  Future<bool> promptUser(cartItem) async {
-    CartNotifier cartNotifier =
-        Provider.of<CartNotifier>(context, listen: false);
-
-    return await showCupertinoDialog<bool>(
-          context: context,
-          builder: (context) => CupertinoAlertDialog(
-            content: Text("Are you sure you want to remove?"),
-            actions: <Widget>[
-              CupertinoDialogAction(
-                child: Text('Cancel'),
-                onPressed: () {
-                  Navigator.of(context).pop(false);
-                  getCart(cartNotifier);
-                },
-              ),
-              CupertinoDialogAction(
-                child: Text("Yes"),
-                textStyle: GoogleFonts.montserrat(color: Colors.redAccent),
-                onPressed: () {
-                  Navigator.of(context).pop(true);
-                  removeItemFromCart(cartItem);
-                  getCart(cartNotifier);
-                },
-              ),
-            ],
-          ),
-        ) ??
-        false;
-  }
-  //
-
   Widget cart(cartList, total) {
     return Scaffold(
       key: _scaffoldKey,
@@ -476,5 +442,38 @@ class _Cart2State extends State<Cart2> {
         ),
       ),
     );
+  }
+
+  //Remove from cart
+
+  Future<bool> promptUser(cartItem) async {
+    CartNotifier cartNotifier =
+        Provider.of<CartNotifier>(context, listen: false);
+
+    return await showCupertinoDialog<bool>(
+          context: context,
+          builder: (context) => CupertinoAlertDialog(
+            content: Text("Are you sure you want to remove?"),
+            actions: <Widget>[
+              CupertinoDialogAction(
+                child: Text('Cancel'),
+                onPressed: () {
+                  Navigator.of(context).pop(false);
+                  getCart(cartNotifier);
+                },
+              ),
+              CupertinoDialogAction(
+                child: Text("Yes"),
+                textStyle: GoogleFonts.montserrat(color: Colors.redAccent),
+                onPressed: () {
+                  Navigator.of(context).pop(true);
+                  removeItemFromCart(cartItem);
+                  getCart(cartNotifier);
+                },
+              ),
+            ],
+          ),
+        ) ??
+        false;
   }
 }
