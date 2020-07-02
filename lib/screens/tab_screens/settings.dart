@@ -10,8 +10,8 @@ import 'package:mollet/screens/settings_screens/editProfile.dart';
 import 'package:mollet/screens/settings_screens/inviteFriend.dart';
 import 'package:mollet/screens/settings_screens/passwordSecurity.dart';
 import 'package:mollet/utils/colors.dart';
-import 'package:mollet/widgets/provider.dart';
 import 'package:mollet/widgets/allWidgets.dart';
+import 'package:mollet/widgets/provider.dart';
 import 'package:provider/provider.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -24,13 +24,7 @@ class SettingsScreen extends StatefulWidget {
 class _SettingsScreenState extends State<SettingsScreen> {
   Future profileFuture;
 
-  @override
-  void initState() {
-    UserDataProfileNotifier profileNotifier =
-        Provider.of<UserDataProfileNotifier>(context, listen: false);
-    profileFuture = getProfile(profileNotifier);
-    super.initState();
-  }
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +55,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
-  final _scaffoldKey = GlobalKey<ScaffoldState>();
+  @override
+  void initState() {
+    UserDataProfileNotifier profileNotifier =
+        Provider.of<UserDataProfileNotifier>(context, listen: false);
+    profileFuture = getProfile(profileNotifier);
+    super.initState();
+  }
 
   Widget showSettings(user) {
     return Scaffold(
