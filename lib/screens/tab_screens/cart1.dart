@@ -21,14 +21,7 @@ class Cart1 extends StatefulWidget {
 class _Cart1State extends State<Cart1> {
   Future cartFuture;
 
-  @override
-  void initState() {
-    CartNotifier cartNotifier =
-        Provider.of<CartNotifier>(context, listen: false);
-    cartFuture = getCart(cartNotifier);
-
-    super.initState();
-  }
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
@@ -412,7 +405,14 @@ class _Cart1State extends State<Cart1> {
   }
 
   //Remove from cart
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  @override
+  void initState() {
+    CartNotifier cartNotifier =
+        Provider.of<CartNotifier>(context, listen: false);
+    cartFuture = getCart(cartNotifier);
+
+    super.initState();
+  }
 
   Future<bool> promptUser(cartItem) async {
     CartNotifier cartNotifier =
