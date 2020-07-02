@@ -22,10 +22,33 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen>
     with SingleTickerProviderStateMixin {
+  @override
+  void initState() {
+    ProductsNotifier productsNotifier =
+        Provider.of<ProductsNotifier>(context, listen: false);
+    getProdProducts(productsNotifier);
+
+    CartNotifier cartNotifier =
+        Provider.of<CartNotifier>(context, listen: false);
+    getCart(cartNotifier);
+
+    // BrandsNotifier brandsNotifier =
+    //     Provider.of<BrandsNotifier>(context, listen: false);
+    // getBrands(brandsNotifier);
+
+    UserDataProfileNotifier profileNotifier =
+        Provider.of<UserDataProfileNotifier>(context, listen: false);
+    getProfile(profileNotifier);
+
+    _tabController = TabController(
+      length: _tabItems.length,
+      vsync: this,
+    );
+    super.initState();
+  }
+
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
   TabController _tabController;
-
   final _tabItems = [
     "All",
     "Dogs",
@@ -191,9 +214,23 @@ class _HomeScreenState extends State<HomeScreen>
   Widget buildAllBody(prods, cartProdID) {
     Iterable<ProdProducts> all = prods.reversed;
 
+    var size = MediaQuery.of(context).size;
+    /*24 is for notification bar on Android*/
+    final double itemHeight = size.height / 2.5;
+    final double itemWidth = size.width / 2;
+    double _picHeight;
+    if (itemHeight >= 315) {
+      _picHeight = itemHeight / 2;
+    } else if (itemHeight <= 315 && itemHeight >= 280) {
+      _picHeight = itemHeight / 2.2;
+    } else if (itemHeight <= 280 && itemHeight >= 200) {
+      _picHeight = itemHeight / 2.7;
+    } else {
+      _picHeight = 30;
+    }
     print(size.height);
     print(itemHeight);
-    print(picHeight.call().toDouble());
+    print(_picHeight);
 
     return primaryContainer(
       GridView.count(
@@ -238,7 +275,7 @@ class _HomeScreenState extends State<HomeScreen>
                         child: FadeInImage.assetNetwork(
                           image: fil.productImage,
                           fit: BoxFit.fill,
-                          height: picHeight.call().toDouble(),
+                          height: _picHeight,
                           placeholder: "assets/images/placeholder.jpg",
                           placeholderScale:
                               MediaQuery.of(context).size.height / 2,
@@ -557,30 +594,5 @@ class _HomeScreenState extends State<HomeScreen>
         }),
       ),
     );
-  }
-
-  @override
-  void initState() {
-    ProductsNotifier productsNotifier =
-        Provider.of<ProductsNotifier>(context, listen: false);
-    getProdProducts(productsNotifier);
-
-    CartNotifier cartNotifier =
-        Provider.of<CartNotifier>(context, listen: false);
-    getCart(cartNotifier);
-
-    // BrandsNotifier brandsNotifier =
-    //     Provider.of<BrandsNotifier>(context, listen: false);
-    // getBrands(brandsNotifier);
-
-    UserDataProfileNotifier profileNotifier =
-        Provider.of<UserDataProfileNotifier>(context, listen: false);
-    getProfile(profileNotifier);
-
-    _tabController = TabController(
-      length: _tabItems.length,
-      vsync: this,
-    );
-    super.initState();
   }
 }
