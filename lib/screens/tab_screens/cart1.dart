@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mollet/model/notifiers/cart_notifier.dart';
 import 'package:mollet/model/services/Product_service.dart';
@@ -441,54 +440,6 @@ class _Cart1State extends State<Cart1> {
                 fontWeight: FontWeight.w500,
               ),
             ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget emptyCart() {
-    return Container(
-      child: Center(
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Container(
-                padding: const EdgeInsets.all(20.0),
-                child: SvgPicture.asset(
-                  "assets/images/emptyCart.svg",
-                  height: 150,
-                ),
-              ),
-              Container(
-                child: Text(
-                  "Cart is empty",
-                  style: GoogleFonts.montserrat(
-                    color: MColors.textDark,
-                    fontSize: 25.0,
-                    fontWeight: FontWeight.w500,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-              Container(
-                padding: const EdgeInsets.only(
-                  right: 30.0,
-                  left: 30.0,
-                  top: 10.0,
-                ),
-                child: Text(
-                  "Products that you add to your cart will show up here. So lets get shopping.",
-                  style: GoogleFonts.montserrat(
-                    color: MColors.textGrey,
-                    fontSize: 16.0,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            ],
           ),
         ),
       ),

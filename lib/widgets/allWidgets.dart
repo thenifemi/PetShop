@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mollet/utils/colors.dart';
 
@@ -244,6 +245,42 @@ void showSimpleSnack(
 }
 //------------------------------------------
 
-//TAB BODY----------------------------------
+//EMPTYCART----------------------------------
+Widget emptyCart() {
+  return primaryContainer(
+    Center(
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Container(
+              padding: const EdgeInsets.all(20.0),
+              child: SvgPicture.asset(
+                "assets/images/emptyCart.svg",
+                height: 150,
+              ),
+            ),
+            Container(
+              child: Text(
+                "Cart is empty",
+                style: boldFont(MColors.textDark, 20),
+                textAlign: TextAlign.center,
+              ),
+            ),
+            SizedBox(height: 10.0),
+            Container(
+              child: Text(
+                "Products that you add to your cart will show up here. So lets get shopping.",
+                style: normalFont(MColors.textGrey, 16),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
+}
 
 // -----------------------------------------
