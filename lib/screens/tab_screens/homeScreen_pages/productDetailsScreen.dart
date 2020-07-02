@@ -483,8 +483,8 @@ class _ProductDetailsState extends State<ProductDetails> {
         addProductToCart(prodDetails);
         showSimpleSnack(
           "Product added to bag",
-          Icons.error_outline,
-          Colors.amber,
+          Icons.check_circle_outline,
+          Colors.green,
           _scaffoldKey,
         );
         setState(() {

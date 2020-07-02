@@ -11,6 +11,7 @@ import 'package:mollet/screens/tab_screens/homeScreen_pages/productDetailsScreen
 import 'package:mollet/utils/colors.dart';
 import 'package:mollet/widgets/allWidgets.dart';
 import 'package:provider/provider.dart';
+import 'package:mollet/utils/sizes.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key key}) : super(key: key);
@@ -190,23 +191,9 @@ class _HomeScreenState extends State<HomeScreen>
   Widget buildAllBody(prods, cartProdID) {
     Iterable<ProdProducts> all = prods.reversed;
 
-    var size = MediaQuery.of(context).size;
-    /*24 is for notification bar on Android*/
-    final double itemHeight = size.height / 2.5;
-    final double itemWidth = size.width / 2;
-    double _picHeight;
-    if (itemHeight >= 315) {
-      _picHeight = itemHeight / 2;
-    } else if (itemHeight <= 315 && itemHeight >= 280) {
-      _picHeight = itemHeight / 2.2;
-    } else if (itemHeight <= 280 && itemHeight >= 200) {
-      _picHeight = itemHeight / 2.7;
-    } else {
-      _picHeight = 30;
-    }
     print(size.height);
     print(itemHeight);
-    print(_picHeight);
+    print(picHeight.call().toDouble());
 
     return primaryContainer(
       GridView.count(
@@ -251,7 +238,7 @@ class _HomeScreenState extends State<HomeScreen>
                         child: FadeInImage.assetNetwork(
                           image: fil.productImage,
                           fit: BoxFit.fill,
-                          height: _picHeight,
+                          height: picHeight.call().toDouble(),
                           placeholder: "assets/images/placeholder.jpg",
                           placeholderScale:
                               MediaQuery.of(context).size.height / 2,
