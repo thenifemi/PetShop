@@ -28,6 +28,16 @@ class _Cart2State extends State<Cart2> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
+  void initState() {
+    CartNotifier cartNotifier =
+        Provider.of<CartNotifier>(context, listen: false);
+    cartFuture = getCart(cartNotifier);
+    getCart(cartNotifier);
+
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     CartNotifier cartNotifier = Provider.of<CartNotifier>(context);
     var cartList = cartNotifier.cartList;
@@ -83,50 +93,30 @@ class _Cart2State extends State<Cart2> {
   Widget cart(cartList, total) {
     return Scaffold(
       key: _scaffoldKey,
-      body: Container(
-        color: MColors.primaryWhite,
-        child: Column(
+      body: primaryContainer(
+        Column(
           children: <Widget>[
             Container(
               width: MediaQuery.of(context).size.width,
-              padding:
-                  const EdgeInsets.only(right: 20.0, left: 20.0, bottom: 10.0),
-              height: 70,
-              color: MColors.primaryWhiteSmoke,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: <Widget>[
                   Text(
                     "${cartList.length} Items",
-                    style: GoogleFonts.montserrat(
-                      color: MColors.textGrey,
-                      fontSize: 14.0,
-                    ),
+                    style: normalFont(MColors.textGrey, 14.0),
                   ),
-                  SizedBox(
-                    height: 5.0,
-                  ),
+                  SizedBox(height: 5.0),
                   Text(
                     "\$$total",
-                    style: GoogleFonts.montserrat(
-                      color: MColors.textGrey,
-                      fontSize: 24.0,
-                      fontWeight: FontWeight.w600,
-                    ),
+                    style: boldFont(MColors.textGrey, 22.0),
                   ),
                 ],
               ),
             ),
+            SizedBox(height: 10.0),
             Expanded(
               child: Container(
-                decoration: BoxDecoration(
-                  color: MColors.primaryWhiteSmoke,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(10.0),
-                  ),
-                ),
-                padding: const EdgeInsets.only(right: 20.0, left: 20.0),
                 height: MediaQuery.of(context).size.height,
                 child: ListView.builder(
                   physics: BouncingScrollPhysics(),
@@ -147,56 +137,10 @@ class _Cart2State extends State<Cart2> {
                           _scaffoldKey,
                         );
                       },
-                      background: Container(
-                        decoration: BoxDecoration(
-                          color: MColors.primaryWhiteSmoke,
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(10.0),
-                          ),
-                        ),
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 10.0, vertical: 5.0),
-                        alignment: AlignmentDirectional.centerStart,
-                        child: Container(
-                          height: MediaQuery.of(context).size.height,
-                          width: 50.0,
-                          decoration: BoxDecoration(
-                            color: Colors.red,
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(10.0),
-                            ),
-                          ),
-                          child: Icon(
-                            Icons.delete_outline,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                      secondaryBackground: Container(
-                        decoration: BoxDecoration(
-                          color: MColors.primaryWhiteSmoke,
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(10.0),
-                          ),
-                        ),
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 10.0, vertical: 5.0),
-                        alignment: AlignmentDirectional.centerEnd,
-                        child: Container(
-                          height: MediaQuery.of(context).size.height,
-                          width: 50.0,
-                          decoration: BoxDecoration(
-                            color: Colors.red,
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(10.0),
-                            ),
-                          ),
-                          child: Icon(
-                            Icons.delete_outline,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
+                      background:
+                          backgroundDismiss(AlignmentDirectional.centerStart),
+                      secondaryBackground:
+                          backgroundDismiss(AlignmentDirectional.centerEnd),
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.all(
@@ -214,6 +158,7 @@ class _Cart2State extends State<Cart2> {
                             ),
                           ),
                           child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: <Widget>[
                               Container(
                                 width: 80.0,
@@ -226,57 +171,52 @@ class _Cart2State extends State<Cart2> {
                                       MediaQuery.of(context).size.height / 2,
                                 ),
                               ),
+                              SizedBox(
+                                width: 5.0,
+                              ),
                               Container(
-                                padding: const EdgeInsets.only(left: 3.0),
+                                width: MediaQuery.of(context).size.width / 2.0,
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
                                     Container(
-                                      padding: const EdgeInsets.all(5.0),
-                                      width: MediaQuery.of(context).size.width /
-                                          2.2,
                                       child: Text(
                                         cartItem.name,
                                         maxLines: 2,
                                         overflow: TextOverflow.ellipsis,
-                                        style: GoogleFonts.montserrat(
-                                            fontSize: 16.0,
-                                            color: MColors.textDark,
-                                            fontWeight: FontWeight.w500),
+                                        style:
+                                            normalFont(MColors.textDark, 16.0),
                                         textAlign: TextAlign.left,
                                         softWrap: true,
                                       ),
+                                    ),
+                                    SizedBox(
+                                      height: 5.0,
                                     ),
                                     Container(
                                       child: Row(
                                         children: <Widget>[
                                           Text(
                                             "\$${cartItem.price}",
-                                            style: GoogleFonts.montserrat(
-                                                fontSize: 24.0,
-                                                color: MColors.primaryPurple,
-                                                fontWeight: FontWeight.bold),
+                                            style: boldFont(
+                                                MColors.primaryPurple, 22.0),
                                             textAlign: TextAlign.left,
                                           ),
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                left: 10.0),
-                                            child: Container(
-                                              padding:
-                                                  const EdgeInsets.all(3.0),
-                                              decoration: BoxDecoration(
-                                                color: MColors.dashPurple,
-                                                borderRadius:
-                                                    new BorderRadius.circular(
-                                                        10.0),
-                                              ),
-                                              child: Text(
-                                                "${cartItem.quantity}X",
-                                                style: GoogleFonts.montserrat(
-                                                    fontSize: 14.0,
-                                                    color: MColors.textGrey),
-                                                textAlign: TextAlign.left,
-                                              ),
+                                          SizedBox(
+                                            width: 10.0,
+                                          ),
+                                          Container(
+                                            padding: EdgeInsets.all(3.0),
+                                            decoration: BoxDecoration(
+                                              color: MColors.dashPurple,
+                                              borderRadius:
+                                                  BorderRadius.circular(10.0),
+                                            ),
+                                            child: Text(
+                                              "${cartItem.quantity}X",
+                                              style: normalFont(
+                                                  MColors.textGrey, 14.0),
+                                              textAlign: TextAlign.left,
                                             ),
                                           ),
                                         ],
@@ -284,8 +224,6 @@ class _Cart2State extends State<Cart2> {
                                     ),
                                     Spacer(),
                                     Container(
-                                      padding: const EdgeInsets.fromLTRB(
-                                          0.0, 0.0, 0.0, 10.0),
                                       child: Row(
                                         children: <Widget>[
                                           Icon(
@@ -294,17 +232,15 @@ class _Cart2State extends State<Cart2> {
                                             size: 14.0,
                                           ),
                                           SizedBox(
-                                            width: 3.0,
+                                            width: 2.0,
                                           ),
                                           Container(
                                             child: Text(
                                               "Swipe to remove",
                                               maxLines: 3,
                                               overflow: TextOverflow.ellipsis,
-                                              style: GoogleFonts.montserrat(
-                                                fontSize: 10.0,
-                                                color: Colors.redAccent,
-                                              ),
+                                              style: normalFont(
+                                                  Colors.redAccent, 10.0),
                                               textAlign: TextAlign.left,
                                               softWrap: true,
                                             ),
@@ -315,78 +251,72 @@ class _Cart2State extends State<Cart2> {
                                   ],
                                 ),
                               ),
-                              Expanded(
-                                child: Builder(
-                                  builder: (context) {
-                                    CartNotifier cartNotifier =
-                                        Provider.of<CartNotifier>(context,
-                                            listen: false);
+                              Spacer(),
+                              Builder(
+                                builder: (context) {
+                                  CartNotifier cartNotifier =
+                                      Provider.of<CartNotifier>(context,
+                                          listen: false);
 
-                                    return Container(
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: <Widget>[
-                                          Container(
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  new BorderRadius.circular(
-                                                      10.0),
-                                              color: MColors.primaryPurple,
-                                            ),
-                                            height: 34.0,
-                                            width: 34.0,
-                                            child: RawMaterialButton(
-                                              onPressed: () {
-                                                addAndApdateData(cartItem);
-                                                getCart(cartNotifier);
-                                              },
-                                              child: Icon(
-                                                Icons.add,
-                                                color:
-                                                    MColors.primaryWhiteSmoke,
-                                                size: 24.0,
-                                              ),
-                                            ),
+                                  return Container(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: <Widget>[
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                new BorderRadius.circular(10.0),
+                                            color: MColors.primaryPurple,
                                           ),
-                                          Container(
-                                            padding: const EdgeInsets.all(5.0),
-                                            child: Center(
-                                              child: Text(
-                                                cartItem.quantity.toString(),
-                                                style: GoogleFonts.montserrat(
-                                                  color: MColors.textDark,
-                                                  fontSize: 20.0,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          Container(
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  new BorderRadius.circular(
-                                                      10.0),
+                                          height: 34.0,
+                                          width: 34.0,
+                                          child: RawMaterialButton(
+                                            onPressed: () {
+                                              addAndApdateData(cartItem);
+                                              getCart(cartNotifier);
+                                            },
+                                            child: Icon(
+                                              Icons.add,
                                               color: MColors.primaryWhiteSmoke,
-                                            ),
-                                            width: 34.0,
-                                            height: 34.0,
-                                            child: RawMaterialButton(
-                                              onPressed: () {
-                                                subAndApdateData(cartItem);
-                                                getCart(cartNotifier);
-                                              },
-                                              child: Icon(
-                                                Icons.remove,
-                                                color: MColors.primaryPurple,
-                                                size: 30.0,
-                                              ),
+                                              size: 24.0,
                                             ),
                                           ),
-                                        ],
-                                      ),
-                                    );
-                                  },
-                                ),
+                                        ),
+                                        Container(
+                                          padding: const EdgeInsets.all(5.0),
+                                          child: Center(
+                                            child: Text(
+                                              cartItem.quantity.toString(),
+                                              style: normalFont(
+                                                  MColors.textDark, 18.0),
+                                            ),
+                                          ),
+                                        ),
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                new BorderRadius.circular(10.0),
+                                            color: MColors.primaryWhiteSmoke,
+                                          ),
+                                          width: 34.0,
+                                          height: 34.0,
+                                          child: RawMaterialButton(
+                                            onPressed: () {
+                                              subAndApdateData(cartItem);
+                                              getCart(cartNotifier);
+                                            },
+                                            child: Icon(
+                                              Icons.remove,
+                                              color: MColors.primaryPurple,
+                                              size: 30.0,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                },
                               ),
                             ],
                           ),
@@ -402,45 +332,20 @@ class _Cart2State extends State<Cart2> {
       ),
       bottomNavigationBar: Container(
         color: MColors.primaryWhite,
-        padding: const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-        height: 80.0,
-        child: SizedBox(
-          width: double.infinity,
-          height: 60.0,
-          child: RawMaterialButton(
-            shape: RoundedRectangleBorder(
-              borderRadius: new BorderRadius.circular(10.0),
-            ),
-            onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => AddressScreen(cartList),
-                ),
-              );
-            },
-            fillColor: MColors.primaryPurple,
-            child: Text(
-              "Proceed to checkout",
-              style: GoogleFonts.montserrat(
-                color: MColors.primaryWhite,
-                fontSize: 18.0,
-                fontWeight: FontWeight.w500,
+        padding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 0.0),
+        child: primaryButtonPurple(
+          Text("Proceed to checkout",
+              style: boldFont(MColors.primaryWhite, 16.0)),
+          () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => AddressScreen(cartList),
               ),
-            ),
-          ),
+            );
+          },
         ),
       ),
     );
-  }
-
-  @override
-  void initState() {
-    CartNotifier cartNotifier =
-        Provider.of<CartNotifier>(context, listen: false);
-    cartFuture = getCart(cartNotifier);
-    getCart(cartNotifier);
-
-    super.initState();
   }
 
   //Remove from cart

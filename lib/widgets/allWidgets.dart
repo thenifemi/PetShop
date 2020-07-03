@@ -91,7 +91,7 @@ Widget primaryButtonPurple(
 ) {
   return SizedBox(
     width: double.infinity,
-    height: 60.0,
+    height: 50.0,
     child: RawMaterialButton(
       elevation: 0.0,
       hoverElevation: 0.0,
@@ -113,7 +113,7 @@ Widget primaryButtonWhiteSmoke(
 ) {
   return SizedBox(
     width: double.infinity,
-    height: 60.0,
+    height: 50.0,
     child: RawMaterialButton(
       elevation: 0.0,
       hoverElevation: 0.0,
@@ -294,7 +294,7 @@ Widget backgroundDismiss(AlignmentGeometry alignment) {
         Radius.circular(10.0),
       ),
     ),
-    padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
+    padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
     alignment: alignment,
     child: Container(
       height: double.infinity,
