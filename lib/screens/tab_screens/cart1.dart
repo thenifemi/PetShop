@@ -20,8 +20,16 @@ class Cart1 extends StatefulWidget {
 
 class _Cart1State extends State<Cart1> {
   Future cartFuture;
-
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
+  void initState() {
+    CartNotifier cartNotifier =
+        Provider.of<CartNotifier>(context, listen: false);
+    cartFuture = getCart(cartNotifier);
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,50 +62,30 @@ class _Cart1State extends State<Cart1> {
   Widget cart(cartList, total) {
     return Scaffold(
       key: _scaffoldKey,
-      body: Container(
-        color: MColors.primaryWhite,
-        child: Column(
+      body: primaryContainer(
+        Column(
           children: <Widget>[
             Container(
               width: MediaQuery.of(context).size.width,
-              padding:
-                  const EdgeInsets.only(right: 20.0, left: 20.0, bottom: 10.0),
-              height: 70,
-              color: MColors.primaryWhiteSmoke,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: <Widget>[
                   Text(
                     "${cartList.length} Items",
-                    style: GoogleFonts.montserrat(
-                      color: MColors.textGrey,
-                      fontSize: 14.0,
-                    ),
+                    style: normalFont(MColors.textGrey, 14.0),
                   ),
-                  SizedBox(
-                    height: 5.0,
-                  ),
+                  SizedBox(height: 5.0),
                   Text(
                     "\$$total",
-                    style: GoogleFonts.montserrat(
-                      color: MColors.textGrey,
-                      fontSize: 24.0,
-                      fontWeight: FontWeight.w600,
-                    ),
+                    style: boldFont(MColors.textGrey, 22.0),
                   ),
                 ],
               ),
             ),
+            SizedBox(height: 10.0),
             Expanded(
               child: Container(
-                decoration: BoxDecoration(
-                  color: MColors.primaryWhiteSmoke,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(10.0),
-                  ),
-                ),
-                padding: const EdgeInsets.only(right: 20.0, left: 20.0),
                 height: MediaQuery.of(context).size.height,
                 child: ListView.builder(
                   physics: BouncingScrollPhysics(),
@@ -118,56 +106,10 @@ class _Cart1State extends State<Cart1> {
                           _scaffoldKey,
                         );
                       },
-                      background: Container(
-                        decoration: BoxDecoration(
-                          color: MColors.primaryWhiteSmoke,
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(10.0),
-                          ),
-                        ),
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 10.0, vertical: 5.0),
-                        alignment: AlignmentDirectional.centerStart,
-                        child: Container(
-                          height: MediaQuery.of(context).size.height,
-                          width: 50.0,
-                          decoration: BoxDecoration(
-                            color: Colors.red,
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(10.0),
-                            ),
-                          ),
-                          child: Icon(
-                            Icons.delete_outline,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                      secondaryBackground: Container(
-                        decoration: BoxDecoration(
-                          color: MColors.primaryWhiteSmoke,
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(10.0),
-                          ),
-                        ),
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 10.0, vertical: 5.0),
-                        alignment: AlignmentDirectional.centerEnd,
-                        child: Container(
-                          height: MediaQuery.of(context).size.height,
-                          width: 50.0,
-                          decoration: BoxDecoration(
-                            color: Colors.red,
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(10.0),
-                            ),
-                          ),
-                          child: Icon(
-                            Icons.delete_outline,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
+                      background:
+                          backgroundDismiss(AlignmentDirectional.centerStart),
+                      secondaryBackground:
+                          backgroundDismiss(AlignmentDirectional.centerStart),
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.all(
@@ -405,14 +347,6 @@ class _Cart1State extends State<Cart1> {
   }
 
   //Remove from cart
-  @override
-  void initState() {
-    CartNotifier cartNotifier =
-        Provider.of<CartNotifier>(context, listen: false);
-    cartFuture = getCart(cartNotifier);
-
-    super.initState();
-  }
 
   Future<bool> promptUser(cartItem) async {
     CartNotifier cartNotifier =
