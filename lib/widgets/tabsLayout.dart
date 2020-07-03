@@ -75,11 +75,9 @@ class _TabsLayoutState extends State<TabsLayout> {
     var cartList = cartNotifier.cartList;
 
     return Scaffold(
-      appBar: AppBar(
-        brightness: Brightness.light,
-        elevation: 0.0,
-        backgroundColor: MColors.primaryWhiteSmoke,
-        title: Row(
+      appBar: primaryAppBar(
+        null,
+        Row(
           children: <Widget>[
             _currentIndex == 0
                 ? Container(
@@ -101,11 +99,16 @@ class _TabsLayoutState extends State<TabsLayout> {
                   .replaceAll("\)", "")
                   .replaceAll("\(", ""),
               style: boldFont(
-                  _currentIndex == 0 ? MColors.primaryPurple : MColors.textGrey,
-                  22.0),
+                _currentIndex == 0 ? MColors.primaryPurple : MColors.textGrey,
+                22.0,
+              ),
             ),
           ],
         ),
+        MColors.primaryWhiteSmoke,
+        null,
+        false,
+        null,
       ),
       body: PageStorage(
         child: _children[_currentIndex],
@@ -114,7 +117,6 @@ class _TabsLayoutState extends State<TabsLayout> {
       bottomNavigationBar: Container(
         child: BottomNavigationBar(
           elevation: 0.0,
-          selectedFontSize: 12.0,
           selectedItemColor: MColors.primaryPurple,
           unselectedItemColor: MColors.textGrey,
           currentIndex: _currentIndex,
@@ -133,7 +135,7 @@ class _TabsLayoutState extends State<TabsLayout> {
                       padding: const EdgeInsets.only(top: 5.0),
                       child: SvgPicture.asset(
                         e,
-                        height: 22,
+                        height: 20,
                         color: isSelected
                             ? MColors.primaryPurple
                             : MColors.textGrey,
@@ -171,9 +173,7 @@ class _TabsLayoutState extends State<TabsLayout> {
                   ],
                 ),
               ),
-              title: Text(
-                "",
-              ),
+              title: Text("", style: normalFont(null, 0.0)),
               backgroundColor: MColors.primaryPurple,
             );
           }).toList(),
