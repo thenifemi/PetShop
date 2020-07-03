@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:mollet/model/notifiers/cart_notifier.dart';
 import 'package:mollet/model/services/Product_service.dart';
 import 'package:mollet/screens/tab_screens/checkout_screens/completeOrder.dart';
@@ -62,10 +61,7 @@ class _Cart2State extends State<Cart2> {
         ),
         title: Text(
           "Bag",
-          style: GoogleFonts.montserrat(
-              fontSize: 20.0,
-              color: MColors.primaryPurple,
-              fontWeight: FontWeight.bold),
+          style: boldFont(MColors.primaryPurple, 18.0),
         ),
         centerTitle: true,
       ),
