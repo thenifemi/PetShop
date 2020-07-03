@@ -328,7 +328,7 @@ class _Cart2State extends State<Cart2> {
       ),
       bottomNavigationBar: Container(
         color: MColors.primaryWhite,
-        padding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 0.0),
+        padding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 15.0),
         child: primaryButtonPurple(
           Text("Proceed to checkout",
               style: boldFont(MColors.primaryWhite, 16.0)),
