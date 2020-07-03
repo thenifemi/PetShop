@@ -349,7 +349,6 @@ class _Cart2State extends State<Cart2> {
   }
 
   //Remove from cart
-
   Future<bool> promptUser(cartItem) async {
     CartNotifier cartNotifier =
         Provider.of<CartNotifier>(context, listen: false);
@@ -368,7 +367,7 @@ class _Cart2State extends State<Cart2> {
               ),
               CupertinoDialogAction(
                 child: Text("Yes"),
-                textStyle: GoogleFonts.montserrat(color: Colors.redAccent),
+                textStyle: normalFont(Colors.red, null),
                 onPressed: () {
                   Navigator.of(context).pop(true);
                   removeItemFromCart(cartItem);
