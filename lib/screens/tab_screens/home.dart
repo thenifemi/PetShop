@@ -60,8 +60,6 @@ class _HomeScreenState extends State<HomeScreen>
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
-
     ProductsNotifier productsNotifier = Provider.of<ProductsNotifier>(context);
     var prods = productsNotifier.productsList;
 
