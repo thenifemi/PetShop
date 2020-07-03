@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:mollet/model/services/Product_service.dart';
 import 'package:mollet/model/notifiers/cart_notifier.dart';
 import 'package:mollet/screens/tab_screens/cart1.dart';
@@ -10,6 +9,7 @@ import 'package:mollet/screens/tab_screens/notifications.dart';
 import 'package:mollet/screens/tab_screens/settings.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:provider/provider.dart';
+import 'allWidgets.dart';
 
 class TabsLayout extends StatefulWidget {
   @override
@@ -79,33 +79,32 @@ class _TabsLayoutState extends State<TabsLayout> {
         brightness: Brightness.light,
         elevation: 0.0,
         backgroundColor: MColors.primaryWhiteSmoke,
-        leading: _currentIndex == 0
-            ? Container(
-                padding: const EdgeInsets.fromLTRB(
-                  10.0,
-                  10.0,
-                  0.0,
-                  10.0,
-                ),
-                child: Image.asset(
-                  "assets/images/footprint.png",
-                ),
-              )
-            : null,
-        title: Text(
-          _appBarTitle
-              .map((title) {
-                return title;
-              })
-              .where((title) => _appBarTitle.indexOf(title) == _currentIndex)
-              .toString()
-              .replaceAll("\)", "")
-              .replaceAll("\(", ""),
-          style: GoogleFonts.montserrat(
-              color:
+        title: Row(
+          children: <Widget>[
+            _currentIndex == 0
+                ? Container(
+                    height: 24.0,
+                    child: Image.asset(
+                      "assets/images/footprint.png",
+                    ),
+                  )
+                : Container(),
+            SizedBox(width: 5.0),
+            Text(
+              _appBarTitle
+                  .map((title) {
+                    return title;
+                  })
+                  .where(
+                      (title) => _appBarTitle.indexOf(title) == _currentIndex)
+                  .toString()
+                  .replaceAll("\)", "")
+                  .replaceAll("\(", ""),
+              style: boldFont(
                   _currentIndex == 0 ? MColors.primaryPurple : MColors.textGrey,
-              fontSize: 26.0,
-              fontWeight: FontWeight.bold),
+                  22.0),
+            ),
+          ],
         ),
       ),
       body: PageStorage(
