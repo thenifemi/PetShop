@@ -318,7 +318,6 @@ class _Cart1State extends State<Cart1> {
   }
 
   //Remove from cart
-
   Future<bool> promptUser(cartItem) async {
     CartNotifier cartNotifier =
         Provider.of<CartNotifier>(context, listen: false);
@@ -349,6 +348,4 @@ class _Cart1State extends State<Cart1> {
         ) ??
         false;
   }
-  ////
-
 }
