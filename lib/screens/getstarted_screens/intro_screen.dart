@@ -43,7 +43,7 @@ class IntroScreen extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: Container(
-        height: 180.0,
+        height: 150.0,
         color: MColors.primaryWhite,
         padding: const EdgeInsets.all(20.0),
         child: Column(
@@ -63,7 +63,7 @@ class IntroScreen extends StatelessWidget {
               },
             ),
             SizedBox(
-              height: 15.0,
+              height: 10.0,
             ),
             primaryButtonWhiteSmoke(
               Text(
