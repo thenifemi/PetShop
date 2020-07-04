@@ -171,7 +171,7 @@ class _Cart2State extends State<Cart2> {
                                 width: 5.0,
                               ),
                               Container(
-                                width: MediaQuery.of(context).size.width / 2.0,
+                                width: MediaQuery.of(context).size.width / 2.2,
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
