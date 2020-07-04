@@ -159,7 +159,7 @@ class _Cart1State extends State<Cart1> {
                                       ),
                                     ),
                                     SizedBox(
-                                      height: 5.0,
+                                      height: 5,
                                     ),
                                     Container(
                                       child: Row(
