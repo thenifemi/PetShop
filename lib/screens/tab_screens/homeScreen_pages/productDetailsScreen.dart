@@ -54,6 +54,131 @@ class _ProductDetailsState extends State<ProductDetails> {
     super.initState();
   }
 
+  @override
+  Widget build(BuildContext context) {
+    CartNotifier cartNotifier = Provider.of<CartNotifier>(context);
+    var cartList = cartNotifier.cartList;
+
+    return Scaffold(
+      key: _scaffoldKey,
+      body: NestedScrollView(
+        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+          var prod = prodDetails;
+          return <Widget>[
+            SliverAppBar(
+              elevation: 0.0,
+              brightness: Brightness.light,
+              backgroundColor: MColors.primaryWhite,
+              leading: IconButton(
+                icon: Icon(
+                  Icons.arrow_back_ios,
+                  color: MColors.textGrey,
+                  size: 22.0,
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop(prod);
+                },
+              ),
+              expandedHeight: (MediaQuery.of(context).size.height) / 2.3,
+              floating: false,
+              pinned: true,
+              flexibleSpace: FlexibleSpaceBar(
+                background: Builder(
+                  builder: (context) {
+                    return Container(
+                      color: MColors.primaryWhite,
+                      padding:
+                          const EdgeInsets.fromLTRB(20.0, 70.0, 20.0, 10.0),
+                      child: prod == null
+                          ? Center(child: CircularProgressIndicator())
+                          : Hero(
+                              child: FadeInImage.assetNetwork(
+                                image: prod.productImage,
+                                placeholder: "assets/images/placeholder.jpg",
+                                placeholderScale:
+                                    MediaQuery.of(context).size.height / 2,
+                              ),
+                              tag: prod.productID,
+                            ),
+                    );
+                  },
+                ),
+              ),
+              actions: <Widget>[
+                Container(
+                  width: 70,
+                  child: RawMaterialButton(
+                    child: Container(
+                      height: 30.0,
+                      child: Stack(
+                        children: <Widget>[
+                          Container(
+                            padding: const EdgeInsets.only(top: 5.0),
+                            child: SvgPicture.asset(
+                              "assets/images/icons/Bag.svg",
+                              height: 24.0,
+                              color: MColors.textGrey,
+                            ),
+                          ),
+                          cartList.isNotEmpty || isCartBadge
+                              ? Positioned(
+                                  right: 0,
+                                  child: new Container(
+                                    padding: EdgeInsets.all(1),
+                                    decoration: new BoxDecoration(
+                                      color: Colors.redAccent,
+                                      borderRadius: BorderRadius.circular(6),
+                                    ),
+                                    constraints: BoxConstraints(
+                                      minWidth: 7,
+                                      minHeight: 7,
+                                    ),
+                                  ),
+                                )
+                              : Positioned(
+                                  right: 0,
+                                  child: new Container(
+                                    padding: EdgeInsets.all(1),
+                                    decoration: new BoxDecoration(
+                                      color: MColors.primaryWhite,
+                                      borderRadius: BorderRadius.circular(6),
+                                    ),
+                                    constraints: BoxConstraints(
+                                      minWidth: 7,
+                                      minHeight: 7,
+                                    ),
+                                  ),
+                                ),
+                        ],
+                      ),
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => Cart1(),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ];
+        },
+        body: _buildProductDetails(prodDetails),
+      ),
+      bottomNavigationBar: Container(
+        color: MColors.primaryWhite,
+        padding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 15.0),
+        child: primaryButtonPurple(
+          Text("Add to bag", style: boldFont(MColors.primaryWhite, 16.0)),
+          _isbuttonDisabled ? null : () => _submit(cartNotifier),
+        ),
+      ),
+      // backgroundColor: MColors.primaryWhite,
+    );
+  }
+
   var quantity = 1;
 
   Widget _buildProductDetails(prodDetails) {
@@ -452,8 +577,6 @@ class _ProductDetailsState extends State<ProductDetails> {
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  //Cart Button
-
   void disableButton() {
     setState(() {
       _isbuttonDisabled = true;
@@ -493,172 +616,8 @@ class _ProductDetailsState extends State<ProductDetails> {
         });
       }
     } catch (e) {
-      print("ERRORRRRRRRRRRR");
+      print("ERRORR ==>");
       print(e);
     }
-  }
-
-  Widget cartButton(cartNotifier) {
-    if (_isbuttonDisabled == true) {
-      return RawMaterialButton(
-        shape: RoundedRectangleBorder(
-          borderRadius: new BorderRadius.circular(10.0),
-        ),
-        onPressed: null,
-        fillColor: MColors.lightGrey,
-        child: Text(
-          "Product already in Bag",
-          style: GoogleFonts.montserrat(
-            color: MColors.primaryWhite,
-            fontSize: 18.0,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-      );
-    } else {
-      return RawMaterialButton(
-        shape: RoundedRectangleBorder(
-          borderRadius: new BorderRadius.circular(10.0),
-        ),
-        onPressed: _isbuttonDisabled ? null : () => _submit(cartNotifier),
-        fillColor: MColors.primaryPurple,
-        child: Text(
-          "Add to Bag",
-          style: GoogleFonts.montserrat(
-            color: MColors.primaryWhite,
-            fontSize: 18.0,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-      );
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    CartNotifier cartNotifier = Provider.of<CartNotifier>(context);
-    var cartList = cartNotifier.cartList;
-
-    return Scaffold(
-      key: _scaffoldKey,
-      body: NestedScrollView(
-        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-          var prod = prodDetails;
-          return <Widget>[
-            SliverAppBar(
-              elevation: 0.0,
-              brightness: Brightness.light,
-              backgroundColor: MColors.primaryWhite,
-              leading: IconButton(
-                icon: Icon(
-                  Icons.arrow_back_ios,
-                  color: MColors.textGrey,
-                  size: 22.0,
-                ),
-                onPressed: () {
-                  Navigator.of(context).pop(prod);
-                },
-              ),
-              expandedHeight: (MediaQuery.of(context).size.height) / 2.3,
-              floating: false,
-              pinned: true,
-              flexibleSpace: FlexibleSpaceBar(
-                background: Builder(
-                  builder: (context) {
-                    return Container(
-                      color: MColors.primaryWhite,
-                      padding:
-                          const EdgeInsets.fromLTRB(20.0, 70.0, 20.0, 10.0),
-                      child: prod == null
-                          ? Center(child: CircularProgressIndicator())
-                          : Hero(
-                              child: FadeInImage.assetNetwork(
-                                image: prod.productImage,
-                                placeholder: "assets/images/placeholder.jpg",
-                                placeholderScale:
-                                    MediaQuery.of(context).size.height / 2,
-                              ),
-                              tag: prod.productID,
-                            ),
-                    );
-                  },
-                ),
-              ),
-              actions: <Widget>[
-                Container(
-                  width: 70,
-                  child: RawMaterialButton(
-                    child: Container(
-                      height: 30.0,
-                      child: Stack(
-                        children: <Widget>[
-                          Container(
-                            padding: const EdgeInsets.only(top: 5.0),
-                            child: SvgPicture.asset(
-                              "assets/images/icons/Bag.svg",
-                              height: 24.0,
-                              color: MColors.textGrey,
-                            ),
-                          ),
-                          cartList.isNotEmpty || isCartBadge
-                              ? Positioned(
-                                  right: 0,
-                                  child: new Container(
-                                    padding: EdgeInsets.all(1),
-                                    decoration: new BoxDecoration(
-                                      color: Colors.redAccent,
-                                      borderRadius: BorderRadius.circular(6),
-                                    ),
-                                    constraints: BoxConstraints(
-                                      minWidth: 7,
-                                      minHeight: 7,
-                                    ),
-                                  ),
-                                )
-                              : Positioned(
-                                  right: 0,
-                                  child: new Container(
-                                    padding: EdgeInsets.all(1),
-                                    decoration: new BoxDecoration(
-                                      color: MColors.primaryWhite,
-                                      borderRadius: BorderRadius.circular(6),
-                                    ),
-                                    constraints: BoxConstraints(
-                                      minWidth: 7,
-                                      minHeight: 7,
-                                    ),
-                                  ),
-                                ),
-                        ],
-                      ),
-                    ),
-                    onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => Cart1(),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-              ],
-            ),
-          ];
-        },
-        // body: Container(),
-        body: _buildProductDetails(prodDetails),
-      ),
-      backgroundColor: MColors.primaryWhite,
-      bottomNavigationBar: Container(
-        color: MColors.primaryWhiteSmoke,
-        padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 20.0),
-        height: 80.0,
-        child: SizedBox(
-          width: double.infinity,
-          height: 60.0,
-          child: cartButton(cartNotifier),
-        ),
-      ),
-    );
   }
 }
