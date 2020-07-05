@@ -534,65 +534,37 @@ class _AddressContainerState extends State<AddressContainer> {
                 child: Container(
                   child: Text(
                     "Payment method",
-                    style: GoogleFonts.montserrat(
-                      fontSize: 14.0,
-                      color: MColors.textGrey,
-                    ),
+                    style: normalFont(MColors.textGrey, 14.0),
                   ),
                 ),
               ),
             ],
           ),
+          SizedBox(height: 10.0),
           Container(
-            padding: const EdgeInsets.only(
-              left: 25.0,
-              bottom: 10.0,
-              top: 10.0,
-            ),
+            padding: const EdgeInsets.only(left: 25.0),
             child: Text(
               "No payment method added to this account",
-              style: GoogleFonts.montserrat(
-                fontSize: 16.0,
-                color: MColors.textGrey,
-              ),
+              style: normalFont(MColors.textGrey, 16.0),
             ),
           ),
-          Container(
-            height: 50.0,
-            width: MediaQuery.of(context).size.width,
-            decoration: BoxDecoration(
-              color: MColors.dashPurple,
-              borderRadius: BorderRadius.all(
-                Radius.circular(10.0),
-              ),
-            ),
-            child: RawMaterialButton(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-              onPressed: () async {
-                var navigationResult = await Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => AddNewCard(null, cardList),
-                  ),
-                );
-                if (navigationResult == true) {
-                  setState(() {
-                    getCard(cardNotifier);
-                  });
-                  _showUpdated("card");
-                }
-              },
-              child: Center(
-                child: Text(
-                  "Add a payment method",
-                  style: GoogleFonts.montserrat(
-                    fontSize: 16.0,
-                    color: MColors.textGrey,
-                  ),
+          SizedBox(height: 10.0),
+          primaryButtonWhiteSmoke(
+            Text("Add a payment method",
+                style: boldFont(MColors.primaryPurple, 16.0)),
+            () async {
+              var navigationResult = await Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => AddNewCard(null, cardList),
                 ),
-              ),
-            ),
+              );
+              if (navigationResult == true) {
+                setState(() {
+                  getCard(cardNotifier);
+                });
+                _showUpdated("card");
+              }
+            },
           ),
         ],
       ),
