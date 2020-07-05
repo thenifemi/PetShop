@@ -256,7 +256,12 @@ class _AddressContainerState extends State<AddressContainer> {
                       setState(() {
                         getAddress(addressNotifier);
                       });
-                      _showUpdated("address");
+                      showSimpleSnack(
+                        "Address has been updated",
+                        Icons.check_circle_outline,
+                        Colors.green,
+                        _scaffoldKey,
+                      );
                     }
                   },
                   child: Text(
@@ -531,7 +536,12 @@ class _AddressContainerState extends State<AddressContainer> {
                       setState(() {
                         getCard(cardNotifier);
                       });
-                      _showUpdated("card");
+                      showSimpleSnack(
+                        "Card has been updated",
+                        Icons.check_circle_outline,
+                        Colors.green,
+                        _scaffoldKey,
+                      );
                     }
                   },
                   child: Text("Change",
@@ -666,10 +676,7 @@ class _AddressContainerState extends State<AddressContainer> {
                     Container(
                       child: Text(
                         "Bag summary",
-                        style: GoogleFonts.montserrat(
-                            fontSize: 18.0,
-                            color: MColors.textDark,
-                            fontWeight: FontWeight.w500),
+                        style: boldFont(MColors.textGrey, 16.0),
                       ),
                     ),
                     SizedBox(
@@ -684,11 +691,7 @@ class _AddressContainerState extends State<AddressContainer> {
                     Spacer(),
                     Text(
                       "\$" + total,
-                      style: GoogleFonts.montserrat(
-                        fontSize: 18.0,
-                        color: MColors.primaryPurple,
-                        fontWeight: FontWeight.w600,
-                      ),
+                      style: boldFont(MColors.primaryPurple, 16.0),
                     ),
                   ],
                 ),
@@ -736,10 +739,7 @@ class _AddressContainerState extends State<AddressContainer> {
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
                                 softWrap: true,
-                                style: GoogleFonts.montserrat(
-                                  fontSize: 15.0,
-                                  color: MColors.textGrey,
-                                ),
+                                style: normalFont(MColors.textGrey, 14.0),
                               ),
                             ),
                             SizedBox(
@@ -753,8 +753,7 @@ class _AddressContainerState extends State<AddressContainer> {
                               ),
                               child: Text(
                                 "X${cartItem.quantity}",
-                                style: GoogleFonts.montserrat(
-                                    fontSize: 14.0, color: MColors.textGrey),
+                                style: normalFont(MColors.textGrey, 14.0),
                                 textAlign: TextAlign.left,
                               ),
                             ),
@@ -762,10 +761,7 @@ class _AddressContainerState extends State<AddressContainer> {
                             Container(
                               child: Text(
                                 "\$" + cartItem.totalPrice.toStringAsFixed(2),
-                                style: GoogleFonts.montserrat(
-                                  fontSize: 16.0,
-                                  fontWeight: FontWeight.w600,
-                                ),
+                                style: boldFont(MColors.textDark, 14.0),
                               ),
                             ),
                           ],
