@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:mollet/model/data/cart.dart';
 import 'package:mollet/model/notifiers/cart_notifier.dart';
 import 'package:mollet/model/notifiers/userData_notifier.dart';
@@ -369,6 +368,12 @@ class _AddressContainerState extends State<AddressContainer> {
                 setState(() {
                   getAddress(addressNotifier);
                 });
+                showSimpleSnack(
+                  "Address has been updated",
+                  Icons.check_circle_outline,
+                  Colors.green,
+                  _scaffoldKey,
+                );
               }
             },
           ),
@@ -649,7 +654,12 @@ class _AddressContainerState extends State<AddressContainer> {
                 setState(() {
                   getCard(cardNotifier);
                 });
-                _showUpdated("card");
+                showSimpleSnack(
+                  "Card has been updated",
+                  Icons.check_circle_outline,
+                  Colors.green,
+                  _scaffoldKey,
+                );
               }
             },
           ),
@@ -775,29 +785,6 @@ class _AddressContainerState extends State<AddressContainer> {
           ),
         );
       },
-    );
-  }
-
-  void _showUpdated(String value) {
-    _scaffoldKey.currentState.showSnackBar(
-      SnackBar(
-        behavior: SnackBarBehavior.floating,
-        duration: Duration(milliseconds: 1300),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-        content: Row(
-          children: <Widget>[
-            Expanded(
-              child: Text("Your $value has been added"),
-            ),
-            Icon(
-              Icons.check_circle_outline,
-              color: Colors.greenAccent,
-            )
-          ],
-        ),
-      ),
     );
   }
 }
