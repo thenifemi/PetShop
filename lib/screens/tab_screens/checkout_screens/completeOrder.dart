@@ -327,74 +327,45 @@ class _AddressContainerState extends State<AddressContainer> {
                   color: MColors.primaryPurple,
                 ),
               ),
-              SizedBox(
-                width: 5.0,
-              ),
+              SizedBox(width: 5.0),
               Expanded(
                 child: Container(
                   child: Text(
                     "Shipping address",
-                    style: GoogleFonts.montserrat(
-                      fontSize: 14.0,
-                      color: MColors.textGrey,
-                    ),
+                    style: normalFont(MColors.textGrey, 14.0),
                   ),
                 ),
               ),
             ],
           ),
+          SizedBox(height: 10.0),
           Container(
             padding: const EdgeInsets.only(
               left: 25.0,
-              bottom: 10.0,
-              top: 10.0,
             ),
             child: Text(
               "No shipping address added to this  account",
-              style: GoogleFonts.montserrat(
-                fontSize: 16.0,
-                color: MColors.textGrey,
-              ),
+              style: boldFont(MColors.textGrey, 16.0),
             ),
           ),
-          Container(
-            height: 50.0,
-            width: MediaQuery.of(context).size.width,
-            decoration: BoxDecoration(
-              color: MColors.dashPurple,
-              borderRadius: BorderRadius.all(
-                Radius.circular(10.0),
-              ),
-            ),
-            child: RawMaterialButton(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-              onPressed: () async {
-                UserDataAddressNotifier addressNotifier =
-                    Provider.of<UserDataAddressNotifier>(context,
-                        listen: false);
-                var navigationResult = await Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => AddNewAddress(null, addressList),
-                  ),
-                );
-                if (navigationResult == true) {
-                  setState(() {
-                    getAddress(addressNotifier);
-                  });
-                }
-              },
-              child: Center(
-                child: Text(
-                  "Add a shipping method",
-                  style: GoogleFonts.montserrat(
-                    fontSize: 16.0,
-                    color: MColors.textGrey,
-                  ),
+          SizedBox(height: 10.0),
+          primaryButtonWhiteSmoke(
+            Text("Add a shipping method",
+                style: boldFont(MColors.primaryWhite, 16.0)),
+            () async {
+              UserDataAddressNotifier addressNotifier =
+                  Provider.of<UserDataAddressNotifier>(context, listen: false);
+              var navigationResult = await Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => AddNewAddress(null, addressList),
                 ),
-              ),
-            ),
+              );
+              if (navigationResult == true) {
+                setState(() {
+                  getAddress(addressNotifier);
+                });
+              }
+            },
           ),
         ],
       ),
