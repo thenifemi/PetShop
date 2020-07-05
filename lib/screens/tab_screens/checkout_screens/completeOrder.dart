@@ -261,7 +261,7 @@ class _AddressContainerState extends State<AddressContainer> {
                   },
                   child: Text(
                     "Change",
-                    style: boldFont(MColors.textGrey, 14.0),
+                    style: boldFont(MColors.primaryPurple, 14.0),
                   ),
                 ),
               ),
@@ -345,13 +345,13 @@ class _AddressContainerState extends State<AddressContainer> {
             ),
             child: Text(
               "No shipping address added to this  account",
-              style: boldFont(MColors.textGrey, 16.0),
+              style: normalFont(MColors.textGrey, 16.0),
             ),
           ),
           SizedBox(height: 10.0),
           primaryButtonWhiteSmoke(
             Text("Add a shipping method",
-                style: boldFont(MColors.primaryWhite, 16.0)),
+                style: boldFont(MColors.primaryPurple, 16.0)),
             () async {
               UserDataAddressNotifier addressNotifier =
                   Provider.of<UserDataAddressNotifier>(context, listen: false);
