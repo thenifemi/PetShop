@@ -471,7 +471,7 @@ class _ProductDetailsState extends State<ProductDetails> {
     try {
       if (cartProdID.contains(prodDetails.productID)) {
         showSimpleSnack(
-          "Product is already in bag",
+          "Product already in bag",
           Icons.error_outline,
           Colors.amber,
           _scaffoldKey,
