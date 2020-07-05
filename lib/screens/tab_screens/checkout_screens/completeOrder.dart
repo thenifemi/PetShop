@@ -149,6 +149,7 @@ class _AddressContainerState extends State<AddressContainer> {
                 height: 20.0,
               ),
 
+              //Payment Container
               Container(
                 child: FutureBuilder(
                   future: cardFuture,
@@ -233,10 +234,7 @@ class _AddressContainerState extends State<AddressContainer> {
                 child: Container(
                   child: Text(
                     "Shipping address",
-                    style: GoogleFonts.montserrat(
-                      fontSize: 14.0,
-                      color: MColors.textGrey,
-                    ),
+                    style: normalFont(MColors.textGrey, 14.0),
                   ),
                 ),
               ),
@@ -263,10 +261,7 @@ class _AddressContainerState extends State<AddressContainer> {
                   },
                   child: Text(
                     "Change",
-                    style: GoogleFonts.montserrat(
-                        fontSize: 14.0,
-                        color: MColors.primaryPurple,
-                        fontWeight: FontWeight.w600),
+                    style: boldFont(MColors.textGrey, 14.0),
                   ),
                 ),
               ),
@@ -278,16 +273,12 @@ class _AddressContainerState extends State<AddressContainer> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Container(
-                  padding: const EdgeInsets.only(bottom: 5.0),
                   child: Text(
                     address.fullLegalName,
-                    style: GoogleFonts.montserrat(
-                      fontSize: 16.0,
-                      color: MColors.textDark,
-                      fontWeight: FontWeight.w500,
-                    ),
+                    style: boldFont(MColors.textDark, 16.0),
                   ),
                 ),
+                SizedBox(height: 5.0),
                 Container(
                   child: Text(
                     address.addressLine1 +
@@ -299,10 +290,7 @@ class _AddressContainerState extends State<AddressContainer> {
                         address.zipcode +
                         ", " +
                         address.state,
-                    style: GoogleFonts.montserrat(
-                      fontSize: 14.0,
-                      color: MColors.textGrey,
-                    ),
+                    style: normalFont(MColors.textGrey, 14.0),
                   ),
                 ),
               ],
