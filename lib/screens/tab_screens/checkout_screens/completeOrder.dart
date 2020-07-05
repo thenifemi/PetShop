@@ -501,6 +501,110 @@ class _AddressContainerState extends State<AddressContainer> {
     );
   }
 
+  Widget savedPaymentMethod() {
+    UserDataCardNotifier cardNotifier =
+        Provider.of<UserDataCardNotifier>(context);
+    var cardList = cardNotifier.userDataCardList;
+    var card = cardList.first;
+
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      padding: EdgeInsets.all(20.0),
+      decoration: BoxDecoration(
+        color: MColors.primaryWhite,
+        borderRadius: BorderRadius.all(
+          Radius.circular(10.0),
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              Container(
+                child: SvgPicture.asset(
+                  "assets/images/icons/Wallet.svg",
+                  color: MColors.primaryPurple,
+                ),
+              ),
+              SizedBox(
+                width: 5.0,
+              ),
+              Expanded(
+                child: Container(
+                  child: Text(
+                    "Payment method",
+                    style: normalFont(MColors.textGrey, 14.0),
+                  ),
+                ),
+              ),
+              Container(
+                width: 60.0,
+                height: 25.0,
+                child: RawMaterialButton(
+                  onPressed: () async {
+                    UserDataCardNotifier cardNotifier =
+                        Provider.of<UserDataCardNotifier>(context,
+                            listen: false);
+
+                    var navigationResult = await Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => AddNewCard(card, cardList),
+                      ),
+                    );
+                    if (navigationResult == true) {
+                      setState(() {
+                        getCard(cardNotifier);
+                      });
+                      _showUpdated("card");
+                    }
+                  },
+                  child: Text("Change",
+                      style: boldFont(MColors.primaryPurple, 16.0)),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 5.0),
+          Container(
+            padding: EdgeInsets.only(left: 25.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Container(
+                  child: Text(
+                    card.cardHolder,
+                    style: normalFont(MColors.textDark, 16.0),
+                  ),
+                ),
+                Row(
+                  children: <Widget>[
+                    Container(
+                      child: Text(
+                        "**** **** **** " +
+                            card.cardNumber
+                                .substring(card.cardNumber.length - 4),
+                        style: normalFont(MColors.textGrey, 16.0),
+                      ),
+                    ),
+                    Spacer(),
+                    Container(
+                      child: SvgPicture.asset(
+                        "assets/images/mastercard.svg",
+                        height: 30.0,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget noPaymentMethod() {
     UserDataCardNotifier cardNotifier =
         Provider.of<UserDataCardNotifier>(context);
@@ -565,125 +669,6 @@ class _AddressContainerState extends State<AddressContainer> {
                 _showUpdated("card");
               }
             },
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget savedPaymentMethod() {
-    UserDataCardNotifier cardNotifier =
-        Provider.of<UserDataCardNotifier>(context);
-    var cardList = cardNotifier.userDataCardList;
-    var card = cardList.first;
-
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      padding: EdgeInsets.all(20.0),
-      decoration: BoxDecoration(
-        color: MColors.primaryWhite,
-        borderRadius: BorderRadius.all(
-          Radius.circular(10.0),
-        ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              Container(
-                child: SvgPicture.asset(
-                  "assets/images/icons/Wallet.svg",
-                  color: MColors.primaryPurple,
-                ),
-              ),
-              SizedBox(
-                width: 5.0,
-              ),
-              Expanded(
-                child: Container(
-                  child: Text(
-                    "Payment method",
-                    style: GoogleFonts.montserrat(
-                      fontSize: 14.0,
-                      color: MColors.textGrey,
-                    ),
-                  ),
-                ),
-              ),
-              Container(
-                width: 60.0,
-                height: 25.0,
-                child: RawMaterialButton(
-                  onPressed: () async {
-                    UserDataCardNotifier cardNotifier =
-                        Provider.of<UserDataCardNotifier>(context,
-                            listen: false);
-
-                    var navigationResult = await Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => AddNewCard(card, cardList),
-                      ),
-                    );
-                    if (navigationResult == true) {
-                      setState(() {
-                        getCard(cardNotifier);
-                      });
-                      _showUpdated("card");
-                    }
-                  },
-                  child: Text(
-                    "Change",
-                    style: GoogleFonts.montserrat(
-                        fontSize: 14.0,
-                        color: MColors.primaryPurple,
-                        fontWeight: FontWeight.w600),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          Container(
-            padding: EdgeInsets.only(left: 25.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Container(
-                  padding: const EdgeInsets.only(top: 5.0),
-                  child: Text(
-                    card.cardHolder,
-                    style: GoogleFonts.montserrat(
-                      fontSize: 16.0,
-                      color: MColors.textDark,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ),
-                Row(
-                  children: <Widget>[
-                    Container(
-                      child: Text(
-                        "**** **** **** " +
-                            card.cardNumber
-                                .substring(card.cardNumber.length - 4),
-                        style: GoogleFonts.montserrat(
-                          fontSize: 16.0,
-                          color: MColors.textGrey,
-                        ),
-                      ),
-                    ),
-                    Spacer(),
-                    Container(
-                      child: SvgPicture.asset(
-                        "assets/images/mastercard.svg",
-                        height: 30.0,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
           ),
         ],
       ),
