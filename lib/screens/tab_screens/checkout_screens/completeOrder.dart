@@ -53,6 +53,19 @@ class _AddressContainerState extends State<AddressContainer> {
   _AddressContainerState(this.cartList);
 
   @override
+  void initState() {
+    UserDataAddressNotifier addressNotifier =
+        Provider.of<UserDataAddressNotifier>(context, listen: false);
+    addressFuture = getAddress(addressNotifier);
+
+    UserDataCardNotifier cardNotifier =
+        Provider.of<UserDataCardNotifier>(context, listen: false);
+    cardFuture = getCard(cardNotifier);
+
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     UserDataAddressNotifier addressNotifier =
         Provider.of<UserDataAddressNotifier>(context);
@@ -186,6 +199,220 @@ class _AddressContainerState extends State<AddressContainer> {
     );
   }
 
+  Widget savedAddressWidget() {
+    UserDataAddressNotifier addressNotifier =
+        Provider.of<UserDataAddressNotifier>(context);
+    var addressList = addressNotifier.userDataAddressList;
+    var address = addressList.first;
+
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      padding: EdgeInsets.all(20.0),
+      decoration: BoxDecoration(
+        color: MColors.primaryWhite,
+        borderRadius: BorderRadius.all(
+          Radius.circular(10.0),
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              Container(
+                child: SvgPicture.asset(
+                  "assets/images/icons/Location.svg",
+                  color: MColors.primaryPurple,
+                ),
+              ),
+              SizedBox(
+                width: 5.0,
+              ),
+              Expanded(
+                child: Container(
+                  child: Text(
+                    "Shipping address",
+                    style: GoogleFonts.montserrat(
+                      fontSize: 14.0,
+                      color: MColors.textGrey,
+                    ),
+                  ),
+                ),
+              ),
+              Container(
+                width: 60.0,
+                height: 25.0,
+                child: RawMaterialButton(
+                  onPressed: () async {
+                    UserDataAddressNotifier addressNotifier =
+                        Provider.of<UserDataAddressNotifier>(context,
+                            listen: false);
+                    var navigationResult = await Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            AddNewAddress(address, addressList),
+                      ),
+                    );
+                    if (navigationResult == true) {
+                      setState(() {
+                        getAddress(addressNotifier);
+                      });
+                      _showUpdated("address");
+                    }
+                  },
+                  child: Text(
+                    "Change",
+                    style: GoogleFonts.montserrat(
+                        fontSize: 14.0,
+                        color: MColors.primaryPurple,
+                        fontWeight: FontWeight.w600),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Container(
+            padding: EdgeInsets.only(left: 25.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Container(
+                  padding: const EdgeInsets.only(bottom: 5.0),
+                  child: Text(
+                    address.fullLegalName,
+                    style: GoogleFonts.montserrat(
+                      fontSize: 16.0,
+                      color: MColors.textDark,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+                Container(
+                  child: Text(
+                    address.addressLine1 +
+                        ", " +
+                        address.addressLine2 +
+                        ", " +
+                        address.city +
+                        ", " +
+                        address.zipcode +
+                        ", " +
+                        address.state,
+                    style: GoogleFonts.montserrat(
+                      fontSize: 14.0,
+                      color: MColors.textGrey,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget noSavedAddress() {
+    UserDataAddressNotifier addressNotifier =
+        Provider.of<UserDataAddressNotifier>(context);
+    var addressList = addressNotifier.userDataAddressList;
+
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      padding: EdgeInsets.all(20.0),
+      decoration: BoxDecoration(
+        color: MColors.primaryWhite,
+        borderRadius: BorderRadius.all(
+          Radius.circular(10.0),
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              Container(
+                child: SvgPicture.asset(
+                  "assets/images/icons/Location.svg",
+                  color: MColors.primaryPurple,
+                ),
+              ),
+              SizedBox(
+                width: 5.0,
+              ),
+              Expanded(
+                child: Container(
+                  child: Text(
+                    "Shipping address",
+                    style: GoogleFonts.montserrat(
+                      fontSize: 14.0,
+                      color: MColors.textGrey,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Container(
+            padding: const EdgeInsets.only(
+              left: 25.0,
+              bottom: 10.0,
+              top: 10.0,
+            ),
+            child: Text(
+              "No shipping address added to this  account",
+              style: GoogleFonts.montserrat(
+                fontSize: 16.0,
+                color: MColors.textGrey,
+              ),
+            ),
+          ),
+          Container(
+            height: 50.0,
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(
+              color: MColors.dashPurple,
+              borderRadius: BorderRadius.all(
+                Radius.circular(10.0),
+              ),
+            ),
+            child: RawMaterialButton(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              onPressed: () async {
+                UserDataAddressNotifier addressNotifier =
+                    Provider.of<UserDataAddressNotifier>(context,
+                        listen: false);
+                var navigationResult = await Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => AddNewAddress(null, addressList),
+                  ),
+                );
+                if (navigationResult == true) {
+                  setState(() {
+                    getAddress(addressNotifier);
+                  });
+                }
+              },
+              child: Center(
+                child: Text(
+                  "Add a shipping method",
+                  style: GoogleFonts.montserrat(
+                    fontSize: 16.0,
+                    color: MColors.textGrey,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget cartSummary(cartList) {
     var totalList = cartList.map((e) => e.totalPrice);
     var total = totalList.isEmpty
@@ -315,19 +542,6 @@ class _AddressContainerState extends State<AddressContainer> {
     );
   }
 
-  @override
-  void initState() {
-    UserDataAddressNotifier addressNotifier =
-        Provider.of<UserDataAddressNotifier>(context, listen: false);
-    addressFuture = getAddress(addressNotifier);
-
-    UserDataCardNotifier cardNotifier =
-        Provider.of<UserDataCardNotifier>(context, listen: false);
-    cardFuture = getCard(cardNotifier);
-
-    super.initState();
-  }
-
   Widget noPaymentMethod() {
     UserDataCardNotifier cardNotifier =
         Provider.of<UserDataCardNotifier>(context);
@@ -419,220 +633,6 @@ class _AddressContainerState extends State<AddressContainer> {
                   ),
                 ),
               ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget noSavedAddress() {
-    UserDataAddressNotifier addressNotifier =
-        Provider.of<UserDataAddressNotifier>(context);
-    var addressList = addressNotifier.userDataAddressList;
-
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      padding: EdgeInsets.all(20.0),
-      decoration: BoxDecoration(
-        color: MColors.primaryWhite,
-        borderRadius: BorderRadius.all(
-          Radius.circular(10.0),
-        ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              Container(
-                child: SvgPicture.asset(
-                  "assets/images/icons/Location.svg",
-                  color: MColors.primaryPurple,
-                ),
-              ),
-              SizedBox(
-                width: 5.0,
-              ),
-              Expanded(
-                child: Container(
-                  child: Text(
-                    "Shipping address",
-                    style: GoogleFonts.montserrat(
-                      fontSize: 14.0,
-                      color: MColors.textGrey,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          Container(
-            padding: const EdgeInsets.only(
-              left: 25.0,
-              bottom: 10.0,
-              top: 10.0,
-            ),
-            child: Text(
-              "No shipping address added to this  account",
-              style: GoogleFonts.montserrat(
-                fontSize: 16.0,
-                color: MColors.textGrey,
-              ),
-            ),
-          ),
-          Container(
-            height: 50.0,
-            width: MediaQuery.of(context).size.width,
-            decoration: BoxDecoration(
-              color: MColors.dashPurple,
-              borderRadius: BorderRadius.all(
-                Radius.circular(10.0),
-              ),
-            ),
-            child: RawMaterialButton(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-              onPressed: () async {
-                UserDataAddressNotifier addressNotifier =
-                    Provider.of<UserDataAddressNotifier>(context,
-                        listen: false);
-                var navigationResult = await Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => AddNewAddress(null, addressList),
-                  ),
-                );
-                if (navigationResult == true) {
-                  setState(() {
-                    getAddress(addressNotifier);
-                  });
-                }
-              },
-              child: Center(
-                child: Text(
-                  "Add a shipping method",
-                  style: GoogleFonts.montserrat(
-                    fontSize: 16.0,
-                    color: MColors.textGrey,
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget savedAddressWidget() {
-    UserDataAddressNotifier addressNotifier =
-        Provider.of<UserDataAddressNotifier>(context);
-    var addressList = addressNotifier.userDataAddressList;
-    var address = addressList.first;
-
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      padding: EdgeInsets.all(20.0),
-      decoration: BoxDecoration(
-        color: MColors.primaryWhite,
-        borderRadius: BorderRadius.all(
-          Radius.circular(10.0),
-        ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              Container(
-                child: SvgPicture.asset(
-                  "assets/images/icons/Location.svg",
-                  color: MColors.primaryPurple,
-                ),
-              ),
-              SizedBox(
-                width: 5.0,
-              ),
-              Expanded(
-                child: Container(
-                  child: Text(
-                    "Shipping address",
-                    style: GoogleFonts.montserrat(
-                      fontSize: 14.0,
-                      color: MColors.textGrey,
-                    ),
-                  ),
-                ),
-              ),
-              Container(
-                width: 60.0,
-                height: 25.0,
-                child: RawMaterialButton(
-                  onPressed: () async {
-                    UserDataAddressNotifier addressNotifier =
-                        Provider.of<UserDataAddressNotifier>(context,
-                            listen: false);
-                    var navigationResult = await Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            AddNewAddress(address, addressList),
-                      ),
-                    );
-                    if (navigationResult == true) {
-                      setState(() {
-                        getAddress(addressNotifier);
-                      });
-                      _showUpdated("address");
-                    }
-                  },
-                  child: Text(
-                    "Change",
-                    style: GoogleFonts.montserrat(
-                        fontSize: 14.0,
-                        color: MColors.primaryPurple,
-                        fontWeight: FontWeight.w600),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          Container(
-            padding: EdgeInsets.only(left: 25.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Container(
-                  padding: const EdgeInsets.only(bottom: 5.0),
-                  child: Text(
-                    address.fullLegalName,
-                    style: GoogleFonts.montserrat(
-                      fontSize: 16.0,
-                      color: MColors.textDark,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ),
-                Container(
-                  child: Text(
-                    address.addressLine1 +
-                        ", " +
-                        address.addressLine2 +
-                        ", " +
-                        address.city +
-                        ", " +
-                        address.zipcode +
-                        ", " +
-                        address.state,
-                    style: GoogleFonts.montserrat(
-                      fontSize: 14.0,
-                      color: MColors.textGrey,
-                    ),
-                  ),
-                ),
-              ],
             ),
           ),
         ],
