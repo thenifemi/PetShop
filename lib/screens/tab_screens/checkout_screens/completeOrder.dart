@@ -405,10 +405,7 @@ class _AddressContainerState extends State<AddressContainer> {
                 child: Container(
                   child: Text(
                     "Bag summary",
-                    style: GoogleFonts.montserrat(
-                      fontSize: 14.0,
-                      color: MColors.textGrey,
-                    ),
+                    style: normalFont(MColors.textGrey, 14.0),
                   ),
                 ),
               ),
@@ -421,17 +418,15 @@ class _AddressContainerState extends State<AddressContainer> {
                   },
                   child: Text(
                     "See all",
-                    style: GoogleFonts.montserrat(
-                        fontSize: 14.0,
-                        color: MColors.primaryPurple,
-                        fontWeight: FontWeight.w600),
+                    style: boldFont(MColors.primaryPurple, 14.0),
                   ),
                 ),
               ),
             ],
           ),
+          SizedBox(height: 5.0),
           Container(
-            padding: EdgeInsets.fromLTRB(25.0, 5.0, 0.0, 0.0),
+            padding: EdgeInsets.only(left: 25.0),
             child: ListView.builder(
               physics: BouncingScrollPhysics(),
               itemCount: cartList.length < 7 ? cartList.length : 7,
