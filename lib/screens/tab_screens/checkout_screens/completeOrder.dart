@@ -434,7 +434,7 @@ class _AddressContainerState extends State<AddressContainer> {
             padding: EdgeInsets.fromLTRB(25.0, 5.0, 0.0, 0.0),
             child: ListView.builder(
               physics: BouncingScrollPhysics(),
-              itemCount: cartList.length < 6 ? cartList.length : 6,
+              itemCount: cartList.length < 7 ? cartList.length : 7,
               shrinkWrap: true,
               itemBuilder: (context, i) {
                 var cartItem = cartList[i];
@@ -445,26 +445,17 @@ class _AddressContainerState extends State<AddressContainer> {
                     children: <Widget>[
                       Container(
                         width: MediaQuery.of(context).size.width / 1.8,
-                        child: Text(
-                          cartItem.name,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          softWrap: true,
-                          style: GoogleFonts.montserrat(
-                            fontSize: 15.0,
-                            color: MColors.textGrey,
-                          ),
-                        ),
+                        child: Text(cartItem.name,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            softWrap: true,
+                            style: normalFont(MColors.textGrey, 14.0)),
                       ),
                       Spacer(),
                       Container(
                         child: Text(
-                          "\$" + cartItem.totalPrice.toStringAsFixed(2),
-                          style: GoogleFonts.montserrat(
-                            fontSize: 16.0,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
+                            "\$" + cartItem.totalPrice.toStringAsFixed(2),
+                            style: boldFont(MColors.textDark, 14.0)),
                       ),
                     ],
                   ),
@@ -472,27 +463,15 @@ class _AddressContainerState extends State<AddressContainer> {
               },
             ),
           ),
+          SizedBox(height: 5.0),
           Container(
-            padding: EdgeInsets.only(left: 25, top: 5.0),
+            padding: EdgeInsets.only(left: 25),
             child: Row(
               children: <Widget>[
-                Text(
-                  "Total",
-                  style: GoogleFonts.montserrat(
-                    fontSize: 16.0,
-                    color: MColors.primaryPurple,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
+                Text("Total", style: boldFont(MColors.primaryPurple, 16.0)),
                 Spacer(),
-                Text(
-                  "\$" + total,
-                  style: GoogleFonts.montserrat(
-                    fontSize: 16.0,
-                    color: MColors.primaryPurple,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
+                Text("\$" + total,
+                    style: boldFont(MColors.primaryPurple, 16.0)),
               ],
             ),
           ),
@@ -561,12 +540,11 @@ class _AddressContainerState extends State<AddressContainer> {
                     }
                   },
                   child: Text("Change",
-                      style: boldFont(MColors.primaryPurple, 16.0)),
+                      style: boldFont(MColors.primaryPurple, 14.0)),
                 ),
               ),
             ],
           ),
-          SizedBox(height: 5.0),
           Container(
             padding: EdgeInsets.only(left: 25.0),
             child: Column(
@@ -575,7 +553,7 @@ class _AddressContainerState extends State<AddressContainer> {
                 Container(
                   child: Text(
                     card.cardHolder,
-                    style: normalFont(MColors.textDark, 16.0),
+                    style: boldFont(MColors.textDark, 16.0),
                   ),
                 ),
                 Row(
