@@ -46,11 +46,8 @@ class _Cart2State extends State<Cart2> {
         : totalList.reduce((sum, element) => sum + element).toStringAsFixed(2);
 
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0.0,
-        brightness: Brightness.light,
-        backgroundColor: MColors.primaryWhiteSmoke,
-        leading: IconButton(
+      appBar: primaryAppBar(
+        IconButton(
           icon: Icon(
             Icons.arrow_back_ios,
             color: MColors.textDark,
@@ -59,11 +56,14 @@ class _Cart2State extends State<Cart2> {
             Navigator.of(context).pop();
           },
         ),
-        title: Text(
+        Text(
           "Bag",
           style: boldFont(MColors.primaryPurple, 18.0),
         ),
-        centerTitle: true,
+        MColors.primaryWhiteSmoke,
+        null,
+        true,
+        null,
       ),
       body: FutureBuilder(
         future: cartFuture,

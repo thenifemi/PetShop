@@ -9,6 +9,14 @@ import 'package:mollet/screens/tab_screens/checkout_screens/addNewAddress.dart';
 import 'package:mollet/screens/tab_screens/checkout_screens/addPaymentMethod.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:provider/provider.dart';
+import 'package:mollet/widgets/allWidgets.dart';
+
+class AddressContainer extends StatefulWidget {
+  final List<Cart> cartList;
+  AddressContainer(this.cartList);
+  @override
+  _AddressContainerState createState() => _AddressContainerState(cartList);
+}
 
 class AddressScreen extends StatelessWidget {
   final List<Cart> cartList;
@@ -35,57 +43,14 @@ class AddressScreen extends StatelessWidget {
   }
 }
 
-class AddressContainer extends StatefulWidget {
-  final List<Cart> cartList;
-  AddressContainer(this.cartList);
-  @override
-  _AddressContainerState createState() => _AddressContainerState(cartList);
-}
-
 class _AddressContainerState extends State<AddressContainer> {
   final List<Cart> cartList;
-  _AddressContainerState(this.cartList);
-
   Future addressFuture;
+
   Future cardFuture;
-
-  @override
-  void initState() {
-    UserDataAddressNotifier addressNotifier =
-        Provider.of<UserDataAddressNotifier>(context, listen: false);
-    addressFuture = getAddress(addressNotifier);
-
-    UserDataCardNotifier cardNotifier =
-        Provider.of<UserDataCardNotifier>(context, listen: false);
-    cardFuture = getCard(cardNotifier);
-
-    super.initState();
-  }
-
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  void _showUpdated(String value) {
-    _scaffoldKey.currentState.showSnackBar(
-      SnackBar(
-        behavior: SnackBarBehavior.floating,
-        duration: Duration(milliseconds: 1300),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-        content: Row(
-          children: <Widget>[
-            Expanded(
-              child: Text("Your $value has been added"),
-            ),
-            Icon(
-              Icons.check_circle_outline,
-              color: Colors.greenAccent,
-            )
-          ],
-        ),
-      ),
-    );
-  }
+  _AddressContainerState(this.cartList);
 
   @override
   Widget build(BuildContext context) {
@@ -98,11 +63,8 @@ class _AddressContainerState extends State<AddressContainer> {
 
     return Scaffold(
       key: _scaffoldKey,
-      appBar: AppBar(
-        elevation: 0.0,
-        brightness: Brightness.light,
-        backgroundColor: MColors.primaryWhiteSmoke,
-        leading: IconButton(
+      appBar: primaryAppBar(
+        IconButton(
           icon: Icon(
             Icons.arrow_back_ios,
             color: MColors.textDark,
@@ -111,20 +73,17 @@ class _AddressContainerState extends State<AddressContainer> {
             Navigator.of(context).pop();
           },
         ),
-        title: Text(
+        Text(
           "Check out",
-          style: GoogleFonts.montserrat(
-              fontSize: 20.0,
-              color: MColors.primaryPurple,
-              fontWeight: FontWeight.bold),
+          style: boldFont(MColors.primaryPurple, 18.0),
         ),
-        centerTitle: true,
+        MColors.primaryWhiteSmoke,
+        null,
+        true,
+        null,
       ),
-      body: Container(
-        height: MediaQuery.of(context).size.height,
-        color: MColors.primaryWhiteSmoke,
-        padding: EdgeInsets.symmetric(horizontal: 20.0),
-        child: SingleChildScrollView(
+      body: primaryContainer(
+        SingleChildScrollView(
           physics: BouncingScrollPhysics(),
           child: Column(
             children: <Widget>[
@@ -137,12 +96,8 @@ class _AddressContainerState extends State<AddressContainer> {
                       case ConnectionState.active:
                         return Container(
                           height: MediaQuery.of(context).size.height / 7,
-                          color: MColors.primaryWhiteSmoke,
                           child: Center(
-                            child: CircularProgressIndicator(
-                              strokeWidth: 2.0,
-                            ),
-                          ),
+                              child: progressIndicator(MColors.primaryPurple)),
                         );
                         break;
                       case ConnectionState.done:
@@ -153,23 +108,15 @@ class _AddressContainerState extends State<AddressContainer> {
                       case ConnectionState.waiting:
                         return Container(
                           height: MediaQuery.of(context).size.height / 7,
-                          color: MColors.primaryWhiteSmoke,
                           child: Center(
-                            child: CircularProgressIndicator(
-                              strokeWidth: 2.0,
-                            ),
-                          ),
+                              child: progressIndicator(MColors.primaryPurple)),
                         );
                         break;
                       default:
                         return Container(
                           height: MediaQuery.of(context).size.height / 7,
-                          color: MColors.primaryWhiteSmoke,
                           child: Center(
-                            child: CircularProgressIndicator(
-                              strokeWidth: 2.0,
-                            ),
-                          ),
+                              child: progressIndicator(MColors.primaryPurple)),
                         );
                     }
                   },
@@ -197,12 +144,8 @@ class _AddressContainerState extends State<AddressContainer> {
                       case ConnectionState.active:
                         return Container(
                           height: MediaQuery.of(context).size.height / 7,
-                          color: MColors.primaryWhiteSmoke,
                           child: Center(
-                            child: CircularProgressIndicator(
-                              strokeWidth: 2.0,
-                            ),
-                          ),
+                              child: progressIndicator(MColors.primaryPurple)),
                         );
                         break;
                       case ConnectionState.done:
@@ -213,23 +156,15 @@ class _AddressContainerState extends State<AddressContainer> {
                       case ConnectionState.waiting:
                         return Container(
                           height: MediaQuery.of(context).size.height / 7,
-                          color: MColors.primaryWhiteSmoke,
                           child: Center(
-                            child: CircularProgressIndicator(
-                              strokeWidth: 2.0,
-                            ),
-                          ),
+                              child: progressIndicator(MColors.primaryPurple)),
                         );
                         break;
                       default:
                         return Container(
                           height: MediaQuery.of(context).size.height / 7,
-                          color: MColors.primaryWhiteSmoke,
                           child: Center(
-                            child: CircularProgressIndicator(
-                              strokeWidth: 2.0,
-                            ),
-                          ),
+                              child: progressIndicator(MColors.primaryPurple)),
                         );
                     }
                   },
@@ -241,241 +176,12 @@ class _AddressContainerState extends State<AddressContainer> {
       ),
       bottomNavigationBar: Container(
         color: MColors.primaryWhite,
-        padding: const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-        height: 80.0,
-        child: SizedBox(
-          width: double.infinity,
-          height: 60.0,
-          child: RawMaterialButton(
-            shape: RoundedRectangleBorder(
-              borderRadius: new BorderRadius.circular(10.0),
-            ),
-            onPressed: () {},
-            fillColor: MColors.primaryPurple,
-            child: Text(
-              "Proceed to payment",
-              style: GoogleFonts.montserrat(
-                color: MColors.primaryWhite,
-                fontSize: 18.0,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ),
+        padding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 15.0),
+        child: primaryButtonPurple(
+          Text("Proceed to Payment",
+              style: boldFont(MColors.primaryWhite, 16.0)),
+          () {},
         ),
-      ),
-    );
-  }
-
-  Widget savedAddressWidget() {
-    UserDataAddressNotifier addressNotifier =
-        Provider.of<UserDataAddressNotifier>(context);
-    var addressList = addressNotifier.userDataAddressList;
-    var address = addressList.first;
-
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      padding: EdgeInsets.all(20.0),
-      decoration: BoxDecoration(
-        color: MColors.primaryWhite,
-        borderRadius: BorderRadius.all(
-          Radius.circular(10.0),
-        ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              Container(
-                child: SvgPicture.asset(
-                  "assets/images/icons/Location.svg",
-                  color: MColors.primaryPurple,
-                ),
-              ),
-              SizedBox(
-                width: 5.0,
-              ),
-              Expanded(
-                child: Container(
-                  child: Text(
-                    "Shipping address",
-                    style: GoogleFonts.montserrat(
-                      fontSize: 14.0,
-                      color: MColors.textGrey,
-                    ),
-                  ),
-                ),
-              ),
-              Container(
-                width: 60.0,
-                height: 25.0,
-                child: RawMaterialButton(
-                  onPressed: () async {
-                    UserDataAddressNotifier addressNotifier =
-                        Provider.of<UserDataAddressNotifier>(context,
-                            listen: false);
-                    var navigationResult = await Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            AddNewAddress(address, addressList),
-                      ),
-                    );
-                    if (navigationResult == true) {
-                      setState(() {
-                        getAddress(addressNotifier);
-                      });
-                      _showUpdated("address");
-                    }
-                  },
-                  child: Text(
-                    "Change",
-                    style: GoogleFonts.montserrat(
-                        fontSize: 14.0,
-                        color: MColors.primaryPurple,
-                        fontWeight: FontWeight.w600),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          Container(
-            padding: EdgeInsets.only(left: 25.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Container(
-                  padding: const EdgeInsets.only(bottom: 5.0),
-                  child: Text(
-                    address.fullLegalName,
-                    style: GoogleFonts.montserrat(
-                      fontSize: 16.0,
-                      color: MColors.textDark,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ),
-                Container(
-                  child: Text(
-                    address.addressLine1 +
-                        ", " +
-                        address.addressLine2 +
-                        ", " +
-                        address.city +
-                        ", " +
-                        address.zipcode +
-                        ", " +
-                        address.state,
-                    style: GoogleFonts.montserrat(
-                      fontSize: 14.0,
-                      color: MColors.textGrey,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget noSavedAddress() {
-    UserDataAddressNotifier addressNotifier =
-        Provider.of<UserDataAddressNotifier>(context);
-    var addressList = addressNotifier.userDataAddressList;
-
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      padding: EdgeInsets.all(20.0),
-      decoration: BoxDecoration(
-        color: MColors.primaryWhite,
-        borderRadius: BorderRadius.all(
-          Radius.circular(10.0),
-        ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              Container(
-                child: SvgPicture.asset(
-                  "assets/images/icons/Location.svg",
-                  color: MColors.primaryPurple,
-                ),
-              ),
-              SizedBox(
-                width: 5.0,
-              ),
-              Expanded(
-                child: Container(
-                  child: Text(
-                    "Shipping address",
-                    style: GoogleFonts.montserrat(
-                      fontSize: 14.0,
-                      color: MColors.textGrey,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          Container(
-            padding: const EdgeInsets.only(
-              left: 25.0,
-              bottom: 10.0,
-              top: 10.0,
-            ),
-            child: Text(
-              "No shipping address added to this  account",
-              style: GoogleFonts.montserrat(
-                fontSize: 16.0,
-                color: MColors.textGrey,
-              ),
-            ),
-          ),
-          Container(
-            height: 50.0,
-            width: MediaQuery.of(context).size.width,
-            decoration: BoxDecoration(
-              color: MColors.dashPurple,
-              borderRadius: BorderRadius.all(
-                Radius.circular(10.0),
-              ),
-            ),
-            child: RawMaterialButton(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-              onPressed: () async {
-                UserDataAddressNotifier addressNotifier =
-                    Provider.of<UserDataAddressNotifier>(context,
-                        listen: false);
-                var navigationResult = await Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => AddNewAddress(null, addressList),
-                  ),
-                );
-                if (navigationResult == true) {
-                  setState(() {
-                    getAddress(addressNotifier);
-                  });
-                }
-              },
-              child: Center(
-                child: Text(
-                  "Add a shipping method",
-                  style: GoogleFonts.montserrat(
-                    fontSize: 16.0,
-                    color: MColors.textGrey,
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ],
       ),
     );
   }
@@ -609,6 +315,451 @@ class _AddressContainerState extends State<AddressContainer> {
     );
   }
 
+  @override
+  void initState() {
+    UserDataAddressNotifier addressNotifier =
+        Provider.of<UserDataAddressNotifier>(context, listen: false);
+    addressFuture = getAddress(addressNotifier);
+
+    UserDataCardNotifier cardNotifier =
+        Provider.of<UserDataCardNotifier>(context, listen: false);
+    cardFuture = getCard(cardNotifier);
+
+    super.initState();
+  }
+
+  Widget noPaymentMethod() {
+    UserDataCardNotifier cardNotifier =
+        Provider.of<UserDataCardNotifier>(context);
+    var cardList = cardNotifier.userDataCardList;
+
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      padding: EdgeInsets.all(20.0),
+      decoration: BoxDecoration(
+        color: MColors.primaryWhite,
+        borderRadius: BorderRadius.all(
+          Radius.circular(10.0),
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              Container(
+                child: SvgPicture.asset(
+                  "assets/images/icons/Wallet.svg",
+                  color: MColors.primaryPurple,
+                ),
+              ),
+              SizedBox(
+                width: 5.0,
+              ),
+              Expanded(
+                child: Container(
+                  child: Text(
+                    "Payment method",
+                    style: GoogleFonts.montserrat(
+                      fontSize: 14.0,
+                      color: MColors.textGrey,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Container(
+            padding: const EdgeInsets.only(
+              left: 25.0,
+              bottom: 10.0,
+              top: 10.0,
+            ),
+            child: Text(
+              "No payment method added to this account",
+              style: GoogleFonts.montserrat(
+                fontSize: 16.0,
+                color: MColors.textGrey,
+              ),
+            ),
+          ),
+          Container(
+            height: 50.0,
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(
+              color: MColors.dashPurple,
+              borderRadius: BorderRadius.all(
+                Radius.circular(10.0),
+              ),
+            ),
+            child: RawMaterialButton(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              onPressed: () async {
+                var navigationResult = await Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => AddNewCard(null, cardList),
+                  ),
+                );
+                if (navigationResult == true) {
+                  setState(() {
+                    getCard(cardNotifier);
+                  });
+                  _showUpdated("card");
+                }
+              },
+              child: Center(
+                child: Text(
+                  "Add a payment method",
+                  style: GoogleFonts.montserrat(
+                    fontSize: 16.0,
+                    color: MColors.textGrey,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget noSavedAddress() {
+    UserDataAddressNotifier addressNotifier =
+        Provider.of<UserDataAddressNotifier>(context);
+    var addressList = addressNotifier.userDataAddressList;
+
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      padding: EdgeInsets.all(20.0),
+      decoration: BoxDecoration(
+        color: MColors.primaryWhite,
+        borderRadius: BorderRadius.all(
+          Radius.circular(10.0),
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              Container(
+                child: SvgPicture.asset(
+                  "assets/images/icons/Location.svg",
+                  color: MColors.primaryPurple,
+                ),
+              ),
+              SizedBox(
+                width: 5.0,
+              ),
+              Expanded(
+                child: Container(
+                  child: Text(
+                    "Shipping address",
+                    style: GoogleFonts.montserrat(
+                      fontSize: 14.0,
+                      color: MColors.textGrey,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Container(
+            padding: const EdgeInsets.only(
+              left: 25.0,
+              bottom: 10.0,
+              top: 10.0,
+            ),
+            child: Text(
+              "No shipping address added to this  account",
+              style: GoogleFonts.montserrat(
+                fontSize: 16.0,
+                color: MColors.textGrey,
+              ),
+            ),
+          ),
+          Container(
+            height: 50.0,
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(
+              color: MColors.dashPurple,
+              borderRadius: BorderRadius.all(
+                Radius.circular(10.0),
+              ),
+            ),
+            child: RawMaterialButton(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              onPressed: () async {
+                UserDataAddressNotifier addressNotifier =
+                    Provider.of<UserDataAddressNotifier>(context,
+                        listen: false);
+                var navigationResult = await Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => AddNewAddress(null, addressList),
+                  ),
+                );
+                if (navigationResult == true) {
+                  setState(() {
+                    getAddress(addressNotifier);
+                  });
+                }
+              },
+              child: Center(
+                child: Text(
+                  "Add a shipping method",
+                  style: GoogleFonts.montserrat(
+                    fontSize: 16.0,
+                    color: MColors.textGrey,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget savedAddressWidget() {
+    UserDataAddressNotifier addressNotifier =
+        Provider.of<UserDataAddressNotifier>(context);
+    var addressList = addressNotifier.userDataAddressList;
+    var address = addressList.first;
+
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      padding: EdgeInsets.all(20.0),
+      decoration: BoxDecoration(
+        color: MColors.primaryWhite,
+        borderRadius: BorderRadius.all(
+          Radius.circular(10.0),
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              Container(
+                child: SvgPicture.asset(
+                  "assets/images/icons/Location.svg",
+                  color: MColors.primaryPurple,
+                ),
+              ),
+              SizedBox(
+                width: 5.0,
+              ),
+              Expanded(
+                child: Container(
+                  child: Text(
+                    "Shipping address",
+                    style: GoogleFonts.montserrat(
+                      fontSize: 14.0,
+                      color: MColors.textGrey,
+                    ),
+                  ),
+                ),
+              ),
+              Container(
+                width: 60.0,
+                height: 25.0,
+                child: RawMaterialButton(
+                  onPressed: () async {
+                    UserDataAddressNotifier addressNotifier =
+                        Provider.of<UserDataAddressNotifier>(context,
+                            listen: false);
+                    var navigationResult = await Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            AddNewAddress(address, addressList),
+                      ),
+                    );
+                    if (navigationResult == true) {
+                      setState(() {
+                        getAddress(addressNotifier);
+                      });
+                      _showUpdated("address");
+                    }
+                  },
+                  child: Text(
+                    "Change",
+                    style: GoogleFonts.montserrat(
+                        fontSize: 14.0,
+                        color: MColors.primaryPurple,
+                        fontWeight: FontWeight.w600),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Container(
+            padding: EdgeInsets.only(left: 25.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Container(
+                  padding: const EdgeInsets.only(bottom: 5.0),
+                  child: Text(
+                    address.fullLegalName,
+                    style: GoogleFonts.montserrat(
+                      fontSize: 16.0,
+                      color: MColors.textDark,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+                Container(
+                  child: Text(
+                    address.addressLine1 +
+                        ", " +
+                        address.addressLine2 +
+                        ", " +
+                        address.city +
+                        ", " +
+                        address.zipcode +
+                        ", " +
+                        address.state,
+                    style: GoogleFonts.montserrat(
+                      fontSize: 14.0,
+                      color: MColors.textGrey,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget savedPaymentMethod() {
+    UserDataCardNotifier cardNotifier =
+        Provider.of<UserDataCardNotifier>(context);
+    var cardList = cardNotifier.userDataCardList;
+    var card = cardList.first;
+
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      padding: EdgeInsets.all(20.0),
+      decoration: BoxDecoration(
+        color: MColors.primaryWhite,
+        borderRadius: BorderRadius.all(
+          Radius.circular(10.0),
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              Container(
+                child: SvgPicture.asset(
+                  "assets/images/icons/Wallet.svg",
+                  color: MColors.primaryPurple,
+                ),
+              ),
+              SizedBox(
+                width: 5.0,
+              ),
+              Expanded(
+                child: Container(
+                  child: Text(
+                    "Payment method",
+                    style: GoogleFonts.montserrat(
+                      fontSize: 14.0,
+                      color: MColors.textGrey,
+                    ),
+                  ),
+                ),
+              ),
+              Container(
+                width: 60.0,
+                height: 25.0,
+                child: RawMaterialButton(
+                  onPressed: () async {
+                    UserDataCardNotifier cardNotifier =
+                        Provider.of<UserDataCardNotifier>(context,
+                            listen: false);
+
+                    var navigationResult = await Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => AddNewCard(card, cardList),
+                      ),
+                    );
+                    if (navigationResult == true) {
+                      setState(() {
+                        getCard(cardNotifier);
+                      });
+                      _showUpdated("card");
+                    }
+                  },
+                  child: Text(
+                    "Change",
+                    style: GoogleFonts.montserrat(
+                        fontSize: 14.0,
+                        color: MColors.primaryPurple,
+                        fontWeight: FontWeight.w600),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Container(
+            padding: EdgeInsets.only(left: 25.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Container(
+                  padding: const EdgeInsets.only(top: 5.0),
+                  child: Text(
+                    card.cardHolder,
+                    style: GoogleFonts.montserrat(
+                      fontSize: 16.0,
+                      color: MColors.textDark,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+                Row(
+                  children: <Widget>[
+                    Container(
+                      child: Text(
+                        "**** **** **** " +
+                            card.cardNumber
+                                .substring(card.cardNumber.length - 4),
+                        style: GoogleFonts.montserrat(
+                          fontSize: 16.0,
+                          color: MColors.textGrey,
+                        ),
+                      ),
+                    ),
+                    Spacer(),
+                    Container(
+                      child: SvgPicture.asset(
+                        "assets/images/mastercard.svg",
+                        height: 30.0,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  //Payment method
   void _showModalSheet(cartList, total) {
     showModalBottomSheet(
       context: context,
@@ -742,220 +893,25 @@ class _AddressContainerState extends State<AddressContainer> {
     );
   }
 
-  //Payment method
-  Widget savedPaymentMethod() {
-    UserDataCardNotifier cardNotifier =
-        Provider.of<UserDataCardNotifier>(context);
-    var cardList = cardNotifier.userDataCardList;
-    var card = cardList.first;
-
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      padding: EdgeInsets.all(20.0),
-      decoration: BoxDecoration(
-        color: MColors.primaryWhite,
-        borderRadius: BorderRadius.all(
-          Radius.circular(10.0),
+  void _showUpdated(String value) {
+    _scaffoldKey.currentState.showSnackBar(
+      SnackBar(
+        behavior: SnackBarBehavior.floating,
+        duration: Duration(milliseconds: 1300),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
         ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              Container(
-                child: SvgPicture.asset(
-                  "assets/images/icons/Wallet.svg",
-                  color: MColors.primaryPurple,
-                ),
-              ),
-              SizedBox(
-                width: 5.0,
-              ),
-              Expanded(
-                child: Container(
-                  child: Text(
-                    "Payment method",
-                    style: GoogleFonts.montserrat(
-                      fontSize: 14.0,
-                      color: MColors.textGrey,
-                    ),
-                  ),
-                ),
-              ),
-              Container(
-                width: 60.0,
-                height: 25.0,
-                child: RawMaterialButton(
-                  onPressed: () async {
-                    UserDataCardNotifier cardNotifier =
-                        Provider.of<UserDataCardNotifier>(context,
-                            listen: false);
-
-                    var navigationResult = await Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => AddNewCard(card, cardList),
-                      ),
-                    );
-                    if (navigationResult == true) {
-                      setState(() {
-                        getCard(cardNotifier);
-                      });
-                      _showUpdated("card");
-                    }
-                  },
-                  child: Text(
-                    "Change",
-                    style: GoogleFonts.montserrat(
-                        fontSize: 14.0,
-                        color: MColors.primaryPurple,
-                        fontWeight: FontWeight.w600),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          Container(
-            padding: EdgeInsets.only(left: 25.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Container(
-                  padding: const EdgeInsets.only(top: 5.0),
-                  child: Text(
-                    card.cardHolder,
-                    style: GoogleFonts.montserrat(
-                      fontSize: 16.0,
-                      color: MColors.textDark,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ),
-                Row(
-                  children: <Widget>[
-                    Container(
-                      child: Text(
-                        "**** **** **** " +
-                            card.cardNumber
-                                .substring(card.cardNumber.length - 4),
-                        style: GoogleFonts.montserrat(
-                          fontSize: 16.0,
-                          color: MColors.textGrey,
-                        ),
-                      ),
-                    ),
-                    Spacer(),
-                    Container(
-                      child: SvgPicture.asset(
-                        "assets/images/mastercard.svg",
-                        height: 30.0,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+        content: Row(
+          children: <Widget>[
+            Expanded(
+              child: Text("Your $value has been added"),
             ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget noPaymentMethod() {
-    UserDataCardNotifier cardNotifier =
-        Provider.of<UserDataCardNotifier>(context);
-    var cardList = cardNotifier.userDataCardList;
-
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      padding: EdgeInsets.all(20.0),
-      decoration: BoxDecoration(
-        color: MColors.primaryWhite,
-        borderRadius: BorderRadius.all(
-          Radius.circular(10.0),
+            Icon(
+              Icons.check_circle_outline,
+              color: Colors.greenAccent,
+            )
+          ],
         ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              Container(
-                child: SvgPicture.asset(
-                  "assets/images/icons/Wallet.svg",
-                  color: MColors.primaryPurple,
-                ),
-              ),
-              SizedBox(
-                width: 5.0,
-              ),
-              Expanded(
-                child: Container(
-                  child: Text(
-                    "Payment method",
-                    style: GoogleFonts.montserrat(
-                      fontSize: 14.0,
-                      color: MColors.textGrey,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          Container(
-            padding: const EdgeInsets.only(
-              left: 25.0,
-              bottom: 10.0,
-              top: 10.0,
-            ),
-            child: Text(
-              "No payment method added to this account",
-              style: GoogleFonts.montserrat(
-                fontSize: 16.0,
-                color: MColors.textGrey,
-              ),
-            ),
-          ),
-          Container(
-            height: 50.0,
-            width: MediaQuery.of(context).size.width,
-            decoration: BoxDecoration(
-              color: MColors.dashPurple,
-              borderRadius: BorderRadius.all(
-                Radius.circular(10.0),
-              ),
-            ),
-            child: RawMaterialButton(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-              onPressed: () async {
-                var navigationResult = await Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => AddNewCard(null, cardList),
-                  ),
-                );
-                if (navigationResult == true) {
-                  setState(() {
-                    getCard(cardNotifier);
-                  });
-                  _showUpdated("card");
-                }
-              },
-              child: Center(
-                child: Text(
-                  "Add a payment method",
-                  style: GoogleFonts.montserrat(
-                    fontSize: 16.0,
-                    color: MColors.textGrey,
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ],
       ),
     );
   }
