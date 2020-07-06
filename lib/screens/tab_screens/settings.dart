@@ -269,6 +269,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
         ),
       ),
       bottomNavigationBar: Container(
+        height: 80,
+        padding: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
         child: Column(
           children: <Widget>[
             Container(
@@ -283,13 +285,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
             Container(
               child: Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Text(
-                    "Version 0.0.1",
-                    style: normalFont(MColors.textGrey, 14.0),
-                    textAlign: TextAlign.center,
-                  ),
+                child: Text(
+                  "Version 0.0.1",
+                  style: normalFont(MColors.textGrey, 14.0),
+                  textAlign: TextAlign.center,
                 ),
               ),
             ),
