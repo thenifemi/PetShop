@@ -63,6 +63,48 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   Widget showSettings(user) {
+    final listTileIcons = [
+      "assets/images/password.svg",
+      "assets/images/icons/Wallet.svg",
+      "assets/images/gift.svg",
+      "assets/images/help.svg",
+      "assets/images/question.svg",
+    ];
+
+    final listTileNames = [
+      "Security",
+      "Cards",
+      "Invite a friend",
+      "Help",
+      "FAQs",
+    ];
+
+    final listTileActions = [
+      () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (_) => SecurityScreen(),
+          ),
+        );
+      },
+      () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (_) => Cards1(),
+          ),
+        );
+      },
+      () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (_) => InviteFriendScreen(),
+          ),
+        );
+      },
+      () {},
+      () {},
+    ];
+
     return Scaffold(
       key: _scaffoldKey,
       body: primaryContainer(
