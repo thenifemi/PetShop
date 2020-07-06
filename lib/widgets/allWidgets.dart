@@ -146,11 +146,11 @@ Widget listTileButton(
             height: 20,
             color: MColors.textGrey,
           ),
-          SizedBox(width: 10.0),
+          SizedBox(width: 15.0),
           Expanded(
             child: Text(
               listTileName,
-              style: normalFont(MColors.primaryPurple, 16.0),
+              style: normalFont(MColors.primaryPurple, 14.0),
             ),
           ),
           Icon(
