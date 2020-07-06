@@ -106,6 +106,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     ];
 
     return Scaffold(
+      backgroundColor: MColors.primaryWhiteSmoke,
       key: _scaffoldKey,
       body: primaryContainer(
         SingleChildScrollView(
@@ -262,35 +263,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     },
                   ),
                 ),
-                SizedBox(height: 100.0),
-                SizedBox(
-                  height: 60,
-                  width: double.infinity,
-                  child: RawMaterialButton(
-                    onPressed: () {
+                Container(
+                  child: listTileButton(
+                    () {
                       _showLogOutDialog();
                     },
-                    child: Row(
-                      children: <Widget>[
-                        Container(
-                          padding: const EdgeInsets.only(right: 20.0),
-                          child: SvgPicture.asset(
-                            "assets/images/logout.svg",
-                            height: 20,
-                            color: Colors.redAccent,
-                          ),
-                        ),
-                        Expanded(
-                          child: Text(
-                            "Sign out",
-                            style: GoogleFonts.montserrat(
-                              color: Colors.redAccent,
-                              fontSize: 15.0,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                    "assets/images/logout.svg",
+                    "Sign out",
                   ),
                 ),
                 Center(
@@ -298,10 +277,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     padding: const EdgeInsets.all(20.0),
                     child: Text(
                       "Version 0.0.1",
-                      style: GoogleFonts.montserrat(
-                        color: MColors.textGrey,
-                        fontSize: 14.0,
-                      ),
+                      style: normalFont(MColors.textGrey, 14.0),
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -321,7 +297,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           return AlertDialog(
             content: Text(
               "Are you sure you want to sign out?",
-              style: GoogleFonts.montserrat(),
+              style: normalFont(MColors.textGrey, 14.0),
             ),
             actions: <Widget>[
               FlatButton(
@@ -330,7 +306,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 },
                 child: Text(
                   "Cancel",
-                  style: GoogleFonts.montserrat(color: MColors.textGrey),
+                  style: normalFont(MColors.textGrey, 14.0),
                 ),
               ),
               FlatButton(
@@ -351,8 +327,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 },
                 child: Text(
                   "Sign out",
-                  style: GoogleFonts.montserrat(
-                      color: Colors.redAccent, fontWeight: FontWeight.w500),
+                  style: normalFont(Colors.redAccent, 14.0),
                 ),
               ),
             ],
