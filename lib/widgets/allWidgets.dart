@@ -151,12 +151,12 @@ Widget listTileButton(
           Expanded(
             child: Text(
               listTileName,
-              style: normalFont(MColors.primaryPurple, 14.0),
+              style: normalFont(color, 14.0),
             ),
           ),
           Icon(
             Icons.arrow_forward_ios,
-            color: color,
+            color: MColors.textGrey,
             size: 16.0,
           ),
         ],

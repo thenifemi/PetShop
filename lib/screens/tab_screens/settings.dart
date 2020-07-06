@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:mollet/main.dart';
 import 'package:mollet/model/notifiers/userData_notifier.dart';
 import 'package:mollet/model/services/auth_service.dart';
@@ -264,29 +263,37 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     },
                   ),
                 ),
-                Container(
-                  child: listTileButton(
-                    () {
-                      _showLogOutDialog();
-                    },
-                    "assets/images/logout.svg",
-                    "Sign out",
-                    Colors.redAccent,
-                  ),
-                ),
-                Center(
-                  child: Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Text(
-                      "Version 0.0.1",
-                      style: normalFont(MColors.textGrey, 14.0),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ),
               ],
             ),
           ),
+        ),
+      ),
+      bottomNavigationBar: Container(
+        child: Column(
+          children: <Widget>[
+            Container(
+              child: listTileButton(
+                () {
+                  _showLogOutDialog();
+                },
+                "assets/images/logout.svg",
+                "Sign out",
+                Colors.redAccent,
+              ),
+            ),
+            Container(
+              child: Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Text(
+                    "Version 0.0.1",
+                    style: normalFont(MColors.textGrey, 14.0),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
