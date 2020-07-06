@@ -253,6 +253,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               listTileActions[i],
                               listTileIcons[i],
                               listTileNames[i],
+                              MColors.primaryPurple,
                             ),
                             Divider(
                               height: 1.0,
@@ -270,6 +271,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     },
                     "assets/images/logout.svg",
                     "Sign out",
+                    Colors.redAccent,
                   ),
                 ),
                 Center(

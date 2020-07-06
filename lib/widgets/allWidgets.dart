@@ -133,6 +133,7 @@ Widget listTileButton(
   void Function() onPressed,
   String iconImage,
   String listTileName,
+  Color color,
 ) {
   return SizedBox(
     height: 50.0,
@@ -155,7 +156,7 @@ Widget listTileButton(
           ),
           Icon(
             Icons.arrow_forward_ios,
-            color: MColors.textGrey,
+            color: color,
             size: 16.0,
           ),
         ],
