@@ -4,13 +4,14 @@
 
 <p>
     <img src="https://raw.githubusercontent.com/thenifemi/PetShop/master/screenshots/intro.jpg" width="150px" height="auto" hspace="5" vspace="20"/>
-    <img src="https://raw.githubusercontent.com/thenifemi/PetShop/master/assets/onboard.jpg" width="150px" height="auto" hspace="5" vspace="20"/>
-    <img src="https://raw.githubusercontent.com/thenifemi/PetShop/master/assets/all.jpg?raw=true" width="150px" height="auto" hspace="5" vspace="20"/>
-   <img src="https://raw.githubusercontent.com/thenifemi/PetShop/master/assets/bag.jpg?raw=true" width="150px" height="auto" hspace="5" vspace="20"/>
-    <img src="https://raw.githubusercontent.com/thenifemi/PetShop/master/assets/product.jpg" width="150px" height="auto" hspace="5" vspace="20"/>
-   <img src="https://raw.githubusercontent.com/thenifemi/PetShop/master/assets/login.jpg" width="150px" height="auto" hspace="5" vspace="20"/>
-   <img src="https://raw.githubusercontent.com/thenifemi/PetShop/master/assets/signin.jpg" width="150px" height="auto" hspace="5" vspace="20"/>
-
+    <img src="https://raw.githubusercontent.com/thenifemi/PetShop/master/screenshots/signup.jpg" width="150px" height="auto" hspace="5" vspace="20"/>
+    <img src="https://raw.githubusercontent.com/thenifemi/PetShop/master/screenshots/login.jpg" width="150px" height="auto" hspace="5" vspace="20"/>
+    <img src="https://raw.githubusercontent.com/thenifemi/PetShop/master/screenshots/home.jpg" width="150px" height="auto" hspace="5" vspace="20"/>
+    <img src="https://raw.githubusercontent.com/thenifemi/PetShop/master/screenshots/productDetails.jpg" width="150px" height="auto" hspace="5" vspace="20"/>
+    <img src="https://raw.githubusercontent.com/thenifemi/PetShop/master/screenshots/cart.jpg" width="150px" height="auto" hspace="5" vspace="20"/>
+    <img src="https://raw.githubusercontent.com/thenifemi/PetShop/master/screenshots/checkout.jpg" width="150px" height="auto" hspace="5" vspace="20"/>
+    <img src="https://raw.githubusercontent.com/thenifemi/PetShop/master/screenshots/forgot.jpg" width="150px" height="auto" hspace="5" vspace="20"/>
+    <img src="https://raw.githubusercontent.com/thenifemi/PetShop/master/screenshots/notifications.jpg" width="150px" height="auto" hspace="5" vspace="20"/>
 </p>
 
 Pet Shop is an e-commerce application for Android built with Flutter (iOS to come soon). The goal is to implement the Flutter framework for large scale Android and iOS applications, implementing native platform features like camera, location, biometrics and NFC. However, only authentication and a couple database(using Firebase) reads and writes have been fully implemented. I also hope to integrate biometrics, location reading, payment options etc
