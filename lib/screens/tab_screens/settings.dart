@@ -239,203 +239,28 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 Divider(
                   height: 1.0,
                 ),
-                SizedBox(
-                  height: 60,
-                  width: double.infinity,
-                  child: RawMaterialButton(
-                    onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (_) => SecurityScreen(),
+                Container(
+                  child: ListView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: listTileNames.length,
+                    shrinkWrap: true,
+                    itemBuilder: (context, i) {
+                      return Container(
+                        child: Column(
+                          children: <Widget>[
+                            listTileButton(
+                              listTileActions[i],
+                              listTileIcons[i],
+                              listTileNames[i],
+                            ),
+                            Divider(
+                              height: 1.0,
+                            ),
+                          ],
                         ),
                       );
                     },
-                    child: Row(
-                      children: <Widget>[
-                        Container(
-                          padding: const EdgeInsets.only(right: 20.0),
-                          child: SvgPicture.asset(
-                            "assets/images/password.svg",
-                            height: 20,
-                            color: MColors.textGrey,
-                          ),
-                        ),
-                        Expanded(
-                          child: Text(
-                            "Security",
-                            style: GoogleFonts.montserrat(
-                              color: MColors.primaryPurple,
-                              fontSize: 15.0,
-                            ),
-                          ),
-                        ),
-                        Icon(
-                          Icons.arrow_forward_ios,
-                          color: MColors.textGrey,
-                          size: 16.0,
-                        ),
-                      ],
-                    ),
                   ),
-                ),
-                Divider(
-                  height: 1.0,
-                ),
-                SizedBox(
-                  height: 60,
-                  width: double.infinity,
-                  child: RawMaterialButton(
-                    onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (_) => Cards1(),
-                        ),
-                      );
-                    },
-                    child: Row(
-                      children: <Widget>[
-                        Container(
-                          padding: const EdgeInsets.only(right: 20.0),
-                          child: SvgPicture.asset(
-                            "assets/images/icons/Wallet.svg",
-                            height: 20,
-                            color: MColors.textGrey,
-                          ),
-                        ),
-                        Expanded(
-                          child: Text(
-                            "Cards",
-                            style: GoogleFonts.montserrat(
-                              color: MColors.primaryPurple,
-                              fontSize: 15.0,
-                            ),
-                          ),
-                        ),
-                        Icon(
-                          Icons.arrow_forward_ios,
-                          color: MColors.textGrey,
-                          size: 16.0,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Divider(
-                  height: 1.0,
-                ),
-                SizedBox(
-                  height: 60,
-                  width: double.infinity,
-                  child: RawMaterialButton(
-                    onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (_) => InviteFriendScreen(),
-                        ),
-                      );
-                    },
-                    child: Row(
-                      children: <Widget>[
-                        Container(
-                          padding: const EdgeInsets.only(right: 20.0),
-                          child: SvgPicture.asset(
-                            "assets/images/gift.svg",
-                            height: 20,
-                            color: MColors.textGrey,
-                          ),
-                        ),
-                        Expanded(
-                          child: Text(
-                            "Invite a friend",
-                            style: GoogleFonts.montserrat(
-                              color: MColors.primaryPurple,
-                              fontSize: 15.0,
-                            ),
-                          ),
-                        ),
-                        Icon(
-                          Icons.arrow_forward_ios,
-                          color: MColors.textGrey,
-                          size: 16.0,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Divider(
-                  height: 1.0,
-                ),
-                SizedBox(
-                  height: 60,
-                  width: double.infinity,
-                  child: RawMaterialButton(
-                    onPressed: () {},
-                    child: Row(
-                      children: <Widget>[
-                        Container(
-                          padding: const EdgeInsets.only(right: 20.0),
-                          child: SvgPicture.asset(
-                            "assets/images/help.svg",
-                            height: 20,
-                            color: MColors.textGrey,
-                          ),
-                        ),
-                        Expanded(
-                          child: Text(
-                            "Help",
-                            style: GoogleFonts.montserrat(
-                              color: MColors.primaryPurple,
-                              fontSize: 15.0,
-                            ),
-                          ),
-                        ),
-                        Icon(
-                          Icons.arrow_forward_ios,
-                          color: MColors.textGrey,
-                          size: 16.0,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Divider(
-                  height: 1.0,
-                ),
-                SizedBox(
-                  height: 60,
-                  width: double.infinity,
-                  child: RawMaterialButton(
-                    onPressed: () {},
-                    child: Row(
-                      children: <Widget>[
-                        Container(
-                          padding: const EdgeInsets.only(right: 20.0),
-                          child: SvgPicture.asset(
-                            "assets/images/question.svg",
-                            height: 20,
-                            color: MColors.textGrey,
-                          ),
-                        ),
-                        Expanded(
-                          child: Text(
-                            "FAQs",
-                            style: GoogleFonts.montserrat(
-                              color: MColors.primaryPurple,
-                              fontSize: 15.0,
-                            ),
-                          ),
-                        ),
-                        Icon(
-                          Icons.arrow_forward_ios,
-                          color: MColors.textGrey,
-                          size: 16.0,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Divider(
-                  height: 1.0,
                 ),
                 SizedBox(height: 100.0),
                 SizedBox(

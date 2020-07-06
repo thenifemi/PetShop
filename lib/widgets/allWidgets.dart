@@ -131,7 +131,7 @@ Widget primaryButtonWhiteSmoke(
 
 Widget listTileButton(
   void Function() onPressed,
-  Widget iconImage,
+  String iconImage,
   String listTileName,
 ) {
   return SizedBox(
@@ -141,8 +141,10 @@ Widget listTileButton(
       onPressed: onPressed,
       child: Row(
         children: <Widget>[
-          Container(
-            child: iconImage,
+          SvgPicture.asset(
+            iconImage,
+            height: 20,
+            color: MColors.textGrey,
           ),
           SizedBox(width: 10.0),
           Expanded(
