@@ -96,7 +96,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ),
                       RawMaterialButton(
                         shape: RoundedRectangleBorder(
-                          borderRadius: new BorderRadius.circular(10.0),
+                          borderRadius: BorderRadius.circular(10.0),
                         ),
                         elevation: 0.0,
                         hoverElevation: 0.0,
@@ -137,16 +137,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                           boldFont(MColors.primaryPurple, 16.0),
                                       textAlign: TextAlign.center,
                                     ),
-                                    SizedBox(height: 20.0),
                                     Text(
                                       user.email,
                                       style: normalFont(MColors.textGrey, 14.0),
                                       textAlign: TextAlign.center,
                                     ),
-                                    SizedBox(height: 20.0),
                                   ],
                                 ),
                               ),
+                              SizedBox(height: 5.0),
                               SizedBox(
                                 width: 100,
                                 height: 18.0,
@@ -179,16 +178,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                       );
                                     }
                                   },
-                                  child: Text(
-                                    "EDIT PROFILE",
-                                    style: GoogleFonts.montserrat(
-                                      color: MColors.primaryPurple,
-                                      fontSize: 12.0,
-                                    ),
-                                  ),
+                                  child: Text("EDIT PROFILE",
+                                      style: normalFont(
+                                          MColors.primaryPurple, 12.0)),
                                   shape: RoundedRectangleBorder(
-                                    borderRadius:
-                                        new BorderRadius.circular(5.0),
+                                    borderRadius: BorderRadius.circular(5.0),
                                   ),
                                 ),
                               ),

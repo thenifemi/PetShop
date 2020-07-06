@@ -128,6 +128,39 @@ Widget primaryButtonWhiteSmoke(
     ),
   );
 }
+
+Widget listTileButton(
+  void Function() onPressed,
+  Widget iconImage,
+  String listTileName,
+) {
+  return SizedBox(
+    height: 50.0,
+    width: double.infinity,
+    child: RawMaterialButton(
+      onPressed: onPressed,
+      child: Row(
+        children: <Widget>[
+          Container(
+            child: iconImage,
+          ),
+          SizedBox(width: 10.0),
+          Expanded(
+            child: Text(
+              listTileName,
+              style: normalFont(MColors.primaryPurple, 16.0),
+            ),
+          ),
+          Icon(
+            Icons.arrow_forward_ios,
+            color: MColors.textGrey,
+            size: 16.0,
+          ),
+        ],
+      ),
+    ),
+  );
+}
 //-------------------------------------------
 
 //TEXTFIELDS--------------------------------
