@@ -22,9 +22,16 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
   Future profileFuture;
 
-  final _scaffoldKey = GlobalKey<ScaffoldState>();
+  @override
+  void initState() {
+    UserDataProfileNotifier profileNotifier =
+        Provider.of<UserDataProfileNotifier>(context, listen: false);
+    profileFuture = getProfile(profileNotifier);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,25 +62,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
-  @override
-  void initState() {
-    UserDataProfileNotifier profileNotifier =
-        Provider.of<UserDataProfileNotifier>(context, listen: false);
-    profileFuture = getProfile(profileNotifier);
-    super.initState();
-  }
-
   Widget showSettings(user) {
     return Scaffold(
       key: _scaffoldKey,
-      body: Container(
-        height: double.infinity,
-        color: MColors.primaryWhiteSmoke,
-        child: SingleChildScrollView(
+      body: primaryContainer(
+        SingleChildScrollView(
           physics: BouncingScrollPhysics(),
           child: Container(
-            color: MColors.primaryWhiteSmoke,
-            padding: const EdgeInsets.only(right: 20.0, left: 20.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
@@ -86,7 +81,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     children: <Widget>[
                       Center(
                         child: Padding(
-                          padding: const EdgeInsets.all(15.0),
+                          padding: const EdgeInsets.all(10.0),
                           child: Container(
                             child: SvgPicture.asset(
                               "assets/images/femaleAvatar.svg",
@@ -134,35 +129,24 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           child: Column(
                             children: <Widget>[
                               Container(
-                                  child: Column(
-                                children: <Widget>[
-                                  Text(
-                                    user.name,
-                                    style: GoogleFonts.montserrat(
-                                      color: MColors.primaryPurple,
-                                      fontSize: 18.0,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                  Container(
-                                    padding: const EdgeInsets.only(
-                                      right: 30.0,
-                                      left: 30.0,
-                                      top: 3.0,
-                                    ),
-                                    child: Text(
-                                      user.email,
-                                      style: GoogleFonts.montserrat(
-                                        color: MColors.textGrey,
-                                        fontSize: 13.0,
-                                      ),
+                                child: Column(
+                                  children: <Widget>[
+                                    Text(
+                                      user.name,
+                                      style:
+                                          boldFont(MColors.primaryPurple, 16.0),
                                       textAlign: TextAlign.center,
                                     ),
-                                  ),
-                                ],
-                              )),
-                              SizedBox(height: 5.0),
+                                    SizedBox(height: 20.0),
+                                    Text(
+                                      user.email,
+                                      style: normalFont(MColors.textGrey, 14.0),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    SizedBox(height: 20.0),
+                                  ],
+                                ),
+                              ),
                               SizedBox(
                                 width: 100,
                                 height: 18.0,
