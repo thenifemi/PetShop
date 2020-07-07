@@ -75,6 +75,7 @@ class _AddressContainerState extends State<AddressContainer> {
 
     return Scaffold(
       key: _scaffoldKey,
+      backgroundColor: MColors.primaryWhiteSmoke,
       appBar: primaryAppBar(
         IconButton(
           icon: Icon(
