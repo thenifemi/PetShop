@@ -198,36 +198,14 @@ class _AddNewCardState extends State<AddNewCard> {
                   SizedBox(
                     height: 20.0,
                   ),
-                  Container(
-                    height: 50.0,
-                    width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
-                      color: MColors.dashPurple,
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10.0),
-                      ),
-                    ),
-                    child: RawMaterialButton(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      onPressed: () {
-                        _validateInputs();
-                      },
-                      child: Center(
-                        child: Text(
-                          "Save Card",
-                          style: GoogleFonts.montserrat(
-                            fontSize: 16.0,
-                            color: MColors.textDark,
-                          ),
-                        ),
-                      ),
-                    ),
+                  primaryButtonWhiteSmoke(
+                    Text("Save Card",
+                        style: normalFont(MColors.textGrey, 16.0)),
+                    () {
+                      _validateInputs();
+                    },
                   ),
-                  SizedBox(
-                    height: 100.0,
-                  ),
+                  SizedBox(height: 100.0),
                   Container(
                     child: Row(
                       children: <Widget>[
@@ -242,20 +220,15 @@ class _AddNewCardState extends State<AddNewCard> {
                           child: Container(
                             child: Text(
                               "PLEASE NOTE -  This is a side project by Nifemi. Please do not enter real card info. Thank you!",
-                              style: GoogleFonts.montserrat(
-                                color: Colors.redAccent,
-                                fontSize: 15.0,
-                              ),
+                              style: normalFont(Colors.redAccent, 14.0),
                             ),
                           ),
                         ),
                       ],
                     ),
-                    // height: 80.0,
                     width: double.infinity,
                     padding: const EdgeInsets.all(10.0),
                     decoration: BoxDecoration(
-                      color: MColors.primaryWhiteSmoke,
                       border:
                           Border.all(width: 1.0, color: MColors.primaryPurple),
                       borderRadius: BorderRadius.all(
