@@ -207,8 +207,8 @@ Widget primaryTextField(
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(8.0),
         borderSide: BorderSide(
-          color: Colors.transparent,
-          width: 0.00,
+          color: MColors.textGrey,
+          width: 0.50,
         ),
       ),
       errorBorder: OutlineInputBorder(
