@@ -198,9 +198,9 @@ class _AddNewCardState extends State<AddNewCard> {
                   SizedBox(
                     height: 20.0,
                   ),
-                  primaryButtonWhiteSmoke(
+                  primaryButtonPurple(
                     Text("Save Card",
-                        style: normalFont(MColors.textGrey, 16.0)),
+                        style: normalFont(MColors.primaryWhite, 16.0)),
                     () {
                       _validateInputs();
                     },
@@ -267,7 +267,8 @@ class _AddNewCardState extends State<AddNewCard> {
       setState(() {
         _autoValidate = true; // Start validating on every change.
       });
-      _showInSnackBar('Please fix the errors');
+      showSimpleSnack("Please fix the errors", Icons.error_outline,
+          Colors.redAccent, scaffoldKey);
     } else {
       form.save();
       // Encrypt and send send payment details to payment gateway
@@ -287,28 +288,5 @@ class _AddNewCardState extends State<AddNewCard> {
             );
       Navigator.pop(context, true);
     }
-  }
-
-  void _showInSnackBar(String value) {
-    scaffoldKey.currentState.showSnackBar(
-      SnackBar(
-        behavior: SnackBarBehavior.floating,
-        duration: Duration(milliseconds: 1300),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-        content: Row(
-          children: <Widget>[
-            Expanded(
-              child: Text(value),
-            ),
-            Icon(
-              Icons.error_outline,
-              color: Colors.red,
-            )
-          ],
-        ),
-      ),
-    );
   }
 }
