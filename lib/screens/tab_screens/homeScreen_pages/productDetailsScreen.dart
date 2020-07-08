@@ -206,9 +206,9 @@ class _ProductDetailsState extends State<ProductDetails> {
     }
 
     return Container(
-      decoration: new BoxDecoration(
+      decoration: BoxDecoration(
         color: MColors.primaryWhiteSmoke,
-        borderRadius: new BorderRadius.only(
+        borderRadius: BorderRadius.only(
           topLeft: const Radius.circular(20.0),
           topRight: const Radius.circular(20.0),
         ),

@@ -188,45 +188,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 ),
                               ),
                               SizedBox(height: 5.0),
-                              SizedBox(
+                              Container(
                                 width: 100,
                                 height: 18.0,
-                                child: RawMaterialButton(
-                                  elevation: 0.0,
-                                  hoverElevation: 0.0,
-                                  focusElevation: 0.0,
-                                  highlightElevation: 0.0,
-                                  fillColor: MColors.dashPurple,
-                                  onPressed: () async {
-                                    UserDataProfileNotifier profileNotifier =
-                                        Provider.of<UserDataProfileNotifier>(
-                                            context,
-                                            listen: false);
-                                    var navigationResult =
-                                        await Navigator.of(context).push(
-                                      MaterialPageRoute(
-                                        builder: (context) => EditProfile(user),
-                                      ),
-                                    );
-                                    if (navigationResult == true) {
-                                      setState(() {
-                                        getProfile(profileNotifier);
-                                      });
-                                      showSimpleSnack(
-                                        "Profile has been updated",
-                                        Icons.check_circle_outline,
-                                        Colors.green,
-                                        _scaffoldKey,
-                                      );
-                                    }
-                                  },
-                                  child: Text("EDIT PROFILE",
-                                      style: normalFont(
-                                          MColors.primaryPurple, 12.0)),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(5.0),
-                                  ),
+                                decoration: BoxDecoration(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10.0)),
+                                  color: MColors.dashPurple,
                                 ),
+                                child: Text("EDIT PROFILE",
+                                    style: normalFont(
+                                        MColors.primaryPurple, 12.0)),
                               ),
                             ],
                           ),
