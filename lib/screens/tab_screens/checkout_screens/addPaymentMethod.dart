@@ -123,9 +123,7 @@ class _AddNewCardState extends State<AddNewCard> {
                           LengthLimitingTextInputFormatter(19),
                           CardNumberInputFormatter(),
                         ],
-                        Padding(
-                            padding: EdgeInsets.only(right: 5.0),
-                            child: CardUtils.getCardIcon(_paymentCard.type)),
+                        CardUtils.getCardIcon(_paymentCard.type),
                       ),
                     ],
                   ),
