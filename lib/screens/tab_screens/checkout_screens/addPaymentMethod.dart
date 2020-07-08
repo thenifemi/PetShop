@@ -7,6 +7,7 @@ import 'package:mollet/utils/colors.dart';
 import 'package:mollet/utils/cardUtils/payment_card.dart';
 import 'package:mollet/utils/cardUtils/input_formatter.dart';
 import 'package:mollet/utils/cardUtils/cardStrings.dart';
+import 'package:mollet/widgets/allWidgets.dart';
 
 class AddNewCard extends StatefulWidget {
   final UserDataCard card;
@@ -46,11 +47,8 @@ class _AddNewCardState extends State<AddNewCard> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      appBar: AppBar(
-        elevation: 0.0,
-        brightness: Brightness.light,
-        backgroundColor: MColors.primaryWhiteSmoke,
-        leading: IconButton(
+      appBar: primaryAppBar(
+        IconButton(
           icon: Icon(
             Icons.arrow_back_ios,
             color: MColors.textDark,
@@ -59,14 +57,14 @@ class _AddNewCardState extends State<AddNewCard> {
             Navigator.of(context).pop();
           },
         ),
-        title: Text(
+        Text(
           "Add Card",
-          style: GoogleFonts.montserrat(
-              fontSize: 20.0,
-              color: MColors.primaryPurple,
-              fontWeight: FontWeight.bold),
+          style: boldFont(MColors.primaryPurple, 18.0),
         ),
-        centerTitle: true,
+        MColors.primaryWhiteSmoke,
+        null,
+        true,
+        null,
       ),
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(),

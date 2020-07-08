@@ -571,7 +571,7 @@ class _AddressContainerState extends State<AddressContainer> {
                   children: <Widget>[
                     Container(
                       child: Text(
-                        "**** **** **** " +
+                        "•••• •••• •••• " +
                             card.cardNumber
                                 .substring(card.cardNumber.length - 4),
                         style: normalFont(MColors.textGrey, 16.0),
