@@ -80,6 +80,7 @@ class _ResetScreenState extends State<ResetScreen> {
                     ),
                     primaryTextField(
                       null,
+                      null,
                       "e.g Remiola2034@gmail.com",
                       (val) => _email = val,
                       EmailValiditor.validate,

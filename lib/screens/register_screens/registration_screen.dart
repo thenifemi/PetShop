@@ -108,6 +108,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               ),
                               primaryTextField(
                                 null,
+                                null,
                                 "Remiola",
                                 (val) => _name = val,
                                 NameValiditor.validate,
@@ -133,6 +134,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               ),
                               primaryTextField(
                                 null,
+                                null,
                                 "e.g Remiola2034@gmail.com",
                                 (val) => _email = val,
                                 EmailValiditor.validate,
@@ -157,6 +159,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                 ),
                               ),
                               primaryTextField(
+                                null,
                                 null,
                                 null,
                                 (val) => _password = val,
@@ -202,6 +205,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                 ),
                               ),
                               primaryTextField(
+                                null,
                                 null,
                                 "e.g +55 (47) 12345 6789",
                                 (val) => _phone = val,

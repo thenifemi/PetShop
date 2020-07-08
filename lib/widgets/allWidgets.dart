@@ -169,6 +169,7 @@ Widget listTileButton(
 //TEXTFIELDS--------------------------------
 
 Widget primaryTextField(
+  TextEditingController controller,
   String initialValue,
   String labelText,
   void Function(String) onsaved,
@@ -181,6 +182,7 @@ Widget primaryTextField(
   Widget suffix,
 ) {
   return TextFormField(
+    controller: controller,
     initialValue: initialValue,
     onSaved: onsaved,
     validator: validator,

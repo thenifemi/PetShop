@@ -94,6 +94,7 @@ class _HomeScreenState extends State<HomeScreen>
                 Container(
                   child: primaryTextField(
                     null,
+                    null,
                     "Search for products",
                     null,
                     null,
