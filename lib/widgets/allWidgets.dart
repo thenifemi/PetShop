@@ -351,3 +351,40 @@ Widget backgroundDismiss(AlignmentGeometry alignment) {
   );
 }
 //-------------------------------------------
+
+//WARNING------------------------------------
+Widget warningWidget() {
+  return Padding(
+    padding: const EdgeInsets.all(20.0),
+    child: Container(
+      child: Row(
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.only(right: 5.0),
+            child: Icon(
+              Icons.error_outline,
+              color: Colors.redAccent,
+            ),
+          ),
+          Expanded(
+            child: Container(
+              child: Text(
+                "PLEASE NOTE -  This is a side project by Nifemi. Please do not enter real info. Thank you!",
+                style: normalFont(Colors.redAccent, 14.0),
+              ),
+            ),
+          ),
+        ],
+      ),
+      width: double.infinity,
+      padding: const EdgeInsets.all(10.0),
+      decoration: BoxDecoration(
+        border: Border.all(width: 1.0, color: Colors.redAccent),
+        borderRadius: BorderRadius.all(
+          Radius.circular(4.0),
+        ),
+      ),
+    ),
+  );
+}
+//-------------------------------------------
