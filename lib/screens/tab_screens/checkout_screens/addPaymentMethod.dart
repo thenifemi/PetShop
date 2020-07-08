@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:mollet/model/data/userData.dart';
 import 'package:mollet/model/services/user_management.dart';
 import 'package:mollet/utils/colors.dart';
@@ -205,39 +204,40 @@ class _AddNewCardState extends State<AddNewCard> {
                       _validateInputs();
                     },
                   ),
-                  SizedBox(height: 100.0),
-                  Container(
-                    child: Row(
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(right: 5.0),
-                          child: Icon(
-                            Icons.error_outline,
-                            color: Colors.redAccent,
-                          ),
-                        ),
-                        Expanded(
-                          child: Container(
-                            child: Text(
-                              "PLEASE NOTE -  This is a side project by Nifemi. Please do not enter real card info. Thank you!",
-                              style: normalFont(Colors.redAccent, 14.0),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    width: double.infinity,
-                    padding: const EdgeInsets.all(10.0),
-                    decoration: BoxDecoration(
-                      border:
-                          Border.all(width: 1.0, color: MColors.primaryPurple),
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(4.0),
-                      ),
-                    ),
-                  ),
                 ],
               ),
+            ),
+          ),
+        ),
+      ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Container(
+          child: Row(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(right: 5.0),
+                child: Icon(
+                  Icons.error_outline,
+                  color: Colors.redAccent,
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  child: Text(
+                    "PLEASE NOTE -  This is a side project by Nifemi. Please do not enter real card info. Thank you!",
+                    style: normalFont(Colors.redAccent, 14.0),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          width: double.infinity,
+          padding: const EdgeInsets.all(10.0),
+          decoration: BoxDecoration(
+            border: Border.all(width: 1.0, color: Colors.redAccent),
+            borderRadius: BorderRadius.all(
+              Radius.circular(4.0),
             ),
           ),
         ),
