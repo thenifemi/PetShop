@@ -196,7 +196,7 @@ class _AddNewCardState extends State<AddNewCard> {
                     height: 20.0,
                   ),
                   primaryButtonPurple(
-                    Text("Save Card",
+                    Text("Save card",
                         style: normalFont(MColors.primaryWhite, 16.0)),
                     () {
                       _validateInputs();
