@@ -196,9 +196,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                       BorderRadius.all(Radius.circular(10.0)),
                                   color: MColors.dashPurple,
                                 ),
-                                child: Text("EDIT PROFILE",
-                                    style: normalFont(
-                                        MColors.primaryPurple, 12.0)),
+                                child: Center(
+                                  child: Text("EDIT PROFILE",
+                                      style: normalFont(
+                                          MColors.primaryPurple, 12.0)),
+                                ),
                               ),
                             ],
                           ),

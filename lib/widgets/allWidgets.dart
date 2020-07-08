@@ -136,7 +136,7 @@ Widget listTileButton(
   Color color,
 ) {
   return SizedBox(
-    height: 50.0,
+    height: 60.0,
     width: double.infinity,
     child: RawMaterialButton(
       onPressed: onPressed,
