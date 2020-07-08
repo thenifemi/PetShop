@@ -139,66 +139,27 @@ class _AddNewCardState extends State<AddNewCard> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Container(
-                              padding: const EdgeInsets.only(bottom: 5.0),
-                              child: Text(
-                                "Valid through",
-                                style: GoogleFonts.montserrat(
-                                    color: MColors.textGrey),
-                              ),
+                            Text(
+                              "Valid through",
+                              style: normalFont(MColors.textGrey, null),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 10.0),
-                              child: TextFormField(
-                                keyboardType: TextInputType.number,
-                                validator: CardUtils.validateDate,
-                                initialValue: cardList.isEmpty ? null : null,
-                                onSaved: (val) => validThrough = val,
-                                inputFormatters: <TextInputFormatter>[
-                                  WhitelistingTextInputFormatter.digitsOnly,
-                                  LengthLimitingTextInputFormatter(4),
-                                  CardMonthInputFormatter(),
-                                ],
-                                decoration: InputDecoration(
-                                  labelText: "",
-                                  contentPadding:
-                                      EdgeInsets.symmetric(horizontal: 25.0),
-                                  fillColor: MColors.primaryWhite,
-                                  floatingLabelBehavior:
-                                      FloatingLabelBehavior.never,
-                                  filled: true,
-                                  enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(8.0),
-                                    borderSide: BorderSide(
-                                      color: MColors.textGrey,
-                                      width: 0.50,
-                                    ),
-                                  ),
-                                  errorBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(8.0),
-                                    borderSide: BorderSide(
-                                      color: Colors.red,
-                                      width: 1.0,
-                                    ),
-                                  ),
-                                  focusedErrorBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(8.0),
-                                    borderSide: BorderSide(
-                                      color: Colors.red,
-                                      width: 1.0,
-                                    ),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(8.0),
-                                    borderSide: BorderSide(
-                                      color: MColors.primaryPurple,
-                                      width: 1.0,
-                                    ),
-                                  ),
-                                ),
-                                style: GoogleFonts.montserrat(
-                                    fontSize: 17.0, color: MColors.textDark),
-                              ),
+                            SizedBox(height: 5.0),
+                            primaryTextField(
+                              null,
+                              cardList.isEmpty ? null : null,
+                              "",
+                              (val) => validThrough = val,
+                              CardUtils.validateDate,
+                              false,
+                              _autoValidate,
+                              false,
+                              TextInputType.number,
+                              <TextInputFormatter>[
+                                WhitelistingTextInputFormatter.digitsOnly,
+                                LengthLimitingTextInputFormatter(4),
+                                CardMonthInputFormatter(),
+                              ],
+                              null,
                             ),
                           ],
                         ),
@@ -208,65 +169,26 @@ class _AddNewCardState extends State<AddNewCard> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Container(
-                              padding: const EdgeInsets.only(bottom: 5.0),
-                              child: Text(
-                                "Security Code",
-                                style: GoogleFonts.montserrat(
-                                    color: MColors.textGrey),
-                              ),
+                            Text(
+                              "Security code",
+                              style: normalFont(MColors.textGrey, null),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 10.0),
-                              child: TextFormField(
-                                initialValue: cardList.isEmpty ? null : null,
-                                onSaved: (val) => securityCode = val,
-                                inputFormatters: <TextInputFormatter>[
-                                  WhitelistingTextInputFormatter.digitsOnly,
-                                  LengthLimitingTextInputFormatter(3),
-                                ],
-                                keyboardType: TextInputType.number,
-                                validator: CardUtils.validateCVV,
-                                decoration: InputDecoration(
-                                  labelText: "",
-                                  contentPadding:
-                                      EdgeInsets.symmetric(horizontal: 25.0),
-                                  fillColor: MColors.primaryWhite,
-                                  floatingLabelBehavior:
-                                      FloatingLabelBehavior.never,
-                                  filled: true,
-                                  enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(8.0),
-                                    borderSide: BorderSide(
-                                      color: MColors.textGrey,
-                                      width: 0.50,
-                                    ),
-                                  ),
-                                  errorBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(8.0),
-                                    borderSide: BorderSide(
-                                      color: Colors.red,
-                                      width: 1.0,
-                                    ),
-                                  ),
-                                  focusedErrorBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(8.0),
-                                    borderSide: BorderSide(
-                                      color: Colors.red,
-                                      width: 1.0,
-                                    ),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(8.0),
-                                    borderSide: BorderSide(
-                                      color: MColors.primaryPurple,
-                                      width: 1.0,
-                                    ),
-                                  ),
-                                ),
-                                style: GoogleFonts.montserrat(
-                                    fontSize: 17.0, color: MColors.textDark),
-                              ),
+                            SizedBox(height: 5.0),
+                            primaryTextField(
+                              null,
+                              cardList.isEmpty ? null : null,
+                              "",
+                              (val) => securityCode = val,
+                              CardUtils.validateCVV,
+                              false,
+                              _autoValidate,
+                              false,
+                              TextInputType.number,
+                              <TextInputFormatter>[
+                                WhitelistingTextInputFormatter.digitsOnly,
+                                LengthLimitingTextInputFormatter(3),
+                              ],
+                              null,
                             ),
                           ],
                         ),
@@ -274,7 +196,7 @@ class _AddNewCardState extends State<AddNewCard> {
                     ],
                   ),
                   SizedBox(
-                    height: 10.0,
+                    height: 20.0,
                   ),
                   Container(
                     height: 50.0,
