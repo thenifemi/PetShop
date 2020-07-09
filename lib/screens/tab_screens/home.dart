@@ -97,6 +97,7 @@ class _HomeScreenState extends State<HomeScreen>
                     null,
                     "Search for products",
                     null,
+                    true,
                     null,
                     false,
                     false,

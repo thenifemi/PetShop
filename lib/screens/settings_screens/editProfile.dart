@@ -169,87 +169,31 @@ class _EditProfileState extends State<EditProfile> {
                         ],
                       ),
                     ),
-                    Divider(
-                      height: 1.0,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 20.0),
-                      child: SizedBox(
-                        height: 50,
-                        width: double.infinity,
-                        child: Container(
-                          child: Row(
-                            children: <Widget>[
-                              Container(
-                                width: MediaQuery.of(context).size.width / 3,
-                                child: Text(
-                                  "Phone",
-                                  style: GoogleFonts.montserrat(
-                                    color: MColors.textGrey,
-                                    fontSize: 13.0,
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                child: TextFormField(
-                                  initialValue: user.phone,
-                                  inputFormatters: [maskTextInputFormatter],
-                                  autocorrect: true,
-                                  textAlign: TextAlign.end,
-                                  enableSuggestions: true,
-                                  autovalidate: _autoValidate,
-                                  onSaved: (val) => _phone = val,
-                                  validator: PhoneNumberValiditor.validate,
-                                  keyboardType: TextInputType.phone,
-                                  decoration: InputDecoration(
-                                    labelStyle: GoogleFonts.montserrat(
-                                        color: MColors.primaryPurple,
-                                        fontSize: 13.0,
-                                        fontWeight: FontWeight.w500),
-                                    contentPadding: new EdgeInsets.symmetric(
-                                        horizontal: 25.0),
-                                    fillColor: MColors.primaryWhite,
-                                    floatingLabelBehavior:
-                                        FloatingLabelBehavior.never,
-                                    filled: true,
-                                    enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      borderSide: BorderSide(
-                                        color: Colors.white,
-                                        width: 0.0,
-                                      ),
-                                    ),
-                                    errorBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      borderSide: BorderSide(
-                                        color: Colors.red,
-                                        width: 1.0,
-                                      ),
-                                    ),
-                                    focusedErrorBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      borderSide: BorderSide(
-                                        color: Colors.red,
-                                        width: 1.0,
-                                      ),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      borderSide: BorderSide(
-                                        color: Colors.white,
-                                        width: 0.0,
-                                      ),
-                                    ),
-                                  ),
-                                  style: GoogleFonts.montserrat(
-                                      color: MColors.primaryPurple,
-                                      fontSize: 13.0,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                              ),
-                            ],
+                    SizedBox(height: 20.0),
+                    Container(
+                      child: Column(
+                        children: <Widget>[
+                          Text(
+                            "Phone",
+                            style: normalFont(MColors.textGrey, null),
                           ),
-                        ),
+                          SizedBox(height: 5.0),
+                          primaryTextField(
+                            null,
+                            user.phone,
+                            "",
+                            (val) => _phone = val,
+                            true,
+                            (String value) =>
+                                value.isEmpty ? Strings.fieldReq : null,
+                            false,
+                            _autoValidate,
+                            true,
+                            TextInputType.phone,
+                            [maskTextInputFormatter],
+                            null,
+                          ),
+                        ],
                       ),
                     ),
                   ],
