@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:mollet/utils/cardUtils/cardStrings.dart';
-import 'package:mollet/utils/textFieldFormaters.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:mollet/widgets/allWidgets.dart';
 
@@ -81,7 +79,11 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                           false,
                           TextInputType.text,
                           null,
-                          null,
+                          GestureDetector(
+                            onTap: () => _toggle(),
+                            child: Text(_obscureText ? "Show" : "Hide",
+                                style: boldFont(MColors.primaryPurple, null)),
+                          ),
                         ),
                       ],
                     ),
@@ -92,7 +94,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          "New password",
+                          "Current password",
                           style: normalFont(MColors.textGrey, null),
                         ),
                         SizedBox(height: 5.0),
@@ -109,7 +111,11 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                           false,
                           TextInputType.text,
                           null,
-                          null,
+                          GestureDetector(
+                            onTap: () => _toggle(),
+                            child: Text(_obscureText ? "Show" : "Hide",
+                                style: boldFont(MColors.primaryPurple, null)),
+                          ),
                         ),
                       ],
                     ),
@@ -120,7 +126,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          "Confirm new password",
+                          "Current password",
                           style: normalFont(MColors.textGrey, null),
                         ),
                         SizedBox(height: 5.0),
@@ -137,7 +143,11 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                           false,
                           TextInputType.text,
                           null,
-                          null,
+                          GestureDetector(
+                            onTap: () => _toggle(),
+                            child: Text(_obscureText ? "Show" : "Hide",
+                                style: boldFont(MColors.primaryPurple, null)),
+                          ),
                         ),
                       ],
                     ),
