@@ -127,7 +127,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           child: Container(
                             child: SvgPicture.asset(
                               "assets/images/femaleAvatar.svg",
-                              height: 90.0,
+                              height: 90,
                             ),
                             decoration: new BoxDecoration(
                               shape: BoxShape.circle,

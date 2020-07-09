@@ -78,7 +78,6 @@ class _EditProfileState extends State<EditProfile> {
                     height: 90.0,
                     child: SvgPicture.asset(
                       "assets/images/femaleAvatar.svg",
-                      height: 150,
                     ),
                     decoration: new BoxDecoration(
                       shape: BoxShape.circle,

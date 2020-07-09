@@ -4,33 +4,31 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:mollet/screens/settings_screens/changePassword.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:mollet/utils/permission_handler.dart';
+import 'package:mollet/widgets/allWidgets.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class SecurityScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0.0,
-        brightness: Brightness.light,
-        backgroundColor: MColors.primaryWhite,
-        leading: IconButton(
+      appBar: primaryAppBar(
+        IconButton(
           icon: Icon(
             Icons.arrow_back_ios,
-            color: MColors.textDark,
+            color: MColors.textGrey,
           ),
           onPressed: () {
             Navigator.of(context).pop();
           },
         ),
-        title: Text(
+        Text(
           "Security",
-          style: GoogleFonts.montserrat(
-              fontSize: 20.0,
-              color: MColors.primaryPurple,
-              fontWeight: FontWeight.bold),
+          style: boldFont(MColors.primaryPurple, 18.0),
         ),
-        centerTitle: true,
+        MColors.primaryWhiteSmoke,
+        null,
+        true,
+        null,
       ),
       body: Column(
         children: <Widget>[
@@ -81,7 +79,6 @@ class SecurityScreen extends StatelessWidget {
               ),
             ]),
           ),
-
           Container(
             padding: const EdgeInsets.only(right: 20.0, left: 20.0),
             child: Column(children: <Widget>[
@@ -90,13 +87,13 @@ class SecurityScreen extends StatelessWidget {
                 width: double.infinity,
                 child: RawMaterialButton(
                   onPressed: () {
-
-                    PermissionUtil.isLocationServiceAndPermissionsActive().then((value) {
-                        if(value == false) {
-                          PermissionUtil.requestPermission(PermissionGroup.location);
-                        }
+                    PermissionUtil.isLocationServiceAndPermissionsActive()
+                        .then((value) {
+                      if (value == false) {
+                        PermissionUtil.requestPermission(
+                            PermissionGroup.location);
                       }
-                    );
+                    });
                   },
                   child: Row(
                     children: <Widget>[

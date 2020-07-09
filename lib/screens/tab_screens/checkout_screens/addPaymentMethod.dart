@@ -50,7 +50,7 @@ class _AddNewCardState extends State<AddNewCard> {
         IconButton(
           icon: Icon(
             Icons.arrow_back_ios,
-            color: MColors.textDark,
+            color: MColors.textGrey,
           ),
           onPressed: () {
             Navigator.of(context).pop();

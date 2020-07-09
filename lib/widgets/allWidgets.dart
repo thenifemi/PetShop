@@ -248,6 +248,7 @@ Widget primaryTextField(
 //PROGRESS----------------------------------
 Widget progressIndicator(Color color) {
   return Container(
+    color: MColors.primaryWhiteSmoke,
     child: Center(
       child: CircularProgressIndicator(
         strokeWidth: 2.0,
