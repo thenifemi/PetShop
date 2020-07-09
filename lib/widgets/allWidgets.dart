@@ -195,7 +195,10 @@ Widget primaryTextField(
     cursorColor: MColors.primaryPurple,
     decoration: InputDecoration(
       suffixIcon: Padding(
-        padding: const EdgeInsets.only(right: 15.0, left: 15.0),
+        padding: EdgeInsets.only(
+          right: suffix == null ? 0.0 : 15.0,
+          left: suffix == null ? 0.0 : 15.0,
+        ),
         child: suffix,
       ),
       labelText: labelText,
