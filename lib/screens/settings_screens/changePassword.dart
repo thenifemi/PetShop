@@ -79,10 +79,19 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                           false,
                           TextInputType.text,
                           null,
-                          GestureDetector(
-                            onTap: () => _toggle(),
-                            child: Text(_obscureText ? "Show" : "Hide",
-                                style: boldFont(MColors.primaryPurple, null)),
+                          SizedBox(
+                            height: 20.0,
+                            width: 35.0,
+                            child: RawMaterialButton(
+                              onPressed: _toggle,
+                              child: new Text(
+                                _obscureText ? "Show" : "Hide",
+                                style: TextStyle(
+                                  color: MColors.primaryPurple,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
                           ),
                         ),
                       ],
@@ -94,7 +103,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          "Current password",
+                          "New password",
                           style: normalFont(MColors.textGrey, null),
                         ),
                         SizedBox(height: 5.0),
@@ -111,10 +120,19 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                           false,
                           TextInputType.text,
                           null,
-                          GestureDetector(
-                            onTap: () => _toggle(),
-                            child: Text(_obscureText ? "Show" : "Hide",
-                                style: boldFont(MColors.primaryPurple, null)),
+                          SizedBox(
+                            height: 20.0,
+                            width: 35.0,
+                            child: RawMaterialButton(
+                              onPressed: _toggle,
+                              child: new Text(
+                                _obscureText ? "Show" : "Hide",
+                                style: TextStyle(
+                                  color: MColors.primaryPurple,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
                           ),
                         ),
                       ],
@@ -126,7 +144,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          "Current password",
+                          "Confirm new password",
                           style: normalFont(MColors.textGrey, null),
                         ),
                         SizedBox(height: 5.0),
@@ -143,10 +161,19 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                           false,
                           TextInputType.text,
                           null,
-                          GestureDetector(
-                            onTap: () => _toggle(),
-                            child: Text(_obscureText ? "Show" : "Hide",
-                                style: boldFont(MColors.primaryPurple, null)),
+                          SizedBox(
+                            height: 20.0,
+                            width: 35.0,
+                            child: RawMaterialButton(
+                              onPressed: _toggle,
+                              child: new Text(
+                                _obscureText ? "Show" : "Hide",
+                                style: TextStyle(
+                                  color: MColors.primaryPurple,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
                           ),
                         ),
                       ],
