@@ -172,6 +172,7 @@ class _AddNewAddressState extends State<AddNewAddress> {
                       SizedBox(width: 20.0),
                       Expanded(
                         child: Container(
+                          width: MediaQuery.of(context).size.width / 4,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
@@ -190,7 +191,7 @@ class _AddNewAddressState extends State<AddNewAddress> {
                                 false,
                                 _autoValidate,
                                 false,
-                                TextInputType.text,
+                                TextInputType.numberWithOptions(),
                                 null,
                                 null,
                               ),
