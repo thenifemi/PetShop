@@ -116,9 +116,11 @@ class _EditProfileState extends State<EditProfile> {
                   height: 20.0,
                 ),
                 Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Container(
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(
                             "Full name",
@@ -146,6 +148,7 @@ class _EditProfileState extends State<EditProfile> {
                     SizedBox(height: 20.0),
                     Container(
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(
                             "Email",
@@ -172,6 +175,7 @@ class _EditProfileState extends State<EditProfile> {
                     SizedBox(height: 20.0),
                     Container(
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(
                             "Phone",

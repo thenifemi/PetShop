@@ -193,7 +193,10 @@ Widget primaryTextField(
     inputFormatters: inputFormatters,
     autovalidate: autoValidate,
     enableSuggestions: enableSuggestions,
-    style: normalFont(MColors.textDark, 16.0),
+    style: normalFont(
+      enabled == true ? MColors.textDark : MColors.textGrey,
+      16.0,
+    ),
     cursorColor: MColors.primaryPurple,
     decoration: InputDecoration(
       suffixIcon: Padding(
