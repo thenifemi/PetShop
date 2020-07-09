@@ -29,33 +29,8 @@ class _EditProfileState extends State<EditProfile> {
   String _error;
   bool _autoValidate = false;
 
-  void _submit() async {
-    final form = formKey.currentState;
-
-    try {
-      if (form.validate()) {
-        form.save();
-        updateProfile(_name, _phone);
-        Navigator.pop(context, true);
-      } else {
-        setState(() {
-          _autoValidate = true;
-        });
-      }
-    } catch (e) {
-      setState(() {
-        _error = e.message;
-      });
-      print(_error);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    return profile(user);
-  }
-
-  Widget profile(user) {
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: MColors.primaryWhiteSmoke,
@@ -63,7 +38,7 @@ class _EditProfileState extends State<EditProfile> {
         IconButton(
           icon: Icon(
             Icons.arrow_back_ios,
-            color: MColors.textDark,
+            color: MColors.textGrey,
           ),
           onPressed: () {
             Navigator.of(context).pop();
@@ -83,7 +58,7 @@ class _EditProfileState extends State<EditProfile> {
             },
             child: Text(
               "Save",
-              style: boldFont(MColors.textDark, 16.0),
+              style: boldFont(MColors.primaryPurple, 16.0),
             ),
           )
         ],
@@ -207,5 +182,26 @@ class _EditProfileState extends State<EditProfile> {
         ),
       ),
     );
+  }
+
+  void _submit() async {
+    final form = formKey.currentState;
+
+    try {
+      if (form.validate()) {
+        form.save();
+        updateProfile(_name, _phone);
+        Navigator.pop(context, true);
+      } else {
+        setState(() {
+          _autoValidate = true;
+        });
+      }
+    } catch (e) {
+      setState(() {
+        _error = e.message;
+      });
+      print(_error);
+    }
   }
 }
