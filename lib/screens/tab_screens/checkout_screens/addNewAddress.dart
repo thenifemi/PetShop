@@ -78,6 +78,7 @@ class _AddNewAddressState extends State<AddNewAddress> {
                         addressList.isEmpty ? "" : address.fullLegalName,
                         "",
                         (val) => _fullLegalName = val,
+                        true,
                         (String value) =>
                             value.isEmpty ? Strings.fieldReq : null,
                         false,
@@ -103,6 +104,7 @@ class _AddNewAddressState extends State<AddNewAddress> {
                         addressList.isEmpty ? "" : address.addressLine1,
                         "",
                         (val) => _addressLine1 = val,
+                        true,
                         (String value) =>
                             value.isEmpty ? Strings.fieldReq : null,
                         false,
@@ -128,6 +130,7 @@ class _AddNewAddressState extends State<AddNewAddress> {
                         addressList.isEmpty ? "" : address.addressLine2,
                         "",
                         (val) => _addressLine2 = val,
+                        true,
                         (String value) =>
                             value.isEmpty ? Strings.fieldReq : null,
                         false,
@@ -157,6 +160,7 @@ class _AddNewAddressState extends State<AddNewAddress> {
                               addressList.isEmpty ? "" : address.city,
                               "",
                               (val) => _city = val,
+                              true,
                               (String value) =>
                                   value.isEmpty ? Strings.fieldReq : null,
                               false,
@@ -186,6 +190,7 @@ class _AddNewAddressState extends State<AddNewAddress> {
                                 addressList.isEmpty ? "" : address.zipcode,
                                 "",
                                 (val) => _zipcode = val,
+                                true,
                                 (String value) =>
                                     value.isEmpty ? Strings.fieldReq : null,
                                 false,
@@ -215,6 +220,7 @@ class _AddNewAddressState extends State<AddNewAddress> {
                         addressList.isEmpty ? "" : address.state,
                         "",
                         (val) => _state = val,
+                        true,
                         (String value) =>
                             value.isEmpty ? Strings.fieldReq : null,
                         false,
