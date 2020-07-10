@@ -36,18 +36,25 @@ class _OrderPlacedState extends State<OrderPlaced> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            SizedBox(
-              height: 50.0,
-            ),
+            SizedBox(height: 50.0),
             Center(
-              child: Text(
-                "Thank you!",
-                style: boldFont(MColors.textDark, 20.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    "Thank you!",
+                    style: boldFont(MColors.textDark, 20.0),
+                  ),
+                  SizedBox(width: 5.0),
+                  Container(
+                    child: Icon(Icons.check_circle_outline,
+                        color: Colors.green, size: 20.0),
+                  ),
+                ],
               ),
             ),
-            SizedBox(
-              height: 20.0,
-            ),
+            SizedBox(height: 20.0),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 100.0),
               child: Center(
@@ -58,9 +65,7 @@ class _OrderPlacedState extends State<OrderPlaced> {
                 ),
               ),
             ),
-            SizedBox(
-              height: 20.0,
-            ),
+            SizedBox(height: 20.0),
             Container(
               padding: const EdgeInsets.all(20.0),
               child: SvgPicture.asset(
