@@ -49,7 +49,7 @@ class _OrderPlacedState extends State<OrderPlaced> {
                   SizedBox(width: 5.0),
                   Container(
                     child: Icon(Icons.check_circle_outline,
-                        color: Colors.green, size: 20.0),
+                        color: Colors.green, size: 30.0),
                   ),
                 ],
               ),
