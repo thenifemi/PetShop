@@ -6,12 +6,12 @@ import 'package:mollet/model/services/auth_service.dart';
 import 'package:mollet/model/services/user_management.dart';
 import 'package:mollet/screens/settings_screens/cards.dart';
 import 'package:mollet/screens/settings_screens/editProfile.dart';
-import 'package:mollet/screens/settings_screens/inviteFriend.dart';
 import 'package:mollet/screens/settings_screens/passwordSecurity.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:mollet/widgets/allWidgets.dart';
 import 'package:mollet/widgets/provider.dart';
 import 'package:provider/provider.dart';
+import 'package:wc_flutter_share/wc_flutter_share.dart';
 
 class SettingsScreen extends StatefulWidget {
   SettingsScreen({Key key}) : super(key: key);
@@ -94,11 +94,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
         );
       },
       () {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (_) => InviteFriendScreen(),
-          ),
-        );
+        WcFlutterShare.share(
+            sharePopupTitle: 'Pet Shop',
+            subject: 'Hi!',
+            text:
+                'Hi, I use Pet Shop to care for my pets fast and easy, Download it here at https://github.com/thenifemi/PetShop and for every download, a dog gets a treat.',
+            mimeType: 'text/plain');
       },
       () {},
       () {},
