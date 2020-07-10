@@ -6,6 +6,7 @@ import 'package:mollet/model/notifiers/userData_notifier.dart';
 import 'package:mollet/model/services/user_management.dart';
 import 'package:mollet/screens/tab_screens/checkout_screens/addNewAddress.dart';
 import 'package:mollet/screens/tab_screens/checkout_screens/addPaymentMethod.dart';
+import 'package:mollet/screens/tab_screens/checkout_screens/orderPlaced.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:provider/provider.dart';
 import 'package:mollet/widgets/allWidgets.dart';
@@ -80,7 +81,7 @@ class _AddressContainerState extends State<AddressContainer> {
         IconButton(
           icon: Icon(
             Icons.arrow_back_ios,
-            color: MColors.textDark,
+            color: MColors.textGrey,
           ),
           onPressed: () {
             Navigator.of(context).pop();
@@ -194,7 +195,13 @@ class _AddressContainerState extends State<AddressContainer> {
         child: primaryButtonPurple(
           Text("Proceed to Payment",
               style: boldFont(MColors.primaryWhite, 16.0)),
-          () {},
+          () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (_) => OrderPlaced(),
+              ),
+            );
+          },
         ),
       ),
     );
