@@ -94,12 +94,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         );
       },
       () {
-        WcFlutterShare.share(
-            sharePopupTitle: 'Pet Shop',
-            subject: 'Hi!',
-            text:
-                'Hi, I use Pet Shop to care for my pets fast and easy, Download it here at https://github.com/thenifemi/PetShop and for every download, a dog gets a treat.',
-            mimeType: 'text/plain');
+        shareWidget();
       },
       () {},
       () {},

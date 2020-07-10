@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mollet/utils/colors.dart';
+import 'package:wc_flutter_share/wc_flutter_share.dart';
 
 //SCAFFOLDS-----------------------------------
 Widget primaryContainer(
@@ -395,5 +396,16 @@ Widget warningWidget() {
       ),
     ),
   );
+}
+//-------------------------------------------
+
+//SHARE WIDGET-------------------------------
+Future shareWidget() {
+  return WcFlutterShare.share(
+      sharePopupTitle: 'Pet Shop',
+      subject: 'Hi!',
+      text:
+          'Hi, I use Pet Shop to care for my pets fast and easy, Download it here at https://github.com/thenifemi/PetShop and for every download, a dog gets a treat.',
+      mimeType: 'text/plain');
 }
 //-------------------------------------------
