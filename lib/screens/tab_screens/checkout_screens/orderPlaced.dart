@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:mollet/main.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:mollet/widgets/allWidgets.dart';
+import 'package:mollet/widgets/tabsLayout.dart';
 
 class OrderPlaced extends StatefulWidget {
   OrderPlaced({Key key}) : super(key: key);
@@ -92,6 +94,17 @@ class _OrderPlacedState extends State<OrderPlaced> {
                   ),
                 ],
               ),
+            ),
+            SizedBox(height: 40.0),
+            primaryButtonPurple(
+              Text("Great!", style: boldFont(MColors.primaryWhite, 16.0)),
+              () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => TabsLayout(),
+                  ),
+                );
+              },
             ),
           ],
         ),

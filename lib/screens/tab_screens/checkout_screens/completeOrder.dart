@@ -193,8 +193,7 @@ class _AddressContainerState extends State<AddressContainer> {
         color: MColors.primaryWhite,
         padding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 15.0),
         child: primaryButtonPurple(
-          Text("Proceed to Payment",
-              style: boldFont(MColors.primaryWhite, 16.0)),
+          Text("Place order", style: boldFont(MColors.primaryWhite, 16.0)),
           () {
             Navigator.of(context).push(
               MaterialPageRoute(
