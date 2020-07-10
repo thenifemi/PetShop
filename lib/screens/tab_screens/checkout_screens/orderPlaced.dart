@@ -19,11 +19,9 @@ class _OrderPlacedState extends State<OrderPlaced> {
         IconButton(
           icon: Icon(
             Icons.arrow_back_ios,
-            color: MColors.textGrey,
+            color: MColors.primaryWhiteSmoke,
           ),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
+          onPressed: () {},
         ),
         null,
         MColors.primaryWhiteSmoke,
@@ -77,7 +75,24 @@ class _OrderPlacedState extends State<OrderPlaced> {
                 textAlign: TextAlign.center,
               ),
             ),
-            SizedBox(height: 20.0),
+            SizedBox(height: 40.0),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: Column(
+                children: <Widget>[
+                  Text(
+                    "Your purchased items will be delivered to",
+                    style: normalFont(MColors.textGrey, 16),
+                    textAlign: TextAlign.center,
+                  ),
+                  Text(
+                    "Apt 1902, Bela Monte Condo, Rua João Pedro, Centro",
+                    style: boldFont(MColors.textGrey, 16),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),
