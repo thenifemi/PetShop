@@ -101,7 +101,7 @@ class _OrderPlacedState extends State<OrderPlaced> {
               () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (_) => TabsLayout(),
+                    builder: (_) => MyApp(),
                   ),
                 );
               },
