@@ -3,7 +3,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:mollet/main.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:mollet/widgets/allWidgets.dart';
-import 'package:mollet/widgets/tabsLayout.dart';
 
 class OrderPlaced extends StatefulWidget {
   OrderPlaced({Key key}) : super(key: key);

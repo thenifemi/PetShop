@@ -11,7 +11,6 @@ import 'package:mollet/utils/colors.dart';
 import 'package:mollet/widgets/allWidgets.dart';
 import 'package:mollet/widgets/provider.dart';
 import 'package:provider/provider.dart';
-import 'package:wc_flutter_share/wc_flutter_share.dart';
 
 class SettingsScreen extends StatefulWidget {
   SettingsScreen({Key key}) : super(key: key);
