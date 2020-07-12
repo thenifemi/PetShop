@@ -7,6 +7,7 @@ import 'package:mollet/model/services/user_management.dart';
 import 'package:mollet/screens/settings_screens/cards.dart';
 import 'package:mollet/screens/settings_screens/editProfile.dart';
 import 'package:mollet/screens/settings_screens/passwordSecurity.dart';
+import 'package:mollet/screens/tab_screens/checkout_screens/enterAddress.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:mollet/widgets/allWidgets.dart';
 import 'package:mollet/widgets/provider.dart';
@@ -64,6 +65,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     final listTileIcons = [
       "assets/images/password.svg",
       "assets/images/icons/Wallet.svg",
+      "assets/images/icons/Location.svg",
       "assets/images/gift.svg",
       "assets/images/help.svg",
       "assets/images/question.svg",
@@ -72,6 +74,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     final listTileNames = [
       "Security",
       "Cards",
+      "Address",
       "Invite a friend",
       "Help",
       "FAQs",
@@ -89,6 +92,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (_) => Cards1(),
+          ),
+        );
+      },
+      () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (_) => EnterAddress(),
           ),
         );
       },
