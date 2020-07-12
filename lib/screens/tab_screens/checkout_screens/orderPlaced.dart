@@ -42,7 +42,7 @@ class _OrderPlacedState extends State<OrderPlaced> {
                 width: 70.0,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Colors.purple[50],
+                  color: MColors.dashPurple,
                 ),
                 child: Icon(
                   Icons.check,
@@ -106,7 +106,7 @@ class _OrderPlacedState extends State<OrderPlaced> {
             ),
             SizedBox(height: 40.0),
             primaryButtonPurple(
-              Text("Great!", style: boldFont(MColors.primaryWhite, 16.0)),
+              Text("Back home", style: boldFont(MColors.primaryWhite, 16.0)),
               () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
