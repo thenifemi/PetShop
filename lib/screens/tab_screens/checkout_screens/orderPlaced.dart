@@ -35,22 +35,27 @@ class _OrderPlacedState extends State<OrderPlaced> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            SizedBox(height: 50.0),
+            SizedBox(height: 20.0),
             Center(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    "Thank you!",
-                    style: boldFont(MColors.textDark, 20.0),
-                  ),
-                  SizedBox(width: 5.0),
-                  Container(
-                    child: Icon(Icons.check_circle_outline,
-                        color: Colors.green, size: 30.0),
-                  ),
-                ],
+              child: Container(
+                height: 70.0,
+                width: 70.0,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.purple[50],
+                ),
+                child: Icon(
+                  Icons.check,
+                  color: Colors.green,
+                  size: 20.0,
+                ),
+              ),
+            ),
+            SizedBox(height: 20.0),
+            Center(
+              child: Text(
+                "Thank you!",
+                style: boldFont(MColors.textDark, 20.0),
               ),
             ),
             SizedBox(height: 20.0),

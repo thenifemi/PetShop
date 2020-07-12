@@ -124,7 +124,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               "assets/images/femaleAvatar.svg",
                               height: 90,
                             ),
-                            decoration: new BoxDecoration(
+                            decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               color: MColors.dashPurple,
                             ),
