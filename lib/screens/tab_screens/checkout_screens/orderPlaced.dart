@@ -46,8 +46,8 @@ class _OrderPlacedState extends State<OrderPlaced> {
                 ),
                 child: Icon(
                   Icons.check,
-                  color: Colors.green,
-                  size: 20.0,
+                  color: MColors.primaryPurple,
+                  size: 30.0,
                 ),
               ),
             ),
@@ -64,7 +64,7 @@ class _OrderPlacedState extends State<OrderPlaced> {
               child: Center(
                 child: Text(
                   "Your order has been successfully placed",
-                  style: normalFont(MColors.textGrey, 16.0),
+                  style: boldFont(MColors.textGrey, 16.0),
                   textAlign: TextAlign.center,
                 ),
               ),
