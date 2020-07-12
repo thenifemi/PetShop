@@ -182,7 +182,7 @@ Widget primaryTextField(
   TextInputType keyboardType,
   List<TextInputFormatter> inputFormatters,
   Widget suffix,
-  double textfeildBorder,
+  double textfieldBorder,
 ) {
   return TextFormField(
     controller: controller,
@@ -209,7 +209,7 @@ Widget primaryTextField(
         child: suffix,
       ),
       labelText: labelText,
-      labelStyle: normalFont(null, 16.0),
+      labelStyle: normalFont(null, 14.0),
       contentPadding: EdgeInsets.symmetric(horizontal: 25.0),
       fillColor: MColors.primaryWhite,
       floatingLabelBehavior: FloatingLabelBehavior.never,
@@ -217,8 +217,8 @@ Widget primaryTextField(
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(8.0),
         borderSide: BorderSide(
-          color: MColors.textGrey,
-          width: textfeildBorder,
+          color: textfieldBorder == 0.0 ? Colors.transparent : MColors.textGrey,
+          width: textfieldBorder,
         ),
       ),
       errorBorder: OutlineInputBorder(
