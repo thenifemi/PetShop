@@ -182,6 +182,7 @@ Widget primaryTextField(
   TextInputType keyboardType,
   List<TextInputFormatter> inputFormatters,
   Widget suffix,
+  double textfeildBorder,
 ) {
   return TextFormField(
     controller: controller,
@@ -217,7 +218,7 @@ Widget primaryTextField(
         borderRadius: BorderRadius.circular(8.0),
         borderSide: BorderSide(
           color: MColors.textGrey,
-          width: 0.50,
+          width: textfeildBorder,
         ),
       ),
       errorBorder: OutlineInputBorder(

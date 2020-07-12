@@ -91,6 +91,7 @@ class _ResetScreenState extends State<ResetScreen> {
                       TextInputType.emailAddress,
                       null,
                       null,
+                      0.50,
                     ),
                     SizedBox(height: 10.0),
                     Container(

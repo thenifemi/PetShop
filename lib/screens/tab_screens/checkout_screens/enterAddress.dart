@@ -38,6 +38,7 @@ class _EnterAddressState extends State<EnterAddress> {
             Container(
               child: Column(
                 children: <Widget>[
+                  SizedBox(height: 20.0),
                   Container(
                     child: primaryTextField(
                       null,
@@ -56,6 +57,7 @@ class _EnterAddressState extends State<EnterAddress> {
                         color: MColors.textGrey,
                         height: 16.0,
                       ),
+                      0.0,
                     ),
                   ),
                   SizedBox(height: 10.0),
@@ -199,6 +201,7 @@ class _EnterAddressState extends State<EnterAddress> {
           ],
         ),
       ),
+      bottomNavigationBar: warningWidget(),
     );
   }
 }
