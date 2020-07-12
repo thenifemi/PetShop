@@ -25,7 +25,7 @@ class _EnterAddressState extends State<EnterAddress> {
         ),
         Text(
           "Shipping address",
-          style: boldFont(MColors.primaryPurple, 18.0),
+          style: boldFont(MColors.primaryPurple, 16.0),
         ),
         MColors.primaryWhiteSmoke,
         null,
@@ -66,42 +66,57 @@ class _EnterAddressState extends State<EnterAddress> {
                     ),
                   ),
                   SizedBox(height: 10.0),
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    padding: EdgeInsets.all(20.0),
-                    decoration: BoxDecoration(
-                      color: MColors.primaryWhite,
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10.0),
+                  GestureDetector(
+                    onTap: () {},
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      padding: EdgeInsets.all(20.0),
+                      decoration: BoxDecoration(
+                        color: MColors.primaryWhite,
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10.0),
+                        ),
                       ),
-                    ),
-                    child: Column(
-                      children: <Widget>[
-                        Row(
-                          children: <Widget>[
-                            Container(
-                              child: SvgPicture.asset(
-                                "assets/images/icons/Discovery.svg",
-                                color: MColors.primaryPurple,
-                              ),
-                            ),
-                            SizedBox(width: 5.0),
-                            Expanded(
-                              child: Container(
-                                child: Text(
-                                  "Use current location",
-                                  style: boldFont(MColors.textDark, 14.0),
+                      child: Column(
+                        children: <Widget>[
+                          Row(
+                            children: <Widget>[
+                              Container(
+                                child: SvgPicture.asset(
+                                  "assets/images/icons/Discovery.svg",
+                                  color: MColors.primaryPurple,
                                 ),
                               ),
+                              SizedBox(width: 5.0),
+                              Expanded(
+                                child: Container(
+                                  child: Text(
+                                    "Use current location",
+                                    style: boldFont(MColors.textDark, 14.0),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Container(
+                            padding: const EdgeInsets.only(
+                              left: 25.0,
                             ),
-                          ],
-                        ),
-                      ],
+                            child: Text(
+                              "Apt 1902, Bela Monte Condo, Rua João Pedro, Centro",
+                              style: normalFont(MColors.textGrey, 14.0),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   )
                 ],
               ),
             ),
+            SizedBox(height: 20.0),
+            Divider(height: 1.0),
+            SizedBox(height: 20.0),
           ],
         ),
       ),
