@@ -117,6 +117,85 @@ class _EnterAddressState extends State<EnterAddress> {
             SizedBox(height: 20.0),
             Divider(height: 1.0),
             SizedBox(height: 20.0),
+            Container(
+              width: MediaQuery.of(context).size.width,
+              padding: EdgeInsets.all(20.0),
+              decoration: BoxDecoration(
+                color: MColors.primaryWhite,
+                borderRadius: BorderRadius.all(
+                  Radius.circular(10.0),
+                ),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Row(
+                    children: <Widget>[
+                      Container(
+                        child: SvgPicture.asset(
+                          "assets/images/icons/Home.svg",
+                          color: MColors.primaryPurple,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 5.0,
+                      ),
+                      Expanded(
+                        child: Container(
+                          child: Text(
+                            "Saved address",
+                            style: boldFont(MColors.textDark, 14.0),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        width: 60.0,
+                        height: 25.0,
+                        child: RawMaterialButton(
+                          onPressed: () async {
+                            // UserDataAddressNotifier addressNotifier =
+                            //     Provider.of<UserDataAddressNotifier>(context,
+                            //         listen: false);
+                            // var navigationResult =
+                            //     await Navigator.of(context).push(
+                            //   MaterialPageRoute(
+                            //     builder: (context) =>
+                            //         AddNewAddress(address, addressList),
+                            //   ),
+                            // );
+                            // if (navigationResult == true) {
+                            //   setState(() {
+                            //     getAddress(addressNotifier);
+                            //   });
+                            //   showSimpleSnack(
+                            //     "Address has been updated",
+                            //     Icons.check_circle_outline,
+                            //     Colors.green,
+                            //     _scaffoldKey,
+                            //   );
+                            // }
+                          },
+                          child: Text(
+                            "select",
+                            style: boldFont(MColors.primaryPurple, 14.0),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Container(
+                    padding: EdgeInsets.only(left: 25.0),
+                    child: Container(
+                      child: Text(
+                        "Apt 1902, Bela Monte Condo, Rua João Pedro, Centro, Blumenau - SC",
+                        style: normalFont(MColors.textGrey, 14.0),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),
