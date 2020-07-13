@@ -140,9 +140,7 @@ class _EnterAddressState extends State<EnterAddress> {
                           color: MColors.primaryPurple,
                         ),
                       ),
-                      SizedBox(
-                        width: 5.0,
-                      ),
+                      SizedBox(width: 5.0),
                       Expanded(
                         child: Container(
                           child: Text(
