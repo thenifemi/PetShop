@@ -8,27 +8,22 @@ import 'package:mollet/model/notifiers/products_notifier.dart';
 import 'package:mollet/model/services/auth_service.dart';
 
 //Getting products
-addAndApdateData(cartItem) async {
-  final db = Firestore.instance;
-  // final uid = await AuthService().getCurrentUID();
-  final uEmail = await AuthService().getCurrentEmail();
+getProdProducts(ProductsNotifier productsNotifier) async {
+  QuerySnapshot snapshot =
+      await Firestore.instance.collection("food").getDocuments();
 
-  if (cartItem.quantity >= 9) {
-    cartItem.quantity = cartItem.quantity = 9;
-  } else {
-    cartItem.quantity = cartItem.quantity + 1;
-  }
-  cartItem.totalPrice = cartItem.price * cartItem.quantity;
+  List<ProdProducts> _prodProductsList = [];
 
-  CollectionReference cartRef =
-      db.collection("userCart").document(uEmail).collection("cartItems");
+  snapshot.documents.forEach((document) {
+    ProdProducts prodProducts = ProdProducts.fromMap(document.data);
 
-  await cartRef.document(cartItem.productID).updateData(
-    {'quantity': cartItem.quantity, 'totalPrice': cartItem.totalPrice},
-  );
+    _prodProductsList.add(prodProducts);
+  });
+
+  productsNotifier.productsList = _prodProductsList;
 }
 
-//Getting brands
+//Adding users' product to cart
 addProductToCart(product) async {
   final db = Firestore.instance;
   final uEmail = await AuthService().getCurrentEmail();
@@ -44,7 +39,7 @@ addProductToCart(product) async {
   });
 }
 
-//Getting users' cart
+//Getting brands
 getBrands(BrandsNotifier brandsNotifier) async {
   QuerySnapshot snapshot =
       await Firestore.instance.collection("brands").getDocuments();
@@ -59,7 +54,7 @@ getBrands(BrandsNotifier brandsNotifier) async {
   brandsNotifier.brandsList = _brandsList;
 }
 
-//Adding users' product to cart
+//Getting users' cart
 getCart(CartNotifier cartNotifier) async {
   // final uid = await AuthService().getCurrentUID();
   final uEmail = await AuthService().getCurrentEmail();
@@ -81,36 +76,27 @@ getCart(CartNotifier cartNotifier) async {
 }
 
 //Adding item quantity, Price and updating data in cart
-getProdProducts(ProductsNotifier productsNotifier) async {
-  QuerySnapshot snapshot =
-      await Firestore.instance.collection("food").getDocuments();
+addAndApdateData(cartItem) async {
+  final db = Firestore.instance;
+  // final uid = await AuthService().getCurrentUID();
+  final uEmail = await AuthService().getCurrentEmail();
 
-  List<ProdProducts> _prodProductsList = [];
+  if (cartItem.quantity >= 9) {
+    cartItem.quantity = cartItem.quantity = 9;
+  } else {
+    cartItem.quantity = cartItem.quantity + 1;
+  }
+  cartItem.totalPrice = cartItem.price * cartItem.quantity;
 
-  snapshot.documents.forEach((document) {
-    ProdProducts prodProducts = ProdProducts.fromMap(document.data);
+  CollectionReference cartRef =
+      db.collection("userCart").document(uEmail).collection("cartItems");
 
-    _prodProductsList.add(prodProducts);
-  });
-
-  productsNotifier.productsList = _prodProductsList;
+  await cartRef.document(cartItem.productID).updateData(
+    {'quantity': cartItem.quantity, 'totalPrice': cartItem.totalPrice},
+  );
 }
 
 //Subtracting item quantity, Price and updating data in cart
-removeItemFromCart(cartItem) async {
-  final db = Firestore.instance;
-  final uEmail = await AuthService().getCurrentEmail();
-  // final uid = await AuthService().getCurrentUID();
-
-  await db
-      .collection("userCart")
-      .document(uEmail)
-      .collection("cartItems")
-      .document(cartItem.productID)
-      .delete();
-}
-
-//Removing item from cart
 subAndApdateData(cartItem) async {
   final db = Firestore.instance;
   // final uid = await AuthService().getCurrentUID();
@@ -129,4 +115,18 @@ subAndApdateData(cartItem) async {
   await cartRef.document(cartItem.productID).updateData(
     {'quantity': cartItem.quantity, 'totalPrice': cartItem.totalPrice},
   );
+}
+
+//Removing item from cart
+removeItemFromCart(cartItem) async {
+  final db = Firestore.instance;
+  final uEmail = await AuthService().getCurrentEmail();
+  // final uid = await AuthService().getCurrentUID();
+
+  await db
+      .collection("userCart")
+      .document(uEmail)
+      .collection("cartItems")
+      .document(cartItem.productID)
+      .delete();
 }
