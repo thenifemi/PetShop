@@ -108,7 +108,7 @@ class _OrderPlacedState extends State<OrderPlaced> {
             primaryButtonPurple(
               Text("Back home", style: boldFont(MColors.primaryWhite, 16.0)),
               () {
-                Navigator.of(context).push(
+                Navigator.of(context).pushReplacement(
                   MaterialPageRoute(
                     builder: (_) => MyApp(),
                   ),
