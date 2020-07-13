@@ -35,7 +35,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
         ),
         Text(
           "Change password",
-          style: boldFont(MColors.primaryPurple, 18.0),
+          style: boldFont(MColors.primaryPurple, 16.0),
         ),
         MColors.primaryWhiteSmoke,
         null,
@@ -45,7 +45,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
             onPressed: () {},
             child: Text(
               "Save",
-              style: boldFont(MColors.primaryPurple, 16.0),
+              style: boldFont(MColors.primaryPurple, 14.0),
             ),
           )
         ],

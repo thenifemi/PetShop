@@ -56,7 +56,7 @@ class _CardsState extends State<Cards> {
         ),
         Text(
           "Cards",
-          style: boldFont(MColors.primaryPurple, 18.0),
+          style: boldFont(MColors.primaryPurple, 16.0),
         ),
         MColors.primaryWhiteSmoke,
         null,

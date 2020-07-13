@@ -46,7 +46,7 @@ class _EditProfileState extends State<EditProfile> {
         ),
         Text(
           "Profile",
-          style: boldFont(MColors.primaryPurple, 18.0),
+          style: boldFont(MColors.primaryPurple, 16.0),
         ),
         MColors.primaryWhiteSmoke,
         null,
