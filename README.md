@@ -30,7 +30,7 @@ Pet Shop is an e-commerce application for Android built with Flutter (iOS to com
 
 Please, remember to use a rule that allows unauthenticated reads.
 
-3. Add the app to the Firebase project and save google-services.json to PROJECT/app folder
+3. Please DONT remove the google-services file.
 4. Open and run the the project with VS Code or Android Studio 3.x
 
 ## Contribution
