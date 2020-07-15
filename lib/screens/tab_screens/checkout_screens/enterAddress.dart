@@ -55,12 +55,25 @@ class _EnterAddressState extends State<EnterAddress> {
       String addressLocation = predictions[i]['description'];
       String addressNumber;
       String fullLegalName;
-      _displayResults.add(UserDataAddress(
-        addressLocation,
-        addressNumber,
-        fullLegalName,
-      ));
+
+      Map<String, dynamic> asMap() {
+        return {
+          'addressLocation': addressLocation,
+          'addressNumber': addressNumber,
+          'fullLegalName': fullLegalName,
+        };
+      }
+
+      UserDataAddress userDataAddress = UserDataAddress.fromMap(asMap());
+      _displayResults.add(userDataAddress);
+      print(asMap());
     }
+
+    UserDataAddressNotifier addressNotifier =
+        Provider.of<UserDataAddressNotifier>(context, listen: false);
+    var addressList = addressNotifier.userDataAddressList;
+    var address = addressList.first;
+    print(address);
 
     setState(() {
       showCurrentLocation = false;

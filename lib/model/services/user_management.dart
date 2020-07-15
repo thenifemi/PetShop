@@ -71,6 +71,28 @@ updateProfile(_name, _phone) async {
 // }
 
 //Adding new address
+storeAddress(
+  fullLegalName,
+  addressLocation,
+  addressNumber,
+) async {
+  final db = Firestore.instance;
+  final uEmail = await AuthService().getCurrentEmail();
+
+  await db
+      .collection("userData")
+      .document(uEmail)
+      .collection("address")
+      .document(uEmail)
+      .setData({
+    'fullLegalName': fullLegalName,
+    'addressLocation': addressLocation,
+    'addressNumber': addressNumber,
+  }).catchError((e) {
+    print(e);
+  });
+}
+
 storeNewAddress(
   fullLegalName,
   addressLine1,
