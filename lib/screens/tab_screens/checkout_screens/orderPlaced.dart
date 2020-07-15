@@ -19,7 +19,7 @@ class _OrderPlacedState extends State<OrderPlaced> {
       appBar: primaryAppBar(
         IconButton(
           icon: Icon(
-            Icons.arrow_back_ios,
+            Icons.close,
             color: MColors.primaryWhiteSmoke,
           ),
           onPressed: () {},
