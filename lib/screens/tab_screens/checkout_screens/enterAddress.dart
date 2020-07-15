@@ -20,7 +20,7 @@ class _EnterAddressState extends State<EnterAddress> {
   }
 
   void getLocationResult(String input) async {
-    if (input.isEmpty) {
+    if (input.isEmpty || input.length < 0) {
       setState(() {
         showCurrentLocation = true;
       });
@@ -266,9 +266,22 @@ class _EnterAddressState extends State<EnterAddress> {
           return Container(
             child: Column(
               children: <Widget>[
-                Text("Search result"),
-                Divider(
-                  height: 1.0,
+                Container(
+                  height: 40.0,
+                  child: Row(
+                    children: <Widget>[
+                      Container(
+                        child: SvgPicture.asset(
+                          "assets/images/icons/Location.svg",
+                          color: MColors.primaryPurple,
+                        ),
+                      ),
+                      Expanded(
+                        child: Text(
+                            "Apt 1902, Bela Monte Condo, Bela Monte Condo, Rua João Pedro, Centro"),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
