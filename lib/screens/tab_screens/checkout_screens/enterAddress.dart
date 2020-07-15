@@ -1,9 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:mollet/model/data/userData.dart';
+import 'package:mollet/model/notifiers/userData_notifier.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:mollet/widgets/allWidgets.dart';
 import 'package:mollet/credentials.dart';
 import 'package:dio/dio.dart';
+import 'package:provider/provider.dart';
+
+class Address extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider<UserDataAddressNotifier>(
+      create: (context) => UserDataAddressNotifier(),
+      child: EnterAddress(),
+    );
+  }
+}
 
 class EnterAddress extends StatefulWidget {
   @override
@@ -34,7 +47,20 @@ class _EnterAddressState extends State<EnterAddress> {
 
     String request = '$baseURL?input=$input&key=$PLACES_API_KEY&type=$type';
     Response response = await Dio().get(request);
-    print(response);
+    final predictions = response.data['predictions'];
+
+    List<UserDataAddress> _displayResults = [];
+
+    for (var i = 0; i < predictions.length; i++) {
+      String addressLocation = predictions[i]['description'];
+      String addressNumber;
+      String fullLegalName;
+      _displayResults.add(UserDataAddress(
+        addressLocation,
+        addressNumber,
+        fullLegalName,
+      ));
+    }
 
     setState(() {
       showCurrentLocation = false;
@@ -249,6 +275,11 @@ class _EnterAddressState extends State<EnterAddress> {
   }
 
   Widget searchResult() {
+    UserDataAddressNotifier addressNotifier =
+        Provider.of<UserDataAddressNotifier>(context);
+    var addressList = addressNotifier.userDataAddressList;
+    var address = addressList.first;
+
     return Container(
       width: MediaQuery.of(context).size.width,
       padding: EdgeInsets.all(20.0),
@@ -277,8 +308,7 @@ class _EnterAddressState extends State<EnterAddress> {
                         ),
                       ),
                       Expanded(
-                        child: Text(
-                            "Apt 1902, Bela Monte Condo, Bela Monte Condo, Rua João Pedro, Centro"),
+                        child: Text(address.addressLocation),
                       ),
                     ],
                   ),

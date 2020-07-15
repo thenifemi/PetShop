@@ -98,7 +98,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       () {
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (_) => EnterAddress(),
+            builder: (_) => Address(),
           ),
         );
       },

@@ -19,30 +19,27 @@ class UserDataProfile {
 }
 
 class UserDataAddress {
+  String addressLocation;
+  String addressNumber;
   String fullLegalName;
-  String addressLine1;
-  String addressLine2;
-  String city;
-  String zipcode;
-  String state;
+
+  UserDataAddress(
+    this.addressLocation,
+    this.addressNumber,
+    this.fullLegalName,
+  );
 
   UserDataAddress.fromMap(Map<String, dynamic> data) {
+    addressLocation = data["addressLocation"];
+    addressNumber = data["addressNumber"];
     fullLegalName = data["fullLegalName"];
-    addressLine1 = data["addressLine1"];
-    addressLine2 = data["addressLine2"];
-    city = data["city"];
-    zipcode = data["zipcode"];
-    state = data["state"];
   }
 
   Map<String, dynamic> toMap() {
     return {
+      'addressLocation': addressLocation,
+      'addressNumber': addressNumber,
       'fullLegalName': fullLegalName,
-      'addressLine1': addressLine1,
-      'addressLine2': addressLine2,
-      'city': city,
-      'zipcode': zipcode,
-      'state': state,
     };
   }
 }

@@ -292,15 +292,10 @@ class _AddressContainerState extends State<AddressContainer> {
                 SizedBox(height: 5.0),
                 Container(
                   child: Text(
-                    address.addressLine1 +
+                    "Number " +
+                        address.addressNumber +
                         ", " +
-                        address.addressLine2 +
-                        ", " +
-                        address.city +
-                        ", " +
-                        address.zipcode +
-                        ", " +
-                        address.state,
+                        address.addressLocation,
                     style: normalFont(MColors.textGrey, 14.0),
                   ),
                 ),

@@ -102,7 +102,7 @@ class _AddNewAddressState extends State<AddNewAddress> {
                       SizedBox(height: 5.0),
                       primaryTextField(
                         null,
-                        addressList.isEmpty ? "" : address.addressLine1,
+                        addressList.isEmpty ? "" : "address.addressLine1",
                         "",
                         (val) => _addressLine1 = val,
                         true,
@@ -129,7 +129,7 @@ class _AddNewAddressState extends State<AddNewAddress> {
                       SizedBox(height: 5.0),
                       primaryTextField(
                         null,
-                        addressList.isEmpty ? "" : address.addressLine2,
+                        addressList.isEmpty ? "" : "address.addressLine2",
                         "",
                         (val) => _addressLine2 = val,
                         true,
@@ -160,7 +160,7 @@ class _AddNewAddressState extends State<AddNewAddress> {
                             SizedBox(height: 5.0),
                             primaryTextField(
                               null,
-                              addressList.isEmpty ? "" : address.city,
+                              addressList.isEmpty ? "" : "address.city",
                               "",
                               (val) => _city = val,
                               true,
@@ -191,7 +191,7 @@ class _AddNewAddressState extends State<AddNewAddress> {
                               SizedBox(height: 5.0),
                               primaryTextField(
                                 null,
-                                addressList.isEmpty ? "" : address.zipcode,
+                                addressList.isEmpty ? "" : "address.zipcode",
                                 "",
                                 (val) => _zipcode = val,
                                 true,
@@ -222,7 +222,7 @@ class _AddNewAddressState extends State<AddNewAddress> {
                       SizedBox(height: 5.0),
                       primaryTextField(
                         null,
-                        addressList.isEmpty ? "" : address.state,
+                        addressList.isEmpty ? "" : "address.state",
                         "",
                         (val) => _state = val,
                         true,
