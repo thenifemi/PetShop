@@ -245,6 +245,85 @@ Widget primaryTextField(
     ),
   );
 }
+
+Widget searchTextField(
+  TextEditingController controller,
+  String initialValue,
+  String labelText,
+  void Function(String) onsaved,
+  void Function(String) onChanged,
+  bool enabled,
+  String Function(String) validator,
+  bool obscureText,
+  bool autoValidate,
+  bool enableSuggestions,
+  TextInputType keyboardType,
+  List<TextInputFormatter> inputFormatters,
+  Widget suffix,
+  double textfieldBorder,
+) {
+  return TextFormField(
+    controller: controller,
+    initialValue: initialValue,
+    onSaved: onsaved,
+    onChanged: onChanged,
+    enabled: enabled,
+    validator: validator,
+    obscureText: obscureText,
+    keyboardType: keyboardType,
+    inputFormatters: inputFormatters,
+    autovalidate: autoValidate,
+    enableSuggestions: enableSuggestions,
+    style: normalFont(
+      enabled == true ? MColors.textDark : MColors.textGrey,
+      16.0,
+    ),
+    cursorColor: MColors.primaryPurple,
+    decoration: InputDecoration(
+      suffixIcon: Padding(
+        padding: EdgeInsets.only(
+          right: suffix == null ? 0.0 : 15.0,
+          left: suffix == null ? 0.0 : 15.0,
+        ),
+        child: suffix,
+      ),
+      labelText: labelText,
+      labelStyle: normalFont(null, 14.0),
+      contentPadding: EdgeInsets.symmetric(horizontal: 25.0),
+      fillColor: MColors.primaryWhite,
+      floatingLabelBehavior: FloatingLabelBehavior.never,
+      filled: true,
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8.0),
+        borderSide: BorderSide(
+          color: textfieldBorder == 0.0 ? Colors.transparent : MColors.textGrey,
+          width: textfieldBorder,
+        ),
+      ),
+      errorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8.0),
+        borderSide: BorderSide(
+          color: Colors.red,
+          width: 1.0,
+        ),
+      ),
+      focusedErrorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8.0),
+        borderSide: BorderSide(
+          color: Colors.red,
+          width: 1.0,
+        ),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8.0),
+        borderSide: BorderSide(
+          color: MColors.primaryPurple,
+          width: 1.0,
+        ),
+      ),
+    ),
+  );
+}
 //-------------------------------------------
 
 //PROGRESS----------------------------------
