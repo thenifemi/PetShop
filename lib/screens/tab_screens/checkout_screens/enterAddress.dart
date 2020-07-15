@@ -275,11 +275,6 @@ class _EnterAddressState extends State<EnterAddress> {
   }
 
   Widget searchResult() {
-    UserDataAddressNotifier addressNotifier =
-        Provider.of<UserDataAddressNotifier>(context);
-    var addressList = addressNotifier.userDataAddressList;
-    var address = addressList.first;
-
     return Container(
       width: MediaQuery.of(context).size.width,
       padding: EdgeInsets.all(20.0),
@@ -308,7 +303,8 @@ class _EnterAddressState extends State<EnterAddress> {
                         ),
                       ),
                       Expanded(
-                        child: Text(address.addressLocation),
+                        child: Text(
+                            "addressList.isEmpty: address.addressLocation"),
                       ),
                     ],
                   ),
