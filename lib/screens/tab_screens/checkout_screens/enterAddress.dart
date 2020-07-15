@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:mollet/widgets/allWidgets.dart';
+import 'package:mollet/credentials.dart';
+import 'package:dio/dio.dart';
 
 class EnterAddress extends StatefulWidget {
   @override
