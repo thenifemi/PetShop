@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:mollet/model/services/location_service.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:mollet/widgets/allWidgets.dart';
+import 'package:mollet/credentials.dart';
+import 'package:dio/dio.dart';
 
 class EnterAddress extends StatefulWidget {
   @override
@@ -10,6 +11,36 @@ class EnterAddress extends StatefulWidget {
 }
 
 class _EnterAddressState extends State<EnterAddress> {
+  bool showCurrentLocation;
+
+  @override
+  void initState() {
+    showCurrentLocation = true;
+    super.initState();
+  }
+
+  void getLocationResult(String input) async {
+    if (input.isEmpty) {
+      setState(() {
+        showCurrentLocation = true;
+      });
+      return;
+    }
+
+    String baseURL =
+        'https://maps.googleapis.com/maps/api/place/autocomplete/json';
+    String type = '(regions)';
+    //TODO Add session token
+
+    String request = '$baseURL?input=$input&key=$PLACES_API_KEY&type=$type';
+    Response response = await Dio().get(request);
+    print(response);
+
+    setState(() {
+      showCurrentLocation = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,58 +96,9 @@ class _EnterAddressState extends State<EnterAddress> {
                     ),
                   ),
                   SizedBox(height: 10.0),
-                  Center(
-                    child: Text(
-                      "Or",
-                      style: boldFont(MColors.textGrey, 14.0),
-                    ),
-                  ),
-                  SizedBox(height: 10.0),
-                  GestureDetector(
-                    onTap: () {},
-                    child: Container(
-                      width: MediaQuery.of(context).size.width,
-                      padding: EdgeInsets.all(20.0),
-                      decoration: BoxDecoration(
-                        color: MColors.primaryWhite,
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(10.0),
-                        ),
-                      ),
-                      child: Column(
-                        children: <Widget>[
-                          Row(
-                            children: <Widget>[
-                              Container(
-                                child: SvgPicture.asset(
-                                  "assets/images/icons/Discovery.svg",
-                                  color: MColors.primaryPurple,
-                                ),
-                              ),
-                              SizedBox(width: 5.0),
-                              Expanded(
-                                child: Container(
-                                  child: Text(
-                                    "Use current location",
-                                    style: boldFont(MColors.textDark, 14.0),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          Container(
-                            padding: const EdgeInsets.only(
-                              left: 25.0,
-                            ),
-                            child: Text(
-                              "Apt 1902, Bela Monte Condo, Rua João Pedro, Centro",
-                              style: normalFont(MColors.textGrey, 14.0),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  )
+                  showCurrentLocation == true
+                      ? useCurrentLocation()
+                      : searchResult(),
                 ],
               ),
             ),
@@ -204,6 +186,95 @@ class _EnterAddressState extends State<EnterAddress> {
         ),
       ),
       bottomNavigationBar: warningWidget(),
+    );
+  }
+
+  Widget useCurrentLocation() {
+    return Column(
+      children: <Widget>[
+        Center(
+          child: Text(
+            "Or",
+            style: boldFont(MColors.textGrey, 14.0),
+          ),
+        ),
+        SizedBox(height: 10.0),
+        GestureDetector(
+          onTap: () {},
+          child: Container(
+            width: MediaQuery.of(context).size.width,
+            padding: EdgeInsets.all(20.0),
+            decoration: BoxDecoration(
+              color: MColors.primaryWhite,
+              borderRadius: BorderRadius.all(
+                Radius.circular(10.0),
+              ),
+            ),
+            child: Column(
+              children: <Widget>[
+                Row(
+                  children: <Widget>[
+                    Container(
+                      child: SvgPicture.asset(
+                        "assets/images/icons/Discovery.svg",
+                        color: MColors.primaryPurple,
+                      ),
+                    ),
+                    SizedBox(width: 5.0),
+                    Expanded(
+                      child: Container(
+                        child: Text(
+                          "Use current location",
+                          style: boldFont(MColors.textDark, 14.0),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                Container(
+                  padding: const EdgeInsets.only(
+                    left: 25.0,
+                  ),
+                  child: Text(
+                    "Apt 1902, Bela Monte Condo, Rua João Pedro, Centro",
+                    style: normalFont(MColors.textGrey, 14.0),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget searchResult() {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      padding: EdgeInsets.all(20.0),
+      decoration: BoxDecoration(
+        color: MColors.primaryWhite,
+        borderRadius: BorderRadius.all(
+          Radius.circular(10.0),
+        ),
+      ),
+      child: ListView.builder(
+        physics: NeverScrollableScrollPhysics(),
+        itemCount: 5,
+        shrinkWrap: true,
+        itemBuilder: (context, i) {
+          return Container(
+            child: Column(
+              children: <Widget>[
+                Text("Search result"),
+                Divider(
+                  height: 1.0,
+                ),
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 }
