@@ -20,7 +20,7 @@ class _OrderPlacedState extends State<OrderPlaced> {
         IconButton(
           icon: Icon(
             Icons.close,
-            color: MColors.primaryWhiteSmoke,
+            color: MColors.textGrey,
           ),
           onPressed: () {},
         ),
