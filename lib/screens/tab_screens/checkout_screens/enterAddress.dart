@@ -49,7 +49,7 @@ class _EnterAddressState extends State<EnterAddress> {
         Provider.of<UserDataAddressNotifier>(context, listen: false);
 
     if (_throttle?.isActive ?? false) _throttle.cancel();
-    _throttle = Timer(const Duration(microseconds: 350), () {
+    _throttle = Timer(const Duration(microseconds: 400), () {
       getLocationResult(_searchController.text, addressNotifier);
     });
   }
@@ -315,44 +315,64 @@ class _EnterAddressState extends State<EnterAddress> {
           Radius.circular(10.0),
         ),
       ),
-      child: ListView.builder(
-        physics: NeverScrollableScrollPhysics(),
-        itemCount: addressList.length,
-        shrinkWrap: true,
-        itemBuilder: (context, i) {
-          var address = addressList[i];
+      child: Column(
+        children: <Widget>[
+          ListView.builder(
+            physics: NeverScrollableScrollPhysics(),
+            itemCount: addressList.length,
+            shrinkWrap: true,
+            itemBuilder: (context, i) {
+              var address = addressList[i];
 
-          return GestureDetector(
-            onTap: () {
-              print(address.addressLocation);
-              setState(() {
-                showCurrentLocation = true;
-              });
-            },
-            child: Container(
-              child: Column(
-                children: <Widget>[
-                  Container(
-                    height: 40.0,
-                    child: Row(
-                      children: <Widget>[
-                        Container(
-                          child: SvgPicture.asset(
-                            "assets/images/icons/Location.svg",
-                            color: MColors.primaryPurple,
-                          ),
+              return GestureDetector(
+                onTap: () {
+                  print(address.addressLocation);
+                  setState(() {
+                    showCurrentLocation = true;
+                  });
+                },
+                child: Container(
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                        height: 40.0,
+                        child: Row(
+                          children: <Widget>[
+                            Container(
+                              child: SvgPicture.asset(
+                                "assets/images/icons/Location.svg",
+                                color: MColors.primaryPurple,
+                              ),
+                            ),
+                            SizedBox(width: 5.0),
+                            Expanded(
+                              child: Text(address.addressLocation),
+                            ),
+                          ],
                         ),
-                        Expanded(
-                          child: Text(address.addressLocation),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                ],
+                ),
+              );
+            },
+          ),
+          SizedBox(height: 10.0),
+          Container(
+            child: GestureDetector(
+              onTap: () {
+                _searchController.clear();
+                setState(() {
+                  showCurrentLocation = true;
+                });
+              },
+              child: Text(
+                "Close",
+                style: boldFont(MColors.primaryPurple, 14.0),
               ),
             ),
-          );
-        },
+          ),
+        ],
       ),
     );
   }
