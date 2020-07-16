@@ -56,7 +56,7 @@ class _EnterAddressState extends State<EnterAddress> {
 
   void getLocationResult(
       String input, UserDataAddressNotifier addressNotifier) async {
-    if (input.isEmpty || input.length < 0) {
+    if (input.isEmpty || _searchController.text.isEmpty) {
       setState(() {
         showCurrentLocation = true;
       });
