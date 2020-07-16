@@ -293,9 +293,9 @@ class _AddressContainerState extends State<AddressContainer> {
                 Container(
                   child: Text(
                     "Number " +
-                        address.addressNumber +
+                        "address.addressNumber" +
                         ", " +
-                        address.addressLocation,
+                        "address.addressLocation",
                     style: normalFont(MColors.textGrey, 14.0),
                   ),
                 ),
