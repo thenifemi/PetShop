@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mollet/model/data/userData.dart';
@@ -24,12 +26,32 @@ class EnterAddress extends StatefulWidget {
 }
 
 class _EnterAddressState extends State<EnterAddress> {
+  TextEditingController _searchController = new TextEditingController();
+  Timer _throttle;
   bool showCurrentLocation;
 
   @override
   void initState() {
     showCurrentLocation = true;
+    _searchController.addListener(_onSearchChanged);
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _searchController.removeListener(_onSearchChanged);
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  _onSearchChanged() {
+    UserDataAddressNotifier addressNotifier =
+        Provider.of<UserDataAddressNotifier>(context, listen: false);
+
+    if (_throttle?.isActive ?? false) _throttle.cancel();
+    _throttle = Timer(const Duration(microseconds: 350), () {
+      getLocationResult(_searchController.text, addressNotifier);
+    });
   }
 
   void getLocationResult(
@@ -67,7 +89,6 @@ class _EnterAddressState extends State<EnterAddress> {
 
       UserDataAddress userDataAddress = UserDataAddress.fromMap(asMap());
       _displayResults.add(userDataAddress);
-      print(asMap());
     }
     addressNotifier.userDataAddressList = _displayResults;
 
@@ -78,8 +99,6 @@ class _EnterAddressState extends State<EnterAddress> {
 
   @override
   Widget build(BuildContext context) {
-    UserDataAddressNotifier addressNotifier =
-        Provider.of<UserDataAddressNotifier>(context);
     return Scaffold(
       backgroundColor: MColors.primaryWhiteSmoke,
       appBar: primaryAppBar(
@@ -110,16 +129,11 @@ class _EnterAddressState extends State<EnterAddress> {
                   SizedBox(height: 20.0),
                   Container(
                     child: searchTextField(
-                      null,
+                      _searchController,
                       null,
                       "Search for your address",
                       null,
-                      (input) {
-                        getLocationResult(
-                          input,
-                          addressNotifier,
-                        );
-                      },
+                      null,
                       true,
                       null,
                       false,
@@ -289,6 +303,9 @@ class _EnterAddressState extends State<EnterAddress> {
   }
 
   Widget searchResult() {
+    UserDataAddressNotifier addressNotifier =
+        Provider.of<UserDataAddressNotifier>(context);
+    var addressList = addressNotifier.userDataAddressList;
     return Container(
       width: MediaQuery.of(context).size.width,
       padding: EdgeInsets.all(20.0),
@@ -300,34 +317,39 @@ class _EnterAddressState extends State<EnterAddress> {
       ),
       child: ListView.builder(
         physics: NeverScrollableScrollPhysics(),
-        itemCount: 5,
+        itemCount: addressList.length,
         shrinkWrap: true,
         itemBuilder: (context, i) {
-          UserDataAddressNotifier addressNotifier =
-              Provider.of<UserDataAddressNotifier>(context);
-          var addressList = addressNotifier.userDataAddressList;
           var address = addressList[i];
 
-          return Container(
-            child: Column(
-              children: <Widget>[
-                Container(
-                  height: 40.0,
-                  child: Row(
-                    children: <Widget>[
-                      Container(
-                        child: SvgPicture.asset(
-                          "assets/images/icons/Location.svg",
-                          color: MColors.primaryPurple,
+          return GestureDetector(
+            onTap: () {
+              print(address.addressLocation);
+              setState(() {
+                showCurrentLocation = true;
+              });
+            },
+            child: Container(
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    height: 40.0,
+                    child: Row(
+                      children: <Widget>[
+                        Container(
+                          child: SvgPicture.asset(
+                            "assets/images/icons/Location.svg",
+                            color: MColors.primaryPurple,
+                          ),
                         ),
-                      ),
-                      Expanded(
-                        child: Text(address.addressLocation),
-                      ),
-                    ],
+                        Expanded(
+                          child: Text(address.addressLocation),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           );
         },
