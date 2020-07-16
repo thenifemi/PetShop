@@ -31,7 +31,8 @@ Pet Shop is an e-commerce application for Android built with Flutter (iOS to com
 Please, remember to use a rule that allows unauthenticated reads.
 
 3. Please DONT remove the google-services file.
-4. Open and run the the project with VS Code or Android Studio 3.x
+4. The credentials.dart file is intentionaly not included. Create your own credentials file with your own API Keys.
+5. Open and run the the project with VS Code or Android Studio 3.x
 
 ## Contribution
 
