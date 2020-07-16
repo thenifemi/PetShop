@@ -38,6 +38,10 @@ Please, remember to use a rule that allows unauthenticated reads.
 
 Feature requests, issues and pull requests are welcome.
 
+## Bugs
+
+Feature requests, issues and pull requests are welcome.
+
 ## Credits
 
 Wilberforce Uwadiegwu: Mobile Developer [( github )](https://github.com/wilburt)
