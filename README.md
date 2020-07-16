@@ -40,7 +40,7 @@ Feature requests, issues and pull requests are welcome.
 
 ## Bugs
 
-Feature requests, issues and pull requests are welcome.
+If you encounter any bugs or are facing any issues with the code, please don't hesitate to reach out to me.
 
 ## Credits
 
