@@ -32,7 +32,8 @@ class _EnterAddressState extends State<EnterAddress> {
     super.initState();
   }
 
-  void getLocationResult(String input) async {
+  void getLocationResult(
+      String input, UserDataAddressNotifier addressNotifier) async {
     if (input.isEmpty || input.length < 0) {
       setState(() {
         showCurrentLocation = true;
@@ -68,12 +69,7 @@ class _EnterAddressState extends State<EnterAddress> {
       _displayResults.add(userDataAddress);
       print(asMap());
     }
-
-    UserDataAddressNotifier addressNotifier =
-        Provider.of<UserDataAddressNotifier>(context, listen: false);
-    var addressList = addressNotifier.userDataAddressList;
-    var address = addressList.first;
-    print(address);
+    addressNotifier.userDataAddressList = _displayResults;
 
     setState(() {
       showCurrentLocation = false;
@@ -82,6 +78,8 @@ class _EnterAddressState extends State<EnterAddress> {
 
   @override
   Widget build(BuildContext context) {
+    UserDataAddressNotifier addressNotifier =
+        Provider.of<UserDataAddressNotifier>(context);
     return Scaffold(
       backgroundColor: MColors.primaryWhiteSmoke,
       appBar: primaryAppBar(
@@ -117,7 +115,10 @@ class _EnterAddressState extends State<EnterAddress> {
                       "Search for your address",
                       null,
                       (input) {
-                        getLocationResult(input);
+                        getLocationResult(
+                          input,
+                          addressNotifier,
+                        );
                       },
                       true,
                       null,
@@ -302,6 +303,11 @@ class _EnterAddressState extends State<EnterAddress> {
         itemCount: 5,
         shrinkWrap: true,
         itemBuilder: (context, i) {
+          UserDataAddressNotifier addressNotifier =
+              Provider.of<UserDataAddressNotifier>(context);
+          var addressList = addressNotifier.userDataAddressList;
+          var address = addressList[i];
+
           return Container(
             child: Column(
               children: <Widget>[
@@ -316,8 +322,7 @@ class _EnterAddressState extends State<EnterAddress> {
                         ),
                       ),
                       Expanded(
-                        child: Text(
-                            "addressList.isEmpty: address.addressLocation"),
+                        child: Text(address.addressLocation),
                       ),
                     ],
                   ),
