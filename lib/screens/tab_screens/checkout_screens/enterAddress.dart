@@ -21,17 +21,24 @@ class Address extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<UserDataAddressNotifier>(
       create: (context) => UserDataAddressNotifier(),
-      child: EnterAddress(),
+      child: EnterAddress(address, addressList),
     );
   }
 }
 
 class EnterAddress extends StatefulWidget {
+  final UserDataAddress address;
+  final List<UserDataAddress> addressList;
+  EnterAddress(this.address, this.addressList);
+
   @override
-  _EnterAddressState createState() => _EnterAddressState();
+  _EnterAddressState createState() => _EnterAddressState(address, addressList);
 }
 
 class _EnterAddressState extends State<EnterAddress> {
+  final UserDataAddress address;
+  final List<UserDataAddress> addressList;
+  _EnterAddressState(this.address, this.addressList);
   final formKey = GlobalKey<FormState>();
 
   TextEditingController _searchController = new TextEditingController();
@@ -75,7 +82,6 @@ class _EnterAddressState extends State<EnterAddress> {
     String baseURL =
         'https://maps.googleapis.com/maps/api/place/autocomplete/json';
     String type = '(regions)';
-    //TODO Add session token
 
     String request = '$baseURL?input=$input&key=$PLACES_API_KEY&type=$type';
     Response response = await Dio().get(request);
@@ -168,83 +174,66 @@ class _EnterAddressState extends State<EnterAddress> {
             SizedBox(height: 20.0),
             Divider(height: 1.0),
             SizedBox(height: 20.0),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              padding: EdgeInsets.all(20.0),
-              decoration: BoxDecoration(
-                color: MColors.primaryWhite,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(10.0),
-                ),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Row(
-                    children: <Widget>[
-                      Container(
-                        child: SvgPicture.asset(
-                          "assets/images/icons/Home.svg",
-                          color: MColors.primaryPurple,
-                        ),
-                      ),
-                      SizedBox(width: 5.0),
-                      Expanded(
-                        child: Container(
-                          child: Text(
-                            "Saved address",
-                            style: boldFont(MColors.textDark, 14.0),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        width: 60.0,
-                        height: 25.0,
-                        child: RawMaterialButton(
-                          onPressed: () async {
-                            // UserDataAddressNotifier addressNotifier =
-                            //     Provider.of<UserDataAddressNotifier>(context,
-                            //         listen: false);
-                            // var navigationResult =
-                            //     await Navigator.of(context).push(
-                            //   MaterialPageRoute(
-                            //     builder: (context) =>
-                            //         AddNewAddress(address, addressList),
-                            //   ),
-                            // );
-                            // if (navigationResult == true) {
-                            //   setState(() {
-                            //     getAddress(addressNotifier);
-                            //   });
-                            //   showSimpleSnack(
-                            //     "Address has been updated",
-                            //     Icons.check_circle_outline,
-                            //     Colors.green,
-                            //     _scaffoldKey,
-                            //   );
-                            // }
-                          },
-                          child: Text(
-                            "select",
-                            style: boldFont(MColors.primaryPurple, 14.0),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Container(
-                    padding: EdgeInsets.only(left: 25.0),
-                    child: Container(
-                      child: Text(
-                        "Apt 1902, Bela Monte Condo, Rua João Pedro, Centro, Blumenau - SC",
-                        style: normalFont(MColors.textGrey, 14.0),
+            address == null
+                ? Container()
+                : Container(
+                    width: MediaQuery.of(context).size.width,
+                    padding: EdgeInsets.all(20.0),
+                    decoration: BoxDecoration(
+                      color: MColors.primaryWhite,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10.0),
                       ),
                     ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Row(
+                          children: <Widget>[
+                            Container(
+                              child: SvgPicture.asset(
+                                "assets/images/icons/Home.svg",
+                                color: MColors.primaryPurple,
+                              ),
+                            ),
+                            SizedBox(width: 5.0),
+                            Expanded(
+                              child: Container(
+                                child: Text(
+                                  "Saved address",
+                                  style: boldFont(MColors.textDark, 14.0),
+                                ),
+                              ),
+                            ),
+                            Container(
+                              width: 60.0,
+                              height: 25.0,
+                              child: RawMaterialButton(
+                                onPressed: () async {},
+                                child: Text(
+                                  "select",
+                                  style: boldFont(MColors.primaryPurple, 14.0),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(left: 25.0),
+                          child: Container(
+                            child: Text(
+                              "Number " +
+                                  address.addressNumber +
+                                  ", " +
+                                  address.addressLocation,
+                              style: normalFont(MColors.textGrey, 14.0),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ],
-              ),
-            ),
           ],
         ),
       ),
@@ -299,7 +288,7 @@ class _EnterAddressState extends State<EnterAddress> {
                     left: 25.0,
                   ),
                   child: Text(
-                    "Apt 1902, Bela Monte Condo, Rua João Pedro, Centro",
+                    "R. Ayres Gama, 222 - AP 701 - Centro, Blumenau - SC, 89012-480",
                     style: normalFont(MColors.textGrey, 14.0),
                   ),
                 ),

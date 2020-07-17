@@ -255,7 +255,7 @@ class _AddressContainerState extends State<AddressContainer> {
                             listen: false);
                     var navigationResult = await Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (_) => Address(),
+                        builder: (_) => Address(address, addressList),
                       ),
                     );
                     if (navigationResult == true) {
@@ -363,7 +363,7 @@ class _AddressContainerState extends State<AddressContainer> {
                   Provider.of<UserDataAddressNotifier>(context, listen: false);
               var navigationResult = await Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (_) => Address(),
+                  builder: (_) => Address(null, null),
                 ),
               );
               if (navigationResult == true) {
