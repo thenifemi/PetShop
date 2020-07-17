@@ -31,6 +31,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       backgroundColor: MColors.primaryWhiteSmoke,
       body: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
         child: primaryContainer(
           Column(
             mainAxisAlignment: MainAxisAlignment.start,

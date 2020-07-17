@@ -391,6 +391,7 @@ class _EnterAddressState extends State<EnterAddress> {
       builder: (builder) {
         return Scaffold(
           body: SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
             child: primaryContainer(
               Form(
                 key: formKey,
