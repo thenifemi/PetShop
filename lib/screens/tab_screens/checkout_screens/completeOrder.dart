@@ -4,7 +4,6 @@ import 'package:mollet/model/data/cart.dart';
 import 'package:mollet/model/notifiers/cart_notifier.dart';
 import 'package:mollet/model/notifiers/userData_notifier.dart';
 import 'package:mollet/model/services/user_management.dart';
-import 'package:mollet/screens/tab_screens/checkout_screens/addNewAddress.dart';
 import 'package:mollet/screens/tab_screens/checkout_screens/addPaymentMethod.dart';
 import 'package:mollet/screens/tab_screens/checkout_screens/orderPlaced.dart';
 import 'package:mollet/utils/colors.dart';
@@ -308,9 +307,9 @@ class _AddressContainerState extends State<AddressContainer> {
   }
 
   Widget noSavedAddress() {
-    UserDataAddressNotifier addressNotifier =
-        Provider.of<UserDataAddressNotifier>(context);
-    var addressList = addressNotifier.userDataAddressList;
+    // UserDataAddressNotifier addressNotifier =
+    //     Provider.of<UserDataAddressNotifier>(context);
+    // var addressList = addressNotifier.userDataAddressList;
 
     return Container(
       width: MediaQuery.of(context).size.width,
