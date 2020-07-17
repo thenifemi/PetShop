@@ -389,124 +389,130 @@ class _EnterAddressState extends State<EnterAddress> {
     showModalBottomSheet(
       context: context,
       builder: (builder) {
-        return primaryContainer(
-          Form(
-            key: formKey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                SizedBox(height: 20.0),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 40.0),
-                  child: Text(
-                    "Please enter your legal name and address number",
-                    style: boldFont(MColors.textDark, 16.0),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                SizedBox(height: 20.0),
-                Container(
-                  height: 30.0,
-                  child: SvgPicture.asset(
-                    "assets/images/icons/Location.svg",
-                    color: MColors.primaryPurple,
-                  ),
-                ),
-                SizedBox(height: 20.0),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                  child: Text(
-                    address.addressLocation,
-                    style: normalFont(MColors.textGrey, 14.0),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                SizedBox(height: 20.0),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+        return Scaffold(
+          body: SingleChildScrollView(
+            child: primaryContainer(
+              Form(
+                key: formKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
+                    SizedBox(height: 20.0),
                     Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 40.0),
                       child: Text(
-                        "Full legal name",
-                        style: normalFont(MColors.textGrey, null),
+                        "Please enter your legal name and address number",
+                        style: boldFont(MColors.textDark, 16.0),
+                        textAlign: TextAlign.center,
                       ),
                     ),
-                    SizedBox(height: 5.0),
-                    primaryTextField(
-                      null,
-                      null,
-                      null,
-                      (val) => _name = val,
-                      true,
-                      (String value) => value.isEmpty ? Strings.fieldReq : null,
-                      false,
-                      _autoValidate,
-                      true,
-                      TextInputType.text,
-                      null,
-                      null,
-                      0.50,
+                    SizedBox(height: 20.0),
+                    Container(
+                      height: 30.0,
+                      child: SvgPicture.asset(
+                        "assets/images/icons/Location.svg",
+                        color: MColors.primaryPurple,
+                      ),
                     ),
+                    SizedBox(height: 20.0),
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                      child: Text(
+                        address.addressLocation,
+                        style: normalFont(MColors.textGrey, 14.0),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    SizedBox(height: 20.0),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Container(
+                          child: Text(
+                            "Full legal name",
+                            style: normalFont(MColors.textGrey, null),
+                          ),
+                        ),
+                        SizedBox(height: 5.0),
+                        primaryTextField(
+                          null,
+                          null,
+                          null,
+                          (val) => _name = val,
+                          true,
+                          (String value) =>
+                              value.isEmpty ? Strings.fieldReq : null,
+                          false,
+                          _autoValidate,
+                          true,
+                          TextInputType.text,
+                          null,
+                          null,
+                          0.50,
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 20.0),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Container(
+                          child: Text(
+                            "Number",
+                            style: normalFont(MColors.textGrey, null),
+                          ),
+                        ),
+                        SizedBox(height: 5.0),
+                        primaryTextField(
+                          null,
+                          null,
+                          null,
+                          (val) => _number = val,
+                          true,
+                          (String value) =>
+                              value.isEmpty ? Strings.fieldReq : null,
+                          false,
+                          _autoValidate,
+                          true,
+                          TextInputType.number,
+                          null,
+                          null,
+                          0.50,
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 20.0),
+                    primaryButtonPurple(
+                        Text(
+                          "Save",
+                          style: boldFont(
+                            MColors.primaryWhite,
+                            16.0,
+                          ),
+                        ), () {
+                      final form = formKey.currentState;
+                      if (form.validate()) {
+                        form.save();
+
+                        address.addressNumber = _number;
+                        address.fullLegalName = _name;
+
+                        print(address.fullLegalName +
+                            address.addressNumber +
+                            address.addressLocation);
+
+                        int count = 0;
+                        Navigator.of(context).popUntil((_) => count++ >= 2);
+                      } else {
+                        setState(() {
+                          _autoValidate = true;
+                        });
+                      }
+                    })
                   ],
                 ),
-                SizedBox(height: 20.0),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Container(
-                      child: Text(
-                        "Number",
-                        style: normalFont(MColors.textGrey, null),
-                      ),
-                    ),
-                    SizedBox(height: 5.0),
-                    primaryTextField(
-                      null,
-                      null,
-                      null,
-                      (val) => _number = val,
-                      true,
-                      (String value) => value.isEmpty ? Strings.fieldReq : null,
-                      false,
-                      _autoValidate,
-                      true,
-                      TextInputType.number,
-                      null,
-                      null,
-                      0.50,
-                    ),
-                  ],
-                ),
-                SizedBox(height: 20.0),
-                primaryButtonPurple(
-                    Text(
-                      "Save",
-                      style: boldFont(
-                        MColors.primaryWhite,
-                        16.0,
-                      ),
-                    ), () {
-                  final form = formKey.currentState;
-                  if (form.validate()) {
-                    form.save();
-
-                    address.addressNumber = _number;
-                    address.fullLegalName = _name;
-
-                    print(address.fullLegalName +
-                        address.addressNumber +
-                        address.addressLocation);
-
-                    int count = 0;
-                    Navigator.of(context).popUntil((_) => count++ >= 2);
-                  } else {
-                    setState(() {
-                      _autoValidate = true;
-                    });
-                  }
-                })
-              ],
+              ),
             ),
           ),
         );
