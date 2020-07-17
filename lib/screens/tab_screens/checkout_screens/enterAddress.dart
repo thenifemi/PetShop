@@ -505,7 +505,7 @@ class _EnterAddressState extends State<EnterAddress> {
                             address.addressLocation);
 
                         int count = 0;
-                        Navigator.of(context).popUntil((_) => count++ >= 2);
+                        Navigator.popUntil(context, (_) => count++ >= 2);
                       } else {
                         setState(() {
                           _autoValidate = true;
