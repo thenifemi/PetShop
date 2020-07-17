@@ -336,6 +336,7 @@ class _EnterAddressState extends State<EnterAddress> {
                     showCurrentLocation = true;
                   });
                   _searchController.clear();
+                  FocusScope.of(context).unfocus();
                 },
                 child: Container(
                   child: Column(
