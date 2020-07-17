@@ -7,13 +7,16 @@ import 'package:mollet/model/notifiers/userData_notifier.dart';
 import 'package:mollet/model/services/user_management.dart';
 import 'package:mollet/utils/cardUtils/cardStrings.dart';
 import 'package:mollet/utils/colors.dart';
-import 'package:mollet/utils/textFieldFormaters.dart';
 import 'package:mollet/widgets/allWidgets.dart';
 import 'package:mollet/credentials.dart';
 import 'package:dio/dio.dart';
 import 'package:provider/provider.dart';
 
 class Address extends StatelessWidget {
+  final UserDataAddress address;
+  final List<UserDataAddress> addressList;
+  Address(this.address, this.addressList);
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<UserDataAddressNotifier>(
