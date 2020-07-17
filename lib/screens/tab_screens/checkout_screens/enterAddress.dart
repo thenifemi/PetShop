@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mollet/model/data/userData.dart';
 import 'package:mollet/model/notifiers/userData_notifier.dart';
+import 'package:mollet/model/services/user_management.dart';
 import 'package:mollet/utils/cardUtils/cardStrings.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:mollet/utils/textFieldFormaters.dart';
@@ -500,12 +501,14 @@ class _EnterAddressState extends State<EnterAddress> {
                         address.addressNumber = _number;
                         address.fullLegalName = _name;
 
-                        print(address.fullLegalName +
-                            address.addressNumber +
-                            address.addressLocation);
+                        storeAddress(
+                          address.fullLegalName,
+                          address.addressLocation,
+                          address.addressNumber,
+                        );
 
-                        int count = 0;
-                        Navigator.popUntil(context, (_) => count++ >= 2);
+                        Navigator.pop(context);
+                        Navigator.pop(context, true);
                       } else {
                         setState(() {
                           _autoValidate = true;

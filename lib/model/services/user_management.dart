@@ -60,17 +60,7 @@ updateProfile(_name, _phone) async {
   );
 }
 
-//Updating User password
-// updatePassword(password) async {
-//   final user = await AuthService().getCurrentUser();
-//   user.updatePassword(password).then((_) {
-//     print("Password changed successfully");
-//   }).catchError((e) {
-//     print("ERROR ====>>>" + e);
-//   });
-// }
-
-//Adding new address
+// Adding new address
 storeAddress(
   fullLegalName,
   addressLocation,
@@ -88,34 +78,6 @@ storeAddress(
     'fullLegalName': fullLegalName,
     'addressLocation': addressLocation,
     'addressNumber': addressNumber,
-  }).catchError((e) {
-    print(e);
-  });
-}
-
-storeNewAddress(
-  fullLegalName,
-  addressLine1,
-  addressLine2,
-  city,
-  zip,
-  state,
-) async {
-  final db = Firestore.instance;
-  final uEmail = await AuthService().getCurrentEmail();
-
-  await db
-      .collection("userData")
-      .document(uEmail)
-      .collection("address")
-      .document(uEmail)
-      .setData({
-    'fullLegalName': fullLegalName,
-    'addressLine1': addressLine1,
-    'addressLine2': addressLine2,
-    'city': city,
-    'zipcode': zip,
-    'state': state,
   }).catchError((e) {
     print(e);
   });
@@ -145,11 +107,8 @@ getAddress(UserDataAddressNotifier addressNotifier) async {
 //Updating new address
 updateAddress(
   fullLegalName,
-  addressLine1,
-  addressLine2,
-  city,
-  zip,
-  state,
+  addressLocation,
+  addressNumber,
 ) async {
   final db = Firestore.instance;
   final uEmail = await AuthService().getCurrentEmail();
@@ -159,11 +118,8 @@ updateAddress(
   await addressRef.document(uEmail).updateData(
     {
       'fullLegalName': fullLegalName,
-      'addressLine1': addressLine1,
-      'addressLine2': addressLine2,
-      'city': city,
-      'zipcode': zip,
-      'state': state,
+      'addressLocation': addressLocation,
+      'addressNumber': addressNumber,
     },
   );
 }

@@ -10,6 +10,7 @@ import 'package:mollet/screens/tab_screens/checkout_screens/orderPlaced.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:provider/provider.dart';
 import 'package:mollet/widgets/allWidgets.dart';
+import 'package:mollet/screens/tab_screens/checkout_screens/enterAddress.dart';
 
 class AddressContainer extends StatefulWidget {
   final List<Cart> cartList;
@@ -254,8 +255,7 @@ class _AddressContainerState extends State<AddressContainer> {
                             listen: false);
                     var navigationResult = await Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) =>
-                            AddNewAddress(address, addressList),
+                        builder: (_) => Address(),
                       ),
                     );
                     if (navigationResult == true) {
@@ -292,10 +292,10 @@ class _AddressContainerState extends State<AddressContainer> {
                 SizedBox(height: 5.0),
                 Container(
                   child: Text(
-                    "Number 5567" +
-                        "address.addressNumber" +
+                    "Number " +
+                        address.addressNumber +
                         ", " +
-                        "address.addressLocation",
+                        address.addressLocation,
                     style: normalFont(MColors.textGrey, 14.0),
                   ),
                 ),
@@ -363,7 +363,7 @@ class _AddressContainerState extends State<AddressContainer> {
                   Provider.of<UserDataAddressNotifier>(context, listen: false);
               var navigationResult = await Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => AddNewAddress(null, addressList),
+                  builder: (_) => Address(),
                 ),
               );
               if (navigationResult == true) {

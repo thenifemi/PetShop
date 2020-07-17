@@ -257,23 +257,23 @@ class _AddNewAddressState extends State<AddNewAddress> {
                         );
                       } else {
                         form.save();
-                        addressList.isEmpty
-                            ? storeNewAddress(
-                                _fullLegalName,
-                                _addressLine1,
-                                _addressLine2,
-                                _city,
-                                _zipcode,
-                                _state,
-                              )
-                            : updateAddress(
-                                _fullLegalName,
-                                _addressLine1,
-                                _addressLine2,
-                                _city,
-                                _zipcode,
-                                _state,
-                              );
+                        // addressList.isEmpty
+                        //     ? storeNewAddress(
+                        //         _fullLegalName,
+                        //         _addressLine1,
+                        //         _addressLine2,
+                        //         _city,
+                        //         _zipcode,
+                        //         _state,
+                        //       )
+                        //     : updateAddress(
+                        //         _fullLegalName,
+                        //         _addressLine1,
+                        //         _addressLine2,
+                        //         _city,
+                        //         _zipcode,
+                        //         _state,
+                        //       );
                         Navigator.pop(context, true);
                       }
                     },
