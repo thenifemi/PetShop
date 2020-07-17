@@ -307,10 +307,6 @@ class _AddressContainerState extends State<AddressContainer> {
   }
 
   Widget noSavedAddress() {
-    // UserDataAddressNotifier addressNotifier =
-    //     Provider.of<UserDataAddressNotifier>(context);
-    // var addressList = addressNotifier.userDataAddressList;
-
     return Container(
       width: MediaQuery.of(context).size.width,
       padding: EdgeInsets.all(20.0),
