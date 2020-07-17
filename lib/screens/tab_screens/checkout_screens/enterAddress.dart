@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mollet/model/data/userData.dart';
 import 'package:mollet/model/notifiers/userData_notifier.dart';
+import 'package:mollet/utils/cardUtils/cardStrings.dart';
 import 'package:mollet/utils/colors.dart';
+import 'package:mollet/utils/textFieldFormaters.dart';
 import 'package:mollet/widgets/allWidgets.dart';
 import 'package:mollet/credentials.dart';
 import 'package:dio/dio.dart';
@@ -26,9 +28,12 @@ class EnterAddress extends StatefulWidget {
 }
 
 class _EnterAddressState extends State<EnterAddress> {
+  final formKey = GlobalKey<FormState>();
+
   TextEditingController _searchController = new TextEditingController();
   Timer _throttle;
   bool showCurrentLocation;
+  bool _autoValidate = false;
 
   @override
   void initState() {
@@ -326,7 +331,8 @@ class _EnterAddressState extends State<EnterAddress> {
 
               return GestureDetector(
                 onTap: () {
-                  print(address.addressLocation);
+                  _searchController.dispose();
+                  _showModalSheet(address);
                   setState(() {
                     showCurrentLocation = true;
                   });
@@ -377,11 +383,134 @@ class _EnterAddressState extends State<EnterAddress> {
     );
   }
 
-  void _showModalSheet() {
+  void _showModalSheet(UserDataAddress address) {
+    String _number;
+    String _name;
     showModalBottomSheet(
-        context: context,
-        builder: (builder) {
-          return primaryContainer(Column());
-        });
+      context: context,
+      builder: (builder) {
+        return primaryContainer(
+          Form(
+            key: formKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                SizedBox(height: 20.0),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 40.0),
+                  child: Text(
+                    "Please enter your legal name and address number",
+                    style: boldFont(MColors.textDark, 16.0),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                SizedBox(height: 20.0),
+                Container(
+                  height: 30.0,
+                  child: SvgPicture.asset(
+                    "assets/images/icons/Location.svg",
+                    color: MColors.primaryPurple,
+                  ),
+                ),
+                SizedBox(height: 20.0),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                  child: Text(
+                    address.addressLocation,
+                    style: normalFont(MColors.textGrey, 14.0),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                SizedBox(height: 20.0),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Container(
+                      child: Text(
+                        "Full legal name",
+                        style: normalFont(MColors.textGrey, null),
+                      ),
+                    ),
+                    SizedBox(height: 5.0),
+                    primaryTextField(
+                      null,
+                      null,
+                      null,
+                      (val) => _name = val,
+                      true,
+                      (String value) => value.isEmpty ? Strings.fieldReq : null,
+                      false,
+                      _autoValidate,
+                      true,
+                      TextInputType.text,
+                      null,
+                      null,
+                      0.50,
+                    ),
+                  ],
+                ),
+                SizedBox(height: 20.0),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Container(
+                      child: Text(
+                        "Number",
+                        style: normalFont(MColors.textGrey, null),
+                      ),
+                    ),
+                    SizedBox(height: 5.0),
+                    primaryTextField(
+                      null,
+                      null,
+                      null,
+                      (val) => _number = val,
+                      true,
+                      (String value) => value.isEmpty ? Strings.fieldReq : null,
+                      false,
+                      _autoValidate,
+                      true,
+                      TextInputType.number,
+                      null,
+                      null,
+                      0.50,
+                    ),
+                  ],
+                ),
+                SizedBox(height: 20.0),
+                primaryButtonPurple(
+                    Text(
+                      "Save",
+                      style: boldFont(
+                        MColors.primaryWhite,
+                        16.0,
+                      ),
+                    ), () {
+                  final form = formKey.currentState;
+                  if (form.validate()) {
+                    form.save();
+
+                    address.addressNumber = _number;
+                    address.fullLegalName = _name;
+
+                    print(address.fullLegalName +
+                        address.addressNumber +
+                        address.addressLocation);
+
+                    int count = 0;
+                    Navigator.of(context).popUntil((_) => count++ >= 2);
+                  } else {
+                    setState(() {
+                      _autoValidate = true;
+                    });
+                  }
+                })
+              ],
+            ),
+          ),
+        );
+      },
+    );
   }
 }
