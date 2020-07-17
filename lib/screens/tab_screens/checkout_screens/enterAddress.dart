@@ -331,11 +331,11 @@ class _EnterAddressState extends State<EnterAddress> {
 
               return GestureDetector(
                 onTap: () {
-                  _searchController.dispose();
                   _showModalSheet(address);
                   setState(() {
                     showCurrentLocation = true;
                   });
+                  _searchController.clear();
                 },
                 child: Container(
                   child: Column(
