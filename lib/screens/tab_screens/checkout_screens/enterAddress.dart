@@ -376,4 +376,12 @@ class _EnterAddressState extends State<EnterAddress> {
       ),
     );
   }
+
+  void _showModalSheet() {
+    showModalBottomSheet(
+        context: context,
+        builder: (builder) {
+          return primaryContainer(Column());
+        });
+  }
 }
