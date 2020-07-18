@@ -36,6 +36,8 @@ class EnterAddress extends StatefulWidget {
 }
 
 class _EnterAddressState extends State<EnterAddress> {
+  Future addressFuture;
+
   final UserDataAddress address;
   final List<UserDataAddress> addressList;
   _EnterAddressState(this.address, this.addressList);
@@ -50,6 +52,11 @@ class _EnterAddressState extends State<EnterAddress> {
   void initState() {
     showCurrentLocation = true;
     _searchController.addListener(_onSearchChanged);
+
+    UserDataAddressNotifier addressNotifier =
+        Provider.of<UserDataAddressNotifier>(context, listen: false);
+    addressFuture = getAddress(addressNotifier);
+
     super.initState();
   }
 
@@ -65,7 +72,7 @@ class _EnterAddressState extends State<EnterAddress> {
         Provider.of<UserDataAddressNotifier>(context, listen: false);
 
     if (_throttle?.isActive ?? false) _throttle.cancel();
-    _throttle = Timer(const Duration(microseconds: 400), () {
+    _throttle = Timer(const Duration(microseconds: 450), () {
       getLocationResult(_searchController.text, addressNotifier);
     });
   }
@@ -114,6 +121,10 @@ class _EnterAddressState extends State<EnterAddress> {
 
   @override
   Widget build(BuildContext context) {
+    UserDataAddressNotifier addressNotifier =
+        Provider.of<UserDataAddressNotifier>(context);
+    var savedAddress = addressNotifier.userDataAddressList.first;
+
     return Scaffold(
       backgroundColor: MColors.primaryWhiteSmoke,
       appBar: primaryAppBar(
@@ -174,66 +185,40 @@ class _EnterAddressState extends State<EnterAddress> {
             SizedBox(height: 20.0),
             Divider(height: 1.0),
             SizedBox(height: 20.0),
-            address == null
-                ? Container()
-                : Container(
-                    width: MediaQuery.of(context).size.width,
-                    padding: EdgeInsets.all(20.0),
-                    decoration: BoxDecoration(
-                      color: MColors.primaryWhite,
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10.0),
-                      ),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Row(
-                          children: <Widget>[
-                            Container(
-                              child: SvgPicture.asset(
-                                "assets/images/icons/Home.svg",
-                                color: MColors.primaryPurple,
-                              ),
-                            ),
-                            SizedBox(width: 5.0),
-                            Expanded(
-                              child: Container(
-                                child: Text(
-                                  "Saved address",
-                                  style: boldFont(MColors.textDark, 14.0),
-                                ),
-                              ),
-                            ),
-                            Container(
-                              width: 60.0,
-                              height: 25.0,
-                              child: RawMaterialButton(
-                                onPressed: () async {},
-                                child: Text(
-                                  "select",
-                                  style: boldFont(MColors.primaryPurple, 14.0),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Container(
-                          padding: EdgeInsets.only(left: 25.0),
-                          child: Container(
-                            child: Text(
-                              "Number " +
-                                  address.addressNumber +
-                                  ", " +
-                                  address.addressLocation,
-                              style: normalFont(MColors.textGrey, 14.0),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+            Container(
+              child: FutureBuilder(
+                future: addressFuture,
+                builder: (c, s) {
+                  switch (s.connectionState) {
+                    case ConnectionState.active:
+                      return Container(
+                        height: MediaQuery.of(context).size.height / 7,
+                        child: Center(
+                            child: progressIndicator(MColors.primaryPurple)),
+                      );
+                      break;
+                    case ConnectionState.done:
+                      return savedAddress == null
+                          ? Container()
+                          : savedAddressWidget(savedAddress);
+                      break;
+                    case ConnectionState.waiting:
+                      return Container(
+                        height: MediaQuery.of(context).size.height / 7,
+                        child: Center(
+                            child: progressIndicator(MColors.primaryPurple)),
+                      );
+                      break;
+                    default:
+                      return Container(
+                        height: MediaQuery.of(context).size.height / 7,
+                        child: Center(
+                            child: progressIndicator(MColors.primaryPurple)),
+                      );
+                  }
+                },
+              ),
+            ),
           ],
         ),
       ),
@@ -369,6 +354,67 @@ class _EnterAddressState extends State<EnterAddress> {
               child: Text(
                 "Close",
                 style: boldFont(MColors.primaryPurple, 14.0),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget savedAddressWidget(UserDataAddress savedAddress) {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      padding: EdgeInsets.all(20.0),
+      decoration: BoxDecoration(
+        color: MColors.primaryWhite,
+        borderRadius: BorderRadius.all(
+          Radius.circular(10.0),
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              Container(
+                child: SvgPicture.asset(
+                  "assets/images/icons/Home.svg",
+                  color: MColors.primaryPurple,
+                ),
+              ),
+              SizedBox(width: 5.0),
+              Expanded(
+                child: Container(
+                  child: Text(
+                    "Saved address",
+                    style: boldFont(MColors.textDark, 14.0),
+                  ),
+                ),
+              ),
+              Container(
+                width: 60.0,
+                height: 25.0,
+                child: RawMaterialButton(
+                  onPressed: () async {},
+                  child: Text(
+                    "select",
+                    style: boldFont(MColors.primaryPurple, 14.0),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Container(
+            padding: EdgeInsets.only(left: 25.0),
+            child: Container(
+              child: Text(
+                "Number " +
+                    savedAddress.addressNumber +
+                    ", " +
+                    savedAddress.addressLocation,
+                style: normalFont(MColors.textGrey, 14.0),
               ),
             ),
           ),
