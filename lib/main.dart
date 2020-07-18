@@ -99,6 +99,9 @@ class _HomeControllerState extends State<HomeController> {
                         ChangeNotifierProvider(
                           create: (context) => UserDataProfileNotifier(),
                         ),
+                        ChangeNotifierProvider(
+                          create: (context) => UserDataAddressNotifier(),
+                        ),
                       ],
                       child: TabsLayout(),
                     )

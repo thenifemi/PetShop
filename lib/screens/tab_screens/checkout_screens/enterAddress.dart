@@ -415,7 +415,7 @@ class _EnterAddressState extends State<EnterAddress> {
             padding: EdgeInsets.only(left: 25.0),
             child: Container(
               child: Text(
-                address.addressLocation,
+                address.addressNumber + ", " + address.addressLocation,
                 style: normalFont(MColors.textGrey, 14.0),
               ),
             ),
@@ -429,7 +429,6 @@ class _EnterAddressState extends State<EnterAddress> {
     UserDataAddressNotifier addressNotifier =
         Provider.of<UserDataAddressNotifier>(context, listen: false);
     var addressList = addressNotifier.userDataAddressList;
-    var address = addressList.first;
 
     String _number;
     String _name;

@@ -39,6 +39,10 @@ class _HomeScreenState extends State<HomeScreen>
         Provider.of<UserDataProfileNotifier>(context, listen: false);
     getProfile(profileNotifier);
 
+    UserDataAddressNotifier addressNotifier =
+        Provider.of<UserDataAddressNotifier>(context, listen: false);
+    getAddress(addressNotifier);
+
     _tabController = TabController(
       length: _tabItems.length,
       vsync: this,

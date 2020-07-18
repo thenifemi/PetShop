@@ -291,10 +291,7 @@ class _AddressContainerState extends State<AddressContainer> {
                 SizedBox(height: 5.0),
                 Container(
                   child: Text(
-                    "Number " +
-                        address.addressNumber +
-                        ", " +
-                        address.addressLocation,
+                    address.addressNumber + ", " + address.addressLocation,
                     style: normalFont(MColors.textGrey, 14.0),
                   ),
                 ),
