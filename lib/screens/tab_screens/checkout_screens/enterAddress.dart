@@ -415,8 +415,7 @@ class _EnterAddressState extends State<EnterAddress> {
             padding: EdgeInsets.only(left: 25.0),
             child: Container(
               child: Text(
-                "Number " +
-                    savedAddress.addressNumber +
+                savedAddress.addressNumber +
                     ", " +
                     savedAddress.addressLocation,
                 style: normalFont(MColors.textGrey, 14.0),
