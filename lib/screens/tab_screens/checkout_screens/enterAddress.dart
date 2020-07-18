@@ -425,7 +425,7 @@ class _EnterAddressState extends State<EnterAddress> {
         Provider.of<UserDataAddressNotifier>(context, listen: false);
     var addressList = addressNotifier.userDataAddressList;
 
-    String _number;
+    String _streetNameAndNumber;
     String _name;
     showModalBottomSheet(
       context: context,
@@ -501,7 +501,7 @@ class _EnterAddressState extends State<EnterAddress> {
                       children: <Widget>[
                         Container(
                           child: Text(
-                            "Number",
+                            "Street name and number",
                             style: normalFont(MColors.textGrey, null),
                           ),
                         ),
@@ -510,14 +510,14 @@ class _EnterAddressState extends State<EnterAddress> {
                           null,
                           null,
                           null,
-                          (val) => _number = val,
+                          (val) => _streetNameAndNumber = val,
                           true,
                           (String value) =>
                               value.isEmpty ? Strings.fieldReq : null,
                           false,
                           _autoValidate,
                           true,
-                          TextInputType.number,
+                          TextInputType.text,
                           null,
                           null,
                           0.50,
@@ -537,7 +537,7 @@ class _EnterAddressState extends State<EnterAddress> {
                       if (form.validate()) {
                         form.save();
 
-                        _address.addressNumber = _number;
+                        _address.addressNumber = _streetNameAndNumber;
                         _address.fullLegalName = _name;
 
                         addressList.isEmpty
