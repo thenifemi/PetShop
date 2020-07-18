@@ -305,11 +305,11 @@ class _EnterAddressState extends State<EnterAddress> {
             itemCount: addressList.length,
             shrinkWrap: true,
             itemBuilder: (context, i) {
-              var address = addressList[i];
+              var _address = addressList[i];
 
               return GestureDetector(
                 onTap: () {
-                  _showModalSheet(address);
+                  _showModalSheet(_address);
                   setState(() {
                     showCurrentLocation = true;
                   });
@@ -331,7 +331,7 @@ class _EnterAddressState extends State<EnterAddress> {
                             ),
                             SizedBox(width: 5.0),
                             Expanded(
-                              child: Text(address.addressLocation),
+                              child: Text(_address.addressLocation),
                             ),
                           ],
                         ),
@@ -415,9 +415,7 @@ class _EnterAddressState extends State<EnterAddress> {
             padding: EdgeInsets.only(left: 25.0),
             child: Container(
               child: Text(
-                savedAddress.addressNumber +
-                    ", " +
-                    savedAddress.addressLocation,
+                address.addressLocation,
                 style: normalFont(MColors.textGrey, 14.0),
               ),
             ),
@@ -427,9 +425,9 @@ class _EnterAddressState extends State<EnterAddress> {
     );
   }
 
-  void _showModalSheet(UserDataAddress address) {
+  void _showModalSheet(UserDataAddress _address) {
     UserDataAddressNotifier addressNotifier =
-        Provider.of<UserDataAddressNotifier>(context);
+        Provider.of<UserDataAddressNotifier>(context, listen: false);
     var addressList = addressNotifier.userDataAddressList;
     var address = addressList.first;
 
@@ -469,7 +467,7 @@ class _EnterAddressState extends State<EnterAddress> {
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 30.0),
                       child: Text(
-                        address.addressLocation,
+                        _address.addressLocation,
                         style: normalFont(MColors.textGrey, 14.0),
                         textAlign: TextAlign.center,
                       ),
@@ -545,19 +543,19 @@ class _EnterAddressState extends State<EnterAddress> {
                       if (form.validate()) {
                         form.save();
 
-                        address.addressNumber = _number;
-                        address.fullLegalName = _name;
+                        _address.addressNumber = _number;
+                        _address.fullLegalName = _name;
 
                         addressList.isEmpty
                             ? storeAddress(
-                                address.fullLegalName,
-                                address.addressLocation,
-                                address.addressNumber,
+                                _address.fullLegalName,
+                                _address.addressLocation,
+                                _address.addressNumber,
                               )
                             : updateAddress(
-                                address.fullLegalName,
-                                address.addressLocation,
-                                address.addressNumber,
+                                _address.fullLegalName,
+                                _address.addressLocation,
+                                _address.addressNumber,
                               );
 
                         Navigator.pop(context);
