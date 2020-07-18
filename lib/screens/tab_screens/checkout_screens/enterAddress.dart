@@ -123,6 +123,8 @@ class _EnterAddressState extends State<EnterAddress> {
   Widget build(BuildContext context) {
     UserDataAddressNotifier addressNotifier =
         Provider.of<UserDataAddressNotifier>(context);
+    var savedAddressList = addressNotifier.userDataAddressList;
+
     var savedAddress = addressNotifier.userDataAddressList.first;
 
     return Scaffold(
@@ -198,7 +200,7 @@ class _EnterAddressState extends State<EnterAddress> {
                       );
                       break;
                     case ConnectionState.done:
-                      return savedAddress == null
+                      return savedAddressList.isEmpty || null
                           ? Container()
                           : savedAddressWidget(savedAddress);
                       break;
