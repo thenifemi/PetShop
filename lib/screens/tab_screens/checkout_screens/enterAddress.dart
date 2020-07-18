@@ -288,7 +288,7 @@ class _EnterAddressState extends State<EnterAddress> {
   Widget searchResult() {
     UserDataAddressNotifier addressNotifier =
         Provider.of<UserDataAddressNotifier>(context);
-    var addressList = addressNotifier.userDataAddressList;
+    var _addressList = addressNotifier.userDataAddressList;
     return Container(
       width: MediaQuery.of(context).size.width,
       padding: EdgeInsets.all(20.0),
@@ -305,7 +305,7 @@ class _EnterAddressState extends State<EnterAddress> {
             itemCount: addressList.length,
             shrinkWrap: true,
             itemBuilder: (context, i) {
-              var _address = addressList[i];
+              var _address = _addressList[i];
 
               return GestureDetector(
                 onTap: () {
@@ -363,11 +363,6 @@ class _EnterAddressState extends State<EnterAddress> {
   }
 
   Widget savedAddressWidget() {
-    UserDataAddressNotifier addressNotifier =
-        Provider.of<UserDataAddressNotifier>(context);
-    var addressList = addressNotifier.userDataAddressList;
-    var savedAddress = addressList.first;
-
     return Container(
       width: MediaQuery.of(context).size.width,
       padding: EdgeInsets.all(20.0),

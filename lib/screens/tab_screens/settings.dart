@@ -29,6 +29,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
     UserDataProfileNotifier profileNotifier =
         Provider.of<UserDataProfileNotifier>(context, listen: false);
     profileFuture = getProfile(profileNotifier);
+
+    UserDataAddressNotifier addressNotifier =
+        Provider.of<UserDataAddressNotifier>(context, listen: false);
+    getAddress(addressNotifier);
+
     super.initState();
   }
 
@@ -62,6 +67,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   Widget showSettings(user) {
+    UserDataAddressNotifier addressNotifier =
+        Provider.of<UserDataAddressNotifier>(context);
+    var addressList = addressNotifier.userDataAddressList;
+    var address = addressList.first;
+
     final listTileIcons = [
       "assets/images/password.svg",
       "assets/images/icons/Wallet.svg",
@@ -95,12 +105,25 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ),
         );
       },
-      () {
-        Navigator.of(context).push(
+      () async {
+        UserDataAddressNotifier addressNotifier =
+            Provider.of<UserDataAddressNotifier>(context, listen: false);
+        var navigationResult = await Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (_) => Address(null, null),
+            builder: (_) => Address(address, addressList),
           ),
         );
+        if (navigationResult == true) {
+          setState(() {
+            getAddress(addressNotifier);
+          });
+          showSimpleSnack(
+            "Address has been updated",
+            Icons.check_circle_outline,
+            Colors.green,
+            _scaffoldKey,
+          );
+        }
       },
       () {
         shareWidget();
