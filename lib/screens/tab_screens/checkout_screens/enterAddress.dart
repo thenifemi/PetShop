@@ -125,8 +125,6 @@ class _EnterAddressState extends State<EnterAddress> {
         Provider.of<UserDataAddressNotifier>(context);
     var savedAddressList = addressNotifier.userDataAddressList;
 
-    var savedAddress = addressNotifier.userDataAddressList.first;
-
     return Scaffold(
       backgroundColor: MColors.primaryWhiteSmoke,
       appBar: primaryAppBar(
@@ -200,9 +198,9 @@ class _EnterAddressState extends State<EnterAddress> {
                       );
                       break;
                     case ConnectionState.done:
-                      return savedAddressList.isEmpty || null
+                      return savedAddressList.isEmpty
                           ? Container()
-                          : savedAddressWidget(savedAddress);
+                          : savedAddressWidget();
                       break;
                     case ConnectionState.waiting:
                       return Container(
@@ -364,7 +362,12 @@ class _EnterAddressState extends State<EnterAddress> {
     );
   }
 
-  Widget savedAddressWidget(UserDataAddress savedAddress) {
+  Widget savedAddressWidget() {
+    UserDataAddressNotifier addressNotifier =
+        Provider.of<UserDataAddressNotifier>(context);
+    var addressList = addressNotifier.userDataAddressList;
+    var savedAddress = addressList.first;
+
     return Container(
       width: MediaQuery.of(context).size.width,
       padding: EdgeInsets.all(20.0),
