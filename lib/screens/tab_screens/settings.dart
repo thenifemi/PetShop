@@ -60,14 +60,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
           case ConnectionState.done:
             return checkUser.isEmpty || user == null
                 ? progressIndicator(MColors.primaryPurple)
-                : () {
-                    FutureBuilder(
-                      future: addressFuture,
-                      builder: (c, s) {
-                        return showSettings(user, addressList);
-                      },
-                    );
-                  };
+                : showSettings(user, addressList);
+
             break;
           case ConnectionState.waiting:
             return progressIndicator(MColors.primaryPurple);
@@ -114,26 +108,26 @@ class _SettingsScreenState extends State<SettingsScreen> {
         );
       },
       () async {
-        UserDataAddressNotifier addressNotifier =
-            Provider.of<UserDataAddressNotifier>(context, listen: false);
-        var _address = addressList;
+        // UserDataAddressNotifier addressNotifier =
+        //     Provider.of<UserDataAddressNotifier>(context, listen: false);
+        // // var _address = addressList.first == null ? null : addressList.first;
 
-        var navigationResult = await Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (_) => Address(_address, addressList),
-          ),
-        );
-        if (navigationResult == true) {
-          setState(() {
-            getAddress(addressNotifier);
-          });
-          showSimpleSnack(
-            "Address has been updated",
-            Icons.check_circle_outline,
-            Colors.green,
-            _scaffoldKey,
-          );
-        }
+        // var navigationResult = await Navigator.of(context).push(
+        //   MaterialPageRoute(
+        //     builder: (_) => Address(null, addressList),
+        //   ),
+        // );
+        // if (navigationResult == true) {
+        //   setState(() {
+        //     getAddress(addressNotifier);
+        //   });
+        //   showSimpleSnack(
+        //     "Address has been updated",
+        //     Icons.check_circle_outline,
+        //     Colors.green,
+        //     _scaffoldKey,
+        //   );
+        // }
       },
       () {
         shareWidget();
@@ -253,28 +247,32 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
                 Container(
                   child: ListView.builder(
-                    physics: NeverScrollableScrollPhysics(),
-                    itemCount: listTileNames.length,
-                    shrinkWrap: true,
-                    itemBuilder: (context, i) {
-                      return Container(
-                        child: Column(
-                          children: <Widget>[
-                            listTileButton(
-                              listTileActions[i],
-                              listTileIcons[i],
-                              listTileNames[i],
-                              MColors.primaryPurple,
-                            ),
-                            Divider(
-                              height: 1.0,
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                  ),
-                ),
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: listTileNames.length,
+                      shrinkWrap: true,
+                      itemBuilder: (context, i) {
+                        return FutureBuilder(
+                          future: addressFuture,
+                          builder: (c, s) {
+                            return Container(
+                              child: Column(
+                                children: <Widget>[
+                                  listTileButton(
+                                    listTileActions[i],
+                                    listTileIcons[i],
+                                    listTileNames[i],
+                                    MColors.primaryPurple,
+                                  ),
+                                  Divider(
+                                    height: 1.0,
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        );
+                      }),
+                )
               ],
             ),
           ),
