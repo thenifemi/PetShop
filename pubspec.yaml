@@ -34,6 +34,8 @@ dependencies:
   geolocation: ^1.1.2
   mask_text_input_formatter: ^1.0.7
   dio: ^3.0.9
+  geocoder: ^0.2.1
+  location: ^3.0.2
 
 flutter_icons:
   android: true
