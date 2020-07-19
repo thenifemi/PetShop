@@ -12,6 +12,8 @@ import 'package:mollet/widgets/allWidgets.dart';
 import 'package:mollet/widgets/provider.dart';
 import 'package:provider/provider.dart';
 
+import 'checkout_screens/enterAddress.dart';
+
 class SettingsScreen extends StatefulWidget {
   SettingsScreen({Key key}) : super(key: key);
 
@@ -22,6 +24,7 @@ class SettingsScreen extends StatefulWidget {
 class _SettingsScreenState extends State<SettingsScreen> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   Future profileFuture;
+  Future addressFuture;
 
   @override
   void initState() {
@@ -31,7 +34,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
     UserDataAddressNotifier addressNotifier =
         Provider.of<UserDataAddressNotifier>(context, listen: false);
-    getAddress(addressNotifier);
+    addressFuture = getAddress(addressNotifier);
 
     super.initState();
   }
@@ -42,6 +45,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         Provider.of<UserDataProfileNotifier>(context);
     var checkUser = profileNotifier.userDataProfileList;
     var user = profileNotifier.userDataProfileList.first;
+
     UserDataAddressNotifier addressNotifier =
         Provider.of<UserDataAddressNotifier>(context);
     var addressList = addressNotifier.userDataAddressList;
@@ -56,7 +60,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
           case ConnectionState.done:
             return checkUser.isEmpty || user == null
                 ? progressIndicator(MColors.primaryPurple)
-                : showSettings(user, addressList);
+                : () {
+                    FutureBuilder(
+                      future: addressFuture,
+                      builder: (c, s) {
+                        return showSettings(user, addressList);
+                      },
+                    );
+                  };
             break;
           case ConnectionState.waiting:
             return progressIndicator(MColors.primaryPurple);
@@ -103,26 +114,26 @@ class _SettingsScreenState extends State<SettingsScreen> {
         );
       },
       () async {
-        // UserDataAddressNotifier addressNotifier =
-        //     Provider.of<UserDataAddressNotifier>(context, listen: false);
+        UserDataAddressNotifier addressNotifier =
+            Provider.of<UserDataAddressNotifier>(context, listen: false);
+        var _address = addressList;
 
-        // var address = addressList.first;
-        // var navigationResult = await Navigator.of(context).push(
-        //   MaterialPageRoute(
-        //     builder: (_) => Address(null, null),
-        //   ),
-        // );
-        // if (navigationResult == true) {
-        //   setState(() {
-        //     getAddress(addressNotifier);
-        //   });
-        //   showSimpleSnack(
-        //     "Address has been updated",
-        //     Icons.check_circle_outline,
-        //     Colors.green,
-        //     _scaffoldKey,
-        //   );
-        // }
+        var navigationResult = await Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (_) => Address(_address, addressList),
+          ),
+        );
+        if (navigationResult == true) {
+          setState(() {
+            getAddress(addressNotifier);
+          });
+          showSimpleSnack(
+            "Address has been updated",
+            Icons.check_circle_outline,
+            Colors.green,
+            _scaffoldKey,
+          );
+        }
       },
       () {
         shareWidget();
