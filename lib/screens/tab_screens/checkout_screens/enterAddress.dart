@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mollet/model/data/userData.dart';
 import 'package:mollet/model/notifiers/userData_notifier.dart';
-import 'package:mollet/model/services/location_service.dart';
 import 'package:mollet/model/services/user_management.dart';
 import 'package:mollet/utils/cardUtils/cardStrings.dart';
 import 'package:mollet/utils/colors.dart';
@@ -12,6 +11,9 @@ import 'package:mollet/widgets/allWidgets.dart';
 import 'package:mollet/credentials.dart';
 import 'package:dio/dio.dart';
 import 'package:provider/provider.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:geocoder/geocoder.dart';
+import 'package:flutter/services.dart';
 
 class Address extends StatelessWidget {
   final UserDataAddress address;
@@ -118,6 +120,30 @@ class _EnterAddressState extends State<EnterAddress> {
     setState(() {
       showCurrentLocation = false;
     });
+  }
+
+  getUserCurrentLocation() async {
+    String error;
+
+    try {
+      Position position = await Geolocator()
+          .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+      print('location: ${position.latitude}');
+      final coordinates = Coordinates(position.latitude, position.longitude);
+      var addresses =
+          await Geocoder.local.findAddressesFromCoordinates(coordinates);
+      var first = addresses.first;
+      print("${first.featureName} : ${first.addressLine}");
+    } on PlatformException catch (e) {
+      if (e.code == 'PERMISSION_DENIED') {
+        error = 'please grant permission';
+        print(error);
+      }
+      if (e.code == 'PERMISSION_DENIED_NEVER_ASK') {
+        error = 'permission denied- please enable it from app settings';
+        print(error);
+      }
+    }
   }
 
   @override
