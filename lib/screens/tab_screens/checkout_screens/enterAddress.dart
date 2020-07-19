@@ -62,7 +62,7 @@ class _EnterAddressState extends State<EnterAddress> {
         Provider.of<UserDataAddressNotifier>(context, listen: false);
     addressFuture = getAddress(addressNotifier);
 
-    currentLocation = getUserCurrentLocation();
+    currentLocation = getUserCurrentLocation(addressNotifier);
 
     super.initState();
   }
@@ -128,7 +128,9 @@ class _EnterAddressState extends State<EnterAddress> {
     });
   }
 
-  getUserCurrentLocation() async {
+  getUserCurrentLocation(
+    UserDataAddressNotifier addressNotifier,
+  ) async {
     String error;
 
     try {
@@ -139,8 +141,20 @@ class _EnterAddressState extends State<EnterAddress> {
       var addresses =
           await Geocoder.local.findAddressesFromCoordinates(coordinates);
       var first = addresses.first;
+      List<UserDataAddress> _displayResults = [];
       print("${first.featureName} : ${first.addressLine}");
+
       currentLocationAddress = first.addressLine;
+      Map<String, dynamic> asMap() {
+        return {
+          'addressLocation': currentLocationAddress,
+        };
+      }
+
+      addressNotifier.userDataAddressList = _displayResults;
+
+      UserDataAddress userDataAddress = UserDataAddress.fromMap(asMap());
+      _displayResults.add(userDataAddress);
     } on PlatformException catch (e) {
       if (e.code == 'PERMISSION_DENIED') {
         error = 'please grant permission';
@@ -262,6 +276,10 @@ class _EnterAddressState extends State<EnterAddress> {
   }
 
   Widget useCurrentLocation() {
+    UserDataAddressNotifier addressNotifier =
+        Provider.of<UserDataAddressNotifier>(context);
+    var _addressList = addressNotifier.userDataAddressList;
+
     return Column(
       children: <Widget>[
         Center(
@@ -288,7 +306,9 @@ class _EnterAddressState extends State<EnterAddress> {
                       ? Container()
                       : GestureDetector(
                           onTap: () {
-                            print(currentLocationAddress);
+                            var _address = _addressList.first;
+                            print(_address.addressLocation);
+                            _showModalSheet(_address, true);
                           },
                           child: Container(
                             width: MediaQuery.of(context).size.width,
@@ -380,7 +400,7 @@ class _EnterAddressState extends State<EnterAddress> {
 
               return GestureDetector(
                 onTap: () {
-                  _showModalSheet(_address);
+                  _showModalSheet(_address, false);
                   setState(() {
                     showCurrentLocation = true;
                   });
@@ -480,7 +500,7 @@ class _EnterAddressState extends State<EnterAddress> {
     );
   }
 
-  void _showModalSheet(UserDataAddress _address) {
+  void _showModalSheet(UserDataAddress _address, bool currentLocation) {
     UserDataAddressNotifier addressNotifier =
         Provider.of<UserDataAddressNotifier>(context, listen: false);
     var addressList = addressNotifier.userDataAddressList;
@@ -504,7 +524,9 @@ class _EnterAddressState extends State<EnterAddress> {
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 40.0),
                       child: Text(
-                        "Please enter your legal name and address number",
+                        currentLocation == false
+                            ? "Please enter your legal name, address name and number, and apt or house number"
+                            : "Please enter your legal name and apt or house number",
                         style: boldFont(MColors.textDark, 16.0),
                         textAlign: TextAlign.center,
                       ),
@@ -561,7 +583,9 @@ class _EnterAddressState extends State<EnterAddress> {
                       children: <Widget>[
                         Container(
                           child: Text(
-                            "Street name and number",
+                            currentLocation == false
+                                ? "Apt or house number and street name and number"
+                                : "Apt or house number",
                             style: normalFont(MColors.textGrey, null),
                           ),
                         ),
@@ -577,11 +601,23 @@ class _EnterAddressState extends State<EnterAddress> {
                           false,
                           _autoValidate,
                           true,
-                          TextInputType.text,
+                          currentLocation == false
+                              ? TextInputType.text
+                              : TextInputType.number,
                           null,
                           null,
                           0.50,
                         ),
+                        SizedBox(height: 5.0),
+                        currentLocation == false
+                            ? Container(
+                                child: Text(
+                                  "Please enter information in order stated above!",
+                                  style:
+                                      normalFont(MColors.primaryPurple, null),
+                                ),
+                              )
+                            : Container(),
                       ],
                     ),
                     SizedBox(height: 20.0),
