@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mollet/model/data/userData.dart';
 import 'package:mollet/model/notifiers/userData_notifier.dart';
+import 'package:mollet/model/services/location_service.dart';
 import 'package:mollet/model/services/user_management.dart';
 import 'package:mollet/utils/cardUtils/cardStrings.dart';
 import 'package:mollet/utils/colors.dart';
@@ -237,7 +238,9 @@ class _EnterAddressState extends State<EnterAddress> {
         ),
         SizedBox(height: 10.0),
         GestureDetector(
-          onTap: () {},
+          onTap: () {
+            getUserCurrentLocation();
+          },
           child: Container(
             width: MediaQuery.of(context).size.width,
             padding: EdgeInsets.all(20.0),

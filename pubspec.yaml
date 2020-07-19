@@ -30,7 +30,7 @@ dependencies:
   bubble_tab_indicator: ^0.1.4
   carousel_slider: ^2.0.0
   permission_handler: ^3.1.0
-  geolocator: ^5.3.1
+  geolocator: ^5.3.2+2
   geolocation: ^1.1.2
   mask_text_input_formatter: ^1.0.7
   dio: ^3.0.9
