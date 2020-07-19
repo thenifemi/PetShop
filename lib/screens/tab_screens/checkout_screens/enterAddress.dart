@@ -40,6 +40,8 @@ class EnterAddress extends StatefulWidget {
 
 class _EnterAddressState extends State<EnterAddress> {
   Future addressFuture;
+  Future currentLocation;
+  var currentLocationAddress;
 
   final UserDataAddress address;
   final List<UserDataAddress> addressList;
@@ -59,6 +61,8 @@ class _EnterAddressState extends State<EnterAddress> {
     UserDataAddressNotifier addressNotifier =
         Provider.of<UserDataAddressNotifier>(context, listen: false);
     addressFuture = getAddress(addressNotifier);
+
+    currentLocation = getUserCurrentLocation();
 
     super.initState();
   }
@@ -81,7 +85,9 @@ class _EnterAddressState extends State<EnterAddress> {
   }
 
   void getLocationResult(
-      String input, UserDataAddressNotifier addressNotifier) async {
+    String input,
+    UserDataAddressNotifier addressNotifier,
+  ) async {
     if (input.isEmpty || _searchController.text.isEmpty) {
       setState(() {
         showCurrentLocation = true;
@@ -134,6 +140,7 @@ class _EnterAddressState extends State<EnterAddress> {
           await Geocoder.local.findAddressesFromCoordinates(coordinates);
       var first = addresses.first;
       print("${first.featureName} : ${first.addressLine}");
+      currentLocationAddress = first.addressLine;
     } on PlatformException catch (e) {
       if (e.code == 'PERMISSION_DENIED') {
         error = 'please grant permission';
@@ -212,6 +219,7 @@ class _EnterAddressState extends State<EnterAddress> {
             SizedBox(height: 20.0),
             Divider(height: 1.0),
             SizedBox(height: 20.0),
+            Spacer(),
             Container(
               child: FutureBuilder(
                 future: addressFuture,
@@ -263,51 +271,85 @@ class _EnterAddressState extends State<EnterAddress> {
           ),
         ),
         SizedBox(height: 10.0),
-        GestureDetector(
-          onTap: () {
-            getUserCurrentLocation();
-          },
-          child: Container(
-            width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.all(20.0),
-            decoration: BoxDecoration(
-              color: MColors.primaryWhite,
-              borderRadius: BorderRadius.all(
-                Radius.circular(10.0),
-              ),
-            ),
-            child: Column(
-              children: <Widget>[
-                Row(
-                  children: <Widget>[
-                    Container(
-                      child: SvgPicture.asset(
-                        "assets/images/icons/Discovery.svg",
-                        color: MColors.primaryPurple,
-                      ),
-                    ),
-                    SizedBox(width: 5.0),
-                    Expanded(
-                      child: Container(
-                        child: Text(
-                          "Use current location",
-                          style: boldFont(MColors.textDark, 14.0),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                Container(
-                  padding: const EdgeInsets.only(
-                    left: 25.0,
-                  ),
-                  child: Text(
-                    "R. Ayres Gama, 222 - AP 701 - Centro, Blumenau - SC, 89012-480",
-                    style: normalFont(MColors.textGrey, 14.0),
-                  ),
-                ),
-              ],
-            ),
+        Container(
+          child: FutureBuilder(
+            future: currentLocation,
+            builder: (c, s) {
+              switch (s.connectionState) {
+                case ConnectionState.active:
+                  return Container(
+                    height: MediaQuery.of(context).size.height / 7,
+                    child:
+                        Center(child: progressIndicator(MColors.primaryPurple)),
+                  );
+                  break;
+                case ConnectionState.done:
+                  return currentLocationAddress.isEmpty
+                      ? Container()
+                      : GestureDetector(
+                          onTap: () {
+                            print(currentLocationAddress);
+                          },
+                          child: Container(
+                            width: MediaQuery.of(context).size.width,
+                            padding: EdgeInsets.all(20.0),
+                            decoration: BoxDecoration(
+                              color: MColors.dashPurple,
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(10.0),
+                              ),
+                            ),
+                            child: Column(
+                              children: <Widget>[
+                                Row(
+                                  children: <Widget>[
+                                    Container(
+                                      child: SvgPicture.asset(
+                                        "assets/images/icons/Discovery.svg",
+                                        color: MColors.primaryPurple,
+                                      ),
+                                    ),
+                                    SizedBox(width: 5.0),
+                                    Expanded(
+                                      child: Container(
+                                        child: Text(
+                                          "Use current location",
+                                          style:
+                                              boldFont(MColors.textDark, 14.0),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Container(
+                                  padding: const EdgeInsets.only(
+                                    left: 25.0,
+                                  ),
+                                  child: Text(
+                                    currentLocationAddress,
+                                    style: normalFont(MColors.textGrey, 14.0),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                  break;
+                case ConnectionState.waiting:
+                  return Container(
+                    height: MediaQuery.of(context).size.height / 7,
+                    child:
+                        Center(child: progressIndicator(MColors.primaryPurple)),
+                  );
+                  break;
+                default:
+                  return Container(
+                    height: MediaQuery.of(context).size.height / 7,
+                    child:
+                        Center(child: progressIndicator(MColors.primaryPurple)),
+                  );
+              }
+            },
           ),
         ),
       ],
