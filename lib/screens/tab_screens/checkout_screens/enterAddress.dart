@@ -500,10 +500,6 @@ class _EnterAddressState extends State<EnterAddress> {
   }
 
   void _showModalSheet(UserDataAddress _address, bool currentLocation) {
-    UserDataAddressNotifier addressNotifier =
-        Provider.of<UserDataAddressNotifier>(context, listen: false);
-    var addressList = addressNotifier.userDataAddressList;
-
     String _streetNameAndNumber;
     String _name;
     showModalBottomSheet(
@@ -635,7 +631,7 @@ class _EnterAddressState extends State<EnterAddress> {
                         _address.addressNumber = _streetNameAndNumber;
                         _address.fullLegalName = _name;
 
-                        addressList.isEmpty
+                        addressList == null
                             ? storeAddress(
                                 _address.fullLegalName,
                                 _address.addressLocation,
