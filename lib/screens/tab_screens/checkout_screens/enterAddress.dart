@@ -393,17 +393,6 @@ class _EnterAddressState extends State<EnterAddress> {
                   ),
                 ),
               ),
-              Container(
-                width: 60.0,
-                height: 25.0,
-                child: RawMaterialButton(
-                  onPressed: () async {},
-                  child: Text(
-                    "select",
-                    style: boldFont(MColors.primaryPurple, 14.0),
-                  ),
-                ),
-              ),
             ],
           ),
           Container(
