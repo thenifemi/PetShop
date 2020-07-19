@@ -43,6 +43,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
         Provider.of<UserDataProfileNotifier>(context);
     var checkUser = profileNotifier.userDataProfileList;
     var user = profileNotifier.userDataProfileList.first;
+    UserDataAddressNotifier addressNotifier =
+        Provider.of<UserDataAddressNotifier>(context);
+    var addressList = addressNotifier.userDataAddressList;
 
     return FutureBuilder(
       future: profileFuture,
@@ -54,7 +57,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           case ConnectionState.done:
             return checkUser.isEmpty || user == null
                 ? progressIndicator(MColors.primaryPurple)
-                : showSettings(user);
+                : showSettings(user, addressList);
             break;
           case ConnectionState.waiting:
             return progressIndicator(MColors.primaryPurple);
@@ -66,12 +69,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
-  Widget showSettings(user) {
-    UserDataAddressNotifier addressNotifier =
-        Provider.of<UserDataAddressNotifier>(context);
-    var addressList = addressNotifier.userDataAddressList;
-    var address = addressList.first;
-
+  Widget showSettings(user, addressList) {
     final listTileIcons = [
       "assets/images/password.svg",
       "assets/images/icons/Wallet.svg",
@@ -106,24 +104,26 @@ class _SettingsScreenState extends State<SettingsScreen> {
         );
       },
       () async {
-        UserDataAddressNotifier addressNotifier =
-            Provider.of<UserDataAddressNotifier>(context, listen: false);
-        var navigationResult = await Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (_) => Address(address, addressList),
-          ),
-        );
-        if (navigationResult == true) {
-          setState(() {
-            getAddress(addressNotifier);
-          });
-          showSimpleSnack(
-            "Address has been updated",
-            Icons.check_circle_outline,
-            Colors.green,
-            _scaffoldKey,
-          );
-        }
+        // UserDataAddressNotifier addressNotifier =
+        //     Provider.of<UserDataAddressNotifier>(context, listen: false);
+
+        // var address = addressList.first;
+        // var navigationResult = await Navigator.of(context).push(
+        //   MaterialPageRoute(
+        //     builder: (_) => Address(null, null),
+        //   ),
+        // );
+        // if (navigationResult == true) {
+        //   setState(() {
+        //     getAddress(addressNotifier);
+        //   });
+        //   showSimpleSnack(
+        //     "Address has been updated",
+        //     Icons.check_circle_outline,
+        //     Colors.green,
+        //     _scaffoldKey,
+        //   );
+        // }
       },
       () {
         shareWidget();

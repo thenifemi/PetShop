@@ -157,10 +157,13 @@ class _EnterAddressState extends State<EnterAddress> {
       _displayResults.add(userDataAddress);
     } on PlatformException catch (e) {
       if (e.code == 'PERMISSION_DENIED') {
+        Navigator.pop(context);
         error = 'please grant permission';
         print(error);
       }
       if (e.code == 'PERMISSION_DENIED_NEVER_ASK') {
+        Navigator.pop(context);
+
         error = 'permission denied- please enable it from app settings';
         print(error);
       }
@@ -169,10 +172,6 @@ class _EnterAddressState extends State<EnterAddress> {
 
   @override
   Widget build(BuildContext context) {
-    UserDataAddressNotifier addressNotifier =
-        Provider.of<UserDataAddressNotifier>(context);
-    var savedAddressList = addressNotifier.userDataAddressList;
-
     return Scaffold(
       backgroundColor: MColors.primaryWhiteSmoke,
       appBar: primaryAppBar(
@@ -247,7 +246,7 @@ class _EnterAddressState extends State<EnterAddress> {
                       );
                       break;
                     case ConnectionState.done:
-                      return savedAddressList.isEmpty
+                      return addressList == null
                           ? Container()
                           : savedAddressWidget();
                       break;
@@ -393,7 +392,7 @@ class _EnterAddressState extends State<EnterAddress> {
         children: <Widget>[
           ListView.builder(
             physics: NeverScrollableScrollPhysics(),
-            itemCount: addressList.length,
+            itemCount: _addressList.length,
             shrinkWrap: true,
             itemBuilder: (context, i) {
               var _address = _addressList[i];

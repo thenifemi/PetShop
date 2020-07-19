@@ -140,10 +140,10 @@ class _LoginScreenState extends State<LoginScreen> {
                           null,
                           SizedBox(
                             height: 20.0,
-                            width: 35.0,
+                            width: 40.0,
                             child: RawMaterialButton(
                               onPressed: _toggle,
-                              child: new Text(
+                              child: Text(
                                 _obscureText ? "Show" : "Hide",
                                 style: TextStyle(
                                   color: MColors.primaryPurple,
