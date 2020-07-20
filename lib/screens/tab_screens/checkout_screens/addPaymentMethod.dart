@@ -173,7 +173,7 @@ class _AddNewCardState extends State<AddNewCard> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                              "Cvv",
+                              "CVV",
                               style: normalFont(MColors.textGrey, null),
                             ),
                             SizedBox(height: 5.0),
