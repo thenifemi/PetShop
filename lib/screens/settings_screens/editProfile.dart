@@ -73,15 +73,17 @@ class _EditProfileState extends State<EditProfile> {
                   height: 20.0,
                 ),
                 Center(
-                  child: Container(
-                    width: 90.0,
-                    height: 90.0,
-                    child: SvgPicture.asset(
-                      "assets/images/femaleAvatar.svg",
-                    ),
-                    decoration: new BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: MColors.dashPurple,
+                  child: Hero(
+                    tag: "profileAvatar",
+                    child: Container(
+                      child: SvgPicture.asset(
+                        "assets/images/femaleAvatar.svg",
+                        height: 90,
+                      ),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: MColors.dashPurple,
+                      ),
                     ),
                   ),
                 ),

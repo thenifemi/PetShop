@@ -168,14 +168,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       Center(
                         child: Padding(
                           padding: const EdgeInsets.all(10.0),
-                          child: Container(
-                            child: SvgPicture.asset(
-                              "assets/images/femaleAvatar.svg",
-                              height: 90,
-                            ),
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: MColors.dashPurple,
+                          child: Hero(
+                            tag: "profileAvatar",
+                            child: Container(
+                              child: SvgPicture.asset(
+                                "assets/images/femaleAvatar.svg",
+                                height: 90,
+                              ),
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: MColors.dashPurple,
+                              ),
                             ),
                           ),
                         ),
