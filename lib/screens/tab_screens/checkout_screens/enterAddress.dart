@@ -506,6 +506,7 @@ class _EnterAddressState extends State<EnterAddress> {
       context: context,
       builder: (builder) {
         return Scaffold(
+          backgroundColor: MColors.primaryWhiteSmoke,
           body: SingleChildScrollView(
             physics: BouncingScrollPhysics(),
             child: primaryContainer(
