@@ -81,6 +81,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   Widget showSettings(user, addressList) {
+    var _checkAddress;
+    addressList == null || addressList.isEmpty
+        ? _checkAddress = null
+        : _checkAddress = addressList.first;
+    var _address = _checkAddress;
+
     final listTileIcons = [
       "assets/images/password.svg",
       "assets/images/icons/Wallet.svg",
@@ -117,7 +123,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       () async {
         var navigationResult = await Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (_) => Address(null, null),
+            builder: (_) => Address(_address, addressList),
           ),
         );
         if (navigationResult == true) {
