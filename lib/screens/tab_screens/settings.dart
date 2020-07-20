@@ -48,13 +48,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
     UserDataAddressNotifier addressNotifier =
         Provider.of<UserDataAddressNotifier>(context);
-    var checkAddressList = addressNotifier.userDataAddressList == null
-        ? null
-        : addressNotifier.userDataAddressList;
-    var addressList = checkAddressList;
+    var addressList = addressNotifier.userDataAddressList;
 
     return FutureBuilder(
-      future: profileFuture,
+      future: Future.wait([
+        profileFuture,
+        addressFuture,
+      ]),
       builder: (c, s) {
         switch (s.connectionState) {
           case ConnectionState.active:
@@ -111,16 +111,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
         );
       },
       () async {
-        UserDataAddressNotifier addressNotifier =
-            Provider.of<UserDataAddressNotifier>(context, listen: false);
-        var _address = addressList.first == null ? null : addressList.first;
-
         var navigationResult = await Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (_) => Address(null, addressList),
+            builder: (_) => Address(null, null),
           ),
         );
         if (navigationResult == true) {
+          UserDataAddressNotifier addressNotifier =
+              Provider.of<UserDataAddressNotifier>(context, listen: false);
+
           setState(() {
             getAddress(addressNotifier);
           });
