@@ -5,8 +5,6 @@ import 'package:mollet/utils/colors.dart';
 import 'package:mollet/widgets/allWidgets.dart';
 
 class OrderPlaced extends StatefulWidget {
-  OrderPlaced({Key key}) : super(key: key);
-
   @override
   _OrderPlacedState createState() => _OrderPlacedState();
 }
