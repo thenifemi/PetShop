@@ -48,7 +48,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
     UserDataAddressNotifier addressNotifier =
         Provider.of<UserDataAddressNotifier>(context);
-    var addressList = addressNotifier.userDataAddressList;
+    var checkAddressList = addressNotifier.userDataAddressList == null
+        ? null
+        : addressNotifier.userDataAddressList;
+    var addressList = checkAddressList;
 
     return FutureBuilder(
       future: profileFuture,
@@ -108,26 +111,26 @@ class _SettingsScreenState extends State<SettingsScreen> {
         );
       },
       () async {
-        // UserDataAddressNotifier addressNotifier =
-        //     Provider.of<UserDataAddressNotifier>(context, listen: false);
-        // // var _address = addressList.first == null ? null : addressList.first;
+        UserDataAddressNotifier addressNotifier =
+            Provider.of<UserDataAddressNotifier>(context, listen: false);
+        var _address = addressList.first == null ? null : addressList.first;
 
-        // var navigationResult = await Navigator.of(context).push(
-        //   MaterialPageRoute(
-        //     builder: (_) => Address(null, addressList),
-        //   ),
-        // );
-        // if (navigationResult == true) {
-        //   setState(() {
-        //     getAddress(addressNotifier);
-        //   });
-        //   showSimpleSnack(
-        //     "Address has been updated",
-        //     Icons.check_circle_outline,
-        //     Colors.green,
-        //     _scaffoldKey,
-        //   );
-        // }
+        var navigationResult = await Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (_) => Address(null, addressList),
+          ),
+        );
+        if (navigationResult == true) {
+          setState(() {
+            getAddress(addressNotifier);
+          });
+          showSimpleSnack(
+            "Address has been updated",
+            Icons.check_circle_outline,
+            Colors.green,
+            _scaffoldKey,
+          );
+        }
       },
       () {
         shareWidget();
