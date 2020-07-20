@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mollet/main.dart';
+import 'package:mollet/model/data/userData.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:mollet/widgets/allWidgets.dart';
 
 class OrderPlaced extends StatefulWidget {
+  final List<UserDataAddress> addressList;
+  OrderPlaced(this.addressList);
   @override
-  _OrderPlacedState createState() => _OrderPlacedState();
+  _OrderPlacedState createState() => _OrderPlacedState(addressList);
 }
 
 class _OrderPlacedState extends State<OrderPlaced> {
+  final List<UserDataAddress> addressList;
+  _OrderPlacedState(this.addressList);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -104,7 +110,9 @@ class _OrderPlacedState extends State<OrderPlaced> {
                       textAlign: TextAlign.center,
                     ),
                     Text(
-                      "Apt 1902, Bela Monte Condo, Rua João Pedro, Centro",
+                      addressList.first.addressNumber +
+                          ", " +
+                          addressList.first.addressLocation,
                       style: boldFont(MColors.textGrey, 16),
                       textAlign: TextAlign.center,
                     ),

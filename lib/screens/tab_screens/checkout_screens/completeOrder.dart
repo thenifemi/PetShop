@@ -207,7 +207,7 @@ class _AddressContainerState extends State<AddressContainer> {
                   )
                 : Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (_) => OrderPlaced(),
+                      builder: (_) => OrderPlaced(addressList),
                     ),
                   );
           },
