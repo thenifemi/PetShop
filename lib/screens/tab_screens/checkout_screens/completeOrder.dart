@@ -358,7 +358,7 @@ class _AddressContainerState extends State<AddressContainer> {
           ),
           SizedBox(height: 10.0),
           primaryButtonWhiteSmoke(
-            Text("Add a shipping method",
+            Text("Add a shipping address",
                 style: boldFont(MColors.primaryPurple, 16.0)),
             () async {
               UserDataAddressNotifier addressNotifier =
