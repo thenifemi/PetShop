@@ -82,7 +82,7 @@ class _OrderPlacedState extends State<OrderPlaced> {
                   ),
                 ),
               ),
-              SizedBox(height: 20.0),
+              SizedBox(height: 10.0),
               Container(
                 padding: const EdgeInsets.all(20.0),
                 child: SvgPicture.asset(
@@ -90,7 +90,7 @@ class _OrderPlacedState extends State<OrderPlaced> {
                   height: 150,
                 ),
               ),
-              SizedBox(height: 20.0),
+              SizedBox(height: 10.0),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 child: Text(
@@ -99,7 +99,7 @@ class _OrderPlacedState extends State<OrderPlaced> {
                   textAlign: TextAlign.center,
                 ),
               ),
-              SizedBox(height: 40.0),
+              SizedBox(height: 30.0),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 child: Column(
@@ -119,7 +119,6 @@ class _OrderPlacedState extends State<OrderPlaced> {
                   ],
                 ),
               ),
-              SizedBox(height: 40.0),
             ],
           ),
         ),
