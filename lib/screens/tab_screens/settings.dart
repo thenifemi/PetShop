@@ -48,7 +48,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
     UserDataAddressNotifier addressNotifier =
         Provider.of<UserDataAddressNotifier>(context);
-    var addressList = addressNotifier.userDataAddressList;
+    var checkaddressList = addressNotifier.userDataAddressList;
+    var addressList;
+    checkaddressList.isEmpty || checkaddressList == null
+        ? addressList = null
+        : addressList = checkaddressList;
 
     return FutureBuilder(
       future: Future.wait([
@@ -61,7 +65,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             return progressIndicator(MColors.primaryPurple);
             break;
           case ConnectionState.done:
-            return checkUser.isEmpty || user == null
+            return checkUser.isEmpty || checkUser == null
                 ? progressIndicator(MColors.primaryPurple)
                 : showSettings(user, addressList);
 
