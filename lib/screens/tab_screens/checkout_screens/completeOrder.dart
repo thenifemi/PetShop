@@ -195,11 +195,18 @@ class _AddressContainerState extends State<AddressContainer> {
         child: primaryButtonPurple(
           Text("Place order", style: boldFont(MColors.primaryWhite, 16.0)),
           () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (_) => OrderPlaced(),
-              ),
-            );
+            addressList.isEmpty || cardList.isEmpty
+                ? showSimpleSnack(
+                    'Please complete shipping and card details',
+                    Icons.error_outline,
+                    Colors.amber,
+                    _scaffoldKey,
+                  )
+                : Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) => OrderPlaced(),
+                    ),
+                  );
           },
         ),
       ),
