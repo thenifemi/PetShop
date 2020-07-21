@@ -58,7 +58,7 @@ class _EditProfileState extends State<EditProfile> {
             },
             child: Text(
               "Save",
-              style: boldFont(MColors.primaryPurple, 16.0),
+              style: boldFont(MColors.primaryPurple, 14.0),
             ),
           )
         ],
