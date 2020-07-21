@@ -26,10 +26,7 @@ Pet Shop is an e-commerce application for Android built with Flutter (iOS to com
 ## Building 🏢🚀
 
 1. Clone the repo to your local computer
-2. Make sure you have Flutter and firebase installed
-
-Please, remember to use a rule that allows unauthenticated reads.
-
+2. Make sure you have Flutter and firebase installed.
 3. Please add your google-services.json file.
 4. import the foodProductsJSON/foodProducts.json to your firestore. (see: https://github.com/dalenguyen/firestore-import-export)
 5. The credentials.dart file is intentionaly not included. Create your own credentials file with your own API Keys.
