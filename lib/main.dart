@@ -20,13 +20,6 @@ void main() async {
   runApp(MyApp());
 }
 
-class HomeController extends StatefulWidget {
-  const HomeController({Key key}) : super(key: key);
-
-  @override
-  _HomeControllerState createState() => _HomeControllerState();
-}
-
 class MyApp extends StatelessWidget {
   const MyApp({Key key}) : super(key: key);
 
@@ -44,6 +37,13 @@ class MyApp extends StatelessWidget {
       ),
     );
   }
+}
+
+class HomeController extends StatefulWidget {
+  const HomeController({Key key}) : super(key: key);
+
+  @override
+  _HomeControllerState createState() => _HomeControllerState();
 }
 
 class _HomeControllerState extends State<HomeController> {
