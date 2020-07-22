@@ -28,19 +28,6 @@ void main() async {
   runApp(MyApp());
 }
 
-final routes = {
-  '/Registration': (BuildContext context) => RegistrationScreen(),
-  '/Homescreen': (BuildContext context) => HomeScreen(),
-  '/Login': (BuildContext context) => LoginScreen(),
-  '/Reset': (BuildContext context) => ResetScreen(),
-  '/home': (BuildContext context) => HomeController(),
-  '/Settings': (BuildContext context) => SettingsScreen(),
-  '/Security': (BuildContext context) => SecurityScreen(),
-  '/ChangePassword': (BuildContext context) => ChangePasswordScreen(),
-  '/Cards': (BuildContext context) => Cards(),
-  '/MyTabs': (BuildContext context) => TabsLayout(),
-};
-
 class HomeController extends StatefulWidget {
   const HomeController({Key key}) : super(key: key);
 
