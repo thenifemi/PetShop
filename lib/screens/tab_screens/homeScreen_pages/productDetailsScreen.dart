@@ -76,7 +76,10 @@ class _ProductDetailsState extends State<ProductDetails> {
                   size: 22.0,
                 ),
                 onPressed: () {
-                  Navigator.of(context).pop(prod);
+                  Navigator.pop(
+                    context,
+                    _isProductadded,
+                  );
                 },
               ),
               expandedHeight: (MediaQuery.of(context).size.height) / 2.3,

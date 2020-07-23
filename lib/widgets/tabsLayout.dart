@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mollet/model/services/Product_service.dart';
 import 'package:mollet/model/notifiers/cart_notifier.dart';
-// import 'package:mollet/screens/tab_screens/cart1.dart';
 import 'package:mollet/screens/tab_screens/history.dart';
 import 'package:mollet/screens/tab_screens/home.dart';
 import 'package:mollet/screens/tab_screens/homeScreen_pages/cart2.dart';
@@ -110,12 +109,19 @@ class _TabsLayoutState extends State<TabsLayout> {
                     ),
                   ),
                   GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).push(
+                    onTap: () async {
+                      CartNotifier cartNotifier =
+                          Provider.of<CartNotifier>(context, listen: false);
+                      var navigationResult = await Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (context) => Cart1(),
                         ),
                       );
+                      if (navigationResult == true) {
+                        setState(() {
+                          getCart(cartNotifier);
+                        });
+                      }
                     },
                     child: Container(
                       padding: const EdgeInsets.only(left: 10.0),

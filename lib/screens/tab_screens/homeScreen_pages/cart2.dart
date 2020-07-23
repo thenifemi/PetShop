@@ -53,7 +53,7 @@ class _Cart2State extends State<Cart2> {
             color: MColors.textDark,
           ),
           onPressed: () {
-            Navigator.of(context).pop();
+            Navigator.pop(context, true);
           },
         ),
         Text(

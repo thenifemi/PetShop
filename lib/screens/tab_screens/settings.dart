@@ -169,18 +169,42 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       Center(
-                        child: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Hero(
-                            tag: "profileAvatar",
-                            child: Container(
-                              child: SvgPicture.asset(
-                                "assets/images/femaleAvatar.svg",
-                                height: 90,
+                        child: GestureDetector(
+                          onTap: () async {
+                            UserDataProfileNotifier profileNotifier =
+                                Provider.of<UserDataProfileNotifier>(context,
+                                    listen: false);
+                            var navigationResult =
+                                await Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => EditProfile(user),
                               ),
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: MColors.dashPurple,
+                            );
+                            if (navigationResult == true) {
+                              setState(() {
+                                getProfile(profileNotifier);
+                              });
+                              showSimpleSnack(
+                                "Profile has been updated",
+                                Icons.check_circle_outline,
+                                Colors.green,
+                                _scaffoldKey,
+                              );
+                            }
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Hero(
+                              tag: "profileAvatar",
+                              child: Container(
+                                child: SvgPicture.asset(
+                                  "assets/images/femaleAvatar.svg",
+                                  height: 90,
+                                ),
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: MColors.dashPurple,
+                                ),
                               ),
                             ),
                           ),
