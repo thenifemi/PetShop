@@ -365,6 +365,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       } else {
         setState(() {
           _autoValidate = true;
+          _isEnabled = true;
         });
       }
     } catch (e) {

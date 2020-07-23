@@ -104,7 +104,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           null,
                           "e.g Remiola2034@gmail.com",
                           (val) => _email = val,
-                          true,
+                          _isEnabled,
                           EmailValiditor.validate,
                           false,
                           _autoValidate,
@@ -132,7 +132,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           null,
                           null,
                           (val) => _password = val,
-                          true,
+                          _isEnabled,
                           PasswordValiditor.validate,
                           _obscureText,
                           _autoValidate,
@@ -231,6 +231,7 @@ class _LoginScreenState extends State<LoginScreen> {
         if (mounted) {
           setState(() {
             _isButtonDisabled = true;
+            _isEnabled = false;
           });
         }
 
@@ -245,6 +246,7 @@ class _LoginScreenState extends State<LoginScreen> {
       } else {
         setState(() {
           _autoValidate = true;
+          _isEnabled = true;
         });
       }
     } catch (e) {
@@ -252,6 +254,7 @@ class _LoginScreenState extends State<LoginScreen> {
         setState(() {
           _error = e.message;
           _isButtonDisabled = false;
+          _isEnabled = true;
         });
       }
 
