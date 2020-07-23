@@ -391,7 +391,7 @@ Widget emptyCart() {
             ),
             Container(
               child: Text(
-                "Cart is empty",
+                "Bag is empty",
                 style: boldFont(MColors.textDark, 20),
                 textAlign: TextAlign.center,
               ),
@@ -399,7 +399,7 @@ Widget emptyCart() {
             SizedBox(height: 10.0),
             Container(
               child: Text(
-                "Products you add to your cart will show up here. So lets get shopping.",
+                "Products you add to your bag will show up here. So lets get shopping and make your pet happy.",
                 style: normalFont(MColors.textGrey, 16),
                 textAlign: TextAlign.center,
               ),
