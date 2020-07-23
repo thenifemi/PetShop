@@ -77,94 +77,89 @@ class _TabsLayoutState extends State<TabsLayout> {
     return Scaffold(
       appBar: primaryAppBar(
         null,
-        Row(
-          children: <Widget>[
-            SizedBox(width: 5.0),
-            _currentIndex != 0
-                ? Text(
-                    _appBarTitle
-                        .map((title) {
-                          return title;
-                        })
-                        .where((title) =>
-                            _appBarTitle.indexOf(title) == _currentIndex)
-                        .toString()
-                        .replaceAll("\)", "")
-                        .replaceAll("\(", ""),
-                    style: boldFont(MColors.textGrey, 20.0),
-                  )
-                : Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: primaryTextField(
-                          null,
-                          null,
-                          "Search for products",
-                          null,
-                          true,
-                          null,
-                          false,
-                          false,
-                          true,
-                          TextInputType.text,
-                          null,
-                          SvgPicture.asset(
-                            "assets/images/icons/Search.svg",
-                            color: MColors.textGrey,
-                            height: 16.0,
-                          ),
-                          0.0,
-                        ),
+        _currentIndex != 0
+            ? Text(
+                _appBarTitle
+                    .map((title) {
+                      return title;
+                    })
+                    .where(
+                        (title) => _appBarTitle.indexOf(title) == _currentIndex)
+                    .toString()
+                    .replaceAll("\)", "")
+                    .replaceAll("\(", ""),
+                style: boldFont(MColors.textGrey, 20.0),
+              )
+            : Row(
+                children: <Widget>[
+                  Expanded(
+                    child: primaryTextField(
+                      null,
+                      null,
+                      "Search for products",
+                      null,
+                      true,
+                      null,
+                      false,
+                      false,
+                      true,
+                      TextInputType.text,
+                      null,
+                      SvgPicture.asset(
+                        "assets/images/icons/Search.svg",
+                        color: MColors.textGrey,
+                        height: 16.0,
                       ),
-                      Container(
-                        padding: const EdgeInsets.all(5.0),
-                        // width: 40.0,
-                        child: Stack(
-                          children: <Widget>[
-                            Container(
-                              padding: const EdgeInsets.only(top: 5.0),
-                              child: SvgPicture.asset(
-                                "assets/images/icons/Bag.svg",
-                                height: 25,
-                                color: MColors.textGrey,
-                              ),
-                            ),
-                            cartList.isNotEmpty
-                                ? Positioned(
-                                    right: 0,
-                                    child: new Container(
-                                      padding: EdgeInsets.all(1),
-                                      decoration: new BoxDecoration(
-                                        color: Colors.redAccent,
-                                        borderRadius: BorderRadius.circular(6),
-                                      ),
-                                      constraints: BoxConstraints(
-                                        minWidth: 7,
-                                        minHeight: 7,
-                                      ),
-                                    ),
-                                  )
-                                : Positioned(
-                                    right: 0,
-                                    child: new Container(
-                                      padding: EdgeInsets.all(1),
-                                      decoration: new BoxDecoration(
-                                        color: Colors.transparent,
-                                        borderRadius: BorderRadius.circular(6),
-                                      ),
-                                      constraints: BoxConstraints(
-                                        minWidth: 7,
-                                        minHeight: 7,
-                                      ),
-                                    ),
-                                  ),
-                          ],
-                        ),
-                      ),
-                    ],
+                      0.0,
+                    ),
                   ),
-          ],
-        ),
+                  Container(
+                    padding: const EdgeInsets.all(5.0),
+                    // width: 40.0,
+                    child: Stack(
+                      children: <Widget>[
+                        Container(
+                          padding: const EdgeInsets.only(top: 5.0),
+                          child: SvgPicture.asset(
+                            "assets/images/icons/Bag.svg",
+                            height: 25,
+                            color: MColors.textGrey,
+                          ),
+                        ),
+                        cartList.isNotEmpty
+                            ? Positioned(
+                                right: 0,
+                                child: new Container(
+                                  padding: EdgeInsets.all(1),
+                                  decoration: new BoxDecoration(
+                                    color: Colors.redAccent,
+                                    borderRadius: BorderRadius.circular(6),
+                                  ),
+                                  constraints: BoxConstraints(
+                                    minWidth: 7,
+                                    minHeight: 7,
+                                  ),
+                                ),
+                              )
+                            : Positioned(
+                                right: 0,
+                                child: new Container(
+                                  padding: EdgeInsets.all(1),
+                                  decoration: new BoxDecoration(
+                                    color: Colors.transparent,
+                                    borderRadius: BorderRadius.circular(6),
+                                  ),
+                                  constraints: BoxConstraints(
+                                    minWidth: 7,
+                                    minHeight: 7,
+                                  ),
+                                ),
+                              ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
         MColors.primaryWhiteSmoke,
         null,
         false,
