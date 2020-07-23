@@ -93,80 +93,75 @@ class _TabsLayoutState extends State<TabsLayout> {
                         .replaceAll("\(", ""),
                     style: boldFont(MColors.textGrey, 20.0),
                   )
-                : Container(
-                    width: MediaQuery.of(context).size.width / 1,
-                    child: Row(
-                      children: <Widget>[
-                        Expanded(
-                          child: primaryTextField(
-                            null,
-                            null,
-                            "Search for products",
-                            null,
-                            true,
-                            null,
-                            false,
-                            false,
-                            true,
-                            TextInputType.text,
-                            null,
-                            SvgPicture.asset(
-                              "assets/images/icons/Search.svg",
-                              color: MColors.textGrey,
-                              height: 16.0,
-                            ),
-                            0.0,
+                : Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: primaryTextField(
+                          null,
+                          null,
+                          "Search for products",
+                          null,
+                          true,
+                          null,
+                          false,
+                          false,
+                          true,
+                          TextInputType.text,
+                          null,
+                          SvgPicture.asset(
+                            "assets/images/icons/Search.svg",
+                            color: MColors.textGrey,
+                            height: 16.0,
                           ),
+                          0.0,
                         ),
-                        Container(
-                          padding: const EdgeInsets.all(5.0),
-                          // width: 40.0,
-                          child: Stack(
-                            children: <Widget>[
-                              Container(
-                                padding: const EdgeInsets.only(top: 5.0),
-                                child: SvgPicture.asset(
-                                  "assets/images/icons/Bag.svg",
-                                  height: 25,
-                                  color: MColors.textGrey,
-                                ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.all(5.0),
+                        // width: 40.0,
+                        child: Stack(
+                          children: <Widget>[
+                            Container(
+                              padding: const EdgeInsets.only(top: 5.0),
+                              child: SvgPicture.asset(
+                                "assets/images/icons/Bag.svg",
+                                height: 25,
+                                color: MColors.textGrey,
                               ),
-                              cartList.isNotEmpty
-                                  ? Positioned(
-                                      right: 0,
-                                      child: new Container(
-                                        padding: EdgeInsets.all(1),
-                                        decoration: new BoxDecoration(
-                                          color: Colors.redAccent,
-                                          borderRadius:
-                                              BorderRadius.circular(6),
-                                        ),
-                                        constraints: BoxConstraints(
-                                          minWidth: 7,
-                                          minHeight: 7,
-                                        ),
+                            ),
+                            cartList.isNotEmpty
+                                ? Positioned(
+                                    right: 0,
+                                    child: new Container(
+                                      padding: EdgeInsets.all(1),
+                                      decoration: new BoxDecoration(
+                                        color: Colors.redAccent,
+                                        borderRadius: BorderRadius.circular(6),
                                       ),
-                                    )
-                                  : Positioned(
-                                      right: 0,
-                                      child: new Container(
-                                        padding: EdgeInsets.all(1),
-                                        decoration: new BoxDecoration(
-                                          color: Colors.transparent,
-                                          borderRadius:
-                                              BorderRadius.circular(6),
-                                        ),
-                                        constraints: BoxConstraints(
-                                          minWidth: 7,
-                                          minHeight: 7,
-                                        ),
+                                      constraints: BoxConstraints(
+                                        minWidth: 7,
+                                        minHeight: 7,
                                       ),
                                     ),
-                            ],
-                          ),
+                                  )
+                                : Positioned(
+                                    right: 0,
+                                    child: new Container(
+                                      padding: EdgeInsets.all(1),
+                                      decoration: new BoxDecoration(
+                                        color: Colors.transparent,
+                                        borderRadius: BorderRadius.circular(6),
+                                      ),
+                                      constraints: BoxConstraints(
+                                        minWidth: 7,
+                                        minHeight: 7,
+                                      ),
+                                    ),
+                                  ),
+                          ],
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
           ],
         ),
