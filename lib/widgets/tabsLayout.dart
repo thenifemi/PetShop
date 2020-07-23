@@ -114,8 +114,7 @@ class _TabsLayoutState extends State<TabsLayout> {
                     ),
                   ),
                   Container(
-                    padding: const EdgeInsets.all(5.0),
-                    // width: 40.0,
+                    // padding: const EdgeInsets.all(5.0),
                     child: Stack(
                       children: <Widget>[
                         Container(
@@ -129,9 +128,9 @@ class _TabsLayoutState extends State<TabsLayout> {
                         cartList.isNotEmpty
                             ? Positioned(
                                 right: 0,
-                                child: new Container(
+                                child: Container(
                                   padding: EdgeInsets.all(1),
-                                  decoration: new BoxDecoration(
+                                  decoration: BoxDecoration(
                                     color: Colors.redAccent,
                                     borderRadius: BorderRadius.circular(6),
                                   ),
@@ -143,9 +142,9 @@ class _TabsLayoutState extends State<TabsLayout> {
                               )
                             : Positioned(
                                 right: 0,
-                                child: new Container(
+                                child: Container(
                                   padding: EdgeInsets.all(1),
-                                  decoration: new BoxDecoration(
+                                  decoration: BoxDecoration(
                                     color: Colors.transparent,
                                     borderRadius: BorderRadius.circular(6),
                                   ),
