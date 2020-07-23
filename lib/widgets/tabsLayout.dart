@@ -97,6 +97,7 @@ class _TabsLayoutState extends State<TabsLayout> {
                     child: Row(
                       children: <Widget>[
                         Container(
+                          width: MediaQuery.of(context).size.width / 1.4,
                           child: primaryTextField(
                             null,
                             null,
