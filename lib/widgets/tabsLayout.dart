@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mollet/model/services/Product_service.dart';
 import 'package:mollet/model/notifiers/cart_notifier.dart';
-import 'package:mollet/screens/tab_screens/cart1.dart';
+// import 'package:mollet/screens/tab_screens/cart1.dart';
 import 'package:mollet/screens/tab_screens/history.dart';
 import 'package:mollet/screens/tab_screens/home.dart';
+import 'package:mollet/screens/tab_screens/homeScreen_pages/cart2.dart';
 import 'package:mollet/screens/tab_screens/notifications.dart';
 import 'package:mollet/screens/tab_screens/settings.dart';
 import 'package:mollet/utils/colors.dart';
@@ -33,9 +34,6 @@ class _TabsLayoutState extends State<TabsLayout> {
     HomeScreen(
       key: PageStorageKey("homeKey"),
     ),
-    Cart1(
-      key: PageStorageKey("cart1"),
-    ),
     HistoryScreen(
       key: PageStorageKey("historyKey"),
     ),
@@ -55,7 +53,6 @@ class _TabsLayoutState extends State<TabsLayout> {
 
   final _tabIcons = [
     "assets/images/icons/Home.svg",
-    "assets/images/icons/Bag.svg",
     "assets/images/icons/Chart.svg",
     "assets/images/icons/Notification.svg",
     "assets/images/icons/Setting.svg",
@@ -63,7 +60,6 @@ class _TabsLayoutState extends State<TabsLayout> {
 
   final _appBarTitle = [
     "Pet Shop",
-    "Bag",
     "History",
     "Notifications",
     "Settings",
@@ -113,48 +109,57 @@ class _TabsLayoutState extends State<TabsLayout> {
                       0.0,
                     ),
                   ),
-                  Container(
-                    // padding: const EdgeInsets.all(5.0),
-                    child: Stack(
-                      children: <Widget>[
-                        Container(
-                          padding: const EdgeInsets.only(top: 5.0),
-                          child: SvgPicture.asset(
-                            "assets/images/icons/Bag.svg",
-                            height: 25,
-                            color: MColors.textGrey,
-                          ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => Cart1(),
                         ),
-                        cartList.isNotEmpty
-                            ? Positioned(
-                                right: 0,
-                                child: Container(
-                                  padding: EdgeInsets.all(1),
-                                  decoration: BoxDecoration(
-                                    color: Colors.redAccent,
-                                    borderRadius: BorderRadius.circular(6),
+                      );
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.only(left: 10.0),
+                      child: Stack(
+                        children: <Widget>[
+                          Container(
+                            padding: const EdgeInsets.only(top: 5.0),
+                            child: SvgPicture.asset(
+                              "assets/images/icons/Bag.svg",
+                              height: 25,
+                              color: MColors.textGrey,
+                            ),
+                          ),
+                          cartList.isNotEmpty
+                              ? Positioned(
+                                  right: 0,
+                                  child: Container(
+                                    padding: EdgeInsets.all(1),
+                                    decoration: BoxDecoration(
+                                      color: Colors.redAccent,
+                                      borderRadius: BorderRadius.circular(6),
+                                    ),
+                                    constraints: BoxConstraints(
+                                      minWidth: 7,
+                                      minHeight: 7,
+                                    ),
                                   ),
-                                  constraints: BoxConstraints(
-                                    minWidth: 7,
-                                    minHeight: 7,
+                                )
+                              : Positioned(
+                                  right: 0,
+                                  child: Container(
+                                    padding: EdgeInsets.all(1),
+                                    decoration: BoxDecoration(
+                                      color: Colors.transparent,
+                                      borderRadius: BorderRadius.circular(6),
+                                    ),
+                                    constraints: BoxConstraints(
+                                      minWidth: 7,
+                                      minHeight: 7,
+                                    ),
                                   ),
                                 ),
-                              )
-                            : Positioned(
-                                right: 0,
-                                child: Container(
-                                  padding: EdgeInsets.all(1),
-                                  decoration: BoxDecoration(
-                                    color: Colors.transparent,
-                                    borderRadius: BorderRadius.circular(6),
-                                  ),
-                                  constraints: BoxConstraints(
-                                    minWidth: 7,
-                                    minHeight: 7,
-                                  ),
-                                ),
-                              ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ],
@@ -179,7 +184,6 @@ class _TabsLayoutState extends State<TabsLayout> {
           onTap: onTabTapped,
           items: _tabIcons.map((e) {
             final bool isSelected = _tabIcons.indexOf(e) == _currentIndex;
-            final bool isCartSelected = _tabIcons.indexOf(e) == 1;
             return BottomNavigationBarItem(
               icon: Padding(
                 padding: const EdgeInsets.all(5.0),
@@ -195,35 +199,6 @@ class _TabsLayoutState extends State<TabsLayout> {
                             : MColors.textGrey,
                       ),
                     ),
-                    isCartSelected && cartList.isNotEmpty
-                        ? Positioned(
-                            right: 0,
-                            child: Container(
-                              padding: EdgeInsets.all(1),
-                              decoration: BoxDecoration(
-                                color: Colors.redAccent,
-                                borderRadius: BorderRadius.circular(6),
-                              ),
-                              constraints: BoxConstraints(
-                                minWidth: 7,
-                                minHeight: 7,
-                              ),
-                            ),
-                          )
-                        : Positioned(
-                            right: 0,
-                            child: Container(
-                              padding: EdgeInsets.all(1),
-                              decoration: BoxDecoration(
-                                color: Colors.transparent,
-                                borderRadius: BorderRadius.circular(6),
-                              ),
-                              constraints: BoxConstraints(
-                                minWidth: 7,
-                                minHeight: 7,
-                              ),
-                            ),
-                          ),
                   ],
                 ),
               ),
