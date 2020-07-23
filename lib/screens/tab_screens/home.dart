@@ -215,12 +215,19 @@ class _HomeScreenState extends State<HomeScreen>
           var fil = cleanList[i];
 
           return GestureDetector(
-            onTap: () {
-              Navigator.of(context).push(
+            onTap: () async {
+              CartNotifier cartNotifier =
+                  Provider.of<CartNotifier>(context, listen: false);
+              var navigationResult = await Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) => ProductDetailsProv(fil, prods),
                 ),
               );
+              if (navigationResult == true) {
+                setState(() {
+                  getCart(cartNotifier);
+                });
+              }
             },
             child: Container(
               padding: EdgeInsets.all(10),
@@ -342,12 +349,19 @@ class _HomeScreenState extends State<HomeScreen>
           var fil = cleanList[i];
 
           return GestureDetector(
-            onTap: () {
-              Navigator.of(context).push(
+            onTap: () async {
+              CartNotifier cartNotifier =
+                  Provider.of<CartNotifier>(context, listen: false);
+              var navigationResult = await Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) => ProductDetailsProv(fil, prods),
                 ),
               );
+              if (navigationResult == true) {
+                setState(() {
+                  getCart(cartNotifier);
+                });
+              }
             },
             child: Container(
               padding: EdgeInsets.all(10),
@@ -469,12 +483,19 @@ class _HomeScreenState extends State<HomeScreen>
           var fil = cleanList[i];
 
           return GestureDetector(
-            onTap: () {
-              Navigator.of(context).push(
+            onTap: () async {
+              CartNotifier cartNotifier =
+                  Provider.of<CartNotifier>(context, listen: false);
+              var navigationResult = await Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) => ProductDetailsProv(fil, prods),
                 ),
               );
+              if (navigationResult == true) {
+                setState(() {
+                  getCart(cartNotifier);
+                });
+              }
             },
             child: Container(
               padding: EdgeInsets.all(10),
