@@ -29,6 +29,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   bool _autoValidate = false;
   bool _isButtonDisabled = false;
   bool _obscureText = true;
+  bool _isEnabled = true;
 
   @override
   Widget build(BuildContext context) {
@@ -111,7 +112,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                 null,
                                 "Remiola",
                                 (val) => _name = val,
-                                true,
+                                _isEnabled,
                                 NameValiditor.validate,
                                 false,
                                 _autoValidate,
@@ -139,7 +140,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                 null,
                                 "e.g Remiola2034@gmail.com",
                                 (val) => _email = val,
-                                true,
+                                _isEnabled,
                                 EmailValiditor.validate,
                                 false,
                                 _autoValidate,
@@ -167,7 +168,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                 null,
                                 null,
                                 (val) => _password = val,
-                                true,
+                                _isEnabled,
                                 PasswordValiditor.validate,
                                 _obscureText,
                                 _autoValidate,
@@ -215,7 +216,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                 null,
                                 "e.g +55 (47) 12345 6789",
                                 (val) => _phone = val,
-                                true,
+                                _isEnabled,
                                 PhoneNumberValiditor.validate,
                                 false,
                                 _autoValidate,
@@ -343,6 +344,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         if (mounted) {
           setState(() {
             _isButtonDisabled = true;
+            _isEnabled = false;
           });
         }
 
@@ -369,6 +371,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       setState(() {
         _error = e.message;
         _isButtonDisabled = false;
+        _isEnabled = true;
       });
 
       print("ERRORR ==>");

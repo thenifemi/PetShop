@@ -25,6 +25,7 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _autoValidate = false;
   bool _isButtonDisabled = false;
   bool _obscureText = true;
+  bool _isEnabled = true;
 
   @override
   Widget build(BuildContext context) {
