@@ -79,30 +79,47 @@ class _TabsLayoutState extends State<TabsLayout> {
         null,
         Row(
           children: <Widget>[
-            _currentIndex == 0
-                ? Container(
-                    height: 24.0,
-                    child: Image.asset(
-                      "assets/images/footprint.png",
-                    ),
-                  )
-                : Container(),
             SizedBox(width: 5.0),
-            Text(
-              _appBarTitle
-                  .map((title) {
-                    return title;
-                  })
-                  .where(
-                      (title) => _appBarTitle.indexOf(title) == _currentIndex)
-                  .toString()
-                  .replaceAll("\)", "")
-                  .replaceAll("\(", ""),
-              style: boldFont(
-                _currentIndex == 0 ? MColors.primaryPurple : MColors.textGrey,
-                22.0,
-              ),
-            ),
+            _currentIndex != 0
+                ? Text(
+                    _appBarTitle
+                        .map((title) {
+                          return title;
+                        })
+                        .where((title) =>
+                            _appBarTitle.indexOf(title) == _currentIndex)
+                        .toString()
+                        .replaceAll("\)", "")
+                        .replaceAll("\(", ""),
+                    style: boldFont(MColors.textGrey, 20.0),
+                  )
+                : Container(
+                    child: Row(
+                      children: <Widget>[
+                        Container(
+                          child: primaryTextField(
+                            null,
+                            null,
+                            "Search for products",
+                            null,
+                            true,
+                            null,
+                            false,
+                            false,
+                            true,
+                            TextInputType.text,
+                            null,
+                            SvgPicture.asset(
+                              "assets/images/icons/Search.svg",
+                              color: MColors.textGrey,
+                              height: 16.0,
+                            ),
+                            0.0,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
           ],
         ),
         MColors.primaryWhiteSmoke,
