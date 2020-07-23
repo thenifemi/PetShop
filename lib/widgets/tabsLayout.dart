@@ -94,7 +94,7 @@ class _TabsLayoutState extends State<TabsLayout> {
                     style: boldFont(MColors.textGrey, 20.0),
                   )
                 : Container(
-                    width: MediaQuery.of(context).size.width,
+                    width: double.infinity,
                     child: Row(
                       children: <Widget>[
                         Expanded(
