@@ -44,7 +44,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
     UserDataProfileNotifier profileNotifier =
         Provider.of<UserDataProfileNotifier>(context);
     var checkUser = profileNotifier.userDataProfileList;
-    var user = profileNotifier.userDataProfileList.first;
+    var user;
+    checkUser.isEmpty || checkUser == null
+        ? user = null
+        : user = checkUser.first;
+
+    UserDataAddressNotifier addressNotifier =
+        Provider.of<UserDataAddressNotifier>(context);
+    var checkaddressList = addressNotifier.userDataAddressList;
+    var addressList;
+    checkaddressList.isEmpty || checkaddressList == null
+        ? addressList = null
+        : addressList = checkaddressList;
 
     return FutureBuilder(
       future: Future.wait([
@@ -52,14 +63,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
         addressFuture,
       ]),
       builder: (c, s) {
-        UserDataAddressNotifier addressNotifier =
-            Provider.of<UserDataAddressNotifier>(context);
-        var checkaddressList = addressNotifier.userDataAddressList;
-        var addressList;
-        checkaddressList.isEmpty || checkaddressList == null
-            ? addressList = null
-            : addressList = checkaddressList;
-
         switch (s.connectionState) {
           case ConnectionState.active:
             return progressIndicator(MColors.primaryPurple);
