@@ -93,11 +93,11 @@ class _TabsLayoutState extends State<TabsLayout> {
                         .replaceAll("\(", ""),
                     style: boldFont(MColors.textGrey, 20.0),
                   )
-                : Container(
-                    child: Row(
-                      children: <Widget>[
-                        Container(
-                          width: MediaQuery.of(context).size.width / 1.4,
+                : Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: Container(
+                          // width: MediaQuery.of(context).size.width / 1.22,
                           child: primaryTextField(
                             null,
                             null,
@@ -118,8 +118,53 @@ class _TabsLayoutState extends State<TabsLayout> {
                             0.0,
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.all(5.0),
+                        width: 40.0,
+                        child: Stack(
+                          children: <Widget>[
+                            Container(
+                              padding: const EdgeInsets.only(top: 5.0),
+                              child: SvgPicture.asset(
+                                "assets/images/icons/Bag.svg",
+                                height: 25,
+                                color: MColors.textGrey,
+                              ),
+                            ),
+                            cartList.isNotEmpty
+                                ? Positioned(
+                                    right: 0,
+                                    child: new Container(
+                                      padding: EdgeInsets.all(1),
+                                      decoration: new BoxDecoration(
+                                        color: Colors.redAccent,
+                                        borderRadius: BorderRadius.circular(6),
+                                      ),
+                                      constraints: BoxConstraints(
+                                        minWidth: 7,
+                                        minHeight: 7,
+                                      ),
+                                    ),
+                                  )
+                                : Positioned(
+                                    right: 0,
+                                    child: new Container(
+                                      padding: EdgeInsets.all(1),
+                                      decoration: new BoxDecoration(
+                                        color: Colors.transparent,
+                                        borderRadius: BorderRadius.circular(6),
+                                      ),
+                                      constraints: BoxConstraints(
+                                        minWidth: 7,
+                                        minHeight: 7,
+                                      ),
+                                    ),
+                                  ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
           ],
         ),
@@ -162,9 +207,9 @@ class _TabsLayoutState extends State<TabsLayout> {
                     isCartSelected && cartList.isNotEmpty
                         ? Positioned(
                             right: 0,
-                            child: new Container(
+                            child: Container(
                               padding: EdgeInsets.all(1),
-                              decoration: new BoxDecoration(
+                              decoration: BoxDecoration(
                                 color: Colors.redAccent,
                                 borderRadius: BorderRadius.circular(6),
                               ),
@@ -176,9 +221,9 @@ class _TabsLayoutState extends State<TabsLayout> {
                           )
                         : Positioned(
                             right: 0,
-                            child: new Container(
+                            child: Container(
                               padding: EdgeInsets.all(1),
-                              decoration: new BoxDecoration(
+                              decoration: BoxDecoration(
                                 color: Colors.transparent,
                                 borderRadius: BorderRadius.circular(6),
                               ),

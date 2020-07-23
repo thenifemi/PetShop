@@ -86,56 +86,24 @@ class _HomeScreenState extends State<HomeScreen>
       key: _scaffoldKey,
       appBar: primaryAppBar(
         null,
-        null,
-        MColors.primaryWhiteSmoke,
-        PreferredSize(
-          preferredSize: const Size.fromHeight(54),
-          child: primaryContainer(
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Container(
-                  child: primaryTextField(
-                    null,
-                    null,
-                    "Search for products",
-                    null,
-                    true,
-                    null,
-                    false,
-                    false,
-                    true,
-                    TextInputType.text,
-                    null,
-                    SvgPicture.asset(
-                      "assets/images/icons/Search.svg",
-                      color: MColors.textGrey,
-                      height: 16.0,
-                    ),
-                    0.0,
-                  ),
-                ),
-                TabBar(
-                  unselectedLabelColor: MColors.textGrey,
-                  unselectedLabelStyle: normalFont(MColors.textGrey, 16.0),
-                  labelColor: MColors.primaryPurple,
-                  labelStyle: boldFont(MColors.primaryPurple, 20.0),
-                  indicatorWeight: 0.01,
-                  isScrollable: true,
-                  tabs: _tabItems.map((e) {
-                    return Tab(
-                      child: Text(
-                        e,
-                      ),
-                    );
-                  }).toList(),
-                  controller: _tabController,
-                ),
-              ],
-            ),
-          ),
+        TabBar(
+          unselectedLabelColor: MColors.textGrey,
+          unselectedLabelStyle: normalFont(MColors.textGrey, 16.0),
+          labelColor: MColors.primaryPurple,
+          labelStyle: boldFont(MColors.primaryPurple, 20.0),
+          indicatorWeight: 0.01,
+          isScrollable: true,
+          tabs: _tabItems.map((e) {
+            return Tab(
+              child: Text(
+                e,
+              ),
+            );
+          }).toList(),
+          controller: _tabController,
         ),
+        MColors.primaryWhiteSmoke,
+        null,
         false,
         null,
       ),
