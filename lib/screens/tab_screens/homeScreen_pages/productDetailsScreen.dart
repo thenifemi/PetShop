@@ -41,8 +41,8 @@ class _ProductDetailsState extends State<ProductDetails> {
 
   ProdProducts prodDetails;
   UnmodifiableListView<ProdProducts> prods;
-  // Future cartFuture;
   bool _isbuttonDisabled = false;
+  bool _isProductadded = false;
 
   @override
   void initState() {
@@ -540,6 +540,7 @@ class _ProductDetailsState extends State<ProductDetails> {
         setState(() {
           getCart(cartNotifier);
           isCartBadge = true;
+          _isProductadded = true;
         });
       }
     } catch (e) {
