@@ -74,15 +74,6 @@ getCart(CartNotifier cartNotifier) async {
   cartNotifier.cartList = _cartList;
 }
 
-//Getting users' cart
-clearCartAfterPurchase() async {
-  final db = Firestore.instance;
-
-  final uEmail = await AuthService().getCurrentEmail();
-  CollectionReference cartRef = db.collection("userCart");
-  cartRef.document(uEmail).delete();
-}
-
 //Adding item quantity, Price and updating data in cart
 addAndApdateData(cartItem) async {
   final db = Firestore.instance;
@@ -128,7 +119,6 @@ subAndApdateData(cartItem) async {
 removeItemFromCart(cartItem) async {
   final db = Firestore.instance;
   final uEmail = await AuthService().getCurrentEmail();
-  // final uid = await AuthService().getCurrentUID();
 
   await db
       .collection("userCart")
@@ -136,4 +126,21 @@ removeItemFromCart(cartItem) async {
       .collection("cartItems")
       .document(cartItem.productID)
       .delete();
+}
+
+//Clearing users' cart
+clearCartAfterPurchase() async {
+  final db = Firestore.instance;
+  final uEmail = await AuthService().getCurrentEmail();
+
+  await db
+      .collection('userCart')
+      .document(uEmail)
+      .collection("cartItems")
+      .getDocuments()
+      .then((snapshot) {
+    for (DocumentSnapshot doc in snapshot.documents) {
+      doc.reference.delete();
+    }
+  });
 }

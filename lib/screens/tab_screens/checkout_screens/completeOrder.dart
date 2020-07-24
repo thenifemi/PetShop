@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:mollet/model/data/cart.dart';
 import 'package:mollet/model/notifiers/cart_notifier.dart';
 import 'package:mollet/model/notifiers/userData_notifier.dart';
+import 'package:mollet/model/services/Product_service.dart';
 import 'package:mollet/model/services/user_management.dart';
 import 'package:mollet/screens/tab_screens/checkout_screens/addPaymentMethod.dart';
 import 'package:mollet/screens/tab_screens/checkout_screens/orderPlaced.dart';
@@ -198,18 +199,21 @@ class _AddressContainerState extends State<AddressContainer> {
             style: boldFont(MColors.primaryWhite, 16.0),
           ),
           () {
-            addressList.isEmpty || cardList.isEmpty
-                ? showSimpleSnack(
-                    'Please complete shipping and card details',
-                    Icons.error_outline,
-                    Colors.amber,
-                    _scaffoldKey,
-                  )
-                : Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (_) => OrderPlaced(addressList),
-                    ),
-                  );
+            if (addressList.isEmpty || cardList.isEmpty) {
+              showSimpleSnack(
+                'Please complete shipping and card details',
+                Icons.error_outline,
+                Colors.amber,
+                _scaffoldKey,
+              );
+            } else {
+              clearCartAfterPurchase();
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (_) => OrderPlaced(addressList),
+                ),
+              );
+            }
           },
         ),
       ),
