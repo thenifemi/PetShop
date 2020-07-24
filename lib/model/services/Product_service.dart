@@ -79,9 +79,8 @@ clearCartAfterPurchase() async {
   final db = Firestore.instance;
 
   final uEmail = await AuthService().getCurrentEmail();
-  CollectionReference cartRef =
-      db.collection("userCart").document(uEmail).collection("cartItems");
-  cartRef.document().delete();
+  CollectionReference cartRef = db.collection("userCart");
+  cartRef.document(uEmail).delete();
 }
 
 //Adding item quantity, Price and updating data in cart
