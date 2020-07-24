@@ -83,13 +83,6 @@ clearingCartAfterPurchase() async {
       .document(uEmail)
       .collection("cartItems")
       .getDocuments();
-
-  List<Cart> _cartList = [];
-
-  snapshot.documents.forEach((document) {
-    Cart cart = Cart.fromMap(document.data);
-    _cartList.add(cart);
-  });
 }
 
 //Adding item quantity, Price and updating data in cart
