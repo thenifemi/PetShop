@@ -108,63 +108,66 @@ class _TabsLayoutState extends State<TabsLayout> {
                       0.0,
                     ),
                   ),
-                  GestureDetector(
-                    onTap: () async {
-                      CartNotifier cartNotifier =
-                          Provider.of<CartNotifier>(context, listen: false);
-                      var navigationResult = await Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => Cart1(),
-                        ),
-                      );
-                      if (navigationResult == true) {
-                        setState(() {
-                          getCart(cartNotifier);
-                        });
-                      }
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.only(left: 10.0),
-                      child: Stack(
-                        children: <Widget>[
-                          Container(
-                            padding: const EdgeInsets.only(top: 5.0),
-                            child: SvgPicture.asset(
-                              "assets/images/icons/Bag.svg",
-                              height: 25,
-                              color: MColors.textGrey,
-                            ),
+                  Container(
+                    width: 50,
+                    child: RawMaterialButton(
+                      onPressed: () async {
+                        CartNotifier cartNotifier =
+                            Provider.of<CartNotifier>(context, listen: false);
+                        var navigationResult = await Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => Cart1(),
                           ),
-                          cartList.isNotEmpty
-                              ? Positioned(
-                                  right: 0,
-                                  child: Container(
-                                    padding: EdgeInsets.all(1),
-                                    decoration: BoxDecoration(
-                                      color: Colors.redAccent,
-                                      borderRadius: BorderRadius.circular(6),
+                        );
+                        if (navigationResult == true) {
+                          setState(() {
+                            getCart(cartNotifier);
+                          });
+                        }
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.only(left: 10.0),
+                        child: Stack(
+                          children: <Widget>[
+                            Container(
+                              padding: const EdgeInsets.only(top: 5.0),
+                              child: SvgPicture.asset(
+                                "assets/images/icons/Bag.svg",
+                                height: 25,
+                                color: MColors.textGrey,
+                              ),
+                            ),
+                            cartList.isNotEmpty
+                                ? Positioned(
+                                    right: 0,
+                                    child: Container(
+                                      padding: EdgeInsets.all(1),
+                                      decoration: BoxDecoration(
+                                        color: Colors.redAccent,
+                                        borderRadius: BorderRadius.circular(6),
+                                      ),
+                                      constraints: BoxConstraints(
+                                        minWidth: 7,
+                                        minHeight: 7,
+                                      ),
                                     ),
-                                    constraints: BoxConstraints(
-                                      minWidth: 7,
-                                      minHeight: 7,
+                                  )
+                                : Positioned(
+                                    right: 0,
+                                    child: Container(
+                                      padding: EdgeInsets.all(1),
+                                      decoration: BoxDecoration(
+                                        color: Colors.transparent,
+                                        borderRadius: BorderRadius.circular(6),
+                                      ),
+                                      constraints: BoxConstraints(
+                                        minWidth: 7,
+                                        minHeight: 7,
+                                      ),
                                     ),
                                   ),
-                                )
-                              : Positioned(
-                                  right: 0,
-                                  child: Container(
-                                    padding: EdgeInsets.all(1),
-                                    decoration: BoxDecoration(
-                                      color: Colors.transparent,
-                                      borderRadius: BorderRadius.circular(6),
-                                    ),
-                                    constraints: BoxConstraints(
-                                      minWidth: 7,
-                                      minHeight: 7,
-                                    ),
-                                  ),
-                                ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),
