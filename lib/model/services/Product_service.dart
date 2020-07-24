@@ -75,14 +75,13 @@ getCart(CartNotifier cartNotifier) async {
 }
 
 //Getting users' cart
-clearingCartAfterPurchase() async {
-  final uEmail = await AuthService().getCurrentEmail();
+clearCartAfterPurchase() async {
+  final db = Firestore.instance;
 
-  QuerySnapshot snapshot = await Firestore.instance
-      .collection("userCart")
-      .document(uEmail)
-      .collection("cartItems")
-      .getDocuments();
+  final uEmail = await AuthService().getCurrentEmail();
+  CollectionReference cartRef =
+      db.collection("userCart").document(uEmail).collection("cartItems");
+  cartRef.document().delete();
 }
 
 //Adding item quantity, Price and updating data in cart
@@ -109,7 +108,6 @@ addAndApdateData(cartItem) async {
 //Subtracting item quantity, Price and updating data in cart
 subAndApdateData(cartItem) async {
   final db = Firestore.instance;
-  // final uid = await AuthService().getCurrentUID();
   final uEmail = await AuthService().getCurrentEmail();
 
   if (cartItem.quantity <= 1) {
