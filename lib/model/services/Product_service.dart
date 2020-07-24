@@ -56,7 +56,6 @@ getBrands(BrandsNotifier brandsNotifier) async {
 
 //Getting users' cart
 getCart(CartNotifier cartNotifier) async {
-  // final uid = await AuthService().getCurrentUID();
   final uEmail = await AuthService().getCurrentEmail();
 
   QuerySnapshot snapshot = await Firestore.instance
@@ -73,6 +72,24 @@ getCart(CartNotifier cartNotifier) async {
   });
 
   cartNotifier.cartList = _cartList;
+}
+
+//Getting users' cart
+clearingCartAfterPurchase() async {
+  final uEmail = await AuthService().getCurrentEmail();
+
+  QuerySnapshot snapshot = await Firestore.instance
+      .collection("userCart")
+      .document(uEmail)
+      .collection("cartItems")
+      .getDocuments();
+
+  List<Cart> _cartList = [];
+
+  snapshot.documents.forEach((document) {
+    Cart cart = Cart.fromMap(document.data);
+    _cartList.add(cart);
+  });
 }
 
 //Adding item quantity, Price and updating data in cart
