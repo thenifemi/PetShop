@@ -36,6 +36,7 @@ dependencies:
   dio: ^3.0.9
   geocoder: ^0.2.1
   location: ^3.0.2
+  uuid: ^2.2.0
 
 flutter_icons:
   android: true

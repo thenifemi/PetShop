@@ -6,6 +6,7 @@ import 'package:mollet/model/notifiers/brands_notifier.dart';
 import 'package:mollet/model/notifiers/cart_notifier.dart';
 import 'package:mollet/model/notifiers/products_notifier.dart';
 import 'package:mollet/model/services/auth_service.dart';
+import 'package:uuid/uuid.dart';
 
 //Getting products
 getProdProducts(ProductsNotifier productsNotifier) async {
@@ -146,7 +147,10 @@ clearCartAfterPurchase() async {
 }
 
 //Adding users' product to cart
-addCartToOrders(cart) async {
+addCartToOrders(cartItem) async {
+  var uuid = Uuid();
+  var v4 = uuid.v4();
+  print(v4);
   final db = Firestore.instance;
   final uEmail = await AuthService().getCurrentEmail();
 
@@ -154,10 +158,10 @@ addCartToOrders(cart) async {
       .collection("userOrder")
       .document(uEmail)
       .collection("order")
-      .document("order1")
+      .document(v4)
       .collection("orderItems")
-      .document(cart.productID)
-      .setData(cart.toMap())
+      .document(cartItem.productID)
+      .setData(cartItem.toMap())
       .catchError((e) {
     print(e);
   });
