@@ -6,7 +6,6 @@ import 'package:mollet/model/notifiers/brands_notifier.dart';
 import 'package:mollet/model/notifiers/cart_notifier.dart';
 import 'package:mollet/model/notifiers/products_notifier.dart';
 import 'package:mollet/model/services/auth_service.dart';
-import 'package:uuid/uuid.dart';
 
 //Getting products
 getProdProducts(ProductsNotifier productsNotifier) async {
@@ -147,18 +146,31 @@ clearCartAfterPurchase() async {
 }
 
 //Adding users' product to cart
-addCartToOrders(cartItem) async {
-  var uuid = Uuid();
-  var v4 = uuid.v4();
-  print(v4);
+addCartToOrders(cartItem, orderID) async {
   final db = Firestore.instance;
   final uEmail = await AuthService().getCurrentEmail();
 
   await db
       .collection("userOrder")
       .document(uEmail)
-      .collection("order")
-      .document(v4)
+      .collection("orders")
+      .document(orderID)
+      .collection("orderItems")
+      .document(cartItem.productID)
+      .setData(cartItem.toMap())
+      .catchError((e) {
+    print(e);
+  });
+
+  //Sending orders to merchant
+
+  var merchantOrderID;
+  merchantOrderID = uEmail + "//" + orderID;
+  await db
+      .collection("merchantOrder")
+      .document(merchantOrderID)
+      .collection("orders")
+      .document(orderID)
       .collection("orderItems")
       .document(cartItem.productID)
       .setData(cartItem.toMap())

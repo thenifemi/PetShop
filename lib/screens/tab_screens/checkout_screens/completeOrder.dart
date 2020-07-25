@@ -6,11 +6,13 @@ import 'package:mollet/model/notifiers/userData_notifier.dart';
 import 'package:mollet/model/services/Product_service.dart';
 import 'package:mollet/model/services/user_management.dart';
 import 'package:mollet/screens/tab_screens/checkout_screens/addPaymentMethod.dart';
-import 'package:mollet/screens/tab_screens/checkout_screens/orderPlaced.dart';
+import 'package:uuid/uuid.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:provider/provider.dart';
 import 'package:mollet/widgets/allWidgets.dart';
 import 'package:mollet/screens/tab_screens/checkout_screens/enterAddress.dart';
+
+import 'orderPlaced.dart';
 
 class AddressContainer extends StatefulWidget {
   final List<Cart> cartList;
@@ -207,16 +209,18 @@ class _AddressContainerState extends State<AddressContainer> {
                 _scaffoldKey,
               );
             } else {
+              var uuid = Uuid();
+              var orderID = uuid.v4();
               for (var i = 0; i < cartList.length; i++) {
                 var cartItem = cartList[i];
-                addCartToOrders(cartItem);
+                addCartToOrders(cartItem, orderID);
               }
-              // clearCartAfterPurchase();
-              // Navigator.of(context).push(
-              //   MaterialPageRoute(
-              //     builder: (_) => OrderPlaced(addressList),
-              //   ),
-              // );
+              clearCartAfterPurchase();
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (_) => OrderPlaced(addressList),
+                ),
+              );
             }
           },
         ),
