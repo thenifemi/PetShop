@@ -76,10 +76,7 @@ class _CardsState extends State<Cards> {
                         height: MediaQuery.of(context).size.height / 7,
                         color: MColors.primaryWhiteSmoke,
                         child: Center(
-                          child: CircularProgressIndicator(
-                            strokeWidth: 2.0,
-                          ),
-                        ),
+                            child: progressIndicator(MColors.primaryPurple)),
                       );
                       break;
                     case ConnectionState.done:
@@ -90,10 +87,7 @@ class _CardsState extends State<Cards> {
                         height: MediaQuery.of(context).size.height / 7,
                         color: MColors.primaryWhiteSmoke,
                         child: Center(
-                          child: CircularProgressIndicator(
-                            strokeWidth: 2.0,
-                          ),
-                        ),
+                            child: progressIndicator(MColors.primaryPurple)),
                       );
                       break;
                     default:
@@ -101,10 +95,7 @@ class _CardsState extends State<Cards> {
                         height: MediaQuery.of(context).size.height / 7,
                         color: MColors.primaryWhiteSmoke,
                         child: Center(
-                          child: CircularProgressIndicator(
-                            strokeWidth: 2.0,
-                          ),
-                        ),
+                            child: progressIndicator(MColors.primaryPurple)),
                       );
                   }
                 },

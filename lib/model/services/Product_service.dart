@@ -164,9 +164,9 @@ addCartToOrders(cartItem, orderID) async {
   //Sending orders to merchant
   await db
       .collection("merchantOrder")
-      .document(uEmail)
-      .collection("orders")
       .document(orderID)
+      .collection("orders")
+      .document(uEmail)
       .collection("orderItems")
       .document(cartItem.productID)
       .setData(cartItem.toMap())

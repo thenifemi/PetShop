@@ -207,25 +207,26 @@ class _AddressContainerState extends State<AddressContainer> {
                 _scaffoldKey,
               );
             } else {
+              _showLoadingDialog();
               //Generating unique orderID
-              var uuid = Uuid();
-              var orderID = uuid.v4();
+              // var uuid = Uuid();
+              // var orderID = uuid.v4();
               //Adding cartItems to orders
-              for (var i = 0; i < cartList.length; i++) {
-                var cartItem = cartList[i];
-                completeOrderFuture = addCartToOrders(cartItem, orderID);
-              }
+              // for (var i = 0; i < cartList.length; i++) {
+              //   var cartItem = cartList[i];
+              //   completeOrderFuture = addCartToOrders(cartItem, orderID);
+              // }
               //Clearing the cart and going home
-              completeOrderFuture.then((value) {
-                clearCartAfterPurchase();
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (_) => OrderPlaced(addressList),
-                  ),
-                );
-              }).catchError((e) {
-                print(e);
-              });
+              // completeOrderFuture.then((value) {
+              //   clearCartAfterPurchase();
+              //   Navigator.of(context).push(
+              //     MaterialPageRoute(
+              //       builder: (_) => OrderPlaced(addressList),
+              //     ),
+              //   );
+              // }).catchError((e) {
+              //   print(e);
+              // });
             }
           },
         ),
@@ -689,7 +690,7 @@ class _AddressContainerState extends State<AddressContainer> {
     );
   }
 
-  //Payment method
+  //Bag summary
   void _showModalSheet(cartList, total) {
     showModalBottomSheet(
       context: context,
@@ -807,5 +808,38 @@ class _AddressContainerState extends State<AddressContainer> {
         );
       },
     );
+  }
+
+  void _showLoadingDialog() {
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return WillPopScope(
+            onWillPop: () {
+              return;
+            },
+            child: AlertDialog(
+              backgroundColor: MColors.primaryWhiteSmoke,
+              title: Text(
+                "Please wait..",
+                style: boldFont(MColors.textGrey, 14.0),
+              ),
+              content: Container(
+                height: 20.0,
+                child: Row(
+                  children: <Widget>[
+                    Text(
+                      " We are placing your order.",
+                      style: normalFont(MColors.primaryPurple, 14.0),
+                    ),
+                    Spacer(),
+                    progressIndicator(MColors.primaryPurple),
+                  ],
+                ),
+              ),
+            ),
+          );
+        });
   }
 }

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
@@ -331,9 +332,8 @@ Widget progressIndicator(Color color) {
   return Container(
     color: MColors.primaryWhiteSmoke,
     child: Center(
-      child: CircularProgressIndicator(
-        strokeWidth: 2.0,
-        backgroundColor: color,
+      child: CupertinoActivityIndicator(
+        radius: 12.0,
       ),
     ),
   );
