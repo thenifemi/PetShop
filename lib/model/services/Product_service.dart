@@ -146,16 +146,18 @@ clearCartAfterPurchase() async {
 }
 
 //Adding users' product to cart
-addCartToOrders(cartList) async {
+addCartToOrders(cart) async {
   final db = Firestore.instance;
   final uEmail = await AuthService().getCurrentEmail();
 
   await db
       .collection("userOrder")
       .document(uEmail)
+      .collection("order")
+      .document("order1")
       .collection("orderItems")
-      .document()
-      .setData(cartList)
+      .document(cart.productID)
+      .setData(cart.toMap())
       .catchError((e) {
     print(e);
   });

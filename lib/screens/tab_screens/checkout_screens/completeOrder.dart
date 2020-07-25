@@ -207,16 +207,16 @@ class _AddressContainerState extends State<AddressContainer> {
                 _scaffoldKey,
               );
             } else {
-              for (var i = 0; i < cardList.length; i++) {
-                var cartL = cartList[i];
-                addCartToOrders(cartL.toMap());
+              for (var i = 0; i < cartList.length; i++) {
+                var cartItem = cartList[i];
+                addCartToOrders(cartItem);
               }
-              clearCartAfterPurchase();
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (_) => OrderPlaced(addressList),
-                ),
-              );
+              // clearCartAfterPurchase();
+              // Navigator.of(context).push(
+              //   MaterialPageRoute(
+              //     builder: (_) => OrderPlaced(addressList),
+              //   ),
+              // );
             }
           },
         ),
