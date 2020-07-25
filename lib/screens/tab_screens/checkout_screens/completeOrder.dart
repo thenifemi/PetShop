@@ -223,6 +223,8 @@ class _AddressContainerState extends State<AddressContainer> {
                     builder: (_) => OrderPlaced(addressList),
                   ),
                 );
+              }).catchError((e) {
+                print(e);
               });
             }
           },
