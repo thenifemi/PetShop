@@ -77,7 +77,6 @@ getCart(CartNotifier cartNotifier) async {
 //Adding item quantity, Price and updating data in cart
 addAndApdateData(cartItem) async {
   final db = Firestore.instance;
-  // final uid = await AuthService().getCurrentUID();
   final uEmail = await AuthService().getCurrentEmail();
 
   if (cartItem.quantity >= 9) {

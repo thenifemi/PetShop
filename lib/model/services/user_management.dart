@@ -40,7 +40,6 @@ getProfile(UserDataProfileNotifier profileNotifier) async {
   List<UserDataProfile> _userDataProfileList = [];
 
   snapshot.documents.forEach((document) {
-    print(document.data);
     UserDataProfile userDataProfile = UserDataProfile.fromMap(document.data);
     _userDataProfileList.add(userDataProfile);
   });
@@ -96,7 +95,6 @@ getAddress(UserDataAddressNotifier addressNotifier) async {
   List<UserDataAddress> _userDataAddressList = [];
 
   snapshot.documents.forEach((document) {
-    print(document.data);
     UserDataAddress userDataAddress = UserDataAddress.fromMap(document.data);
     _userDataAddressList.add(userDataAddress);
   });
@@ -162,7 +160,6 @@ getCard(UserDataCardNotifier cardNotifier) async {
   List<UserDataCard> _userDataCardList = [];
 
   snapshot.documents.forEach((document) {
-    print(document.data);
     UserDataCard userDataCard = UserDataCard.fromMap(document.data);
     _userDataCardList.add(userDataCard);
   });
