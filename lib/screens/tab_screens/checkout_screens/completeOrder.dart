@@ -207,6 +207,7 @@ class _AddressContainerState extends State<AddressContainer> {
                 _scaffoldKey,
               );
             } else {
+              addCartToOrders(cartList);
               clearCartAfterPurchase();
               Navigator.of(context).push(
                 MaterialPageRoute(

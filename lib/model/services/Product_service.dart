@@ -144,3 +144,19 @@ clearCartAfterPurchase() async {
     }
   });
 }
+
+//Adding users' product to cart
+addCartToOrders(cartList) async {
+  final db = Firestore.instance;
+  final uEmail = await AuthService().getCurrentEmail();
+
+  await db
+      .collection("userOrder")
+      .document(uEmail)
+      .collection("orderItems")
+      .document()
+      .setData(cartList)
+      .catchError((e) {
+    print(e);
+  });
+}
