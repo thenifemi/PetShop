@@ -64,6 +64,13 @@ class _TabsLayoutState extends State<TabsLayout> {
     "Settings",
   ];
 
+  final _tabIconsTitle = [
+    "Home",
+    "History",
+    "Notifications",
+    "Settings",
+  ];
+
   @override
   Widget build(BuildContext context) {
     CartNotifier cartNotifier = Provider.of<CartNotifier>(context);
@@ -202,7 +209,7 @@ class _TabsLayoutState extends State<TabsLayout> {
                       padding: const EdgeInsets.only(top: 5.0),
                       child: SvgPicture.asset(
                         e,
-                        height: 20,
+                        height: 22,
                         color: isSelected
                             ? MColors.primaryPurple
                             : MColors.textGrey,
