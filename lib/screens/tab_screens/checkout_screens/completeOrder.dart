@@ -207,7 +207,10 @@ class _AddressContainerState extends State<AddressContainer> {
                 _scaffoldKey,
               );
             } else {
-              addCartToOrders(cartList.asMap());
+              for (var i = 0; i < cardList.length; i++) {
+                var cartL = cartList[i];
+                addCartToOrders(cartL.toMap());
+              }
               clearCartAfterPurchase();
               Navigator.of(context).push(
                 MaterialPageRoute(
