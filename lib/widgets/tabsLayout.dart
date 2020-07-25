@@ -190,6 +190,8 @@ class _TabsLayoutState extends State<TabsLayout> {
         bucket: bucket,
       ),
       bottomNavigationBar: Container(
+        color: MColors.primaryWhite,
+        padding: const EdgeInsets.symmetric(horizontal: 15.0),
         child: BottomNavigationBar(
           elevation: 0.0,
           selectedItemColor: MColors.primaryPurple,
