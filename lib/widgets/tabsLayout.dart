@@ -31,16 +31,16 @@ class _TabsLayoutState extends State<TabsLayout> {
 
   final List<Widget> _children = [
     HomeScreen(
-      key: PageStorageKey("homeKey"),
+      key: PageStorageKey("pageKey"),
     ),
     HistoryScreen(
-      key: PageStorageKey("historyKey"),
+      key: PageStorageKey("pageKey"),
     ),
     InboxScreen(
-      key: PageStorageKey("inboxKey"),
+      key: PageStorageKey("pageKey"),
     ),
     SettingsScreen(
-      key: PageStorageKey("settingsKey"),
+      key: PageStorageKey("pageKey"),
     ),
   ];
 
