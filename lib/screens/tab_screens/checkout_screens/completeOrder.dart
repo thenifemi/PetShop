@@ -208,25 +208,28 @@ class _AddressContainerState extends State<AddressContainer> {
               );
             } else {
               _showLoadingDialog();
+
               //Generating unique orderID
-              // var uuid = Uuid();
-              // var orderID = uuid.v4();
+              var uuid = Uuid();
+              var orderID = uuid.v4();
+
               //Adding cartItems to orders
-              // for (var i = 0; i < cartList.length; i++) {
-              //   var cartItem = cartList[i];
-              //   completeOrderFuture = addCartToOrders(cartItem, orderID);
-              // }
+              for (var i = 0; i < cartList.length; i++) {
+                var cartItem = cartList[i];
+                completeOrderFuture = addCartToOrders(cartItem, orderID);
+              }
+
               //Clearing the cart and going home
-              // completeOrderFuture.then((value) {
-              //   clearCartAfterPurchase();
-              //   Navigator.of(context).push(
-              //     MaterialPageRoute(
-              //       builder: (_) => OrderPlaced(addressList),
-              //     ),
-              //   );
-              // }).catchError((e) {
-              //   print(e);
-              // });
+              completeOrderFuture.then((value) {
+                clearCartAfterPurchase();
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => OrderPlaced(addressList),
+                  ),
+                );
+              }).catchError((e) {
+                print(e);
+              });
             }
           },
         ),
@@ -823,7 +826,7 @@ class _AddressContainerState extends State<AddressContainer> {
               backgroundColor: MColors.primaryWhiteSmoke,
               title: Text(
                 "Please wait..",
-                style: boldFont(MColors.textGrey, 14.0),
+                style: boldFont(MColors.primaryPurple, 14.0),
               ),
               content: Container(
                 height: 20.0,
@@ -831,7 +834,7 @@ class _AddressContainerState extends State<AddressContainer> {
                   children: <Widget>[
                     Text(
                       " We are placing your order.",
-                      style: normalFont(MColors.primaryPurple, 14.0),
+                      style: normalFont(MColors.textGrey, 14.0),
                     ),
                     Spacer(),
                     progressIndicator(MColors.primaryPurple),
