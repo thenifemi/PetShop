@@ -163,12 +163,9 @@ addCartToOrders(cartItem, orderID) async {
   });
 
   //Sending orders to merchant
-
-  var merchantOrderID;
-  merchantOrderID = uEmail + "//" + orderID;
   await db
       .collection("merchantOrder")
-      .document(merchantOrderID)
+      .document(uEmail)
       .collection("orders")
       .document(orderID)
       .collection("orderItems")

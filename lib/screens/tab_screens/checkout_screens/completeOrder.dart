@@ -48,9 +48,7 @@ class AddressScreen extends StatelessWidget {
 
 class _AddressContainerState extends State<AddressContainer> {
   final List<Cart> cartList;
-  Future addressFuture;
-
-  Future cardFuture;
+  Future addressFuture, cardFuture, completeOrderFuture;
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   _AddressContainerState(this.cartList);
@@ -200,7 +198,7 @@ class _AddressContainerState extends State<AddressContainer> {
             "Place order",
             style: boldFont(MColors.primaryWhite, 16.0),
           ),
-          () {
+          () async {
             if (addressList.isEmpty || cardList.isEmpty) {
               showSimpleSnack(
                 'Please complete shipping and card details',
@@ -209,18 +207,23 @@ class _AddressContainerState extends State<AddressContainer> {
                 _scaffoldKey,
               );
             } else {
+              //Generating unique orderID
               var uuid = Uuid();
               var orderID = uuid.v4();
+              //Adding cartItems to orders
               for (var i = 0; i < cartList.length; i++) {
                 var cartItem = cartList[i];
-                addCartToOrders(cartItem, orderID);
+                completeOrderFuture = addCartToOrders(cartItem, orderID);
               }
-              clearCartAfterPurchase();
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (_) => OrderPlaced(addressList),
-                ),
-              );
+              //Clearing the cart and going home
+              completeOrderFuture.then((value) {
+                clearCartAfterPurchase();
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => OrderPlaced(addressList),
+                  ),
+                );
+              });
             }
           },
         ),

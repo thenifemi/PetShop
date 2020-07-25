@@ -350,7 +350,7 @@ void showSimpleSnack(
   _scaffoldKey.currentState.showSnackBar(
     SnackBar(
       behavior: SnackBarBehavior.floating,
-      duration: Duration(milliseconds: 1400),
+      duration: Duration(milliseconds: 1000),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10.0),
       ),
