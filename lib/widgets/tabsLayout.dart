@@ -4,7 +4,7 @@ import 'package:mollet/model/services/Product_service.dart';
 import 'package:mollet/model/notifiers/cart_notifier.dart';
 import 'package:mollet/screens/tab_screens/history.dart';
 import 'package:mollet/screens/tab_screens/home.dart';
-import 'package:mollet/screens/tab_screens/homeScreen_pages/cart2.dart';
+import 'package:mollet/screens/tab_screens/homeScreen_pages/bag.dart';
 import 'package:mollet/screens/tab_screens/notifications.dart';
 import 'package:mollet/screens/tab_screens/settings.dart';
 import 'package:mollet/utils/colors.dart';
@@ -123,7 +123,7 @@ class _TabsLayoutState extends State<TabsLayout> {
                             Provider.of<CartNotifier>(context, listen: false);
                         var navigationResult = await Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (context) => Cart1(),
+                            builder: (context) => Bag(),
                           ),
                         );
                         if (navigationResult == true) {

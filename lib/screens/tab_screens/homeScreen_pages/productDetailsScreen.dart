@@ -5,7 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:mollet/model/services/Product_service.dart';
 import 'package:mollet/model/notifiers/cart_notifier.dart';
 import 'package:mollet/model/data/Products.dart';
-import 'package:mollet/screens/tab_screens/homeScreen_pages/cart2.dart';
+import 'package:mollet/screens/tab_screens/homeScreen_pages/bag.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:mollet/widgets/similarProducts_Wigdet.dart';
 import 'package:mollet/widgets/allWidgets.dart';
@@ -158,7 +158,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                     onPressed: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => Cart1(),
+                          builder: (context) => Bag(),
                         ),
                       );
                     },
