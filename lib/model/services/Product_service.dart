@@ -182,6 +182,8 @@ addCartToOrders(cartItem, orderID) async {
     print(e);
   });
 
+  //Adding Date and Time to order
+
   CollectionReference orderRef = db
       .collection("userOrder")
       .document(uEmail)
@@ -190,6 +192,21 @@ addCartToOrders(cartItem, orderID) async {
       .collection("orderItems");
 
   await orderRef.document(cartItem.productID).setData(
+    {
+      'orderID': orderID,
+      'orderTime': orderTime,
+      'orderDate': orderDate,
+    },
+  );
+
+  CollectionReference merchantOrderRef = db
+      .collection("merchantOrder")
+      .document(orderID)
+      .collection("orders")
+      .document(uEmail)
+      .collection("orderItems");
+
+  await merchantOrderRef.document(cartItem.productID).setData(
     {
       'orderID': orderID,
       'orderTime': orderTime,
