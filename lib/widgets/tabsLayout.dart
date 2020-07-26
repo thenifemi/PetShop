@@ -52,14 +52,14 @@ class _TabsLayoutState extends State<TabsLayout> {
 
   final _tabIcons = [
     "assets/images/icons/Home.svg",
-    "assets/images/icons/Chart.svg",
+    "assets/images/icons/Bookmark.svg",
     "assets/images/icons/Notification.svg",
     "assets/images/icons/Setting.svg",
   ];
 
   final _appBarTitle = [
     "Pet Shop",
-    "History",
+    "Orders",
     "Notifications",
     "Settings",
   ];
