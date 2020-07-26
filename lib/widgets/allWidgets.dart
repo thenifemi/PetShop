@@ -374,7 +374,11 @@ void showSimpleSnack(
 //-------------------------------------------
 
 //EMPTYCART----------------------------------
-Widget emptyCart() {
+Widget emptyScreen(
+  String image,
+  String title,
+  String subTitle,
+) {
   return primaryContainer(
     Center(
       child: SingleChildScrollView(
@@ -385,13 +389,13 @@ Widget emptyCart() {
             Container(
               padding: const EdgeInsets.all(20.0),
               child: SvgPicture.asset(
-                "assets/images/emptyCart.svg",
+                image,
                 height: 150,
               ),
             ),
             Container(
               child: Text(
-                "Bag is empty",
+                title,
                 style: boldFont(MColors.textDark, 20),
                 textAlign: TextAlign.center,
               ),
@@ -399,7 +403,7 @@ Widget emptyCart() {
             SizedBox(height: 10.0),
             Container(
               child: Text(
-                "Products you add to your bag will show up here. So lets get shopping and make your pet happy.",
+                subTitle,
                 style: normalFont(MColors.textGrey, 16),
                 textAlign: TextAlign.center,
               ),

@@ -73,7 +73,13 @@ class _BagScreenState extends State<BagScreen> {
               return progressIndicator(MColors.primaryPurple);
               break;
             case ConnectionState.done:
-              return cartList.isEmpty ? emptyCart() : cart(cartList, total);
+              return cartList.isEmpty
+                  ? emptyScreen(
+                      "assets/images/emptyCart.svg",
+                      "Bag is empty",
+                      "Products you add to your bag will show up here. So lets get shopping and make your pet happy.",
+                    )
+                  : cart(cartList, total);
               break;
             case ConnectionState.waiting:
               return progressIndicator(MColors.primaryPurple);

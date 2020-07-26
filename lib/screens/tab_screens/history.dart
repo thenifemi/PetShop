@@ -29,7 +29,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
               ),
               Container(
                 child: Text(
-                  "No history",
+                  "No Orders",
                   style: boldFont(MColors.textDark, 20),
                   textAlign: TextAlign.center,
                 ),
