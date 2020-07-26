@@ -191,7 +191,7 @@ addCartToOrders(cartItem, orderID) async {
       .document(orderID)
       .collection("orderItems");
 
-  await orderRef.document(cartItem.productID).setData(
+  await orderRef.document(cartItem.productID).updateData(
     {
       'orderID': orderID,
       'orderTime': orderTime,
@@ -206,7 +206,7 @@ addCartToOrders(cartItem, orderID) async {
       .document(uEmail)
       .collection("orderItems");
 
-  await merchantOrderRef.document(cartItem.productID).setData(
+  await merchantOrderRef.document(cartItem.productID).updateData(
     {
       'orderID': orderID,
       'orderTime': orderTime,
