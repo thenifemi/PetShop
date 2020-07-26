@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:mollet/model/notifiers/products_notifier.dart';
+import 'package:mollet/model/notifiers/userData_notifier.dart';
 import 'package:mollet/model/services/Product_service.dart';
 import 'package:mollet/model/notifiers/cart_notifier.dart';
+import 'package:mollet/model/services/user_management.dart';
 import 'package:mollet/screens/tab_screens/history.dart';
 import 'package:mollet/screens/tab_screens/home.dart';
 import 'package:mollet/screens/tab_screens/homeScreen_pages/bag.dart';
@@ -23,6 +26,18 @@ class _TabsLayoutState extends State<TabsLayout> {
 
   @override
   void initState() {
+    ProductsNotifier productsNotifier =
+        Provider.of<ProductsNotifier>(context, listen: false);
+    getProdProducts(productsNotifier);
+
+    UserDataProfileNotifier profileNotifier =
+        Provider.of<UserDataProfileNotifier>(context, listen: false);
+    getProfile(profileNotifier);
+
+    UserDataAddressNotifier addressNotifier =
+        Provider.of<UserDataAddressNotifier>(context, listen: false);
+    getAddress(addressNotifier);
+
     CartNotifier cartNotifier =
         Provider.of<CartNotifier>(context, listen: false);
     getCart(cartNotifier);
