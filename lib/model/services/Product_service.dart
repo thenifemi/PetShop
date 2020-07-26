@@ -148,6 +148,14 @@ clearCartAfterPurchase() async {
 addCartToOrders(cartItem, orderID) async {
   final db = Firestore.instance;
   final uEmail = await AuthService().getCurrentEmail();
+  var orderDate = DateTime.now().day.toString() +
+      "-" +
+      DateTime.now().month.toString() +
+      "-" +
+      DateTime.now().year.toString();
+  var orderTime = Timestamp.now().toDate().hour.toString() +
+      ":" +
+      Timestamp.now().toDate().minute.toString();
 
   await db
       .collection("userOrder")
@@ -173,4 +181,19 @@ addCartToOrders(cartItem, orderID) async {
       .catchError((e) {
     print(e);
   });
+
+  CollectionReference orderRef = db
+      .collection("userOrder")
+      .document(uEmail)
+      .collection("orders")
+      .document(orderID)
+      .collection("orderItems");
+
+  await orderRef.document(cartItem.productID).setData(
+    {
+      'orderID': orderID,
+      'orderTime': orderTime,
+      'orderDate': orderDate,
+    },
+  );
 }
