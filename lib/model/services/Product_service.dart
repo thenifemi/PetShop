@@ -218,24 +218,34 @@ addCartToOrders(cartItem, orderID) async {
 }
 
 //Getting users' orders
-getOrders(OrderstNotifier orderstNotifier) async {
+getOrders() async {
   final uEmail = await AuthService().getCurrentEmail();
-
   QuerySnapshot snapshot = await Firestore.instance
       .collection("userOrder")
       .document(uEmail)
       .collection("orders")
-      .document("cb7637ac-4914-47dc-8065-0286b51fb775")
-      .collection("orderItems")
       .getDocuments();
-
-  List<Orders> _ordersList = [];
-
   snapshot.documents.forEach((document) {
-    Orders orders = Orders.fromMap(document.data);
-    _ordersList.add(orders);
+    print(document.documentID);
+    print("document.documentID");
   });
+  print(snapshot.documents.length);
 
-  orderstNotifier.orderList = _ordersList;
-  print(orderstNotifier.orderList.first.orderID);
+  // QuerySnapshot snapshot = await Firestore.instance
+  //     .collection("userOrder")
+  //     .document(uEmail)
+  //     .collection("orders")
+  //     .document("cb7637ac-4914-47dc-8065-0286b51fb775")
+  //     .collection("orderItems")
+  //     .getDocuments();
+
+  // List<Orders> _ordersList = [];
+
+  // snapshot.documents.forEach((document) {
+  //   Orders orders = Orders.fromMap(document.data);
+  //   _ordersList.add(orders);
+  // });
+
+  // orderstNotifier.orderList = _ordersList;
+  // print(orderstNotifier.orderList.first.orderID);
 }
