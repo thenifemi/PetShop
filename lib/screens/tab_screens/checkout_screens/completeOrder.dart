@@ -222,6 +222,7 @@ class _AddressContainerState extends State<AddressContainer> {
 
               //Clearing the cart and going home
               completeOrderFuture.then((value) {
+                isComplete = Future.value(true);
                 Navigator.pop(context);
                 clearCartAfterPurchase();
                 Navigator.of(context).push(
@@ -822,7 +823,7 @@ class _AddressContainerState extends State<AddressContainer> {
         builder: (BuildContext context) {
           return WillPopScope(
             onWillPop: () {
-              return;
+              return isComplete;
             },
             child: AlertDialog(
               backgroundColor: MColors.primaryWhiteSmoke,
