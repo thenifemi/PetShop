@@ -208,22 +208,21 @@ class _AddressContainerState extends State<AddressContainer> {
                 _scaffoldKey,
               );
             } else {
+              _showLoadingDialog();
+
               //Generating unique orderID
               var uuid = Uuid();
               var orderID = uuid.v4();
 
               //Adding cartItems to orders
               for (var i = 0; i < cartList.length; i++) {
-                _showLoadingDialog();
-
                 var cartItem = cartList[i];
                 completeOrderFuture = addCartToOrders(cartItem, orderID);
               }
 
               //Clearing the cart and going home
               completeOrderFuture.then((value) {
-                isComplete = Future.value(true);
-                Navigator.pop(context);
+                Navigator.of(context).pop();
                 clearCartAfterPurchase();
                 Navigator.of(context).push(
                   MaterialPageRoute(
