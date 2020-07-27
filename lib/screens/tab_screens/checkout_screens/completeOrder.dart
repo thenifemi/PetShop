@@ -208,26 +208,27 @@ class _AddressContainerState extends State<AddressContainer> {
                 _scaffoldKey,
               );
             } else {
-              _showLoadingDialog();
-
               //Generating unique orderID
               var uuid = Uuid();
               var orderID = uuid.v4();
 
               //Adding cartItems to orders
               for (var i = 0; i < cartList.length; i++) {
+                completeOrderFuture = _showLoadingDialog();
+
                 var cartItem = cartList[i];
                 completeOrderFuture = addCartToOrders(cartItem, orderID);
               }
 
               //Clearing the cart and going home
               completeOrderFuture.then((value) {
-                Navigator.of(context).pop();
+                Navigator.of(context, rootNavigator: true).pop();
                 clearCartAfterPurchase();
-                Navigator.of(context).push(
+                Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute(
                     builder: (_) => OrderPlaced(addressList),
                   ),
+                  (Route<dynamic> route) => false,
                 );
               }).catchError((e) {
                 print(e);
@@ -815,8 +816,8 @@ class _AddressContainerState extends State<AddressContainer> {
     );
   }
 
-  void _showLoadingDialog() {
-    showDialog(
+  Future _showLoadingDialog() async {
+    await showDialog(
         context: context,
         barrierDismissible: false,
         builder: (BuildContext context) {
