@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mollet/model/notifiers/brands_notifier.dart';
 import 'package:mollet/model/notifiers/cart_notifier.dart';
+import 'package:mollet/model/notifiers/orders_notifier.dart';
 import 'package:mollet/model/notifiers/products_notifier.dart';
 import 'package:mollet/model/notifiers/userData_notifier.dart';
 import 'package:mollet/model/services/auth_service.dart';
@@ -80,6 +81,9 @@ class _HomeControllerState extends State<HomeController> {
                         ),
                         ChangeNotifierProvider(
                           create: (context) => UserDataAddressNotifier(),
+                        ),
+                        ChangeNotifierProvider(
+                          create: (context) => OrderstNotifier(),
                         ),
                       ],
                       child: TabsLayout(),

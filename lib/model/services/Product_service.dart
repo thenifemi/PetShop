@@ -2,8 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:mollet/model/data/Products.dart';
 import 'package:mollet/model/data/brands.dart';
 import 'package:mollet/model/data/cart.dart';
+import 'package:mollet/model/data/orders.dart';
 import 'package:mollet/model/notifiers/brands_notifier.dart';
 import 'package:mollet/model/notifiers/cart_notifier.dart';
+import 'package:mollet/model/notifiers/orders_notifier.dart';
 import 'package:mollet/model/notifiers/products_notifier.dart';
 import 'package:mollet/model/services/auth_service.dart';
 
@@ -213,4 +215,27 @@ addCartToOrders(cartItem, orderID) async {
       'orderDate': orderDate,
     },
   );
+}
+
+//Getting users' orders
+getOrders(OrderstNotifier orderstNotifier) async {
+  final uEmail = await AuthService().getCurrentEmail();
+
+  QuerySnapshot snapshot = await Firestore.instance
+      .collection("userOrder")
+      .document(uEmail)
+      .collection("orders")
+      .document("cb7637ac-4914-47dc-8065-0286b51fb775")
+      .collection("orderItems")
+      .getDocuments();
+
+  List<Orders> _ordersList = [];
+
+  snapshot.documents.forEach((document) {
+    Orders orders = Orders.fromMap(document.data);
+    _ordersList.add(orders);
+  });
+
+  orderstNotifier.orderList = _ordersList;
+  print(orderstNotifier.orderList.first.orderID);
 }

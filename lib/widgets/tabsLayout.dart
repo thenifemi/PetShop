@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:mollet/model/notifiers/orders_notifier.dart';
 import 'package:mollet/model/notifiers/products_notifier.dart';
 import 'package:mollet/model/notifiers/userData_notifier.dart';
 import 'package:mollet/model/services/Product_service.dart';
@@ -27,6 +28,10 @@ class _TabsLayoutState extends State<TabsLayout> {
 
   @override
   void initState() {
+    OrderstNotifier orderstNotifier =
+        Provider.of<OrderstNotifier>(context, listen: false);
+    getOrders(orderstNotifier);
+
     ProductsNotifier productsNotifier =
         Provider.of<ProductsNotifier>(context, listen: false);
     getProdProducts(productsNotifier);
