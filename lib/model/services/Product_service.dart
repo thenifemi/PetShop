@@ -150,6 +150,7 @@ clearCartAfterPurchase() async {
 addCartToOrders(cartItem, orderID) async {
   final db = Firestore.instance;
   final uEmail = await AuthService().getCurrentEmail();
+  var userOrderID = uEmail + "-" + orderID;
   var orderDate = DateTime.now().day.toString() +
       "-" +
       DateTime.now().month.toString() +
