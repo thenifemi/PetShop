@@ -50,6 +50,7 @@ class _AddressContainerState extends State<AddressContainer> {
   final List<Cart> cartList;
   Future addressFuture, cardFuture, completeOrderFuture;
   final _scaffoldKey = GlobalKey<ScaffoldState>();
+  Future<bool> isComplete = Future.value(false);
 
   _AddressContainerState(this.cartList);
 
@@ -213,7 +214,7 @@ class _AddressContainerState extends State<AddressContainer> {
 
               //Adding cartItems to orders
               for (var i = 0; i < cartList.length; i++) {
-                _showLoadingDialog(completeOrderFuture);
+                _showLoadingDialog();
 
                 var cartItem = cartList[i];
                 completeOrderFuture = addCartToOrders(cartItem, orderID);
@@ -221,6 +222,7 @@ class _AddressContainerState extends State<AddressContainer> {
 
               //Clearing the cart and going home
               completeOrderFuture.then((value) {
+                Navigator.pop(context);
                 clearCartAfterPurchase();
                 Navigator.of(context).push(
                   MaterialPageRoute(
@@ -813,14 +815,14 @@ class _AddressContainerState extends State<AddressContainer> {
     );
   }
 
-  void _showLoadingDialog(Future<bool> isComplete) {
+  void _showLoadingDialog() {
     showDialog(
         context: context,
         barrierDismissible: false,
         builder: (BuildContext context) {
           return WillPopScope(
             onWillPop: () {
-              return isComplete.then((value) => true);
+              return;
             },
             child: AlertDialog(
               backgroundColor: MColors.primaryWhiteSmoke,
