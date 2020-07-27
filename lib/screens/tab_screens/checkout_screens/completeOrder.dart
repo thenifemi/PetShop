@@ -207,14 +207,14 @@ class _AddressContainerState extends State<AddressContainer> {
                 _scaffoldKey,
               );
             } else {
-              _showLoadingDialog();
-
               //Generating unique orderID
               var uuid = Uuid();
               var orderID = uuid.v4();
 
               //Adding cartItems to orders
               for (var i = 0; i < cartList.length; i++) {
+                _showLoadingDialog(completeOrderFuture);
+
                 var cartItem = cartList[i];
                 completeOrderFuture = addCartToOrders(cartItem, orderID);
               }
@@ -813,14 +813,14 @@ class _AddressContainerState extends State<AddressContainer> {
     );
   }
 
-  void _showLoadingDialog() {
+  void _showLoadingDialog(Future<bool> isComplete) {
     showDialog(
         context: context,
         barrierDismissible: false,
         builder: (BuildContext context) {
           return WillPopScope(
             onWillPop: () {
-              return;
+              return isComplete.then((value) => true);
             },
             child: AlertDialog(
               backgroundColor: MColors.primaryWhiteSmoke,

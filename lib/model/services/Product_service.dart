@@ -150,7 +150,6 @@ clearCartAfterPurchase() async {
 addCartToOrders(cartItem, orderID) async {
   final db = Firestore.instance;
   final uEmail = await AuthService().getCurrentEmail();
-  var userOrderID = uEmail + "-" + orderID;
   var orderDate = DateTime.now().day.toString() +
       "-" +
       DateTime.now().month.toString() +
@@ -164,9 +163,7 @@ addCartToOrders(cartItem, orderID) async {
       .collection("userOrder")
       .document(uEmail)
       .collection("orders")
-      .document(orderID)
-      .collection("orderItems")
-      .document(cartItem.productID)
+      .document(cartItem.productID + "-" + orderID)
       .setData(cartItem.toMap())
       .catchError((e) {
     print(e);
@@ -175,11 +172,9 @@ addCartToOrders(cartItem, orderID) async {
   //Sending orders to merchant
   await db
       .collection("merchantOrder")
-      .document(orderID)
-      .collection("orders")
       .document(uEmail)
-      .collection("orderItems")
-      .document(cartItem.productID)
+      .collection("orders")
+      .document(cartItem.productID + "-" + orderID)
       .setData(cartItem.toMap())
       .catchError((e) {
     print(e);
@@ -187,14 +182,10 @@ addCartToOrders(cartItem, orderID) async {
 
   //Adding Date and Time to order
 
-  CollectionReference orderRef = db
-      .collection("userOrder")
-      .document(uEmail)
-      .collection("orders")
-      .document(orderID)
-      .collection("orderItems");
+  CollectionReference orderRef =
+      db.collection("userOrder").document(uEmail).collection("orders");
 
-  await orderRef.document(cartItem.productID).updateData(
+  await orderRef.document(cartItem.productID + "-" + orderID).updateData(
     {
       'orderID': orderID,
       'orderTime': orderTime,
@@ -202,14 +193,12 @@ addCartToOrders(cartItem, orderID) async {
     },
   );
 
-  CollectionReference merchantOrderRef = db
-      .collection("merchantOrder")
-      .document(orderID)
-      .collection("orders")
-      .document(uEmail)
-      .collection("orderItems");
+  CollectionReference merchantOrderRef =
+      db.collection("merchantOrder").document(uEmail).collection("orders");
 
-  await merchantOrderRef.document(cartItem.productID).updateData(
+  await merchantOrderRef
+      .document(cartItem.productID + "-" + orderID)
+      .updateData(
     {
       'orderID': orderID,
       'orderTime': orderTime,
@@ -222,12 +211,12 @@ addCartToOrders(cartItem, orderID) async {
 getOrders() async {
   final uEmail = await AuthService().getCurrentEmail();
 
-  QuerySnapshot s = await Firestore.instance
-      .collection("userOrder")
-      .document(uEmail)
-      .collection("orders")
-      .getDocuments();
-  print(s.documents.length);
+  // QuerySnapshot s = await Firestore.instance
+  //     .collection("userOrder")
+  //     .document(uEmail)
+  //     .collection("orders")
+  //     .getDocuments();
+  // print(s.documents.length);
 
   // snapshot.documents.forEach((document) {
   //   print(document.documentID);
