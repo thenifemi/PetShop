@@ -823,7 +823,7 @@ class _AddressContainerState extends State<AddressContainer> {
         builder: (BuildContext context) {
           return WillPopScope(
             onWillPop: () {
-              return isComplete;
+              return;
             },
             child: AlertDialog(
               backgroundColor: MColors.primaryWhiteSmoke,
