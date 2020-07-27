@@ -220,16 +220,21 @@ addCartToOrders(cartItem, orderID) async {
 //Getting users' orders
 getOrders() async {
   final uEmail = await AuthService().getCurrentEmail();
-  QuerySnapshot snapshot = await Firestore.instance
-      .collection("userOrder")
-      .document(uEmail)
-      .collection("orders")
-      .getDocuments();
-  snapshot.documents.forEach((document) {
-    print(document.documentID);
-    print("document.documentID");
-  });
+  QuerySnapshot snapshot =
+      await Firestore.instance.collection("merchantOrder").getDocuments();
   print(snapshot.documents.length);
+
+  QuerySnapshot s = await Firestore.instance
+      .collection("userOrder")
+      // .document(uEmail)
+      // .collection("orders")
+      .getDocuments();
+  print(s.documents.length);
+
+  // snapshot.documents.forEach((document) {
+  //   print(document.documentID);
+  //   print("document.documentID");
+  // });
 
   // QuerySnapshot snapshot = await Firestore.instance
   //     .collection("userOrder")

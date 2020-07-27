@@ -23,25 +23,25 @@ class _HomeScreenState extends State<HomeScreen>
     with SingleTickerProviderStateMixin {
   @override
   void initState() {
-    ProductsNotifier productsNotifier =
-        Provider.of<ProductsNotifier>(context, listen: false);
-    getProdProducts(productsNotifier);
+    // ProductsNotifier productsNotifier =
+    //     Provider.of<ProductsNotifier>(context, listen: false);
+    // getProdProducts(productsNotifier);
 
-    CartNotifier cartNotifier =
-        Provider.of<CartNotifier>(context, listen: false);
-    getCart(cartNotifier);
+    // CartNotifier cartNotifier =
+    //     Provider.of<CartNotifier>(context, listen: false);
+    // getCart(cartNotifier);
 
     // BrandsNotifier brandsNotifier =
     //     Provider.of<BrandsNotifier>(context, listen: false);
     // getBrands(brandsNotifier);
 
-    UserDataProfileNotifier profileNotifier =
-        Provider.of<UserDataProfileNotifier>(context, listen: false);
-    getProfile(profileNotifier);
+    // UserDataProfileNotifier profileNotifier =
+    //     Provider.of<UserDataProfileNotifier>(context, listen: false);
+    // getProfile(profileNotifier);
 
-    UserDataAddressNotifier addressNotifier =
-        Provider.of<UserDataAddressNotifier>(context, listen: false);
-    getAddress(addressNotifier);
+    // UserDataAddressNotifier addressNotifier =
+    //     Provider.of<UserDataAddressNotifier>(context, listen: false);
+    // getAddress(addressNotifier);
 
     _tabController = TabController(
       length: _tabItems.length,
