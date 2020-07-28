@@ -27,7 +27,9 @@ class _HistoryScreenState extends State<HistoryScreen>
   void initState() {
     OrdersNotifier ordersNotifier =
         Provider.of<OrdersNotifier>(context, listen: false);
-    ordersFuture = getOrders(ordersNotifier);
+    OrderListNotifier orderListNotifier =
+        Provider.of<OrderListNotifier>(context, listen: false);
+    ordersFuture = getOrders(ordersNotifier, orderListNotifier);
     _tabController = TabController(
       length: _tabItems.length,
       vsync: this,
