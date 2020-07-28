@@ -1,3 +1,22 @@
+class OrdersList {
+  String orderID;
+  String orderTime;
+  String orderDate;
+
+  OrdersList.fromMap(Map<String, dynamic> data) {
+    orderID = data["orderID"];
+    orderTime = data["orderTime"];
+    orderDate = data["orderDate"];
+  }
+  Map<String, dynamic> toMap() {
+    return {
+      'orderID': orderID,
+      'orderTime': orderTime,
+      'orderDate': orderDate,
+    };
+  }
+}
+
 class Orders {
   String productImage;
   String name;
