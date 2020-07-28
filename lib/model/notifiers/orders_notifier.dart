@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:mollet/model/data/orders.dart';
 
-class OrderstNotifier with ChangeNotifier {
+class OrdersNotifier with ChangeNotifier {
   List<Orders> _ordersList = [];
   Orders _orders;
 
