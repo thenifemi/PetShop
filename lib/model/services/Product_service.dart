@@ -163,48 +163,68 @@ addCartToOrders(cartItem, orderID) async {
       .collection("userOrder")
       .document(uEmail)
       .collection("orders")
-      .document(cartItem.productID + "-" + orderID)
-      .setData(cartItem.toMap())
+      .document(orderID)
+      .setData({'orderID': orderID})
       .catchError((e) {
-    print(e);
-  });
+        print(e);
+      })
+      .then((value) => db
+          .collection("userOrder")
+          .document(uEmail)
+          .collection("orders")
+          .document(orderID)
+          .collection("orderItems")
+          .document(cartItem.productID)
+          .setData(cartItem.toMap()))
+      .then((value) async {
+        //Adding Date and Time to order
+        CollectionReference orderRef =
+            db.collection("userOrder").document(uEmail).collection("orders");
+
+        await orderRef.document(cartItem.productID + "-" + orderID).updateData(
+          {
+            'orderID': orderID,
+            'orderTime': orderTime,
+            'orderDate': orderDate,
+          },
+        );
+      });
 
   //Sending orders to merchant
   await db
       .collection("merchantOrder")
       .document(uEmail)
       .collection("orders")
-      .document(cartItem.productID + "-" + orderID)
-      .setData(cartItem.toMap())
+      .document(orderID)
+      .setData({'orderID': orderID})
       .catchError((e) {
-    print(e);
-  });
+        print(e);
+      })
+      .then((value) => db
+          .collection("merchantOrder")
+          .document(uEmail)
+          .collection("orders")
+          .document(orderID)
+          .collection("orderItems")
+          .document(cartItem.productID)
+          .setData(cartItem.toMap()))
+      .then((value) async {
+        //Adding Date and Time to order
+        CollectionReference merchantOrderRef = db
+            .collection("merchantOrder")
+            .document(uEmail)
+            .collection("orders");
 
-  //Adding Date and Time to order
-
-  CollectionReference orderRef =
-      db.collection("userOrder").document(uEmail).collection("orders");
-
-  await orderRef.document(cartItem.productID + "-" + orderID).updateData(
-    {
-      'orderID': orderID,
-      'orderTime': orderTime,
-      'orderDate': orderDate,
-    },
-  );
-
-  CollectionReference merchantOrderRef =
-      db.collection("merchantOrder").document(uEmail).collection("orders");
-
-  await merchantOrderRef
-      .document(cartItem.productID + "-" + orderID)
-      .updateData(
-    {
-      'orderID': orderID,
-      'orderTime': orderTime,
-      'orderDate': orderDate,
-    },
-  );
+        await merchantOrderRef
+            .document(cartItem.productID + "-" + orderID)
+            .updateData(
+          {
+            'orderID': orderID,
+            'orderTime': orderTime,
+            'orderDate': orderDate,
+          },
+        );
+      });
 }
 
 //Getting users' orders
