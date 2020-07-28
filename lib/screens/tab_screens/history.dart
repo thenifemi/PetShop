@@ -118,10 +118,11 @@ class _HistoryScreenState extends State<HistoryScreen>
       child: ListView.builder(
         physics: BouncingScrollPhysics(),
         shrinkWrap: true,
-        itemCount: orderList.length,
+        itemCount: orderListList.length,
         itemBuilder: (context, i) {
           var orderItem = orderList[i];
-          var orderID = orderItem.orderID.substring(
+          var orderListItem = orderListList[i];
+          var orderID = orderListItem.orderID.substring(
             orderItem.orderID.length - 11,
           );
 
