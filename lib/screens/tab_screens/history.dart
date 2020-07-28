@@ -41,6 +41,10 @@ class _HistoryScreenState extends State<HistoryScreen>
   Widget build(BuildContext context) {
     OrdersNotifier ordersNotifier = Provider.of<OrdersNotifier>(context);
     var orderList = ordersNotifier.orderList;
+    OrderListNotifier orderListNotifier =
+        Provider.of<OrderListNotifier>(context);
+    var orderListList = orderListNotifier.orderListList;
+
     return Scaffold(
       body: FutureBuilder(
         future: ordersFuture,
@@ -50,13 +54,13 @@ class _HistoryScreenState extends State<HistoryScreen>
               return progressIndicator(MColors.primaryPurple);
               break;
             case ConnectionState.done:
-              return orderList.isEmpty
+              return orderList.isEmpty || orderListList.isEmpty
                   ? emptyScreen(
                       "assets/images/noHistory.svg",
                       "No Orders",
                       "Your past orders, transactions and hires will show up here.",
                     )
-                  : ordersScreen(orderList);
+                  : ordersScreen(orderList, orderListList);
               break;
             case ConnectionState.waiting:
               return progressIndicator(MColors.primaryPurple);
@@ -69,9 +73,9 @@ class _HistoryScreenState extends State<HistoryScreen>
     );
   }
 
-  Widget ordersScreen(orderList) {
+  Widget ordersScreen(orderList, orderListList) {
     final _tabBody = [
-      currentOrder(orderList),
+      currentOrder(orderList, orderListList),
       pastOrder(),
     ];
     return Scaffold(
@@ -108,7 +112,7 @@ class _HistoryScreenState extends State<HistoryScreen>
     );
   }
 
-  Widget currentOrder(orderList) {
+  Widget currentOrder(orderList, orderListList) {
     return Container(
       height: MediaQuery.of(context).size.height,
       child: ListView.builder(
