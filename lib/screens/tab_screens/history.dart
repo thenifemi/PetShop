@@ -13,14 +13,25 @@ class HistoryScreen extends StatefulWidget {
   _HistoryScreenState createState() => _HistoryScreenState();
 }
 
-class _HistoryScreenState extends State<HistoryScreen> {
+class _HistoryScreenState extends State<HistoryScreen>
+    with SingleTickerProviderStateMixin {
   Future ordersFuture;
+  TabController _tabController;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  final _tabItems = [
+    "Current orders",
+    "Past orders",
+  ];
+
   @override
   void initState() {
     OrdersNotifier ordersNotifier =
         Provider.of<OrdersNotifier>(context, listen: false);
     ordersFuture = getOrders(ordersNotifier);
+    _tabController = TabController(
+      length: _tabItems.length,
+      vsync: this,
+    );
     super.initState();
   }
 
@@ -57,16 +68,60 @@ class _HistoryScreenState extends State<HistoryScreen> {
   }
 
   Widget ordersScreen(orderList) {
+    final _tabBody = [
+      currentOrder(orderList),
+      pastOrder(),
+    ];
     return Scaffold(
       key: _scaffoldKey,
+      appBar: primaryAppBar(
+        null,
+        TabBar(
+          unselectedLabelColor: MColors.textGrey,
+          unselectedLabelStyle: normalFont(MColors.textGrey, 16.0),
+          labelColor: MColors.primaryPurple,
+          labelStyle: boldFont(MColors.primaryPurple, 20.0),
+          indicatorWeight: 0.01,
+          isScrollable: true,
+          tabs: _tabItems.map((e) {
+            return Tab(
+              child: Text(
+                e,
+              ),
+            );
+          }).toList(),
+          controller: _tabController,
+        ),
+        MColors.primaryWhiteSmoke,
+        null,
+        false,
+        null,
+      ),
       body: primaryContainer(
-        Center(
-          child: Text(
-            "ORDERS",
-            style: boldFont(MColors.primaryPurple, 30.0),
-          ),
+        TabBarView(
+          children: _tabBody,
+          controller: _tabController,
         ),
       ),
+    );
+  }
+
+  Widget currentOrder(orderList) {
+    return Container(
+      child: Center(
+        child: Text(
+          "ORDERS",
+          style: boldFont(MColors.primaryPurple, 30.0),
+        ),
+      ),
+    );
+  }
+
+  Widget pastOrder() {
+    return emptyScreen(
+      "assets/images/noHistory.svg",
+      "No past orders",
+      "Orders that have been delivered to you will show up here.",
     );
   }
 }
