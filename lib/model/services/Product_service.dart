@@ -164,7 +164,13 @@ addCartToOrders(cartItem, orderID) async {
       .document(uEmail)
       .collection("orders")
       .document(orderID)
-      .setData({'orderID': orderID})
+      .setData(
+        {
+          'orderID': orderID,
+          'orderTime': orderTime,
+          'orderDate': orderDate,
+        },
+      )
       .catchError((e) {
         print(e);
       })
@@ -200,7 +206,13 @@ addCartToOrders(cartItem, orderID) async {
       .document(uEmail)
       .collection("orders")
       .document(orderID)
-      .setData({'orderID': orderID})
+      .setData(
+        {
+          'orderID': orderID,
+          'orderTime': orderTime,
+          'orderDate': orderDate,
+        },
+      )
       .catchError((e) {
         print(e);
       })
