@@ -28,6 +28,10 @@ class _TabsLayoutState extends State<TabsLayout> {
 
   @override
   void initState() {
+    // BrandsNotifier brandsNotifier =
+    //     Provider.of<BrandsNotifier>(context, listen: false);
+    // getBrands(brandsNotifier);
+
     // OrderstNotifier orderstNotifier =
     //     Provider.of<OrderstNotifier>(context, listen: false);
     getOrders();
