@@ -23,14 +23,14 @@ class BagScreen extends StatefulWidget {
 }
 
 class _BagScreenState extends State<BagScreen> {
-  Future cartFuture;
+  Future bagFuture;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     CartNotifier cartNotifier =
         Provider.of<CartNotifier>(context, listen: false);
-    cartFuture = getCart(cartNotifier);
+    bagFuture = getCart(cartNotifier);
     getCart(cartNotifier);
 
     super.initState();
@@ -66,7 +66,7 @@ class _BagScreenState extends State<BagScreen> {
         null,
       ),
       body: FutureBuilder(
-        future: cartFuture,
+        future: bagFuture,
         builder: (c, s) {
           switch (s.connectionState) {
             case ConnectionState.active:
