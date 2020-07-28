@@ -85,6 +85,9 @@ class _HomeControllerState extends State<HomeController> {
                         ChangeNotifierProvider(
                           create: (context) => OrdersNotifier(),
                         ),
+                        ChangeNotifierProvider(
+                          create: (context) => OrderListNotifier(),
+                        ),
                       ],
                       child: TabsLayout(),
                     )

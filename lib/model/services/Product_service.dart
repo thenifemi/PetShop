@@ -260,11 +260,15 @@ getOrders(
 
   // For orderList
   List<OrdersList> _ordersListList = [];
+
   snapshot.documents.forEach((document) {
     OrdersList ordersList = OrdersList.fromMap(document.data);
     _ordersListList.add(ordersList);
   });
   orderListNotifier.orderListList = _ordersListList;
+  print(orderListNotifier.orderListList[0].orderID);
+
+  //For orders
 
   snapshot.documents.forEach((document) async {
     List<Orders> _ordersList = [];
