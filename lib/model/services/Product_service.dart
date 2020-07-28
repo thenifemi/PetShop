@@ -232,7 +232,7 @@ addCartToOrders(cartItem, orderID) async {
 }
 
 //Getting users' orders
-getOrders(OrdersNotifier orderstNotifier) async {
+getOrders(OrdersNotifier ordersNotifier) async {
   final db = Firestore.instance;
 
   final uEmail = await AuthService().getCurrentEmail();
@@ -259,7 +259,7 @@ getOrders(OrdersNotifier orderstNotifier) async {
       Orders orders = Orders.fromMap(document.data);
       _ordersList.add(orders);
     });
-    orderstNotifier.orderList = _ordersList;
-    print(orderstNotifier.orderList[2].brand);
+    ordersNotifier.orderList = _ordersList;
+    print(ordersNotifier.orderList[0].brand);
   });
 }

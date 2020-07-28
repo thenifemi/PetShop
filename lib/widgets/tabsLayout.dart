@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mollet/model/notifiers/orders_notifier.dart';
@@ -32,9 +31,9 @@ class _TabsLayoutState extends State<TabsLayout> {
     //     Provider.of<BrandsNotifier>(context, listen: false);
     // getBrands(brandsNotifier);
 
-    OrdersNotifier orderstNotifier =
+    OrdersNotifier ordersNotifier =
         Provider.of<OrdersNotifier>(context, listen: false);
-    getOrders(orderstNotifier);
+    getOrders(ordersNotifier);
 
     ProductsNotifier productsNotifier =
         Provider.of<ProductsNotifier>(context, listen: false);
