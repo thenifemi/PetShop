@@ -178,10 +178,14 @@ addCartToOrders(cartItem, orderID) async {
           .setData(cartItem.toMap()))
       .then((value) async {
         //Adding Date and Time to order
-        CollectionReference orderRef =
-            db.collection("userOrder").document(uEmail).collection("orders");
+        CollectionReference orderRef = db
+            .collection("userOrder")
+            .document(uEmail)
+            .collection("orders")
+            .document(orderID)
+            .collection("orderItems");
 
-        await orderRef.document(cartItem.productID + "-" + orderID).updateData(
+        await orderRef.document(cartItem.productID).updateData(
           {
             'orderID': orderID,
             'orderTime': orderTime,
@@ -213,11 +217,11 @@ addCartToOrders(cartItem, orderID) async {
         CollectionReference merchantOrderRef = db
             .collection("merchantOrder")
             .document(uEmail)
-            .collection("orders");
+            .collection("orders")
+            .document(orderID)
+            .collection("orderItems");
 
-        await merchantOrderRef
-            .document(cartItem.productID + "-" + orderID)
-            .updateData(
+        await merchantOrderRef.document(cartItem.productID).updateData(
           {
             'orderID': orderID,
             'orderTime': orderTime,
