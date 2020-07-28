@@ -79,7 +79,7 @@ class _BagScreenState extends State<BagScreen> {
                       "Bag is empty",
                       "Products you add to your bag will show up here. So lets get shopping and make your pet happy.",
                     )
-                  : cart(cartList, total);
+                  : bag(cartList, total);
               break;
             case ConnectionState.waiting:
               return progressIndicator(MColors.primaryPurple);
@@ -92,7 +92,7 @@ class _BagScreenState extends State<BagScreen> {
     );
   }
 
-  Widget cart(cartList, total) {
+  Widget bag(cartList, total) {
     return Scaffold(
       key: _scaffoldKey,
       body: primaryContainer(
