@@ -268,7 +268,6 @@ getOrders(
   orderListNotifier.orderListList = _ordersListList;
 
   //For orders
-
   snapshot.documents.forEach((document) async {
     List<Orders> _ordersList = [];
 

@@ -41,6 +41,8 @@ class _HistoryScreenState extends State<HistoryScreen>
   Widget build(BuildContext context) {
     OrdersNotifier ordersNotifier = Provider.of<OrdersNotifier>(context);
     var orderList = ordersNotifier.orderList;
+    print(orderList);
+
     OrderListNotifier orderListNotifier =
         Provider.of<OrderListNotifier>(context);
     var orderListList = orderListNotifier.orderListList;
@@ -173,29 +175,7 @@ class _HistoryScreenState extends State<HistoryScreen>
                     shrinkWrap: true,
                     itemCount: orderList.length,
                     itemBuilder: (context, i) {
-                      // START TEST
-                      List aList = [];
-                      orderList.forEach((element) {
-                        var a = element.orderID;
-                        aList.add(a);
-                      });
-                      List bList = [];
-                      orderListList.forEach((element) {
-                        var b = element.orderID;
-                        bList.add(b);
-                      });
-                      // print("A LIST ===>");
-                      // print(aList);
-                      // print("B LIST ===>");
-                      // print(bList);
-                      // var c = aList.where((e) => aList[i] == bList[i]);
-                      // print("ORDERS LIST ===>");
-                      print(orderList.where((e) =>
-                          e.orderID == "0332ddf0-d2f4-4b2f-970c-7c5afc31960"));
-                      // print("ORDERS LIST LIST ===>");
-                      // print(bList[0]);
-                      // END TEST
-                      var order = orderList[i];
+                      var order = orderList[0];
                       return Container(
                         height: 60.0,
                         child: FadeInImage.assetNetwork(
