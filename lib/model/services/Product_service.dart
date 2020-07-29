@@ -219,5 +219,4 @@ getOrders(
     _ordersListList.add(ordersList);
   });
   orderListNotifier.orderListList = _ordersListList;
-  print(orderListNotifier.orderListList);
 }

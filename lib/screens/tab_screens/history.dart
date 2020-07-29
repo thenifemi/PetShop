@@ -167,13 +167,14 @@ class _HistoryScreenState extends State<HistoryScreen>
                     scrollDirection: Axis.horizontal,
                     physics: BouncingScrollPhysics(),
                     shrinkWrap: true,
-                    itemCount: orderList.length,
+                    itemCount: orderListItem.length,
                     itemBuilder: (context, i) {
-                      var order = orderList[0];
+                      var order = orderListItem.order;
+                      print(order.order);
                       return Container(
                         height: 60.0,
                         child: FadeInImage.assetNetwork(
-                          image: order.productImage,
+                          image: order['productImage'],
                           fit: BoxFit.fill,
                           height: 60,
                           placeholder: "assets/images/placeholder.jpg",
