@@ -210,15 +210,11 @@ class _AddressContainerState extends State<AddressContainer> {
             } else {
               completeOrderFuture = _showLoadingDialog();
 
+              //Adding cartItems to orders
               //Generating unique orderID
               var uuid = Uuid();
               var orderID = uuid.v4();
-
-              //Adding cartItems to orders
-              for (var i = 0; i < cartList.length; i++) {
-                var cartItem = cartList[i];
-                completeOrderFuture = addCartToOrders(cartList, orderID);
-              }
+              completeOrderFuture = addCartToOrders(cartList, orderID);
 
               //Clearing the cart and going home
               completeOrderFuture.then((value) {

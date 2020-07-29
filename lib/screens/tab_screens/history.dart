@@ -37,12 +37,9 @@ class _HistoryScreenState extends State<HistoryScreen>
 
   @override
   Widget build(BuildContext context) {
-    OrdersNotifier ordersNotifier = Provider.of<OrdersNotifier>(context);
-    var orderList = ordersNotifier.orderList;
-
     OrderListNotifier orderListNotifier =
         Provider.of<OrderListNotifier>(context);
-    var orderListList = orderListNotifier.orderListList;
+    var orderList = orderListNotifier.orderListList;
 
     return Scaffold(
       body: FutureBuilder(
@@ -53,13 +50,13 @@ class _HistoryScreenState extends State<HistoryScreen>
               return progressIndicator(MColors.primaryPurple);
               break;
             case ConnectionState.done:
-              return orderList.isEmpty || orderListList.isEmpty
+              return orderList.isEmpty
                   ? emptyScreen(
                       "assets/images/noHistory.svg",
                       "No Orders",
                       "Your past orders, transactions and hires will show up here.",
                     )
-                  : ordersScreen(orderList, orderListList);
+                  : ordersScreen(orderList);
               break;
             case ConnectionState.waiting:
               return progressIndicator(MColors.primaryPurple);
@@ -72,9 +69,9 @@ class _HistoryScreenState extends State<HistoryScreen>
     );
   }
 
-  Widget ordersScreen(orderList, orderListList) {
+  Widget ordersScreen(orderList) {
     final _tabBody = [
-      currentOrder(orderList, orderListList),
+      currentOrder(orderList),
       pastOrder(),
     ];
     return Scaffold(
@@ -111,15 +108,15 @@ class _HistoryScreenState extends State<HistoryScreen>
     );
   }
 
-  Widget currentOrder(orderList, orderListList) {
+  Widget currentOrder(orderList) {
     return Container(
       height: MediaQuery.of(context).size.height,
       child: ListView.builder(
         physics: BouncingScrollPhysics(),
         shrinkWrap: true,
-        itemCount: orderListList.length,
+        itemCount: orderList.length,
         itemBuilder: (context, i) {
-          var orderListItem = orderListList[i];
+          var orderListItem = orderList[i];
           var orderID = orderListItem.orderID.substring(
             orderListItem.orderID.length - 11,
           );

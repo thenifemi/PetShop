@@ -220,24 +220,4 @@ getOrders(
   });
   orderListNotifier.orderListList = _ordersListList;
   print(orderListNotifier.orderListList);
-
-  // For orders
-  // ordersSnapshot.documents.forEach((document) async {
-  //   List<Orders> _ordersList = [];
-
-  //   var orderIDfromSnapshot = document.data['orderID'];
-  //   var ordersList = await db
-  //       .collection("userOrder")
-  //       .document(uEmail)
-  //       .collection("orderItems")
-  //       .document(orderIDfromSnapshot)
-  //       .collection("items")
-  //       .getDocuments();
-  //   ordersList.documents.forEach((document) {
-  //     Orders orders = Orders.fromMap(document.data);
-  //     _ordersList.add(orders);
-  //   });
-  //   ordersNotifier.orderList = _ordersList;
-  //   print(ordersNotifier.orderList);
-  // });
 }
