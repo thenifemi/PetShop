@@ -147,7 +147,7 @@ clearCartAfterPurchase() async {
 }
 
 //Adding users' product to cart
-addCartToOrders(cartItem, orderID) async {
+addCartToOrders(cartList, orderID) async {
   final db = Firestore.instance;
   final uEmail = await AuthService().getCurrentEmail();
   var orderDate = DateTime.now().day.toString() +
@@ -159,51 +159,46 @@ addCartToOrders(cartItem, orderID) async {
       ":" +
       Timestamp.now().toDate().minute.toString();
 
-  await db
-      .collection("userOrder")
-      .document(uEmail)
-      .collection("orders")
-      .document(orderID)
-      .setData(
-    {
-      'orderID': orderID,
-      'orderTime': orderTime,
-      'orderDate': orderDate,
-    },
-  ).catchError((e) {
-    print(e);
-  }).then((value) => db
-          .collection("userOrder")
-          .document(uEmail)
-          .collection("orderItem")
-          .document(orderID)
-          .setData(cartItem.toMap()));
+  for (var i = 0; i < cartList.length; i++) {
+    var _cartItem = cartList[i];
 
-  //Sending orders to merchant
-  await db
-      .collection("merchantOrder")
-      .document(uEmail)
-      .collection("orders")
-      .document(orderID)
-      .setData(
-    {
-      'orderID': orderID,
-      'orderTime': orderTime,
-      'orderDate': orderDate,
-    },
-  ).catchError((e) {
-    print(e);
-  }).then((value) => db
-          .collection("userOrder")
-          .document(uEmail)
-          .collection("orderItem")
-          .document(orderID)
-          .setData(cartItem.toMap()));
+    await db
+        .collection("userOrder")
+        .document(uEmail)
+        .collection("orders")
+        .document(orderID)
+        .setData(
+      {
+        'orderID': orderID,
+        'orderTime': orderTime,
+        'orderDate': orderDate,
+        'order': cartList.map((i) => i.toMap()).toList(),
+      },
+    ).catchError((e) {
+      print(e);
+    });
+
+    //Sending orders to merchant
+    await db
+        .collection("merchantOrder")
+        .document(uEmail)
+        .collection("orders")
+        .document(orderID)
+        .setData(
+      {
+        'orderID': orderID,
+        'orderTime': orderTime,
+        'orderDate': orderDate,
+        'order': cartList.map((i) => i.toMap()).toList(),
+      },
+    ).catchError((e) {
+      print(e);
+    });
+  }
 }
 
 //Getting users' orders
 getOrders(
-  OrdersNotifier ordersNotifier,
   OrderListNotifier orderListNotifier,
 ) async {
   final db = Firestore.instance;
@@ -226,22 +221,23 @@ getOrders(
   orderListNotifier.orderListList = _ordersListList;
   print(orderListNotifier.orderListList);
 
-  //For orders
-  // snapshot.documents.forEach((document) async {
+  // For orders
+  // ordersSnapshot.documents.forEach((document) async {
   //   List<Orders> _ordersList = [];
 
   //   var orderIDfromSnapshot = document.data['orderID'];
   //   var ordersList = await db
   //       .collection("userOrder")
   //       .document(uEmail)
-  //       .collection("orders")
-  //       .document(orderIDfromSnapshot)
   //       .collection("orderItems")
+  //       .document(orderIDfromSnapshot)
+  //       .collection("items")
   //       .getDocuments();
   //   ordersList.documents.forEach((document) {
   //     Orders orders = Orders.fromMap(document.data);
   //     _ordersList.add(orders);
   //   });
   //   ordersNotifier.orderList = _ordersList;
+  //   print(ordersNotifier.orderList);
   // });
 }

@@ -2,7 +2,7 @@ class OrdersList {
   String orderID;
   String orderTime;
   String orderDate;
-  List<Orders> order;
+  List<dynamic> order;
 
   OrdersList.fromMap(Map<String, dynamic> data) {
     orderID = data["orderID"];
@@ -15,7 +15,7 @@ class OrdersList {
       'orderID': orderID,
       'orderTime': orderTime,
       'orderDate': orderDate,
-      'order': order,
+      'order': order.map((i) => i.toMap()).toList(),
     };
   }
 }

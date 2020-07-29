@@ -31,11 +31,9 @@ class _TabsLayoutState extends State<TabsLayout> {
     //     Provider.of<BrandsNotifier>(context, listen: false);
     // getBrands(brandsNotifier);
 
-    OrdersNotifier ordersNotifier =
-        Provider.of<OrdersNotifier>(context, listen: false);
     OrderListNotifier orderListNotifier =
         Provider.of<OrderListNotifier>(context, listen: false);
-    getOrders(ordersNotifier, orderListNotifier);
+    getOrders(orderListNotifier);
 
     ProductsNotifier productsNotifier =
         Provider.of<ProductsNotifier>(context, listen: false);

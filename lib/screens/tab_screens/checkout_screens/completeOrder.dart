@@ -217,7 +217,7 @@ class _AddressContainerState extends State<AddressContainer> {
               //Adding cartItems to orders
               for (var i = 0; i < cartList.length; i++) {
                 var cartItem = cartList[i];
-                completeOrderFuture = addCartToOrders(cartItem, orderID);
+                completeOrderFuture = addCartToOrders(cartList, orderID);
               }
 
               //Clearing the cart and going home

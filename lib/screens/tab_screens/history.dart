@@ -25,11 +25,9 @@ class _HistoryScreenState extends State<HistoryScreen>
 
   @override
   void initState() {
-    OrdersNotifier ordersNotifier =
-        Provider.of<OrdersNotifier>(context, listen: false);
     OrderListNotifier orderListNotifier =
         Provider.of<OrderListNotifier>(context, listen: false);
-    ordersFuture = getOrders(ordersNotifier, orderListNotifier);
+    ordersFuture = getOrders(orderListNotifier);
     _tabController = TabController(
       length: _tabItems.length,
       vsync: this,
@@ -41,7 +39,6 @@ class _HistoryScreenState extends State<HistoryScreen>
   Widget build(BuildContext context) {
     OrdersNotifier ordersNotifier = Provider.of<OrdersNotifier>(context);
     var orderList = ordersNotifier.orderList;
-    print(orderList);
 
     OrderListNotifier orderListNotifier =
         Provider.of<OrderListNotifier>(context);
