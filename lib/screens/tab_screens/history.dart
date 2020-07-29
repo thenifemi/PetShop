@@ -40,6 +40,7 @@ class _HistoryScreenState extends State<HistoryScreen>
     OrderListNotifier orderListNotifier =
         Provider.of<OrderListNotifier>(context);
     var orderList = orderListNotifier.orderListList;
+    // orderList[0].order[0][''];
 
     return Scaffold(
       body: FutureBuilder(
@@ -167,7 +168,7 @@ class _HistoryScreenState extends State<HistoryScreen>
                     scrollDirection: Axis.horizontal,
                     physics: BouncingScrollPhysics(),
                     shrinkWrap: true,
-                    itemCount: orderListItem.length,
+                    itemCount: orderListItem.order.length,
                     itemBuilder: (context, i) {
                       var order = orderListItem.order;
                       print(order.order);
