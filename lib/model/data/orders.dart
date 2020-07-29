@@ -4,13 +4,6 @@ class OrdersList {
   String orderDate;
   List<Orders> order;
 
-  OrdersList(
-    this.orderID,
-    this.orderTime,
-    this.orderDate,
-    this.order,
-  );
-
   OrdersList.fromMap(Map<String, dynamic> data) {
     orderID = data["orderID"];
     orderTime = data["orderTime"];
