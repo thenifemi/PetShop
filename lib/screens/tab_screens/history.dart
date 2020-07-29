@@ -40,7 +40,6 @@ class _HistoryScreenState extends State<HistoryScreen>
     OrderListNotifier orderListNotifier =
         Provider.of<OrderListNotifier>(context);
     var orderList = orderListNotifier.orderListList;
-    // orderList[0].order[0][''];
 
     return Scaffold(
       body: FutureBuilder(
@@ -170,8 +169,12 @@ class _HistoryScreenState extends State<HistoryScreen>
                     shrinkWrap: true,
                     itemCount: orderListItem.order.length,
                     itemBuilder: (context, i) {
-                      var order = orderListItem.order;
-                      print(order.order);
+                      OrderListNotifier orderListNotifier =
+                          Provider.of<OrderListNotifier>(context);
+                      var _orderList = orderListNotifier.orderListList;
+                      var order = _orderList[i].order[i];
+                      print(order);
+
                       return Container(
                         height: 60.0,
                         child: FadeInImage.assetNetwork(
