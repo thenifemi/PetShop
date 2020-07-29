@@ -159,42 +159,38 @@ addCartToOrders(cartList, orderID) async {
       ":" +
       Timestamp.now().toDate().minute.toString();
 
-  for (var i = 0; i < cartList.length; i++) {
-    var _cartItem = cartList[i];
+  await db
+      .collection("userOrder")
+      .document(uEmail)
+      .collection("orders")
+      .document(orderID)
+      .setData(
+    {
+      'orderID': orderID,
+      'orderTime': orderTime,
+      'orderDate': orderDate,
+      'order': cartList.map((i) => i.toMap()).toList(),
+    },
+  ).catchError((e) {
+    print(e);
+  });
 
-    await db
-        .collection("userOrder")
-        .document(uEmail)
-        .collection("orders")
-        .document(orderID)
-        .setData(
-      {
-        'orderID': orderID,
-        'orderTime': orderTime,
-        'orderDate': orderDate,
-        'order': cartList.map((i) => i.toMap()).toList(),
-      },
-    ).catchError((e) {
-      print(e);
-    });
-
-    //Sending orders to merchant
-    await db
-        .collection("merchantOrder")
-        .document(uEmail)
-        .collection("orders")
-        .document(orderID)
-        .setData(
-      {
-        'orderID': orderID,
-        'orderTime': orderTime,
-        'orderDate': orderDate,
-        'order': cartList.map((i) => i.toMap()).toList(),
-      },
-    ).catchError((e) {
-      print(e);
-    });
-  }
+  //Sending orders to merchant
+  await db
+      .collection("merchantOrder")
+      .document(uEmail)
+      .collection("orders")
+      .document(orderID)
+      .setData(
+    {
+      'orderID': orderID,
+      'orderTime': orderTime,
+      'orderDate': orderDate,
+      'order': cartList.map((i) => i.toMap()).toList(),
+    },
+  ).catchError((e) {
+    print(e);
+  });
 }
 
 //Getting users' orders
