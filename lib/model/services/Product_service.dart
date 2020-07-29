@@ -210,7 +210,7 @@ getOrders(
 
   final uEmail = await AuthService().getCurrentEmail();
 
-  QuerySnapshot snapshot = await db
+  QuerySnapshot ordersSnapshot = await db
       .collection("userOrder")
       .document(uEmail)
       .collection("orders")
@@ -219,28 +219,29 @@ getOrders(
   // For orderList
   List<OrdersList> _ordersListList = [];
 
-  snapshot.documents.forEach((document) {
+  ordersSnapshot.documents.forEach((document) {
     OrdersList ordersList = OrdersList.fromMap(document.data);
     _ordersListList.add(ordersList);
   });
   orderListNotifier.orderListList = _ordersListList;
+  print(orderListNotifier.orderListList);
 
   //For orders
-  snapshot.documents.forEach((document) async {
-    List<Orders> _ordersList = [];
+  // snapshot.documents.forEach((document) async {
+  //   List<Orders> _ordersList = [];
 
-    var orderIDfromSnapshot = document.data['orderID'];
-    var ordersList = await db
-        .collection("userOrder")
-        .document(uEmail)
-        .collection("orders")
-        .document(orderIDfromSnapshot)
-        .collection("orderItems")
-        .getDocuments();
-    ordersList.documents.forEach((document) {
-      Orders orders = Orders.fromMap(document.data);
-      _ordersList.add(orders);
-    });
-    ordersNotifier.orderList = _ordersList;
-  });
+  //   var orderIDfromSnapshot = document.data['orderID'];
+  //   var ordersList = await db
+  //       .collection("userOrder")
+  //       .document(uEmail)
+  //       .collection("orders")
+  //       .document(orderIDfromSnapshot)
+  //       .collection("orderItems")
+  //       .getDocuments();
+  //   ordersList.documents.forEach((document) {
+  //     Orders orders = Orders.fromMap(document.data);
+  //     _ordersList.add(orders);
+  //   });
+  //   ordersNotifier.orderList = _ordersList;
+  // });
 }
