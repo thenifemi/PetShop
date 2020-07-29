@@ -120,10 +120,9 @@ class _HistoryScreenState extends State<HistoryScreen>
         shrinkWrap: true,
         itemCount: orderListList.length,
         itemBuilder: (context, i) {
-          var orderItem = orderList[i];
           var orderListItem = orderListList[i];
           var orderID = orderListItem.orderID.substring(
-            orderItem.orderID.length - 11,
+            orderListItem.orderID.length - 11,
           );
 
           return Container(
@@ -144,19 +143,72 @@ class _HistoryScreenState extends State<HistoryScreen>
                   children: <Widget>[
                     Expanded(
                       child: Container(
-                        child: Text(
-                          "Order No. " + orderID,
-                          style: boldFont(MColors.textGrey, 14.0),
+                        child: Row(
+                          children: <Widget>[
+                            Text(
+                              "Order No. ",
+                              style: normalFont(MColors.textGrey, 14.0),
+                            ),
+                            Text(
+                              orderID,
+                              style: boldFont(MColors.textGrey, 14.0),
+                            ),
+                          ],
                         ),
                       ),
                     ),
                     Container(
                       child: Text(
-                        orderItem.orderDate,
+                        orderListItem.orderDate,
                         style: normalFont(MColors.textGrey, 14.0),
                       ),
                     ),
                   ],
+                ),
+                Container(
+                  height: 70.0,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    physics: BouncingScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: orderList.length,
+                    itemBuilder: (context, i) {
+                      // START TEST
+                      List aList = [];
+                      orderList.forEach((element) {
+                        var a = element.orderID;
+                        aList.add(a);
+                      });
+                      List bList = [];
+                      orderListList.forEach((element) {
+                        var b = element.orderID;
+                        bList.add(b);
+                      });
+                      // print("A LIST ===>");
+                      // print(aList);
+                      // print("B LIST ===>");
+                      // print(bList);
+                      // var c = aList.where((e) => aList[i] == bList[i]);
+                      // print("ORDERS LIST ===>");
+                      print(orderList.where((e) =>
+                          e.orderID == "0332ddf0-d2f4-4b2f-970c-7c5afc31960"));
+                      // print("ORDERS LIST LIST ===>");
+                      // print(bList[0]);
+                      // END TEST
+                      var order = orderList[i];
+                      return Container(
+                        height: 60.0,
+                        child: FadeInImage.assetNetwork(
+                          image: order.productImage,
+                          fit: BoxFit.fill,
+                          height: 60,
+                          placeholder: "assets/images/placeholder.jpg",
+                          placeholderScale:
+                              MediaQuery.of(context).size.height / 2,
+                        ),
+                      );
+                    },
+                  ),
                 ),
               ],
             ),

@@ -266,7 +266,6 @@ getOrders(
     _ordersListList.add(ordersList);
   });
   orderListNotifier.orderListList = _ordersListList;
-  print(orderListNotifier.orderListList[0].orderID);
 
   //For orders
 
