@@ -116,10 +116,16 @@ class _HistoryScreenState extends State<HistoryScreen>
         shrinkWrap: true,
         itemCount: orderList.length,
         itemBuilder: (context, i) {
-          var orderListItem = orderList[i];
+          OrderListNotifier orderListNotifier =
+              Provider.of<OrderListNotifier>(context);
+          var _orderList = orderListNotifier.orderListList;
+
+          var orderListItem = _orderList[i];
           var orderID = orderListItem.orderID.substring(
             orderListItem.orderID.length - 11,
           );
+
+          var order = _orderList[i].order.toList();
 
           return Container(
             width: MediaQuery.of(context).size.width,
@@ -167,18 +173,12 @@ class _HistoryScreenState extends State<HistoryScreen>
                     scrollDirection: Axis.horizontal,
                     physics: BouncingScrollPhysics(),
                     shrinkWrap: true,
-                    itemCount: orderListItem.order.length,
+                    itemCount: order.length,
                     itemBuilder: (context, i) {
-                      OrderListNotifier orderListNotifier =
-                          Provider.of<OrderListNotifier>(context);
-                      var _orderList = orderListNotifier.orderListList;
-                      var order = _orderList[i].order[i];
-                      print(order);
-
                       return Container(
                         height: 60.0,
                         child: FadeInImage.assetNetwork(
-                          image: order['productImage'],
+                          image: order[i]['productImage'],
                           fit: BoxFit.fill,
                           height: 60,
                           placeholder: "assets/images/placeholder.jpg",
