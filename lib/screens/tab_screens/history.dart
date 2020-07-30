@@ -101,6 +101,7 @@ class _HistoryScreenState extends State<HistoryScreen>
       ),
       body: primaryContainer(
         TabBarView(
+          physics: BouncingScrollPhysics(),
           children: _tabBody,
           controller: _tabController,
         ),
