@@ -90,6 +90,7 @@ class _HomeScreenState extends State<HomeScreen>
         child: prods.isEmpty
             ? progressIndicator(MColors.primaryPurple)
             : TabBarView(
+                physics: BouncingScrollPhysics(),
                 children: _tabBody,
                 controller: _tabController,
               ),
