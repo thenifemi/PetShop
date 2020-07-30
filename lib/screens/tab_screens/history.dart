@@ -126,6 +126,10 @@ class _HistoryScreenState extends State<HistoryScreen>
           );
 
           var order = _orderList[i].order.toList();
+          var orderTotalPriceList = order.map((e) => e['totalPrice']);
+          var orderTotalPrice = orderTotalPriceList
+              .reduce((sum, element) => sum + element)
+              .toStringAsFixed(2);
 
           return Container(
             width: MediaQuery.of(context).size.width,
@@ -168,6 +172,7 @@ class _HistoryScreenState extends State<HistoryScreen>
                   ],
                 ),
                 Container(
+                  padding: const EdgeInsets.symmetric(vertical: 10.0),
                   height: 70.0,
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
@@ -176,17 +181,51 @@ class _HistoryScreenState extends State<HistoryScreen>
                     itemCount: order.length,
                     itemBuilder: (context, i) {
                       return Container(
-                        height: 60.0,
+                        margin: EdgeInsets.symmetric(horizontal: 2),
+                        height: 50.0,
+                        width: 40.0,
                         child: FadeInImage.assetNetwork(
                           image: order[i]['productImage'],
                           fit: BoxFit.fill,
-                          height: 60,
                           placeholder: "assets/images/placeholder.jpg",
                           placeholderScale:
                               MediaQuery.of(context).size.height / 2,
                         ),
                       );
                     },
+                  ),
+                ),
+                Container(
+                  child: Row(
+                    children: <Widget>[
+                      Text(
+                        order.length.toString() + " Items",
+                        style: normalFont(MColors.textGrey, 14.0),
+                      ),
+                      Spacer(),
+                      Text(
+                        "\$" + orderTotalPrice.toString(),
+                        style: boldFont(MColors.textGrey, 14.0),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 10.0),
+                Container(
+                  child: Row(
+                    children: <Widget>[
+                      Text(
+                        "Details",
+                        style: boldFont(MColors.primaryPurple, 14.0),
+                      ),
+                      Spacer(),
+                      Text(
+                        i == 1 ? "En route" : "Processing",
+                        style: i == 1
+                            ? boldFont(Colors.green, 14.0)
+                            : boldFont(Colors.amber, 14.0),
+                      ),
+                    ],
                   ),
                 ),
               ],
