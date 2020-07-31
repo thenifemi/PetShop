@@ -44,8 +44,7 @@ addProductToCart(product) async {
 
 //Getting brands
 getBrands(BrandsNotifier brandsNotifier) async {
-  QuerySnapshot snapshot =
-      await Firestore.instance.collection("brands").getDocuments();
+  QuerySnapshot snapshot = await db.collection("brands").getDocuments();
 
   List<Brands> _brandsList = [];
 
@@ -61,11 +60,8 @@ getBrands(BrandsNotifier brandsNotifier) async {
 getCart(CartNotifier cartNotifier) async {
   final uEmail = await AuthService().getCurrentEmail();
 
-  QuerySnapshot snapshot = await Firestore.instance
-      .collection("userCart")
-      .document(uEmail)
-      .collection("cartItems")
-      .getDocuments();
+  QuerySnapshot snapshot =
+      await db.document(uEmail).collection("cartItems").getDocuments();
 
   List<Cart> _cartList = [];
 
