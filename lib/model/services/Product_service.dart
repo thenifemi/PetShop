@@ -9,6 +9,8 @@ import 'package:mollet/model/notifiers/orders_notifier.dart';
 import 'package:mollet/model/notifiers/products_notifier.dart';
 import 'package:mollet/model/services/auth_service.dart';
 
+final db = Firestore.instance;
+
 //Getting products
 getProdProducts(ProductsNotifier productsNotifier) async {
   QuerySnapshot snapshot =
@@ -27,7 +29,6 @@ getProdProducts(ProductsNotifier productsNotifier) async {
 
 //Adding users' product to cart
 addProductToCart(product) async {
-  final db = Firestore.instance;
   final uEmail = await AuthService().getCurrentEmail();
 
   await db
@@ -78,7 +79,6 @@ getCart(CartNotifier cartNotifier) async {
 
 //Adding item quantity, Price and updating data in cart
 addAndApdateData(cartItem) async {
-  final db = Firestore.instance;
   final uEmail = await AuthService().getCurrentEmail();
 
   if (cartItem.quantity >= 9) {
@@ -98,7 +98,6 @@ addAndApdateData(cartItem) async {
 
 //Subtracting item quantity, Price and updating data in cart
 subAndApdateData(cartItem) async {
-  final db = Firestore.instance;
   final uEmail = await AuthService().getCurrentEmail();
 
   if (cartItem.quantity <= 1) {
