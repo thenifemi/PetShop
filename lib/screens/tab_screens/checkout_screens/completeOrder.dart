@@ -698,9 +698,11 @@ class _AddressContainerState extends State<AddressContainer> {
       context: context,
       builder: (builder) {
         return Container(
+          decoration: BoxDecoration(
+            color: MColors.primaryWhiteSmoke,
+          ),
           padding: EdgeInsets.all(20.0),
           height: MediaQuery.of(context).size.height,
-          color: MColors.primaryWhiteSmoke,
           child: SingleChildScrollView(
             physics: BouncingScrollPhysics(),
             child: Column(

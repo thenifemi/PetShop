@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:mollet/model/data/orders.dart';
 import 'package:mollet/model/notifiers/orders_notifier.dart';
 import 'package:mollet/model/services/Product_service.dart';
@@ -216,9 +217,18 @@ class _HistoryScreenState extends State<HistoryScreen>
                 Container(
                   child: Row(
                     children: <Widget>[
-                      Text(
-                        "Details",
-                        style: boldFont(MColors.primaryPurple, 14.0),
+                      Container(
+                        width: 60.0,
+                        height: 25.0,
+                        child: RawMaterialButton(
+                          onPressed: () {
+                            _showModalSheet(orderListItem);
+                          },
+                          child: Text(
+                            "Details",
+                            style: boldFont(MColors.primaryPurple, 14.0),
+                          ),
+                        ),
                       ),
                       Spacer(),
                       Text(
@@ -243,6 +253,163 @@ class _HistoryScreenState extends State<HistoryScreen>
       "assets/images/noHistory.svg",
       "No past orders",
       "Orders that have been delivered to you will show up here.",
+    );
+  }
+
+  //Order details
+  void _showModalSheet(orderListItem) {
+    var orderID = orderListItem.orderID.substring(
+      orderListItem.orderID.length - 11,
+    );
+    var order = orderListItem.order.toList();
+    var orderTotalPriceList = order.map((e) => e['totalPrice']);
+    var orderTotalPrice = orderTotalPriceList
+        .reduce((sum, element) => sum + element)
+        .toStringAsFixed(2);
+
+    showModalBottomSheet(
+      context: context,
+      builder: (builder) {
+        return Container(
+          decoration: BoxDecoration(
+            color: MColors.primaryWhiteSmoke,
+          ),
+          padding: EdgeInsets.all(20.0),
+          height: MediaQuery.of(context).size.height,
+          child: SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
+            child: Column(
+              children: <Widget>[
+                Row(
+                  children: <Widget>[
+                    Container(
+                      child: Text(
+                        "Order details",
+                        style: boldFont(MColors.textGrey, 16.0),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 5.0,
+                    ),
+                    Container(
+                      child: SvgPicture.asset(
+                        "assets/images/icons/Bag.svg",
+                        color: MColors.primaryPurple,
+                      ),
+                    ),
+                    Spacer(),
+                    Text(
+                      "\$" + orderTotalPrice,
+                      style: boldFont(MColors.primaryPurple, 16.0),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 10.0),
+                Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: Container(
+                        child: Row(
+                          children: <Widget>[
+                            Text(
+                              "Order No. ",
+                              style: normalFont(MColors.textGrey, 14.0),
+                            ),
+                            Text(
+                              orderID,
+                              style: boldFont(MColors.textGrey, 14.0),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Container(
+                      child: Text(
+                        orderListItem.orderTime +
+                            " | " +
+                            orderListItem.orderDate,
+                        style: normalFont(MColors.textGrey, 14.0),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 10.0),
+                Container(
+                  child: ListView.builder(
+                    itemCount: order.length,
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemBuilder: (context, i) {
+                      return Container(
+                        decoration: BoxDecoration(
+                          color: MColors.primaryWhite,
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(10.0),
+                          ),
+                        ),
+                        margin: EdgeInsets.symmetric(vertical: 4.0),
+                        padding: EdgeInsets.all(7.0),
+                        child: Row(
+                          children: <Widget>[
+                            Container(
+                              width: 30.0,
+                              height: 40.0,
+                              child: FadeInImage.assetNetwork(
+                                image: order[i]['productImage'],
+                                fit: BoxFit.fill,
+                                height: MediaQuery.of(context).size.height,
+                                placeholder: "assets/images/placeholder.jpg",
+                                placeholderScale:
+                                    MediaQuery.of(context).size.height / 2,
+                              ),
+                            ),
+                            SizedBox(
+                              width: 5.0,
+                            ),
+                            Container(
+                              width: MediaQuery.of(context).size.width / 2,
+                              child: Text(
+                                order[i]['name'],
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                softWrap: true,
+                                style: normalFont(MColors.textGrey, 14.0),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 5.0,
+                            ),
+                            Container(
+                              padding: const EdgeInsets.all(3.0),
+                              decoration: BoxDecoration(
+                                color: MColors.dashPurple,
+                                borderRadius: new BorderRadius.circular(10.0),
+                              ),
+                              child: Text(
+                                "X" + order[i]['quantity'].toString(),
+                                style: normalFont(MColors.textGrey, 14.0),
+                                textAlign: TextAlign.left,
+                              ),
+                            ),
+                            Spacer(),
+                            Container(
+                              child: Text(
+                                "\$" +
+                                    order[i]['totalPrice'].toStringAsFixed(2),
+                                style: boldFont(MColors.textDark, 14.0),
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }
