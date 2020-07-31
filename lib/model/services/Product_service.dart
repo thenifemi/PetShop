@@ -117,7 +117,6 @@ subAndApdateData(cartItem) async {
 
 //Removing item from cart
 removeItemFromCart(cartItem) async {
-  final db = Firestore.instance;
   final uEmail = await AuthService().getCurrentEmail();
 
   await db
@@ -130,7 +129,6 @@ removeItemFromCart(cartItem) async {
 
 //Clearing users' cart
 clearCartAfterPurchase() async {
-  final db = Firestore.instance;
   final uEmail = await AuthService().getCurrentEmail();
 
   await db
@@ -147,7 +145,6 @@ clearCartAfterPurchase() async {
 
 //Adding users' product to cart
 addCartToOrders(cartList, orderID) async {
-  final db = Firestore.instance;
   final uEmail = await AuthService().getCurrentEmail();
   var orderDate = DateTime.now().day.toString() +
       "-" +
@@ -196,8 +193,6 @@ addCartToOrders(cartList, orderID) async {
 getOrders(
   OrderListNotifier orderListNotifier,
 ) async {
-  final db = Firestore.instance;
-
   final uEmail = await AuthService().getCurrentEmail();
 
   QuerySnapshot ordersSnapshot = await db
