@@ -84,7 +84,7 @@ class _HistoryScreenState extends State<HistoryScreen>
           unselectedLabelStyle: normalFont(MColors.textGrey, 16.0),
           labelColor: MColors.primaryPurple,
           labelStyle: boldFont(MColors.primaryPurple, 20.0),
-          indicatorWeight: 0.01,
+          indicatorWeight: 0.00,
           isScrollable: true,
           tabs: _tabItems.map((e) {
             return Tab(
