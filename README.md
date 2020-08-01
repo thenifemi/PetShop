@@ -14,7 +14,7 @@
     <img src="https://raw.githubusercontent.com/thenifemi/PetShop/master/screenshots/notifications.jpg" width="150px" height="auto" hspace="5" vspace="20"/>
 </p>
 
-Pet Shop is an e-commerce application for Android built with Flutter (iOS to come soon). The goal is to implement the Flutter framework for large scale Android and iOS applications, implementing native platform features like camera, location, biometrics and NFC. However, authentication, location reading and a couple database (using Firebase) reads and writes have been fully implemented. I also hope to integrate biometrics,  payment options etc
+Pet Shop is an e-commerce application for Android built with Flutter (iOS to come soon). The goal is to implement the Flutter framework for large scale Android and iOS applications, implementing native platform features like camera, location, biometrics and NFC. However, authentication, location reading and a couple database (using Firebase) reads and writes have been fully implemented. I also hope to integrate biometrics, payment options etc
 
 ## Design ❄👌
 
@@ -39,7 +39,7 @@ Feature requests, issues, pull requests and questions are welcome.
 
 ## Bugs 😭🐛
 
-If you encounter any bugs or are facing any issues with the code, please don't hesitate to reach out to me. [email] => [thenifemi@gmail.com]
+If you encounter any bugs or are facing any issues with the code, please don't hesitate to reach out to me. email => thenifemi@gmail.com
 
 ## Credits 😎🤓
 
