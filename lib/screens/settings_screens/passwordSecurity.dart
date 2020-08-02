@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mollet/screens/settings_screens/changePassword.dart';
 import 'package:mollet/utils/colors.dart';
@@ -21,7 +22,7 @@ class SecurityScreen extends StatelessWidget {
     final listTileActions = [
       () {
         Navigator.of(context).push(
-          MaterialPageRoute(
+          CupertinoPageRoute(
             builder: (_) => ChangePasswordScreen(),
           ),
         );

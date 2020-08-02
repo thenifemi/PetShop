@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mollet/model/notifiers/userData_notifier.dart';
@@ -157,7 +158,7 @@ class _CardsState extends State<Cards> {
                             listen: false);
 
                     var navigationResult = await Navigator.of(context).push(
-                      MaterialPageRoute(
+                      CupertinoPageRoute(
                         builder: (context) => AddNewCard(card, cardList),
                       ),
                     );
@@ -269,7 +270,7 @@ class _CardsState extends State<Cards> {
                 style: boldFont(MColors.primaryPurple, 16.0)),
             () async {
               var navigationResult = await Navigator.of(context).push(
-                MaterialPageRoute(
+                CupertinoPageRoute(
                   builder: (context) => AddNewCard(null, cardList),
                 ),
               );
