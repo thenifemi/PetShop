@@ -493,3 +493,23 @@ Future shareWidget() {
       mimeType: 'text/plain');
 }
 //-------------------------------------------
+
+//SHARE WIDGET-------------------------------
+modalBarWidget() {
+  return Container(
+    height: 6.0,
+    child: Center(
+      child: Container(
+        width: 50.0,
+        height: 6.0,
+        decoration: BoxDecoration(
+          color: MColors.textGrey,
+          borderRadius: BorderRadius.all(
+            Radius.circular(10.0),
+          ),
+        ),
+      ),
+    ),
+  );
+}
+//-------------------------------------------

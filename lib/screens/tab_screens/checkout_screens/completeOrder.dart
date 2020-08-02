@@ -708,6 +708,7 @@ class _AddressContainerState extends State<AddressContainer> {
             physics: BouncingScrollPhysics(),
             child: Column(
               children: <Widget>[
+                modalBarWidget(),
                 Row(
                   children: <Widget>[
                     Container(

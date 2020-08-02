@@ -279,6 +279,7 @@ class _HistoryScreenState extends State<HistoryScreen>
             physics: BouncingScrollPhysics(),
             child: Column(
               children: <Widget>[
+                modalBarWidget(),
                 Row(
                   children: <Widget>[
                     Container(
