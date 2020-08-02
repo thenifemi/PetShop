@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mollet/main.dart';
@@ -111,21 +112,21 @@ class _SettingsScreenState extends State<SettingsScreen> {
     final listTileActions = [
       () {
         Navigator.of(context).push(
-          MaterialPageRoute(
+          CupertinoPageRoute(
             builder: (_) => SecurityScreen(),
           ),
         );
       },
       () {
         Navigator.of(context).push(
-          MaterialPageRoute(
+          CupertinoPageRoute(
             builder: (_) => Cards1(),
           ),
         );
       },
       () async {
         var navigationResult = await Navigator.of(context).push(
-          MaterialPageRoute(
+          CupertinoPageRoute(
             builder: (_) => Address(_address, addressList),
           ),
         );
@@ -176,7 +177,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                     listen: false);
                             var navigationResult =
                                 await Navigator.of(context).push(
-                              MaterialPageRoute(
+                              CupertinoPageRoute(
                                 builder: (context) => EditProfile(user),
                               ),
                             );
@@ -224,7 +225,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                   listen: false);
                           var navigationResult =
                               await Navigator.of(context).push(
-                            MaterialPageRoute(
+                            CupertinoPageRoute(
                               builder: (context) => EditProfile(user),
                             ),
                           );
@@ -376,7 +377,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     auth.signOut();
                     Navigator.of(context).pop();
                     Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(
+                      CupertinoPageRoute(
                         builder: (_) => MyApp(),
                       ),
                     );
