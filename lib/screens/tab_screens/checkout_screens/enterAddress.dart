@@ -524,6 +524,8 @@ class _EnterAddressState extends State<EnterAddress> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
+                      SizedBox(height: 10.0),
+                      modalBarWidget(),
                       SizedBox(height: 20.0),
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 40.0),
