@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mollet/model/notifiers/orders_notifier.dart';
@@ -146,7 +147,7 @@ class _TabsLayoutState extends State<TabsLayout> {
                         CartNotifier cartNotifier =
                             Provider.of<CartNotifier>(context, listen: false);
                         var navigationResult = await Navigator.of(context).push(
-                          MaterialPageRoute(
+                          CupertinoPageRoute(
                             builder: (context) => Bag(),
                           ),
                         );

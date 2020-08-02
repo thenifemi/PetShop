@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mollet/screens/register_screens/login_screen.dart';
@@ -56,7 +57,7 @@ class IntroScreen extends StatelessWidget {
               ),
               () {
                 Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(
+                  CupertinoPageRoute(
                     builder: (_) => LoginScreen(),
                   ),
                 );
@@ -72,7 +73,7 @@ class IntroScreen extends StatelessWidget {
               ),
               () {
                 Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(
+                  CupertinoPageRoute(
                     builder: (_) => RegistrationScreen(),
                   ),
                 );

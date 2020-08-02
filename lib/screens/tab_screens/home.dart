@@ -198,7 +198,7 @@ class _HomeScreenState extends State<HomeScreen>
               CartNotifier cartNotifier =
                   Provider.of<CartNotifier>(context, listen: false);
               var navigationResult = await Navigator.of(context).push(
-                MaterialPageRoute(
+                CupertinoPageRoute(
                   builder: (context) => ProductDetailsProv(fil, prods),
                 ),
               );
@@ -332,7 +332,7 @@ class _HomeScreenState extends State<HomeScreen>
               CartNotifier cartNotifier =
                   Provider.of<CartNotifier>(context, listen: false);
               var navigationResult = await Navigator.of(context).push(
-                MaterialPageRoute(
+                CupertinoPageRoute(
                   builder: (context) => ProductDetailsProv(fil, prods),
                 ),
               );
@@ -466,7 +466,7 @@ class _HomeScreenState extends State<HomeScreen>
               CartNotifier cartNotifier =
                   Provider.of<CartNotifier>(context, listen: false);
               var navigationResult = await Navigator.of(context).push(
-                MaterialPageRoute(
+                CupertinoPageRoute(
                   builder: (context) => ProductDetailsProv(fil, prods),
                 ),
               );

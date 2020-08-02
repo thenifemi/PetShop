@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mollet/screens/register_screens/login_screen.dart';
 import 'package:mollet/utils/colors.dart';
@@ -202,7 +203,7 @@ class _ResetScreenState extends State<ResetScreen> {
                 () {
                   Navigator.of(context).pop();
                   Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(
+                    CupertinoPageRoute(
                       builder: (_) => LoginScreen(),
                     ),
                   );

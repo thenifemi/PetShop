@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mollet/main.dart';
 import 'package:mollet/screens/register_screens/registration_screen.dart';
@@ -67,7 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       onTap: () {
                         formKey.currentState.reset();
                         Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(
+                          CupertinoPageRoute(
                             builder: (_) => RegistrationScreen(),
                           ),
                         );
@@ -194,7 +195,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     GestureDetector(
                       onTap: () {
                         Navigator.of(context).push(
-                          MaterialPageRoute(
+                          CupertinoPageRoute(
                             builder: (_) => ResetScreen(),
                           ),
                         );
@@ -239,7 +240,7 @@ class _LoginScreenState extends State<LoginScreen> {
         print("Signed in with $uid");
 
         Navigator.of(context).pushReplacement(
-          MaterialPageRoute(
+          CupertinoPageRoute(
             builder: (_) => MyApp(),
           ),
         );

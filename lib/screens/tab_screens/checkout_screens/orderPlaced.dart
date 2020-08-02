@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mollet/main.dart';
@@ -28,7 +29,7 @@ class _OrderPlacedState extends State<OrderPlaced> {
           ),
           onPressed: () {
             Navigator.of(context).pushAndRemoveUntil(
-              MaterialPageRoute(
+              CupertinoPageRoute(
                 builder: (_) => MyApp(),
               ),
               (Route<dynamic> route) => false,
@@ -129,7 +130,7 @@ class _OrderPlacedState extends State<OrderPlaced> {
           Text("Back home", style: boldFont(MColors.primaryWhite, 16.0)),
           () {
             Navigator.of(context).pushAndRemoveUntil(
-              MaterialPageRoute(
+              CupertinoPageRoute(
                 builder: (_) => MyApp(),
               ),
               (Route<dynamic> route) => false,

@@ -1,5 +1,6 @@
 import 'dart:collection';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mollet/model/services/Product_service.dart';
@@ -157,7 +158,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                     ),
                     onPressed: () {
                       Navigator.of(context).push(
-                        MaterialPageRoute(
+                        CupertinoPageRoute(
                           builder: (context) => Bag(),
                         ),
                       );
