@@ -340,7 +340,7 @@ class _BagScreenState extends State<BagScreen> {
               style: boldFont(MColors.primaryWhite, 16.0)),
           () {
             Navigator.of(context).push(
-              MaterialPageRoute(
+              CupertinoPageRoute(
                 builder: (context) => AddressScreen(cartList),
               ),
             );

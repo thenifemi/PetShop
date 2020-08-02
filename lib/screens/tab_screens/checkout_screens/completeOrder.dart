@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mollet/model/data/cart.dart';
@@ -221,7 +222,7 @@ class _AddressContainerState extends State<AddressContainer> {
                 Navigator.of(context, rootNavigator: true).pop();
                 clearCartAfterPurchase();
                 Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(
+                  CupertinoPageRoute(
                     builder: (_) => OrderPlaced(addressList),
                   ),
                   (Route<dynamic> route) => false,
@@ -283,7 +284,7 @@ class _AddressContainerState extends State<AddressContainer> {
                         Provider.of<UserDataAddressNotifier>(context,
                             listen: false);
                     var navigationResult = await Navigator.of(context).push(
-                      MaterialPageRoute(
+                      CupertinoPageRoute(
                         builder: (_) => Address(address, addressList),
                       ),
                     );
@@ -384,7 +385,7 @@ class _AddressContainerState extends State<AddressContainer> {
               UserDataAddressNotifier addressNotifier =
                   Provider.of<UserDataAddressNotifier>(context, listen: false);
               var navigationResult = await Navigator.of(context).push(
-                MaterialPageRoute(
+                CupertinoPageRoute(
                   builder: (_) => Address(null, null),
                 ),
               );
@@ -557,7 +558,7 @@ class _AddressContainerState extends State<AddressContainer> {
                             listen: false);
 
                     var navigationResult = await Navigator.of(context).push(
-                      MaterialPageRoute(
+                      CupertinoPageRoute(
                         builder: (context) => AddNewCard(card, cardList),
                       ),
                     );
@@ -670,7 +671,7 @@ class _AddressContainerState extends State<AddressContainer> {
                 style: boldFont(MColors.primaryPurple, 16.0)),
             () async {
               var navigationResult = await Navigator.of(context).push(
-                MaterialPageRoute(
+                CupertinoPageRoute(
                   builder: (context) => AddNewCard(null, cardList),
                 ),
               );
