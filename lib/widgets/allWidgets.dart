@@ -515,7 +515,7 @@ modalBarWidget() {
 //-------------------------------------------
 
 //ORDER TRACKER WIDGET-------------------------------
-orderTrackerWidget() {
+orderTrackerWidget(String status) {
   return Container(
     child: Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -551,8 +551,8 @@ orderTrackerWidget() {
         ),
         SizedBox(width: 5.0),
         Container(
-          width: 24.0,
-          height: 24.0,
+          width: 16.0,
+          height: 16.0,
           decoration: BoxDecoration(
             color: Colors.green,
             borderRadius: BorderRadius.all(
@@ -560,7 +560,16 @@ orderTrackerWidget() {
             ),
           ),
           child: Center(
-            child: progressIndicator(null),
+            child: Container(
+              width: 5.0,
+              height: 5.0,
+              decoration: BoxDecoration(
+                color: MColors.primaryWhiteSmoke,
+                borderRadius: BorderRadius.all(
+                  Radius.circular(20.0),
+                ),
+              ),
+            ),
           ),
         ),
         SizedBox(width: 5.0),
