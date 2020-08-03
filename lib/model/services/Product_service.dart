@@ -154,6 +154,7 @@ addCartToOrders(cartList, orderID) async {
   var orderTime = Timestamp.now().toDate().hour.toString() +
       ":" +
       Timestamp.now().toDate().minute.toString();
+  var orderStatus = "proccesing";
 
   await db
       .collection("userOrder")
@@ -165,6 +166,7 @@ addCartToOrders(cartList, orderID) async {
       'orderID': orderID,
       'orderTime': orderTime,
       'orderDate': orderDate,
+      'orderStatus': orderStatus,
       'order': cartList.map((i) => i.toMap()).toList(),
     },
   ).catchError((e) {

@@ -2,12 +2,14 @@ class OrdersList {
   String orderID;
   String orderTime;
   String orderDate;
+  String orderStatus;
   List<dynamic> order;
 
   OrdersList.fromMap(Map<String, dynamic> data) {
     orderID = data["orderID"];
     orderTime = data["orderTime"];
     orderDate = data["orderDate"];
+    orderStatus = data["orderStatus"];
     order = data["order"];
   }
   Map<String, dynamic> toMap() {
@@ -15,6 +17,7 @@ class OrdersList {
       'orderID': orderID,
       'orderTime': orderTime,
       'orderDate': orderDate,
+      'orderStatus': orderStatus,
       'order': order.map((i) => i.toMap()).toList(),
     };
   }

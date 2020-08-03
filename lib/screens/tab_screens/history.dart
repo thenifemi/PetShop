@@ -231,7 +231,7 @@ class _HistoryScreenState extends State<HistoryScreen>
                       ),
                       Spacer(),
                       Text(
-                        i == 1 ? "En route" : "Processing",
+                        orderListItem.orderStatus,
                         style: i == 1
                             ? boldFont(Colors.green, 14.0)
                             : boldFont(Colors.amber, 14.0),
@@ -334,7 +334,7 @@ class _HistoryScreenState extends State<HistoryScreen>
                   ],
                 ),
                 SizedBox(height: 10.0),
-                orderTrackerWidget("delivered"),
+                orderTrackerWidget("processing"),
                 SizedBox(height: 10.0),
                 Container(
                   child: ListView.builder(
