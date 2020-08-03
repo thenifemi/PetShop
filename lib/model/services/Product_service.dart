@@ -154,7 +154,7 @@ addCartToOrders(cartList, orderID) async {
   var orderTime = Timestamp.now().toDate().hour.toString() +
       ":" +
       Timestamp.now().toDate().minute.toString();
-  var orderStatus = "proccesing";
+  var orderStatus = "processing";
 
   await db
       .collection("userOrder")
