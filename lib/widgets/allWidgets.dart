@@ -516,6 +516,31 @@ modalBarWidget() {
 
 //ORDER TRACKER WIDGET-------------------------------
 orderTrackerWidget(String status) {
+  bool processing = false,
+      confirmed = false,
+      enRoute = false,
+      delivered = false,
+      canceled = false;
+
+  if (status == "processing") {
+    processing = true;
+  } else if (status == "confirmed") {
+    processing = true;
+    confirmed = true;
+  } else if (status == "enRoute") {
+    processing = true;
+    confirmed = true;
+    enRoute = true;
+  } else if (status == "delivered") {
+    processing = true;
+    confirmed = true;
+    enRoute = true;
+    delivered = true;
+  } else if (status == "canceled") {
+    processing = true;
+    canceled = true;
+  }
+
   return Container(
     child: Row(
       mainAxisAlignment: MainAxisAlignment.center,
