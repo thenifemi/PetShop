@@ -334,6 +334,8 @@ class _HistoryScreenState extends State<HistoryScreen>
                   ],
                 ),
                 SizedBox(height: 10.0),
+                orderTrackerWidget(),
+                SizedBox(height: 10.0),
                 Container(
                   child: ListView.builder(
                     itemCount: order.length,

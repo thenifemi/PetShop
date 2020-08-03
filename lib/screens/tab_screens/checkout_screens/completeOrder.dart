@@ -733,9 +733,7 @@ class _AddressContainerState extends State<AddressContainer> {
                     ),
                   ],
                 ),
-                SizedBox(
-                  height: 10.0,
-                ),
+                SizedBox(height: 10.0),
                 Container(
                   child: ListView.builder(
                     itemCount: cartList.length,

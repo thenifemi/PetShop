@@ -494,7 +494,7 @@ Future shareWidget() {
 }
 //-------------------------------------------
 
-//SHARE WIDGET-------------------------------
+//MODAL BAR WIDGET-------------------------------
 modalBarWidget() {
   return Container(
     height: 6.0,
@@ -503,12 +503,111 @@ modalBarWidget() {
         width: 50.0,
         height: 6.0,
         decoration: BoxDecoration(
-          color: MColors.textGrey,
+          color: Colors.grey[400],
           borderRadius: BorderRadius.all(
             Radius.circular(10.0),
           ),
         ),
       ),
+    ),
+  );
+}
+//-------------------------------------------
+
+//ORDER TRACKER WIDGET-------------------------------
+orderTrackerWidget() {
+  return Container(
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        Container(
+          width: 16.0,
+          height: 16.0,
+          decoration: BoxDecoration(
+            color: Colors.green,
+            borderRadius: BorderRadius.all(
+              Radius.circular(20.0),
+            ),
+          ),
+          child: Center(
+            child: Icon(
+              Icons.check,
+              color: MColors.primaryWhite,
+              size: 12.0,
+            ),
+          ),
+        ),
+        SizedBox(width: 5.0),
+        Container(
+          width: 70.0,
+          height: 3.0,
+          decoration: BoxDecoration(
+            color: Colors.green,
+            borderRadius: BorderRadius.all(
+              Radius.circular(10.0),
+            ),
+          ),
+        ),
+        SizedBox(width: 5.0),
+        Container(
+          width: 24.0,
+          height: 24.0,
+          decoration: BoxDecoration(
+            color: Colors.green,
+            borderRadius: BorderRadius.all(
+              Radius.circular(20.0),
+            ),
+          ),
+          child: Center(
+            child: progressIndicator(null),
+          ),
+        ),
+        SizedBox(width: 5.0),
+        Container(
+          width: 70.0,
+          height: 3.0,
+          decoration: BoxDecoration(
+            color: Colors.grey[400],
+            borderRadius: BorderRadius.all(
+              Radius.circular(10.0),
+            ),
+          ),
+        ),
+        SizedBox(width: 5.0),
+        Container(
+          width: 16.0,
+          height: 16.0,
+          decoration: BoxDecoration(
+            color: Colors.grey[400],
+            borderRadius: BorderRadius.all(
+              Radius.circular(20.0),
+            ),
+          ),
+        ),
+        SizedBox(width: 5.0),
+        Container(
+          width: 70.0,
+          height: 3.0,
+          decoration: BoxDecoration(
+            color: Colors.grey[400],
+            borderRadius: BorderRadius.all(
+              Radius.circular(10.0),
+            ),
+          ),
+        ),
+        SizedBox(width: 5.0),
+        Container(
+          width: 16.0,
+          height: 16.0,
+          decoration: BoxDecoration(
+            color: Colors.grey[400],
+            borderRadius: BorderRadius.all(
+              Radius.circular(20.0),
+            ),
+          ),
+        ),
+      ],
     ),
   );
 }
