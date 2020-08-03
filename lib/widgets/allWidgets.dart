@@ -536,10 +536,13 @@ orderTrackerWidget(String status) {
     confirmed = true;
     enRoute = true;
     delivered = true;
-  } else if (status == "canceled") {
+  } else {
     processing = true;
-    // canceled = true;
   }
+  // } else if (status == "canceled") {
+  //   processing = true;
+  //   // canceled = true;
+  // }
   Widget checkMark() {
     return Icon(
       Icons.check,
@@ -602,7 +605,8 @@ orderTrackerWidget(String status) {
               Radius.circular(20.0),
             ),
           ),
-          child: Center(child: confirmed ? checkMark() : smallDonut()),
+          child:
+              Center(child: confirmed && enRoute ? checkMark() : smallDonut()),
         ),
         SizedBox(width: 5.0),
         //bar
@@ -626,7 +630,8 @@ orderTrackerWidget(String status) {
               Radius.circular(20.0),
             ),
           ),
-          child: Center(child: enRoute ? checkMark() : smallDonut()),
+          child:
+              Center(child: enRoute && delivered ? checkMark() : smallDonut()),
         ),
         SizedBox(width: 5.0),
         Container(
