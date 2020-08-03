@@ -519,8 +519,8 @@ orderTrackerWidget(String status) {
   bool processing = false,
       confirmed = false,
       enRoute = false,
-      delivered = false,
-      canceled = false;
+      delivered = false;
+  // canceled = false;
 
   if (status == "processing") {
     processing = true;
@@ -538,7 +538,27 @@ orderTrackerWidget(String status) {
     delivered = true;
   } else if (status == "canceled") {
     processing = true;
-    canceled = true;
+    // canceled = true;
+  }
+  Widget checkMark() {
+    return Icon(
+      Icons.check,
+      color: MColors.primaryWhite,
+      size: 12.0,
+    );
+  }
+
+  Widget smallDonut() {
+    return Container(
+      width: 5.0,
+      height: 5.0,
+      decoration: BoxDecoration(
+        color: MColors.primaryWhiteSmoke,
+        borderRadius: BorderRadius.all(
+          Radius.circular(20.0),
+        ),
+      ),
+    );
   }
 
   return Container(
@@ -546,29 +566,51 @@ orderTrackerWidget(String status) {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
+        //PROCESSING
         Container(
           width: 16.0,
           height: 16.0,
           decoration: BoxDecoration(
-            color: Colors.green,
+            color: processing ? Colors.green : Colors.grey[400],
             borderRadius: BorderRadius.all(
               Radius.circular(20.0),
             ),
           ),
           child: Center(
-            child: Icon(
-              Icons.check,
-              color: MColors.primaryWhite,
-              size: 12.0,
-            ),
-          ),
+              child: processing && confirmed ? checkMark() : smallDonut()),
         ),
         SizedBox(width: 5.0),
+        //bar
         Container(
           width: 70.0,
           height: 3.0,
           decoration: BoxDecoration(
-            color: Colors.green,
+            color: confirmed ? Colors.green : Colors.grey[400],
+            borderRadius: BorderRadius.all(
+              Radius.circular(10.0),
+            ),
+          ),
+        ),
+        SizedBox(width: 5.0),
+        //CONFIRMED
+        Container(
+          width: 16.0,
+          height: 16.0,
+          decoration: BoxDecoration(
+            color: confirmed ? Colors.green : Colors.grey[400],
+            borderRadius: BorderRadius.all(
+              Radius.circular(20.0),
+            ),
+          ),
+          child: Center(child: confirmed ? checkMark() : smallDonut()),
+        ),
+        SizedBox(width: 5.0),
+        //bar
+        Container(
+          width: 70.0,
+          height: 3.0,
+          decoration: BoxDecoration(
+            color: enRoute ? Colors.green : Colors.grey[400],
             borderRadius: BorderRadius.all(
               Radius.circular(10.0),
             ),
@@ -579,30 +621,19 @@ orderTrackerWidget(String status) {
           width: 16.0,
           height: 16.0,
           decoration: BoxDecoration(
-            color: Colors.green,
+            color: enRoute ? Colors.green : Colors.grey[400],
             borderRadius: BorderRadius.all(
               Radius.circular(20.0),
             ),
           ),
-          child: Center(
-            child: Container(
-              width: 5.0,
-              height: 5.0,
-              decoration: BoxDecoration(
-                color: MColors.primaryWhiteSmoke,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(20.0),
-                ),
-              ),
-            ),
-          ),
+          child: Center(child: enRoute ? checkMark() : smallDonut()),
         ),
         SizedBox(width: 5.0),
         Container(
           width: 70.0,
           height: 3.0,
           decoration: BoxDecoration(
-            color: Colors.grey[400],
+            color: delivered ? Colors.green : Colors.grey[400],
             borderRadius: BorderRadius.all(
               Radius.circular(10.0),
             ),
@@ -613,33 +644,12 @@ orderTrackerWidget(String status) {
           width: 16.0,
           height: 16.0,
           decoration: BoxDecoration(
-            color: Colors.grey[400],
+            color: delivered ? Colors.green : Colors.grey[400],
             borderRadius: BorderRadius.all(
               Radius.circular(20.0),
             ),
           ),
-        ),
-        SizedBox(width: 5.0),
-        Container(
-          width: 70.0,
-          height: 3.0,
-          decoration: BoxDecoration(
-            color: Colors.grey[400],
-            borderRadius: BorderRadius.all(
-              Radius.circular(10.0),
-            ),
-          ),
-        ),
-        SizedBox(width: 5.0),
-        Container(
-          width: 16.0,
-          height: 16.0,
-          decoration: BoxDecoration(
-            color: Colors.grey[400],
-            borderRadius: BorderRadius.all(
-              Radius.circular(20.0),
-            ),
-          ),
+          child: Center(child: delivered ? checkMark() : smallDonut()),
         ),
       ],
     ),
