@@ -633,26 +633,20 @@ orderTrackerWidget(String status) {
             checkPoint(
               processing ? Colors.green : Colors.grey[400],
               Center(
-                  child: processing && confirmed ? checkMark() : smallDonut()),
-            ),
-            Container(
-              width: 16.0,
-              height: 16.0,
-              decoration: BoxDecoration(
-                color: processing ? Colors.green : Colors.grey[400],
-                borderRadius: BorderRadius.all(
-                  Radius.circular(20.0),
-                ),
+                child: processing && confirmed ? checkMark() : smallDonut(),
               ),
-              child: Center(
-                  child: processing && confirmed ? checkMark() : smallDonut()),
             ),
             SizedBox(width: 5.0),
             //bar
             bar(confirmed ? Colors.green : Colors.grey[400]),
-
             SizedBox(width: 5.0),
             //CONFIRMED
+            checkPoint(
+              confirmed ? Colors.green : Colors.grey[400],
+              Center(
+                child: confirmed && enRoute ? checkMark() : smallDonut(),
+              ),
+            ),
             Container(
               width: 16.0,
               height: 16.0,
