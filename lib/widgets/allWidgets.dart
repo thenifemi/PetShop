@@ -564,6 +564,19 @@ orderTrackerWidget(String status) {
     );
   }
 
+  Widget bar(Color color) {
+    return Container(
+      width: 70.0,
+      height: 3.0,
+      decoration: BoxDecoration(
+        color: color,
+        borderRadius: BorderRadius.all(
+          Radius.circular(10.0),
+        ),
+      ),
+    );
+  }
+
   return Container(
     child: Column(
       children: <Widget>[
@@ -616,16 +629,8 @@ orderTrackerWidget(String status) {
             ),
             SizedBox(width: 5.0),
             //bar
-            Container(
-              width: 70.0,
-              height: 3.0,
-              decoration: BoxDecoration(
-                color: confirmed ? Colors.green : Colors.grey[400],
-                borderRadius: BorderRadius.all(
-                  Radius.circular(10.0),
-                ),
-              ),
-            ),
+            bar(confirmed ? Colors.green : Colors.grey[400]),
+
             SizedBox(width: 5.0),
             //CONFIRMED
             Container(
@@ -642,16 +647,7 @@ orderTrackerWidget(String status) {
             ),
             SizedBox(width: 5.0),
             //bar
-            Container(
-              width: 70.0,
-              height: 3.0,
-              decoration: BoxDecoration(
-                color: enRoute ? Colors.green : Colors.grey[400],
-                borderRadius: BorderRadius.all(
-                  Radius.circular(10.0),
-                ),
-              ),
-            ),
+            bar(enRoute ? Colors.green : Colors.grey[400]),
             SizedBox(width: 5.0),
             Container(
               width: 16.0,
@@ -666,16 +662,7 @@ orderTrackerWidget(String status) {
                   child: enRoute && delivered ? checkMark() : smallDonut()),
             ),
             SizedBox(width: 5.0),
-            Container(
-              width: 70.0,
-              height: 3.0,
-              decoration: BoxDecoration(
-                color: delivered ? Colors.green : Colors.grey[400],
-                borderRadius: BorderRadius.all(
-                  Radius.circular(10.0),
-                ),
-              ),
-            ),
+            bar(delivered ? Colors.green : Colors.grey[400]),
             SizedBox(width: 5.0),
             Container(
               width: 16.0,
