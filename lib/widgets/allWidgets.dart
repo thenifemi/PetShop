@@ -338,6 +338,23 @@ Widget progressIndicator(Color color) {
     ),
   );
 }
+
+Widget gettingLocationIndicator() {
+  return Center(
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        Text(
+          "Getting your current location",
+          style: normalFont(MColors.textGrey, 14.0),
+        ),
+        SizedBox(width: 5.0),
+        progressIndicator(MColors.primaryPurple),
+      ],
+    ),
+  );
+}
 //-------------------------------------------
 
 //SNACKBARS----------------------------------
