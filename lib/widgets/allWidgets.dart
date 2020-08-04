@@ -636,10 +636,13 @@ orderTrackerWidget(String status) {
                 child: processing && confirmed ? checkMark() : smallDonut(),
               ),
             ),
+
             SizedBox(width: 5.0),
-            //bar
+
             bar(confirmed ? Colors.green : Colors.grey[400]),
+
             SizedBox(width: 5.0),
+
             //CONFIRMED
             checkPoint(
               confirmed ? Colors.green : Colors.grey[400],
@@ -647,37 +650,28 @@ orderTrackerWidget(String status) {
                 child: confirmed && enRoute ? checkMark() : smallDonut(),
               ),
             ),
-            Container(
-              width: 16.0,
-              height: 16.0,
-              decoration: BoxDecoration(
-                color: confirmed ? Colors.green : Colors.grey[400],
-                borderRadius: BorderRadius.all(
-                  Radius.circular(20.0),
-                ),
-              ),
-              child: Center(
-                  child: confirmed && enRoute ? checkMark() : smallDonut()),
-            ),
+
             SizedBox(width: 5.0),
-            //bar
+
             bar(enRoute ? Colors.green : Colors.grey[400]),
+
             SizedBox(width: 5.0),
-            Container(
-              width: 16.0,
-              height: 16.0,
-              decoration: BoxDecoration(
-                color: enRoute ? Colors.green : Colors.grey[400],
-                borderRadius: BorderRadius.all(
-                  Radius.circular(20.0),
-                ),
+
+            //EN ROUTE
+            checkPoint(
+              enRoute ? Colors.green : Colors.grey[400],
+              Center(
+                child: enRoute && delivered ? checkMark() : smallDonut(),
               ),
-              child: Center(
-                  child: enRoute && delivered ? checkMark() : smallDonut()),
             ),
+
             SizedBox(width: 5.0),
+
             bar(delivered ? Colors.green : Colors.grey[400]),
+
             SizedBox(width: 5.0),
+
+            //DELIVERED
             Container(
               width: 16.0,
               height: 16.0,
