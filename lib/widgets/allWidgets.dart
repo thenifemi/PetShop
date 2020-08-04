@@ -577,6 +577,21 @@ orderTrackerWidget(String status) {
     );
   }
 
+  Widget checkPoint(Color color, Widget center) {
+    return Container(
+      width: 16.0,
+      height: 16.0,
+      decoration: BoxDecoration(
+        color: processing ? Colors.green : Colors.grey[400],
+        borderRadius: BorderRadius.all(
+          Radius.circular(20.0),
+        ),
+      ),
+      child:
+          Center(child: processing && confirmed ? checkMark() : smallDonut()),
+    );
+  }
+
   return Container(
     child: Column(
       children: <Widget>[
@@ -615,6 +630,11 @@ orderTrackerWidget(String status) {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             //PROCESSING
+            checkPoint(
+              processing ? Colors.green : Colors.grey[400],
+              Center(
+                  child: processing && confirmed ? checkMark() : smallDonut()),
+            ),
             Container(
               width: 16.0,
               height: 16.0,
