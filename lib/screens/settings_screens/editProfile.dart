@@ -121,7 +121,7 @@ class _EditProfileState extends State<EditProfile> {
                         ],
                       ),
                     ),
-                    SizedBox(height: 20.0),
+                    SizedBox(height: 10.0),
                     Container(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -149,7 +149,7 @@ class _EditProfileState extends State<EditProfile> {
                         ],
                       ),
                     ),
-                    SizedBox(height: 20.0),
+                    SizedBox(height: 10.0),
                     Container(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
