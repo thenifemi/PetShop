@@ -579,17 +579,15 @@ orderTrackerWidget(String status) {
 
   Widget checkPoint(Color color, Widget center) {
     return Container(
-      width: 16.0,
-      height: 16.0,
-      decoration: BoxDecoration(
-        color: processing ? Colors.green : Colors.grey[400],
-        borderRadius: BorderRadius.all(
-          Radius.circular(20.0),
+        width: 16.0,
+        height: 16.0,
+        decoration: BoxDecoration(
+          color: color,
+          borderRadius: BorderRadius.all(
+            Radius.circular(20.0),
+          ),
         ),
-      ),
-      child:
-          Center(child: processing && confirmed ? checkMark() : smallDonut()),
-    );
+        child: center);
   }
 
   return Container(
@@ -672,16 +670,11 @@ orderTrackerWidget(String status) {
             SizedBox(width: 5.0),
 
             //DELIVERED
-            Container(
-              width: 16.0,
-              height: 16.0,
-              decoration: BoxDecoration(
-                color: delivered ? Colors.green : Colors.grey[400],
-                borderRadius: BorderRadius.all(
-                  Radius.circular(20.0),
-                ),
+            checkPoint(
+              delivered ? Colors.green : Colors.grey[400],
+              Center(
+                child: delivered ? checkMark() : smallDonut(),
               ),
-              child: Center(child: delivered ? checkMark() : smallDonut()),
             ),
           ],
         ),
