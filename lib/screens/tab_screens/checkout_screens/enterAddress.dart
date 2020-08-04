@@ -297,16 +297,19 @@ class _EnterAddressState extends State<EnterAddress> {
                   return Container(
                     height: MediaQuery.of(context).size.height / 7,
                     child: Center(
-                        child: Row(
-                      children: <Widget>[
-                        Text(
-                          "Getting your current location",
-                          style: normalFont(MColors.textGrey, 16.0),
-                        ),
-                        SizedBox(width: 5.0),
-                        progressIndicator(MColors.primaryPurple),
-                      ],
-                    )),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            "Getting your current location",
+                            style: normalFont(MColors.textGrey, 14.0),
+                          ),
+                          SizedBox(width: 5.0),
+                          progressIndicator(MColors.primaryPurple),
+                        ],
+                      ),
+                    ),
                   );
                   break;
                 case ConnectionState.done:
@@ -367,32 +370,38 @@ class _EnterAddressState extends State<EnterAddress> {
                   return Container(
                     height: MediaQuery.of(context).size.height / 7,
                     child: Center(
-                        child: Row(
-                      children: <Widget>[
-                        Text(
-                          "Getting your current location",
-                          style: normalFont(MColors.textGrey, 16.0),
-                        ),
-                        SizedBox(width: 5.0),
-                        progressIndicator(MColors.primaryPurple),
-                      ],
-                    )),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            "Getting your current location",
+                            style: normalFont(MColors.textGrey, 14.0),
+                          ),
+                          SizedBox(width: 5.0),
+                          progressIndicator(MColors.primaryPurple),
+                        ],
+                      ),
+                    ),
                   );
                   break;
                 default:
                   return Container(
                     height: MediaQuery.of(context).size.height / 7,
                     child: Center(
-                        child: Row(
-                      children: <Widget>[
-                        Text(
-                          "Getting your current location",
-                          style: normalFont(MColors.textGrey, 16.0),
-                        ),
-                        SizedBox(width: 5.0),
-                        progressIndicator(MColors.primaryPurple),
-                      ],
-                    )),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            "Getting your current location",
+                            style: normalFont(MColors.textGrey, 14.0),
+                          ),
+                          SizedBox(width: 5.0),
+                          progressIndicator(MColors.primaryPurple),
+                        ],
+                      ),
+                    ),
                   );
               }
             },
