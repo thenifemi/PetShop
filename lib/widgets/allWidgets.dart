@@ -565,96 +565,130 @@ orderTrackerWidget(String status) {
   }
 
   return Container(
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
+    child: Column(
       children: <Widget>[
-        //PROCESSING
-        Container(
-          width: 16.0,
-          height: 16.0,
-          decoration: BoxDecoration(
-            color: processing ? Colors.green : Colors.grey[400],
-            borderRadius: BorderRadius.all(
-              Radius.circular(20.0),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              "Processing",
+              style: normalFont(
+                  processing ? Colors.green : Colors.grey[400], 12.0),
             ),
-          ),
-          child: Center(
-              child: processing && confirmed ? checkMark() : smallDonut()),
+            SizedBox(width: 40.0),
+            Text(
+              "confirmed",
+              style:
+                  normalFont(confirmed ? Colors.green : Colors.grey[400], 12.0),
+            ),
+            SizedBox(width: 40.0),
+            Text(
+              "En Route",
+              style:
+                  normalFont(enRoute ? Colors.green : Colors.grey[400], 12.0),
+            ),
+            SizedBox(width: 40.0),
+            Text(
+              "Delivered",
+              style:
+                  normalFont(delivered ? Colors.green : Colors.grey[400], 12.0),
+            ),
+          ],
         ),
-        SizedBox(width: 5.0),
-        //bar
-        Container(
-          width: 70.0,
-          height: 3.0,
-          decoration: BoxDecoration(
-            color: confirmed ? Colors.green : Colors.grey[400],
-            borderRadius: BorderRadius.all(
-              Radius.circular(10.0),
+        SizedBox(height: 5.0),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            //PROCESSING
+            Container(
+              width: 16.0,
+              height: 16.0,
+              decoration: BoxDecoration(
+                color: processing ? Colors.green : Colors.grey[400],
+                borderRadius: BorderRadius.all(
+                  Radius.circular(20.0),
+                ),
+              ),
+              child: Center(
+                  child: processing && confirmed ? checkMark() : smallDonut()),
             ),
-          ),
-        ),
-        SizedBox(width: 5.0),
-        //CONFIRMED
-        Container(
-          width: 16.0,
-          height: 16.0,
-          decoration: BoxDecoration(
-            color: confirmed ? Colors.green : Colors.grey[400],
-            borderRadius: BorderRadius.all(
-              Radius.circular(20.0),
+            SizedBox(width: 5.0),
+            //bar
+            Container(
+              width: 70.0,
+              height: 3.0,
+              decoration: BoxDecoration(
+                color: confirmed ? Colors.green : Colors.grey[400],
+                borderRadius: BorderRadius.all(
+                  Radius.circular(10.0),
+                ),
+              ),
             ),
-          ),
-          child:
-              Center(child: confirmed && enRoute ? checkMark() : smallDonut()),
-        ),
-        SizedBox(width: 5.0),
-        //bar
-        Container(
-          width: 70.0,
-          height: 3.0,
-          decoration: BoxDecoration(
-            color: enRoute ? Colors.green : Colors.grey[400],
-            borderRadius: BorderRadius.all(
-              Radius.circular(10.0),
+            SizedBox(width: 5.0),
+            //CONFIRMED
+            Container(
+              width: 16.0,
+              height: 16.0,
+              decoration: BoxDecoration(
+                color: confirmed ? Colors.green : Colors.grey[400],
+                borderRadius: BorderRadius.all(
+                  Radius.circular(20.0),
+                ),
+              ),
+              child: Center(
+                  child: confirmed && enRoute ? checkMark() : smallDonut()),
             ),
-          ),
-        ),
-        SizedBox(width: 5.0),
-        Container(
-          width: 16.0,
-          height: 16.0,
-          decoration: BoxDecoration(
-            color: enRoute ? Colors.green : Colors.grey[400],
-            borderRadius: BorderRadius.all(
-              Radius.circular(20.0),
+            SizedBox(width: 5.0),
+            //bar
+            Container(
+              width: 70.0,
+              height: 3.0,
+              decoration: BoxDecoration(
+                color: enRoute ? Colors.green : Colors.grey[400],
+                borderRadius: BorderRadius.all(
+                  Radius.circular(10.0),
+                ),
+              ),
             ),
-          ),
-          child:
-              Center(child: enRoute && delivered ? checkMark() : smallDonut()),
-        ),
-        SizedBox(width: 5.0),
-        Container(
-          width: 70.0,
-          height: 3.0,
-          decoration: BoxDecoration(
-            color: delivered ? Colors.green : Colors.grey[400],
-            borderRadius: BorderRadius.all(
-              Radius.circular(10.0),
+            SizedBox(width: 5.0),
+            Container(
+              width: 16.0,
+              height: 16.0,
+              decoration: BoxDecoration(
+                color: enRoute ? Colors.green : Colors.grey[400],
+                borderRadius: BorderRadius.all(
+                  Radius.circular(20.0),
+                ),
+              ),
+              child: Center(
+                  child: enRoute && delivered ? checkMark() : smallDonut()),
             ),
-          ),
-        ),
-        SizedBox(width: 5.0),
-        Container(
-          width: 16.0,
-          height: 16.0,
-          decoration: BoxDecoration(
-            color: delivered ? Colors.green : Colors.grey[400],
-            borderRadius: BorderRadius.all(
-              Radius.circular(20.0),
+            SizedBox(width: 5.0),
+            Container(
+              width: 70.0,
+              height: 3.0,
+              decoration: BoxDecoration(
+                color: delivered ? Colors.green : Colors.grey[400],
+                borderRadius: BorderRadius.all(
+                  Radius.circular(10.0),
+                ),
+              ),
             ),
-          ),
-          child: Center(child: delivered ? checkMark() : smallDonut()),
+            SizedBox(width: 5.0),
+            Container(
+              width: 16.0,
+              height: 16.0,
+              decoration: BoxDecoration(
+                color: delivered ? Colors.green : Colors.grey[400],
+                borderRadius: BorderRadius.all(
+                  Radius.circular(20.0),
+                ),
+              ),
+              child: Center(child: delivered ? checkMark() : smallDonut()),
+            ),
+          ],
         ),
       ],
     ),
