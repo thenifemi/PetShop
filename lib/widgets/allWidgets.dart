@@ -537,7 +537,6 @@ orderTrackerWidget(String status) {
       confirmed = false,
       enRoute = false,
       delivered = false;
-  // canceled = false;
 
   if (status == "processing") {
     processing = true;
