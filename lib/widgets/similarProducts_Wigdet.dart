@@ -49,16 +49,16 @@ class _SimilarProductsWidgetState extends State<SimilarProductsWidget> {
       _picHeight = 30;
     }
 
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-   void addToBagshowDialog(
-    cartProdID,
-    fil,
-  ) async {
-    CartNotifier cartNotifier =
-        Provider.of<CartNotifier>(context, listen: false);
+    void addToBagshowDialog(
+      cartProdID,
+      fil,
+    ) async {
+      CartNotifier cartNotifier =
+          Provider.of<CartNotifier>(context, listen: false);
 
-    await showCupertinoDialog(
+      await showCupertinoDialog(
         context: context,
         builder: (context) {
           return CupertinoAlertDialog(
@@ -113,9 +113,9 @@ class _SimilarProductsWidgetState extends State<SimilarProductsWidget> {
               ),
             ],
           );
-        });
- }
-
+        },
+      );
+    }
 
     return Container(
       padding: const EdgeInsets.only(bottom: 5.0),
@@ -237,5 +237,9 @@ class _SimilarProductsWidgetState extends State<SimilarProductsWidget> {
                 ],
               ),
             ),
-            );
-        }
+          );
+        }),
+      ),
+    );
+  }
+}
