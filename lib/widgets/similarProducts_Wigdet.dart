@@ -3,7 +3,6 @@ import 'dart:collection';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:mollet/model/data/Products.dart';
 import 'package:mollet/model/notifiers/cart_notifier.dart';
 import 'package:mollet/model/services/Product_service.dart';
@@ -14,25 +13,31 @@ import 'package:provider/provider.dart';
 
 class SimilarProductsWidget extends StatefulWidget {
   final ProdProducts prodDetails;
+  final GlobalKey<ScaffoldState> scaffoldKey;
   final UnmodifiableListView<ProdProducts> prods;
 
-  SimilarProductsWidget({Key key, this.prods, this.prodDetails})
+  SimilarProductsWidget(
+      {Key key, this.prods, this.prodDetails, this.scaffoldKey})
       : super(key: key);
 
   @override
   _SimilarProductsWidgetState createState() =>
-      _SimilarProductsWidgetState(prods, prodDetails);
+      _SimilarProductsWidgetState(prods, prodDetails, scaffoldKey);
 }
 
 class _SimilarProductsWidgetState extends State<SimilarProductsWidget> {
   ProdProducts prodDetails;
+  final GlobalKey<ScaffoldState> scaffoldKey;
 
   UnmodifiableListView<ProdProducts> prods;
-  _SimilarProductsWidgetState(this.prods, this.prodDetails);
+  _SimilarProductsWidgetState(this.prods, this.prodDetails, this.scaffoldKey);
 
   @override
   Widget build(BuildContext context) {
     var sims = prods;
+    CartNotifier cartNotifier = Provider.of<CartNotifier>(context);
+    var cartList = cartNotifier.cartList;
+    var cartProdID = cartList.map((e) => e.productID);
 
     var size = MediaQuery.of(context).size;
     /*24 is for notification bar on Android*/
@@ -48,8 +53,6 @@ class _SimilarProductsWidgetState extends State<SimilarProductsWidget> {
     } else {
       _picHeight = 30;
     }
-
-    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
     void addToBagshowDialog(
       cartProdID,
@@ -94,7 +97,7 @@ class _SimilarProductsWidgetState extends State<SimilarProductsWidget> {
                       "Product already in bag",
                       Icons.error_outline,
                       Colors.amber,
-                      _scaffoldKey,
+                      scaffoldKey,
                     );
                   } else {
                     addProductToCart(fil);
@@ -102,7 +105,7 @@ class _SimilarProductsWidgetState extends State<SimilarProductsWidget> {
                       "Product added to bag",
                       Icons.check_circle_outline,
                       Colors.green,
-                      _scaffoldKey,
+                      scaffoldKey,
                     );
                     setState(() {
                       getCart(cartNotifier);
@@ -171,16 +174,13 @@ class _SimilarProductsWidgetState extends State<SimilarProductsWidget> {
                   Container(
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10.0),
-                      child: Hero(
-                        child: FadeInImage.assetNetwork(
-                          image: fil.productImage,
-                          fit: BoxFit.fill,
-                          height: _picHeight,
-                          placeholder: "assets/images/placeholder.jpg",
-                          placeholderScale:
-                              MediaQuery.of(context).size.height / 2,
-                        ),
-                        tag: fil.productID,
+                      child: FadeInImage.assetNetwork(
+                        image: fil.productImage,
+                        fit: BoxFit.fill,
+                        height: _picHeight,
+                        placeholder: "assets/images/placeholder.jpg",
+                        placeholderScale:
+                            MediaQuery.of(context).size.height / 2,
                       ),
                     ),
                   ),
@@ -211,7 +211,7 @@ class _SimilarProductsWidgetState extends State<SimilarProductsWidget> {
                         GestureDetector(
                           onTap: () {
                             addToBagshowDialog(
-                              fil.productID,
+                              cartProdID,
                               fil,
                             );
                           },
@@ -221,7 +221,7 @@ class _SimilarProductsWidgetState extends State<SimilarProductsWidget> {
                             padding: const EdgeInsets.all(8.0),
                             decoration: BoxDecoration(
                               color: MColors.dashPurple,
-                              borderRadius: new BorderRadius.circular(8.0),
+                              borderRadius: BorderRadius.circular(8.0),
                             ),
                             child: SvgPicture.asset(
                               "assets/images/icons/basket.svg",
