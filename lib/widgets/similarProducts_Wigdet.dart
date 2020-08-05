@@ -130,8 +130,7 @@ class _SimilarProductsWidgetState extends State<SimilarProductsWidget> {
           Iterable<ProdProducts> iterable = sims
               .where((item) => item.pet == prodDetails.pet)
               .skipWhile((item) => item.productID == prodDetails.productID)
-              .toList()
-              .reversed;
+              .toList();
 
           List<ProdProducts> filteredList = iterable.toList();
 
@@ -212,7 +211,7 @@ class _SimilarProductsWidgetState extends State<SimilarProductsWidget> {
                         GestureDetector(
                           onTap: () {
                             addToBagshowDialog(
-                              cartProdID,
+                              fil.productID,
                               fil,
                             );
                           },
