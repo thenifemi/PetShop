@@ -816,34 +816,35 @@ class _AddressContainerState extends State<AddressContainer> {
 
   Future _showLoadingDialog() async {
     await showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return WillPopScope(
-            onWillPop: () {
-              return;
-            },
-            child: AlertDialog(
-              backgroundColor: MColors.primaryWhiteSmoke,
-              title: Text(
-                "Please wait..",
-                style: boldFont(MColors.primaryPurple, 14.0),
-              ),
-              content: Container(
-                height: 20.0,
-                child: Row(
-                  children: <Widget>[
-                    Text(
-                      " We are placing your order.",
-                      style: normalFont(MColors.textGrey, 14.0),
-                    ),
-                    Spacer(),
-                    progressIndicator(MColors.primaryPurple),
-                  ],
-                ),
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return WillPopScope(
+          onWillPop: () {
+            return;
+          },
+          child: AlertDialog(
+            backgroundColor: MColors.primaryWhiteSmoke,
+            title: Text(
+              "Please wait..",
+              style: boldFont(MColors.primaryPurple, 14.0),
+            ),
+            content: Container(
+              height: 20.0,
+              child: Row(
+                children: <Widget>[
+                  Text(
+                    " We are placing your order.",
+                    style: normalFont(MColors.textGrey, 14.0),
+                  ),
+                  Spacer(),
+                  progressIndicator(MColors.primaryPurple),
+                ],
               ),
             ),
-          );
-        });
+          ),
+        );
+      },
+    );
   }
 }

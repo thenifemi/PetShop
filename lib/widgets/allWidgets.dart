@@ -619,19 +619,19 @@ orderTrackerWidget(String status) {
               style: normalFont(
                   processing ? Colors.green : Colors.grey[400], 12.0),
             ),
-            SizedBox(width: 40.0),
+            SizedBox(width: 35.0),
             Text(
               "confirmed",
               style:
                   normalFont(confirmed ? Colors.green : Colors.grey[400], 12.0),
             ),
-            SizedBox(width: 40.0),
+            SizedBox(width: 35.0),
             Text(
               "En Route",
               style:
                   normalFont(enRoute ? Colors.green : Colors.grey[400], 12.0),
             ),
-            SizedBox(width: 40.0),
+            SizedBox(width: 35.0),
             Text(
               "Delivered",
               style:
