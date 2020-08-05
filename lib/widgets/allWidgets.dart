@@ -556,10 +556,7 @@ orderTrackerWidget(String status) {
   } else {
     processing = true;
   }
-  // } else if (status == "canceled") {
-  //   processing = true;
-  //   // canceled = true;
-  // }
+
   Widget checkMark() {
     return Icon(
       Icons.check,
