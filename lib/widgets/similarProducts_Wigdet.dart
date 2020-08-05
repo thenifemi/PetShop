@@ -1,10 +1,16 @@
 import 'dart:collection';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mollet/model/data/Products.dart';
+import 'package:mollet/model/notifiers/cart_notifier.dart';
+import 'package:mollet/model/services/Product_service.dart';
 import 'package:mollet/screens/tab_screens/homeScreen_pages/productDetailsScreen.dart';
 import 'package:mollet/utils/colors.dart';
+import 'package:mollet/widgets/allWidgets.dart';
+import 'package:provider/provider.dart';
 
 class SimilarProductsWidget extends StatefulWidget {
   final ProdProducts prodDetails;
@@ -30,8 +36,85 @@ class _SimilarProductsWidgetState extends State<SimilarProductsWidget> {
 
     var size = MediaQuery.of(context).size;
     /*24 is for notification bar on Android*/
-    final double itemHeight = (size.height) / 2.5;
+    final double itemHeight = size.height / 2.5;
     final double itemWidth = size.width / 2;
+    double _picHeight;
+    if (itemHeight >= 315) {
+      _picHeight = itemHeight / 2;
+    } else if (itemHeight <= 315 && itemHeight >= 280) {
+      _picHeight = itemHeight / 2.2;
+    } else if (itemHeight <= 280 && itemHeight >= 200) {
+      _picHeight = itemHeight / 2.7;
+    } else {
+      _picHeight = 30;
+    }
+
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+   void addToBagshowDialog(
+    cartProdID,
+    fil,
+  ) async {
+    CartNotifier cartNotifier =
+        Provider.of<CartNotifier>(context, listen: false);
+
+    await showCupertinoDialog(
+        context: context,
+        builder: (context) {
+          return CupertinoAlertDialog(
+            content: Text(
+              "Sure you want to add to Bag?",
+              style: normalFont(MColors.textDark, null),
+            ),
+            actions: <Widget>[
+              CupertinoDialogAction(
+                child: Text(
+                  "Cancel",
+                  style: normalFont(Colors.red, null),
+                ),
+                onPressed: () async {
+                  setState(() {
+                    getCart(cartNotifier);
+                  });
+                  Navigator.of(context).pop();
+                },
+              ),
+              CupertinoDialogAction(
+                isDefaultAction: true,
+                child: Text(
+                  "Yes",
+                  style: normalFont(Colors.blue, null),
+                ),
+                onPressed: () {
+                  setState(() {
+                    getCart(cartNotifier);
+                  });
+                  if (cartProdID.contains(fil.productID)) {
+                    showSimpleSnack(
+                      "Product already in bag",
+                      Icons.error_outline,
+                      Colors.amber,
+                      _scaffoldKey,
+                    );
+                  } else {
+                    addProductToCart(fil);
+                    showSimpleSnack(
+                      "Product added to bag",
+                      Icons.check_circle_outline,
+                      Colors.green,
+                      _scaffoldKey,
+                    );
+                    setState(() {
+                      getCart(cartNotifier);
+                    });
+                  }
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        });
+ }
+
 
     return Container(
       padding: const EdgeInsets.only(bottom: 5.0),
@@ -53,78 +136,23 @@ class _SimilarProductsWidgetState extends State<SimilarProductsWidget> {
 
           var fil = filteredList[i];
 
-          return RawMaterialButton(
-            onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
+          return GestureDetector(
+            onTap: () async {
+              CartNotifier cartNotifier =
+                  Provider.of<CartNotifier>(context, listen: false);
+              var navigationResult = await Navigator.of(context).push(
+                CupertinoPageRoute(
                   builder: (context) => ProductDetailsProv(fil, prods),
                 ),
               );
+              if (navigationResult == true) {
+                setState(() {
+                  getCart(cartNotifier);
+                });
+              }
             },
-            shape: RoundedRectangleBorder(
-              borderRadius: new BorderRadius.circular(10.0),
-            ),
             child: Container(
-              child: Column(
-                children: <Widget>[
-                  Container(
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10.0),
-                      child: filteredList == null
-                          ? Center(
-                              child: CircularProgressIndicator(),
-                            )
-                          : FadeInImage.assetNetwork(
-                              image: fil.productImage,
-                              fit: BoxFit.fill,
-                              height: MediaQuery.of(context).size.height / 5.8,
-                              placeholder: "assets/images/placeholder.jpg",
-                              placeholderScale:
-                                  MediaQuery.of(context).size.height / 2,
-                            ),
-                    ),
-                  ),
-                  Align(
-                    alignment: Alignment.bottomLeft,
-                    child: Container(
-                      padding: const EdgeInsets.only(top: 5.0),
-                      child: filteredList == null
-                          ? Center(
-                              child: Text("..."),
-                            )
-                          : Text(
-                              fil.name,
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              style: GoogleFonts.montserrat(
-                                color: MColors.textDark,
-                                fontSize: 16.0,
-                              ),
-                            ),
-                    ),
-                  ),
-                  Spacer(),
-                  Align(
-                    alignment: Alignment.bottomLeft,
-                    child: Container(
-                      padding: const EdgeInsets.only(top: 5.0, bottom: 10.0),
-                      child: filteredList == null
-                          ? Center(
-                              child: Text("..."),
-                            )
-                          : Text(
-                              "\$${fil.price}",
-                              style: GoogleFonts.montserrat(
-                                color: MColors.primaryPurple,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 20.0,
-                              ),
-                              textAlign: TextAlign.left,
-                            ),
-                    ),
-                  ),
-                ],
-              ),
+              padding: EdgeInsets.all(10),
               decoration: BoxDecoration(
                 color: MColors.primaryWhite,
                 borderRadius: BorderRadius.all(
@@ -138,12 +166,74 @@ class _SimilarProductsWidgetState extends State<SimilarProductsWidget> {
                       spreadRadius: 0),
                 ],
               ),
-              width: MediaQuery.of(context).size.width,
-              padding: EdgeInsets.all(10),
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10.0),
+                      child: Hero(
+                        child: FadeInImage.assetNetwork(
+                          image: fil.productImage,
+                          fit: BoxFit.fill,
+                          height: _picHeight,
+                          placeholder: "assets/images/placeholder.jpg",
+                          placeholderScale:
+                              MediaQuery.of(context).size.height / 2,
+                        ),
+                        tag: fil.productID,
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 10.0),
+                  Align(
+                    alignment: Alignment.bottomLeft,
+                    child: Container(
+                      child: Text(
+                        fil.name,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: normalFont(MColors.textGrey, 14.0),
+                      ),
+                    ),
+                  ),
+                  Spacer(),
+                  Container(
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Container(
+                          child: Text(
+                            "\$${fil.price}",
+                            style: boldFont(MColors.primaryPurple, 20.0),
+                          ),
+                        ),
+                        Spacer(),
+                        GestureDetector(
+                          onTap: () {
+                            addToBagshowDialog(
+                              cartProdID,
+                              fil,
+                            );
+                          },
+                          child: Container(
+                            width: 40.0,
+                            height: 40.0,
+                            padding: const EdgeInsets.all(8.0),
+                            decoration: BoxDecoration(
+                              color: MColors.dashPurple,
+                              borderRadius: new BorderRadius.circular(8.0),
+                            ),
+                            child: SvgPicture.asset(
+                              "assets/images/icons/basket.svg",
+                              height: 22.0,
+                              color: MColors.textGrey,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
-          );
-        }),
-      ),
-    );
-  }
-}
+          );}}
