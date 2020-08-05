@@ -203,7 +203,6 @@ getOrders(
       .collection("orders")
       .getDocuments();
 
-  // For orderList
   List<OrdersList> _ordersListList = [];
 
   ordersSnapshot.documents.forEach((document) {
