@@ -50,6 +50,7 @@ class _SimilarProductsWidgetState extends State<SimilarProductsWidget> {
     }
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
    void addToBagshowDialog(
     cartProdID,
     fil,
@@ -236,4 +237,5 @@ class _SimilarProductsWidgetState extends State<SimilarProductsWidget> {
                 ],
               ),
             ),
-          );}}
+            );
+        }
