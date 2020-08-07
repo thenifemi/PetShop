@@ -215,7 +215,8 @@ class _AddressContainerState extends State<AddressContainer> {
               //Generating unique orderID
               var uuid = Uuid();
               var orderID = uuid.v4();
-              completeOrderFuture = addCartToOrders(cartList, orderID);
+              completeOrderFuture =
+                  addCartToOrders(cartList, orderID, addressList);
 
               //Clearing the cart and going home
               completeOrderFuture.then((value) {

@@ -144,7 +144,7 @@ clearCartAfterPurchase() async {
 }
 
 //Adding users' product to cart
-addCartToOrders(cartList, orderID) async {
+addCartToOrders(cartList, orderID, addressList) async {
   final uEmail = await AuthService().getCurrentEmail();
   var orderDate = DateTime.now().day.toString() +
       "-" +
