@@ -19,7 +19,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  introduction_screen: ^1.0.8
   flutter_svg: ^0.17.1
   firebase_auth: ^0.15.5+3
   cloud_firestore: ^0.13.4+2
@@ -27,7 +26,6 @@ dependencies:
   google_fonts:
   wc_flutter_share: ^0.2.0
   provider:
-  bubble_tab_indicator: ^0.1.4
   carousel_slider: ^2.0.0
   permission_handler: ^3.1.0
   geolocator: ^5.3.2+2
