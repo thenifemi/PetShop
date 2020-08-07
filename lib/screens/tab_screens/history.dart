@@ -331,9 +331,20 @@ class _HistoryScreenState extends State<HistoryScreen>
                     ),
                   ],
                 ),
-                SizedBox(height: 10.0),
+                SizedBox(height: 15.0),
                 orderTrackerWidget(orderListItem.orderStatus),
-                SizedBox(height: 10.0),
+                SizedBox(height: 15.0),
+                Text(
+                  "Delivering to",
+                  style: boldFont(MColors.textGrey, 14.0),
+                ),
+                SizedBox(height: 5.0),
+                Text(
+                  orderListItem.shippingAddress,
+                  style: normalFont(MColors.textGrey, 14.0),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: 15.0),
                 Container(
                   child: ListView.builder(
                     itemCount: order.length,
