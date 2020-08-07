@@ -155,6 +155,9 @@ addCartToOrders(cartList, orderID, addressList) async {
       ":" +
       Timestamp.now().toDate().minute.toString();
   var orderStatus = "processing";
+  var shippingAddress = addressList.first.addressNumber +
+      ", " +
+      addressList.first.addressLocation;
 
   await db
       .collection("userOrder")
@@ -167,6 +170,7 @@ addCartToOrders(cartList, orderID, addressList) async {
       'orderTime': orderTime,
       'orderDate': orderDate,
       'orderStatus': orderStatus,
+      'shippingAddress': shippingAddress,
       'order': cartList.map((i) => i.toMap()).toList(),
     },
   ).catchError((e) {
@@ -184,6 +188,7 @@ addCartToOrders(cartList, orderID, addressList) async {
       'orderID': orderID,
       'orderTime': orderTime,
       'orderDate': orderDate,
+      'shippingAddress': shippingAddress,
       'order': cartList.map((i) => i.toMap()).toList(),
     },
   ).catchError((e) {
