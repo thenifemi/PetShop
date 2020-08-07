@@ -83,9 +83,6 @@ class _HomeControllerState extends State<HomeController> {
                           create: (context) => UserDataAddressNotifier(),
                         ),
                         ChangeNotifierProvider(
-                          create: (context) => OrdersNotifier(),
-                        ),
-                        ChangeNotifierProvider(
                           create: (context) => OrderListNotifier(),
                         ),
                       ],
