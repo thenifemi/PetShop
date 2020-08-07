@@ -22,6 +22,7 @@ dependencies:
   flutter_svg: ^0.18.0
   firebase_auth: ^0.16.1
   cloud_firestore: ^0.13.7
+  firebase_core: ^0.4.5
   flutter_launcher_icons: ^0.7.5
   google_fonts:
   wc_flutter_share: ^0.2.0
