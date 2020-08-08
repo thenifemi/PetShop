@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mollet/model/services/auth_service.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:mollet/widgets/allWidgets.dart';
 
@@ -61,7 +62,26 @@ class _MessageHandlerState extends State<MessageHandler> {
     super.initState();
   }
 
-  _saveDeviceToken() async {}
+  _saveDeviceToken() async {
+    final uEmail = await AuthService().getCurrentEmail();
+
+    //Getting device token
+    String fcmToken = await _fcm.getToken();
+
+    //Storing token
+    if (fcmToken != null) {
+      await _db
+          .collection("userData")
+          .document(uEmail)
+          .collection("tokens")
+          .document(fcmToken)
+          .setData({
+        'token': fcmToken,
+        'createdAt': FieldValue.serverTimestamp(),
+        'platform': Platform.operatingSystem,
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
