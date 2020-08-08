@@ -24,3 +24,30 @@ class _InboxScreenState extends State<InboxScreen> {
     );
   }
 }
+
+class MessageHandler extends StatefulWidget {
+  MessageHandler({Key key}) : super(key: key);
+
+  @override
+  _MessageHandlerState createState() => _MessageHandlerState();
+}
+
+class _MessageHandlerState extends State<MessageHandler> {
+  final _db = Firestore.instance;
+  final _fcm = FirebaseMessaging();
+
+  @override
+  void initState() {
+    _fcm.configure(
+      onMessage: (Map<String, dynamic> message) async {
+        print("onMessage $message");
+      },
+    );
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return null;
+  }
+}
