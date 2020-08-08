@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mollet/utils/colors.dart';
 import 'package:mollet/widgets/allWidgets.dart';
 
 import 'dart:async';
@@ -33,6 +34,8 @@ class MessageHandler extends StatefulWidget {
 }
 
 class _MessageHandlerState extends State<MessageHandler> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   final _db = Firestore.instance;
   final _fcm = FirebaseMessaging();
 
@@ -41,6 +44,12 @@ class _MessageHandlerState extends State<MessageHandler> {
     _fcm.configure(
       onMessage: (Map<String, dynamic> message) async {
         print("onMessage $message");
+        showSimpleSnack(
+          message['notification']['title'],
+          Icons.notifications,
+          MColors.primaryPurple,
+          _scaffoldKey,
+        );
       },
       onResume: (Map<String, dynamic> message) async {
         print("onResume $message");
@@ -51,6 +60,8 @@ class _MessageHandlerState extends State<MessageHandler> {
     );
     super.initState();
   }
+
+  _saveDeviceToken() async {}
 
   @override
   Widget build(BuildContext context) {
