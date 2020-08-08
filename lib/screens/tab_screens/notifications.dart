@@ -42,6 +42,12 @@ class _MessageHandlerState extends State<MessageHandler> {
       onMessage: (Map<String, dynamic> message) async {
         print("onMessage $message");
       },
+      onResume: (Map<String, dynamic> message) async {
+        print("onResume $message");
+      },
+      onLaunch: (Map<String, dynamic> message) async {
+        print("onLaunch-= $message");
+      },
     );
     super.initState();
   }
