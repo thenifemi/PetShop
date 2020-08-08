@@ -6,7 +6,6 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:mollet/model/data/userData.dart';
 import 'package:mollet/model/notifiers/userData_notifier.dart';
 import 'package:mollet/model/services/auth_service.dart';
-import 'package:mollet/widgets/allWidgets.dart';
 
 //Storing new user data
 storeNewUser(_name, _phone, _email) async {

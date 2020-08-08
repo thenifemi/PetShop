@@ -53,6 +53,7 @@ class _TabsLayoutState extends State<TabsLayout> {
     getCart(cartNotifier);
 
     saveDeviceToken();
+
     super.initState();
   }
 

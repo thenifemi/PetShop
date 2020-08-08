@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -25,10 +26,30 @@ class _HomeScreenState extends State<HomeScreen>
       length: _tabItems.length,
       vsync: this,
     );
+    _fcm.configure(
+      onMessage: (Map<String, dynamic> message) async {
+        print("onMessage $message");
+        showSimpleSnack(
+          message['notification']['title'],
+          Icons.notifications,
+          MColors.primaryPurple,
+          _scaffoldKey,
+        );
+      },
+      onResume: (Map<String, dynamic> message) async {
+        print("onResume $message");
+      },
+      onLaunch: (Map<String, dynamic> message) async {
+        print("onLaunch-= $message");
+      },
+    );
     super.initState();
   }
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  final _fcm = FirebaseMessaging();
+
   TabController _tabController;
   final _tabItems = [
     "All",

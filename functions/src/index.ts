@@ -7,7 +7,7 @@ const db = admin.firestore();
 const fcm = admin.messaging();
 
 export const sendToDevice = functions.firestore
-  .document("userOrder/{userOrderId}/orderItems/{orderItemsdId}")
+  .document("userOrder/{userOrderId}/orders/{ordersId}")
   .onCreate(async (snapshot) => {
     const order = snapshot.data();
 
