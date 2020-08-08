@@ -11,12 +11,20 @@ const sendToTopic = functions.firestore
   .onCreate(async (snapshot) => {
     const order = snapshot.data();
 
+    const orderSnapshot = await db
+      .collection("userData")
+      .doc(order.userOrderId)
+      .collection("tokens")
+      .get();
+
     const payload: admin.messaging.MessagingPayload = {
       notification: {
         title: "Yay!! we've placed your order",
         body:
           "Your order has been placed and Pet Shop will take care of it for you.",
         icon: "assets/images/footprint.png",
+        clickAction: "FLUTTER_NOTIFICATION_CLICK",
       },
     };
+    return fcm.sendToTopic("order", payload);
   });
