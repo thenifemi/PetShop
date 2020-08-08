@@ -6,7 +6,7 @@ admin.initializeApp();
 const db = admin.firestore();
 const fcm = admin.messaging();
 
-const sendToTopic = functions.firestore
+export const sendToDevice = functions.firestore
   .document("userOrder/{userOrderId}/orderItems/{orderItemsdId}")
   .onCreate(async (snapshot) => {
     const order = snapshot.data();
@@ -16,6 +16,8 @@ const sendToTopic = functions.firestore
       .doc(order.userOrderId)
       .collection("tokens")
       .get();
+      
+    const tokens = orderSnapshot.docs.map((snap) => snap.id);
 
     const payload: admin.messaging.MessagingPayload = {
       notification: {
@@ -26,5 +28,5 @@ const sendToTopic = functions.firestore
         clickAction: "FLUTTER_NOTIFICATION_CLICK",
       },
     };
-    return fcm.sendToTopic("order", payload);
+    return fcm.sendToDevice(tokens, payload);
   });
