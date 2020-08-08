@@ -42,7 +42,6 @@ class MessageHandler extends StatefulWidget {
 class _MessageHandlerState extends State<MessageHandler> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  final _db = Firestore.instance;
   final _fcm = FirebaseMessaging();
 
   @override
