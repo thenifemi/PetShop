@@ -5,25 +5,23 @@ admin.initializeApp(functions.config().firebase);
 
 var msgData;
 
-var uEmail = await AuthService().getCurrentEmail();
-
 exports.orderTrigger = functions.firestore
   .document("userOrder/{userOrderId}/orders/{ordersId}")
-  .onCreate((snapshot, context) => {
+  .onCreate((snapshot) => {
     msgData = snapshot.data;
+    var uEmail = this.orderTrigger.userOrderId;
 
     admin
       .firestore()
       .collection("userData")
-      .document(uEmail)
+      .doc(uEmail)
+
       .collection("tokens")
       .get()
-      .then(async (snapshots) => {
+      .then((snapshots) => {
         var token;
 
-        snapshots.empty
-          ? console.log("No Devices")
-          : (token = snapshots.data().token);
+        token = snapshots.data().token;
 
         var payload = {
           notification: {
@@ -41,11 +39,6 @@ exports.orderTrigger = functions.firestore
           },
         };
 
-        try {
-          const response = await admin.messaging().sendToDevice(token, payload);
-          console.log("Sent!" + response);
-        } catch (e) {
-          console.log(e);
-        }
+        return admin.messaging().sendToDevice(token, payload);
       });
   });
