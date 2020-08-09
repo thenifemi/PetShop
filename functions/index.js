@@ -33,6 +33,7 @@ exports.orderTrigger = functions.firestore
               msgData.orderStatus +
               ". Pet shop will handle it for you.",
             sound: "default",
+            clickAction: "FLUTTER_NOTIFICATION_CLICK",
           },
           data: {
             sendername: "Pet Shop",
@@ -40,6 +41,14 @@ exports.orderTrigger = functions.firestore
           },
         };
 
-        return admin.messaging().sendToDevice(token, payload);
+        return admin
+          .messaging()
+          .sendToDevice(token, payload)
+          .then((response) => {
+            console.log("Sent!" + response);
+          })
+          .catch((e) => {
+            console.log(e);
+          });
       });
   });
