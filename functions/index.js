@@ -1,5 +1,5 @@
 const functions = require("firebase-functions");
-const functions = require("firebase-admin");
+const admin = require("firebase-admin");
 
 admin.initializeApp(functions.config().firebase);
 
@@ -18,7 +18,7 @@ exports.orderTrigger = functions.firestore
       .document(uEmail)
       .collection("tokens")
       .get()
-      .then((snapshots) => {
+      .then(async (snapshots) => {
         var token;
 
         snapshots.empty
@@ -26,7 +26,7 @@ exports.orderTrigger = functions.firestore
           : (token = snapshots.data().token);
 
         var payload = {
-          notifications: {
+          notification: {
             title: "order" + msgData.orderID,
             body:
               "Woof! Your order is " +
@@ -41,14 +41,11 @@ exports.orderTrigger = functions.firestore
           },
         };
 
-        return admin
-          .messaging()
-          .sendToDevice(token, payload)
-          .then((response) => {
-            console.log("Sent!" + response);
-          })
-          .catch((e) => {
-            console.log(e);
-          });
+        try {
+          const response = await admin.messaging().sendToDevice(token, payload);
+          console.log("Sent!" + response);
+        } catch (e) {
+          console.log(e);
+        }
       });
   });
