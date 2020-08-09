@@ -1,6 +1,5 @@
 const functions = require("firebase-functions");
 const functions = require("firebase-admin");
-const { admin } = require("firebase-admin/lib/database");
 
 admin.initializeApp(functions.config().firebase);
 
@@ -26,10 +25,21 @@ exports.orderTrigger = functions.firestore
           ? console.log("No Devices")
           : (token = snapshots.data().token);
 
-        var payload = { 
-            "notifications" :{
-                "title" : "order" + msgData.orderID
-            }
-        }
+        var payload = {
+          notifications: {
+            title: "order" + msgData.orderID,
+            body:
+              "Woof! Your order is " +
+              msgData.orderStatus +
+              ". Pet shop will handle it for you.",
+            sound: "default",
+          },
+          data: {
+            sendername: "Pet Shop",
+            message: "Order placed",
+          },
+        };
+
+        return admin.messaging().sendToDevice(token, payload);
       });
   });
