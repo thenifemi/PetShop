@@ -146,14 +146,8 @@ clearCartAfterPurchase() async {
 //Adding users' product to cart
 addCartToOrders(cartList, orderID, addressList) async {
   final uEmail = await AuthService().getCurrentEmail();
-  var orderDate = DateTime.now().day.toString() +
-      "-" +
-      DateTime.now().month.toString() +
-      "-" +
-      DateTime.now().year.toString();
-  var orderTime = Timestamp.now().toDate().hour.toString() +
-      ":" +
-      Timestamp.now().toDate().minute.toString();
+  var orderDate = FieldValue.serverTimestamp();
+
   var orderStatus = "processing";
   var shippingAddress = addressList.first.addressNumber +
       ", " +
@@ -167,7 +161,6 @@ addCartToOrders(cartList, orderID, addressList) async {
       .setData(
     {
       'orderID': orderID,
-      'orderTime': orderTime,
       'orderDate': orderDate,
       'orderStatus': orderStatus,
       'shippingAddress': shippingAddress,
