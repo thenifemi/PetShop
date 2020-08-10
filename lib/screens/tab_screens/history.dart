@@ -132,6 +132,9 @@ class _HistoryScreenState extends State<HistoryScreen>
           var orderTotalPrice = orderTotalPriceList
               .reduce((sum, element) => sum + element)
               .toStringAsFixed(2);
+          var orderDayTime = orderListItem.orderDate.toDate().day.toString() +
+              orderListItem.orderDate.toDate().month.toString() +
+              orderListItem.orderDate.toDate().year.toString();
 
           return Container(
             width: MediaQuery.of(context).size.width,
@@ -167,7 +170,7 @@ class _HistoryScreenState extends State<HistoryScreen>
                     ),
                     Container(
                       child: Text(
-                        orderListItem.orderDate.toString(),
+                        orderDayTime,
                         style: normalFont(MColors.textGrey, 14.0),
                       ),
                     ),
