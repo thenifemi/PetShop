@@ -1,6 +1,5 @@
 class OrdersList {
   String orderID;
-  String orderTime;
   String orderDate;
   String orderStatus;
   String shippingAddress;
@@ -8,7 +7,6 @@ class OrdersList {
 
   OrdersList.fromMap(Map<String, dynamic> data) {
     orderID = data["orderID"];
-    orderTime = data["orderTime"];
     orderDate = data["orderDate"];
     orderStatus = data["orderStatus"];
     shippingAddress = data["shippingAddress"];
@@ -17,7 +15,6 @@ class OrdersList {
   Map<String, dynamic> toMap() {
     return {
       'orderID': orderID,
-      'orderTime': orderTime,
       'orderDate': orderDate,
       'orderStatus': orderStatus,
       'shippingAddress': shippingAddress,
