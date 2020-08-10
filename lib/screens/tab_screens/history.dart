@@ -323,9 +323,7 @@ class _HistoryScreenState extends State<HistoryScreen>
                     ),
                     Container(
                       child: Text(
-                        orderListItem.orderTime +
-                            " | " +
-                            orderListItem.orderDate,
+                        orderListItem.orderDate,
                         style: normalFont(MColors.textGrey, 14.0),
                       ),
                     ),
