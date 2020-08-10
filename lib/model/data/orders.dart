@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class OrdersList {
   String orderID;
-  String orderDate;
+  Timestamp orderDate;
   String orderStatus;
   String shippingAddress;
   List<dynamic> order;
