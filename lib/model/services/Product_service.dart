@@ -179,7 +179,6 @@ addCartToOrders(cartList, orderID, addressList) async {
       .setData(
     {
       'orderID': orderID,
-      'orderTime': orderTime,
       'orderDate': orderDate,
       'shippingAddress': shippingAddress,
       'order': cartList.map((i) => i.toMap()).toList(),
