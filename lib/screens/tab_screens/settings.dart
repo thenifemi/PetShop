@@ -309,7 +309,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                     listTileActions[i],
                                     listTileIcons[i],
                                     listTileNames[i],
-                                    MColors.primaryPurple,
+                                    i == 6 ? Colors.red : MColors.primaryPurple,
                                   ),
                                   Divider(
                                     height: 1.0,
@@ -327,7 +327,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         ),
       ),
       bottomNavigationBar: Container(
-        height: 80,
+        height: 20,
         padding: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
         child: Column(
           children: <Widget>[
