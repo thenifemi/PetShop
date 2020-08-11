@@ -98,6 +98,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       "assets/images/gift.svg",
       "assets/images/help.svg",
       "assets/images/question.svg",
+      "assets/images/logout.svg",
     ];
 
     final listTileNames = [
@@ -107,6 +108,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       "Invite a friend",
       "Help",
       "FAQs",
+      "Sign out",
     ];
 
     final listTileActions = [
