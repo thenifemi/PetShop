@@ -50,7 +50,7 @@ class _BagScreenState extends State<BagScreen> {
         IconButton(
           icon: Icon(
             Icons.arrow_back_ios,
-            color: MColors.textDark,
+            color: MColors.textGrey,
           ),
           onPressed: () {
             Navigator.pop(context, true);
