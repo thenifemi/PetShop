@@ -152,6 +152,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
       },
       () {},
       () {},
+      () {
+        _showLogOutDialog();
+      },
     ];
 
     return Scaffold(
@@ -329,19 +332,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
         child: Column(
           children: <Widget>[
             Container(
-              child: listTileButton(
-                () {
-                  _showLogOutDialog();
-                },
-                "assets/images/logout.svg",
-                "Sign out",
-                Colors.redAccent,
-              ),
-            ),
-            Container(
               child: Center(
                 child: Text(
-                  "Version 0.0.1",
+                  "Version 0.1.4",
                   style: normalFont(MColors.textGrey, 14.0),
                   textAlign: TextAlign.center,
                 ),
