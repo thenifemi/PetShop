@@ -254,7 +254,7 @@ class _HistoryScreenState extends State<HistoryScreen>
     return emptyScreen(
       "assets/images/noHistory.svg",
       "No past orders",
-      "Orders that have been delivered to you will show up here.",
+      "Orders that have been delivered to you or cancelled will show up here.",
     );
   }
 

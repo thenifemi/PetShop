@@ -26,22 +26,3 @@ class _InboxScreenState extends State<InboxScreen> {
     );
   }
 }
-
-class MessageHandler extends StatefulWidget {
-  MessageHandler({Key key}) : super(key: key);
-
-  @override
-  _MessageHandlerState createState() => _MessageHandlerState();
-}
-
-class _MessageHandlerState extends State<MessageHandler> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return null;
-  }
-}

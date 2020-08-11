@@ -123,24 +123,27 @@ class _TabsLayoutState extends State<TabsLayout> {
             : Row(
                 children: <Widget>[
                   Expanded(
-                    child: primaryTextField(
-                      null,
-                      null,
-                      "Search for products",
-                      null,
-                      true,
-                      null,
-                      false,
-                      false,
-                      true,
-                      TextInputType.text,
-                      null,
-                      SvgPicture.asset(
-                        "assets/images/icons/Search.svg",
-                        color: MColors.textGrey,
-                        height: 16.0,
+                    child: Container(
+                      height: 40.0,
+                      child: primaryTextField(
+                        null,
+                        null,
+                        "Search for products",
+                        null,
+                        true,
+                        null,
+                        false,
+                        false,
+                        true,
+                        TextInputType.text,
+                        null,
+                        SvgPicture.asset(
+                          "assets/images/icons/Search.svg",
+                          color: MColors.textGrey,
+                          height: 16.0,
+                        ),
+                        0.0,
                       ),
-                      0.0,
                     ),
                   ),
                   Container(
