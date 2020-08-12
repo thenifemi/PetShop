@@ -12,8 +12,6 @@ class InboxScreen extends StatefulWidget {
 }
 
 class _InboxScreenState extends State<InboxScreen> {
-  bool isRead = false;
-
   @override
   void initState() {
     super.initState();
@@ -33,6 +31,8 @@ class _InboxScreenState extends State<InboxScreen> {
         physics: BouncingScrollPhysics(),
         itemCount: 7,
         itemBuilder: (context, i) {
+          var _isRead;
+
           return GestureDetector(
             onTap: () async {
               var nots = {
@@ -45,18 +45,18 @@ class _InboxScreenState extends State<InboxScreen> {
 
               var navigationResult = await Navigator.of(context).push(
                 CupertinoPageRoute(
-                  builder: (context) => NotificationsDetails(nots),
+                  builder: (context) => NotificationsDetails(nots, i),
                 ),
               );
-              if (navigationResult == true) {
-                setState(() {
-                  isRead = true;
-                });
+              if (navigationResult == i) {
+                _isRead = navigationResult;
               }
             },
             child: Container(
               decoration: BoxDecoration(
-                color: isRead ? MColors.primaryWhite : MColors.primaryPlatinum,
+                color: _isRead == i
+                    ? MColors.primaryWhite
+                    : MColors.primaryPlatinum,
                 borderRadius: BorderRadius.all(
                   Radius.circular(10.0),
                 ),
@@ -98,7 +98,7 @@ class _InboxScreenState extends State<InboxScreen> {
                             style: normalFont(MColors.textGrey, 12.0),
                           ),
                           SizedBox(width: 5.0),
-                          isRead
+                          _isRead == i
                               ? Container()
                               : Container(
                                   height: 8.0,

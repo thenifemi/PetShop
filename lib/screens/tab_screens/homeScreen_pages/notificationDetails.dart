@@ -4,10 +4,12 @@ import 'package:mollet/widgets/allWidgets.dart';
 
 class NotificationsDetails extends StatelessWidget {
   final Map<String, String> nots;
-  NotificationsDetails(this.nots);
+  final int _isRead;
+  NotificationsDetails(this.nots, this._isRead);
 
   @override
   Widget build(BuildContext context) {
+    print(_isRead);
     return Scaffold(
       appBar: primaryAppBar(
         IconButton(
@@ -16,7 +18,7 @@ class NotificationsDetails extends StatelessWidget {
             color: MColors.textGrey,
           ),
           onPressed: () {
-            Navigator.pop(context, true);
+            Navigator.pop(context, _isRead);
           },
         ),
         null,
