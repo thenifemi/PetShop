@@ -23,7 +23,7 @@ class _InboxScreenState extends State<InboxScreen> {
     return primaryContainer(
       ListView.builder(
           physics: BouncingScrollPhysics(),
-          itemCount: 5,
+          itemCount: 7,
           itemBuilder: (context, i) {
             return Container(
               decoration: BoxDecoration(
