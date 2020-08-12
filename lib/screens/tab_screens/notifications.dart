@@ -71,12 +71,17 @@ class _InboxScreenState extends State<InboxScreen> {
                   SizedBox(height: 5.0),
                   Text(
                     "Order placed",
-                    style: boldFont(MColors.textGrey, 14.0),
+                    style: boldFont(MColors.textDark, 14.0),
                   ),
                   SizedBox(height: 5.0),
                   Text(
                     "Woof! Your order has been recieved by the Pet Shop, We will process everything for you. Sit back and relax. woof!",
-                    style: normalFont(MColors.textGrey, 14.0),
+                    style: normalFont(MColors.textDark, 13.0),
+                  ),
+                  SizedBox(height: 15.0),
+                  Text(
+                    "2 days ago",
+                    style: normalFont(MColors.primaryPurple, 12.0),
                   ),
                 ],
               ),
