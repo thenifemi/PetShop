@@ -1,9 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 class NotificationMessage {
   String senderAvatar;
   String senderName;
-  Timestamp sentTime;
+  String sentTime;
   String notificationTitle;
   String notificationBody;
 

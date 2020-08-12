@@ -17,6 +17,13 @@ class _InboxScreenState extends State<InboxScreen> {
 
   @override
   Widget build(BuildContext context) {
+    String senderAvatar = "assets/images/footprint.png";
+    String senderName = "Pet Shop Team";
+    String sentTime = "11 Aug, 2020";
+    String notificationTitle = "Order placed";
+    String notificationBody =
+        "Woof! Your order has been recieved by the Pet Shop, We will process everything for you. Sit back and relax. woof!";
+
     return primaryContainer(
       ListView.builder(
           physics: BouncingScrollPhysics(),
@@ -43,7 +50,7 @@ class _InboxScreenState extends State<InboxScreen> {
                         padding: EdgeInsets.all(4.0),
                         height: 35,
                         child: Image.asset(
-                          "assets/images/footprint.png",
+                          senderAvatar,
                           height: 30,
                         ),
                         decoration: BoxDecoration(
@@ -57,14 +64,14 @@ class _InboxScreenState extends State<InboxScreen> {
                       ),
                       SizedBox(width: 10.0),
                       Text(
-                        "Pet Shop Team",
+                        senderName,
                         style: normalFont(MColors.textDark, 14.0),
                       ),
                       Spacer(),
                       Row(
                         children: [
                           Text(
-                            "11 Aug, 2020",
+                            sentTime,
                             style: normalFont(MColors.textGrey, 12.0),
                           ),
                           SizedBox(width: 5.0),
@@ -85,12 +92,12 @@ class _InboxScreenState extends State<InboxScreen> {
                   ),
                   SizedBox(height: 5.0),
                   Text(
-                    "Order placed",
+                    notificationTitle,
                     style: boldFont(MColors.textDark, 14.0),
                   ),
                   SizedBox(height: 5.0),
                   Text(
-                    "Woof! Your order has been recieved by the Pet Shop, We will process everything for you. Sit back and relax. woof!",
+                    notificationBody,
                     style: normalFont(MColors.textDark, 13.0),
                   ),
                   SizedBox(height: 15.0),
