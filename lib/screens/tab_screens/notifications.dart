@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mollet/screens/tab_screens/homeScreen_pages/notificationDetails.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:mollet/widgets/allWidgets.dart';
 
@@ -26,10 +28,28 @@ class _InboxScreenState extends State<InboxScreen> {
 
     return primaryContainer(
       ListView.builder(
-          physics: BouncingScrollPhysics(),
-          itemCount: 7,
-          itemBuilder: (context, i) {
-            return Container(
+        physics: BouncingScrollPhysics(),
+        itemCount: 7,
+        itemBuilder: (context, i) {
+          return GestureDetector(
+            onTap: () async {
+              var navigationResult = await Navigator.of(context).push(
+                CupertinoPageRoute(
+                  builder: (context) => NotificationsDetails(),
+                ),
+              );
+              if (navigationResult == true) {
+                setState(() {});
+              }
+              var nots = {
+                senderAvatar,
+                senderName,
+                sentTime,
+                notificationTitle,
+                notificationBody,
+              };
+            },
+            child: Container(
               decoration: BoxDecoration(
                 color: i == 1 || i == 2
                     ? MColors.primaryWhite
@@ -107,8 +127,10 @@ class _InboxScreenState extends State<InboxScreen> {
                   ),
                 ],
               ),
-            );
-          }),
+            ),
+          );
+        },
+      ),
     );
   }
 
