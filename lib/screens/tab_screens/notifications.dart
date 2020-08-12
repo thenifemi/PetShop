@@ -26,18 +26,31 @@ class _InboxScreenState extends State<InboxScreen> {
           itemCount: 5,
           itemBuilder: (context, i) {
             return Container(
+              decoration: BoxDecoration(
+                color: MColors.primaryPlatinum,
+                borderRadius: BorderRadius.all(
+                  Radius.circular(10.0),
+                ),
+              ),
+              margin: const EdgeInsets.symmetric(vertical: 4.0),
               child: Column(
                 children: [
                   Row(
                     children: [
                       Container(
+                        padding: EdgeInsets.all(6.0),
+                        height: 45,
                         child: Image.asset(
                           "assets/images/footprint.png",
-                          height: 90,
+                          height: 30,
                         ),
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: MColors.dashPurple,
+                          color: MColors.primaryWhite,
+                          border: Border.all(
+                            color: MColors.dashPurple,
+                            width: 1.0,
+                          ),
                         ),
                       ),
                     ],
