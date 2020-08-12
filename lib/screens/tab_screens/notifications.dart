@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:mollet/widgets/allWidgets.dart';
 
-// import 'dart:async';
-// import 'dart:io';
-
 class InboxScreen extends StatefulWidget {
   InboxScreen({Key key}) : super(key: key);
 
