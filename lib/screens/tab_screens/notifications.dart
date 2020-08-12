@@ -75,7 +75,7 @@ class _InboxScreenState extends State<InboxScreen> {
                   ),
                   SizedBox(height: 5.0),
                   Text(
-                    "Order placed",
+                    "Woof! Your order has been recieved by the Pet Shop, We will process everything for you. Sit back and relax. woof!",
                     style: normalFont(MColors.textGrey, 14.0),
                   ),
                 ],
