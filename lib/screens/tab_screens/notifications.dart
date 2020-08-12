@@ -12,6 +12,8 @@ class InboxScreen extends StatefulWidget {
 }
 
 class _InboxScreenState extends State<InboxScreen> {
+  bool isRead = false;
+
   @override
   void initState() {
     super.initState();
@@ -41,21 +43,20 @@ class _InboxScreenState extends State<InboxScreen> {
                 'notificationBody': notificationBody,
               };
 
-              print(nots['senderAvatar']);
-              // var navigationResult = await Navigator.of(context).push(
-              //   CupertinoPageRoute(
-              //     builder: (context) => NotificationsDetails(),
-              //   ),
-              // );
-              // if (navigationResult == true) {
-              //   setState(() {});
-              // }
+              var navigationResult = await Navigator.of(context).push(
+                CupertinoPageRoute(
+                  builder: (context) => NotificationsDetails(nots),
+                ),
+              );
+              if (navigationResult == true) {
+                setState(() {
+                  isRead = true;
+                });
+              }
             },
             child: Container(
               decoration: BoxDecoration(
-                color: i == 1 || i == 2
-                    ? MColors.primaryWhite
-                    : MColors.primaryPlatinum,
+                color: isRead ? MColors.primaryWhite : MColors.primaryPlatinum,
                 borderRadius: BorderRadius.all(
                   Radius.circular(10.0),
                 ),
@@ -97,7 +98,7 @@ class _InboxScreenState extends State<InboxScreen> {
                             style: normalFont(MColors.textGrey, 12.0),
                           ),
                           SizedBox(width: 5.0),
-                          i == 1 || i == 2
+                          isRead
                               ? Container()
                               : Container(
                                   height: 8.0,
