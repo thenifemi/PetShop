@@ -33,21 +33,23 @@ class _InboxScreenState extends State<InboxScreen> {
         itemBuilder: (context, i) {
           return GestureDetector(
             onTap: () async {
-              var navigationResult = await Navigator.of(context).push(
-                CupertinoPageRoute(
-                  builder: (context) => NotificationsDetails(),
-                ),
-              );
-              if (navigationResult == true) {
-                setState(() {});
-              }
               var nots = {
-                senderAvatar,
-                senderName,
-                sentTime,
-                notificationTitle,
-                notificationBody,
+                'senderAvatar': senderAvatar,
+                'senderName': senderName,
+                'sentTime': sentTime,
+                'notificationTitle': notificationTitle,
+                'notificationBody': notificationBody,
               };
+
+              print(nots['senderAvatar']);
+              // var navigationResult = await Navigator.of(context).push(
+              //   CupertinoPageRoute(
+              //     builder: (context) => NotificationsDetails(),
+              //   ),
+              // );
+              // if (navigationResult == true) {
+              //   setState(() {});
+              // }
             },
             child: Container(
               decoration: BoxDecoration(
