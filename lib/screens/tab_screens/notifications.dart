@@ -64,32 +64,32 @@ class _InboxScreenState extends State<InboxScreen> {
                         style: normalFont(MColors.textDark, 14.0),
                       ),
                       Spacer(),
-                      Text(
-                        "11 Aug, 2020",
-                        style: normalFont(MColors.textGrey, 12.0),
+                      Row(
+                        children: [
+                          Text(
+                            "11 Aug, 2020",
+                            style: normalFont(MColors.textGrey, 12.0),
+                          ),
+                          SizedBox(width: 5.0),
+                          i == 1 || i == 2
+                              ? Container()
+                              : Container(
+                                  height: 8.0,
+                                  width: 8.0,
+                                  padding: EdgeInsets.all(1),
+                                  decoration: BoxDecoration(
+                                    color: MColors.primaryPurple,
+                                    borderRadius: BorderRadius.circular(6),
+                                  ),
+                                ),
+                        ],
                       ),
                     ],
                   ),
                   SizedBox(height: 5.0),
-                  Row(
-                    children: [
-                      i == 1 || i == 2
-                          ? Container()
-                          : Container(
-                              height: 6.0,
-                              width: 6,
-                              padding: EdgeInsets.all(1),
-                              decoration: BoxDecoration(
-                                color: MColors.primaryPurple,
-                                borderRadius: BorderRadius.circular(6),
-                              ),
-                            ),
-                      SizedBox(width: 5.0),
-                      Text(
-                        "Order placed",
-                        style: boldFont(MColors.textDark, 14.0),
-                      ),
-                    ],
+                  Text(
+                    "Order placed",
+                    style: boldFont(MColors.textDark, 14.0),
                   ),
                   SizedBox(height: 5.0),
                   Text(
