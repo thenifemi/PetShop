@@ -27,7 +27,9 @@ class _InboxScreenState extends State<InboxScreen> {
           itemBuilder: (context, i) {
             return Container(
               decoration: BoxDecoration(
-                color: MColors.primaryPlatinum,
+                color: i == 1 || i == 2
+                    ? MColors.primaryWhite
+                    : MColors.primaryPlatinum,
                 borderRadius: BorderRadius.all(
                   Radius.circular(10.0),
                 ),
@@ -69,9 +71,25 @@ class _InboxScreenState extends State<InboxScreen> {
                     ],
                   ),
                   SizedBox(height: 5.0),
-                  Text(
-                    "Order placed",
-                    style: boldFont(MColors.textDark, 14.0),
+                  Row(
+                    children: [
+                      i == 1 || i == 2
+                          ? Container()
+                          : Container(
+                              height: 6.0,
+                              width: 6,
+                              padding: EdgeInsets.all(1),
+                              decoration: BoxDecoration(
+                                color: MColors.primaryPurple,
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                            ),
+                      SizedBox(width: 5.0),
+                      Text(
+                        "Order placed",
+                        style: boldFont(MColors.textDark, 14.0),
+                      ),
+                    ],
                   ),
                   SizedBox(height: 5.0),
                   Text(
