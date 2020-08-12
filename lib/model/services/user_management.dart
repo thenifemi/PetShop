@@ -203,12 +203,8 @@ saveDeviceToken() async {
 
   //Storing token
   if (fcmToken != null) {
-    await db
-        .collection("userData")
-        .document(uEmail)
-        .collection("tokens")
-        .document(fcmToken)
-        .setData({
+    await db.collection("userToken").document(uEmail).setData({
+      'userEmail': uEmail,
       'token': fcmToken,
       'createdAt': FieldValue.serverTimestamp(),
       'platform': Platform.operatingSystem,
