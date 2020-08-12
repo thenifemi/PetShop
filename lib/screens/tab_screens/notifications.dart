@@ -74,7 +74,7 @@ class _InboxScreenState extends State<InboxScreen> {
                   Row(
                     children: [
                       i == 1 || i == 2
-                          ? null
+                          ? Container()
                           : Container(
                               height: 6.0,
                               width: 6,
