@@ -4,12 +4,13 @@ import 'package:mollet/widgets/allWidgets.dart';
 
 class NotificationsDetails extends StatelessWidget {
   final Map<String, String> nots;
-  final _isRead;
-  NotificationsDetails(this.nots, this._isRead);
+  final i;
+  NotificationsDetails(this.nots, this.i);
 
   @override
   Widget build(BuildContext context) {
-    print(_isRead);
+    print(i);
+    var _isRead = i;
     return Scaffold(
       appBar: primaryAppBar(
         IconButton(

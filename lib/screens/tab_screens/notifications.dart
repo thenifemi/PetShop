@@ -12,6 +12,8 @@ class InboxScreen extends StatefulWidget {
 }
 
 class _InboxScreenState extends State<InboxScreen> {
+  var _isRead;
+
   @override
   void initState() {
     super.initState();
@@ -19,8 +21,6 @@ class _InboxScreenState extends State<InboxScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var _isRead = 'read';
-
     String senderAvatar = "assets/images/footprint.png";
     String senderName = "Pet Shop Team";
     String sentTime = "11 Aug, 2020";
@@ -33,8 +33,7 @@ class _InboxScreenState extends State<InboxScreen> {
         physics: BouncingScrollPhysics(),
         itemCount: 7,
         itemBuilder: (context, i) {
-          var _isReadI = i.toString() + _isRead;
-
+          // var iIsRead;
           return GestureDetector(
             onTap: () async {
               var nots = {
@@ -47,16 +46,17 @@ class _InboxScreenState extends State<InboxScreen> {
 
               var navigationResult = await Navigator.of(context).push(
                 CupertinoPageRoute(
-                  builder: (context) => NotificationsDetails(nots, _isReadI),
+                  builder: (context) => NotificationsDetails(nots, i),
                 ),
               );
-              if (navigationResult == _isReadI) {
+              print(navigationResult);
+              setState(() {
                 _isRead = navigationResult;
-              }
+              });
             },
             child: Container(
               decoration: BoxDecoration(
-                color: _isRead == i
+                color: i == _isRead
                     ? MColors.primaryWhite
                     : MColors.primaryPlatinum,
                 borderRadius: BorderRadius.all(
@@ -100,7 +100,7 @@ class _InboxScreenState extends State<InboxScreen> {
                             style: normalFont(MColors.textGrey, 12.0),
                           ),
                           SizedBox(width: 5.0),
-                          _isRead == i
+                          i == _isRead
                               ? Container()
                               : Container(
                                   height: 8.0,
