@@ -28,6 +28,50 @@ class _InboxScreenState extends State<InboxScreen> {
     String notificationBody =
         "Woof! Your order has been recieved by the Pet Shop, We will process everything for you. Sit back and relax. woof!";
 
+    var nots = [
+      {
+        'senderAvatar': senderAvatar,
+        'senderName': senderName,
+        'sentTime': sentTime,
+        'notificationTitle': notificationTitle,
+        'notificationBody': notificationBody,
+      },
+      {
+        'senderAvatar': senderAvatar,
+        'senderName': senderName,
+        'sentTime': sentTime,
+        'notificationTitle': notificationTitle,
+        'notificationBody': notificationBody,
+      },
+      {
+        'senderAvatar': senderAvatar,
+        'senderName': senderName,
+        'sentTime': sentTime,
+        'notificationTitle': notificationTitle,
+        'notificationBody': notificationBody,
+      },
+      {
+        'senderAvatar': senderAvatar,
+        'senderName': senderName,
+        'sentTime': sentTime,
+        'notificationTitle': notificationTitle,
+        'notificationBody': notificationBody,
+      },
+      {
+        'senderAvatar': senderAvatar,
+        'senderName': senderName,
+        'sentTime': sentTime,
+        'notificationTitle': notificationTitle,
+        'notificationBody': notificationBody,
+      },
+      {
+        'senderAvatar': senderAvatar,
+        'senderName': senderName,
+        'sentTime': sentTime,
+        'notificationTitle': notificationTitle,
+        'notificationBody': notificationBody,
+      }
+    ];
     return primaryContainer(
       ListView.builder(
         physics: BouncingScrollPhysics(),
@@ -36,17 +80,9 @@ class _InboxScreenState extends State<InboxScreen> {
           // var iIsRead;
           return GestureDetector(
             onTap: () async {
-              var nots = {
-                'senderAvatar': senderAvatar,
-                'senderName': senderName,
-                'sentTime': sentTime,
-                'notificationTitle': notificationTitle,
-                'notificationBody': notificationBody,
-              };
-
               var navigationResult = await Navigator.of(context).push(
                 CupertinoPageRoute(
-                  builder: (context) => NotificationsDetails(nots, i),
+                  builder: (context) => NotificationsDetails(nots[i], i),
                 ),
               );
               print(navigationResult);
