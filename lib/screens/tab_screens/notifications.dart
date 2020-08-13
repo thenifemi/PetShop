@@ -19,6 +19,8 @@ class _InboxScreenState extends State<InboxScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var _isRead = 'read';
+
     String senderAvatar = "assets/images/footprint.png";
     String senderName = "Pet Shop Team";
     String sentTime = "11 Aug, 2020";
@@ -31,7 +33,7 @@ class _InboxScreenState extends State<InboxScreen> {
         physics: BouncingScrollPhysics(),
         itemCount: 7,
         itemBuilder: (context, i) {
-          var _isRead;
+          var _isReadI = i.toString() + _isRead;
 
           return GestureDetector(
             onTap: () async {
@@ -45,10 +47,10 @@ class _InboxScreenState extends State<InboxScreen> {
 
               var navigationResult = await Navigator.of(context).push(
                 CupertinoPageRoute(
-                  builder: (context) => NotificationsDetails(nots, i),
+                  builder: (context) => NotificationsDetails(nots, _isReadI),
                 ),
               );
-              if (navigationResult == i) {
+              if (navigationResult == _isReadI) {
                 _isRead = navigationResult;
               }
             },

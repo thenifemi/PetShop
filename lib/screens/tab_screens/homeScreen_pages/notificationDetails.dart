@@ -4,7 +4,7 @@ import 'package:mollet/widgets/allWidgets.dart';
 
 class NotificationsDetails extends StatelessWidget {
   final Map<String, String> nots;
-  final int _isRead;
+  final _isRead;
   NotificationsDetails(this.nots, this._isRead);
 
   @override
