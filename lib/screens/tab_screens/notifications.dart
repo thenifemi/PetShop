@@ -35,6 +35,7 @@ class _InboxScreenState extends State<InboxScreen> {
         'sentTime': sentTime,
         'notificationTitle': notificationTitle,
         'notificationBody': notificationBody,
+        'notID': '0'
       },
       {
         'senderAvatar': senderAvatar,
@@ -42,6 +43,7 @@ class _InboxScreenState extends State<InboxScreen> {
         'sentTime': sentTime,
         'notificationTitle': notificationTitle,
         'notificationBody': notificationBody,
+        'notID': '1'
       },
       {
         'senderAvatar': senderAvatar,
@@ -49,6 +51,7 @@ class _InboxScreenState extends State<InboxScreen> {
         'sentTime': sentTime,
         'notificationTitle': notificationTitle,
         'notificationBody': notificationBody,
+        'notID': '2'
       },
       {
         'senderAvatar': senderAvatar,
@@ -56,6 +59,7 @@ class _InboxScreenState extends State<InboxScreen> {
         'sentTime': sentTime,
         'notificationTitle': notificationTitle,
         'notificationBody': notificationBody,
+        'notID': '3'
       },
       {
         'senderAvatar': senderAvatar,
@@ -63,6 +67,7 @@ class _InboxScreenState extends State<InboxScreen> {
         'sentTime': sentTime,
         'notificationTitle': notificationTitle,
         'notificationBody': notificationBody,
+        'notID': '4'
       },
       {
         'senderAvatar': senderAvatar,
@@ -70,14 +75,24 @@ class _InboxScreenState extends State<InboxScreen> {
         'sentTime': sentTime,
         'notificationTitle': notificationTitle,
         'notificationBody': notificationBody,
+        'notID': '5'
+      },
+      {
+        'senderAvatar': senderAvatar,
+        'senderName': senderName,
+        'sentTime': sentTime,
+        'notificationTitle': notificationTitle,
+        'notificationBody': notificationBody,
+        'notID': '6'
       }
     ];
     return primaryContainer(
       ListView.builder(
         physics: BouncingScrollPhysics(),
-        itemCount: 7,
+        itemCount: nots.length,
         itemBuilder: (context, i) {
-          // var iIsRead;
+          var not = nots[i];
+
           return GestureDetector(
             onTap: () async {
               var navigationResult = await Navigator.of(context).push(
@@ -111,7 +126,7 @@ class _InboxScreenState extends State<InboxScreen> {
                         padding: EdgeInsets.all(4.0),
                         height: 35,
                         child: Image.asset(
-                          senderAvatar,
+                          not['senderAvatar'],
                           height: 30,
                         ),
                         decoration: BoxDecoration(
@@ -125,14 +140,14 @@ class _InboxScreenState extends State<InboxScreen> {
                       ),
                       SizedBox(width: 10.0),
                       Text(
-                        senderName,
+                        not['senderName'],
                         style: normalFont(MColors.textDark, 14.0),
                       ),
                       Spacer(),
                       Row(
                         children: [
                           Text(
-                            sentTime,
+                            not['sentTime'],
                             style: normalFont(MColors.textGrey, 12.0),
                           ),
                           SizedBox(width: 5.0),
@@ -153,12 +168,12 @@ class _InboxScreenState extends State<InboxScreen> {
                   ),
                   SizedBox(height: 5.0),
                   Text(
-                    notificationTitle,
+                    not['notificationTitle'],
                     style: boldFont(MColors.textDark, 14.0),
                   ),
                   SizedBox(height: 5.0),
                   Text(
-                    notificationBody,
+                    not['notificationBody'],
                     style: normalFont(MColors.textDark, 13.0),
                   ),
                   SizedBox(height: 15.0),

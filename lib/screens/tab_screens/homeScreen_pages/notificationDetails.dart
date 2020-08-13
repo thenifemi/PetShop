@@ -9,7 +9,7 @@ class NotificationsDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(i);
+    print(nots['notID']);
     var _isRead = i;
     return WillPopScope(
       onWillPop: () {
