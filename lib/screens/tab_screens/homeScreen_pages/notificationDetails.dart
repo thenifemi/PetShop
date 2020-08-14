@@ -3,14 +3,15 @@ import 'package:mollet/utils/colors.dart';
 import 'package:mollet/widgets/allWidgets.dart';
 
 class NotificationsDetails extends StatelessWidget {
-  final Map<String, String> nots;
+  final Map<String, dynamic> nots;
   final i;
   NotificationsDetails(this.nots, this.i);
 
   @override
   Widget build(BuildContext context) {
     print(nots['notID']);
-    var _isRead = i;
+    nots['notID'] = true;
+    var _isRead = nots['notsID'];
     return WillPopScope(
       onWillPop: () {
         Navigator.pop(context, _isRead);

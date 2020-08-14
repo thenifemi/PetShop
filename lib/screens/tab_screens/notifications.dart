@@ -27,6 +27,7 @@ class _InboxScreenState extends State<InboxScreen> {
     String notificationTitle = "Order placed";
     String notificationBody =
         "Woof! Your order has been recieved by the Pet Shop, We will process everything for you. Sit back and relax. woof!";
+    bool read = false;
 
     var nots = [
       {
@@ -35,7 +36,7 @@ class _InboxScreenState extends State<InboxScreen> {
         'sentTime': sentTime,
         'notificationTitle': notificationTitle,
         'notificationBody': notificationBody,
-        'notID': '0'
+        'notID': read
       },
       {
         'senderAvatar': senderAvatar,
@@ -43,7 +44,7 @@ class _InboxScreenState extends State<InboxScreen> {
         'sentTime': sentTime,
         'notificationTitle': notificationTitle,
         'notificationBody': notificationBody,
-        'notID': '1'
+        'notID': read
       },
       {
         'senderAvatar': senderAvatar,
@@ -51,7 +52,7 @@ class _InboxScreenState extends State<InboxScreen> {
         'sentTime': sentTime,
         'notificationTitle': notificationTitle,
         'notificationBody': notificationBody,
-        'notID': '2'
+        'notID': read
       },
       {
         'senderAvatar': senderAvatar,
@@ -59,7 +60,7 @@ class _InboxScreenState extends State<InboxScreen> {
         'sentTime': sentTime,
         'notificationTitle': notificationTitle,
         'notificationBody': notificationBody,
-        'notID': '3'
+        'notID': read
       },
       {
         'senderAvatar': senderAvatar,
@@ -67,7 +68,7 @@ class _InboxScreenState extends State<InboxScreen> {
         'sentTime': sentTime,
         'notificationTitle': notificationTitle,
         'notificationBody': notificationBody,
-        'notID': '4'
+        'notID': read
       },
       {
         'senderAvatar': senderAvatar,
@@ -75,7 +76,7 @@ class _InboxScreenState extends State<InboxScreen> {
         'sentTime': sentTime,
         'notificationTitle': notificationTitle,
         'notificationBody': notificationBody,
-        'notID': '5'
+        'notID': read
       },
       {
         'senderAvatar': senderAvatar,
@@ -83,7 +84,7 @@ class _InboxScreenState extends State<InboxScreen> {
         'sentTime': sentTime,
         'notificationTitle': notificationTitle,
         'notificationBody': notificationBody,
-        'notID': '6'
+        'notID': read
       }
     ];
     return primaryContainer(
@@ -107,7 +108,7 @@ class _InboxScreenState extends State<InboxScreen> {
             },
             child: Container(
               decoration: BoxDecoration(
-                color: i == _isRead
+                color: not['notID'] == true
                     ? MColors.primaryWhite
                     : MColors.primaryPlatinum,
                 borderRadius: BorderRadius.all(
@@ -151,7 +152,7 @@ class _InboxScreenState extends State<InboxScreen> {
                             style: normalFont(MColors.textGrey, 12.0),
                           ),
                           SizedBox(width: 5.0),
-                          i == _isRead
+                          not['notID'] == true
                               ? Container()
                               : Container(
                                   height: 8.0,
