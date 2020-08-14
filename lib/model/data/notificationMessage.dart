@@ -4,6 +4,8 @@ class NotificationMessage {
   String sentTime;
   String notificationTitle;
   String notificationBody;
+  String notID;
+  String isRead;
 
   NotificationMessage.fromMap(Map<String, dynamic> data) {
     senderAvatar = data["senderAvatar"];
@@ -11,6 +13,8 @@ class NotificationMessage {
     sentTime = data["sentTime"];
     notificationTitle = data["notificationTitle"];
     notificationBody = data["notificationBody"];
+    notID = data["notID"];
+    isRead = data["isRead"];
   }
 
   Map<String, dynamic> toMap() {
@@ -20,6 +24,8 @@ class NotificationMessage {
       'sentTime': sentTime,
       'notificationTitle': notificationTitle,
       'notificationBody': notificationBody,
+      'notID': notID,
+      'isRead': isRead,
     };
   }
 }

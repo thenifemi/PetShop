@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:mollet/main.dart';
 import 'package:mollet/model/notifiers/userData_notifier.dart';
 import 'package:mollet/model/services/auth_service.dart';
+import 'package:mollet/model/services/pushNotification_service.dart';
 import 'package:mollet/model/services/user_management.dart';
 import 'package:mollet/screens/settings_screens/cards.dart';
 import 'package:mollet/screens/settings_screens/editProfile.dart';
@@ -151,7 +152,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
         shareWidget();
       },
       () {},
-      () {},
+      () {
+        mockNotifications();
+      },
       () {
         _showLogOutDialog();
       },

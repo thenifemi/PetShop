@@ -13,6 +13,7 @@ class InboxScreen extends StatefulWidget {
 
 class _InboxScreenState extends State<InboxScreen> {
   var _isRead;
+  String read;
 
   @override
   void initState() {
@@ -27,7 +28,6 @@ class _InboxScreenState extends State<InboxScreen> {
     String notificationTitle = "Order placed";
     String notificationBody =
         "Woof! Your order has been recieved by the Pet Shop, We will process everything for you. Sit back and relax. woof!";
-    bool read = false;
 
     var nots = [
       {
@@ -103,12 +103,13 @@ class _InboxScreenState extends State<InboxScreen> {
               );
               print(navigationResult);
               setState(() {
-                _isRead = navigationResult;
+                read = navigationResult;
               });
+              print(not['notID']);
             },
             child: Container(
               decoration: BoxDecoration(
-                color: not['notID'] == true
+                color: read == "true"
                     ? MColors.primaryWhite
                     : MColors.primaryPlatinum,
                 borderRadius: BorderRadius.all(
@@ -152,7 +153,7 @@ class _InboxScreenState extends State<InboxScreen> {
                             style: normalFont(MColors.textGrey, 12.0),
                           ),
                           SizedBox(width: 5.0),
-                          not['notID'] == true
+                          read == "true"
                               ? Container()
                               : Container(
                                   height: 8.0,
@@ -179,7 +180,7 @@ class _InboxScreenState extends State<InboxScreen> {
                   ),
                   SizedBox(height: 15.0),
                   Text(
-                    "2 days ago",
+                    "$i days ago",
                     style: normalFont(MColors.primaryPurple, 12.0),
                   ),
                 ],

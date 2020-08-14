@@ -10,11 +10,10 @@ class NotificationsDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print(nots['notID']);
-    nots['notID'] = true;
-    var _isRead = nots['notsID'];
+
     return WillPopScope(
       onWillPop: () {
-        Navigator.pop(context, _isRead);
+        Navigator.pop(context, "true");
         return Future.value(true);
       },
       child: Scaffold(
@@ -25,7 +24,7 @@ class NotificationsDetails extends StatelessWidget {
               color: MColors.textGrey,
             ),
             onPressed: () {
-              Navigator.pop(context, _isRead);
+              Navigator.pop(context, "true");
             },
           ),
           null,
