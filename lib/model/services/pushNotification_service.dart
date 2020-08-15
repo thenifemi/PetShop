@@ -34,9 +34,9 @@ mockNotifications() async {
   final uEmail = await AuthService().getCurrentEmail();
 
   await db
-      .collection("notifications")
+      .collection("userNotifications")
       .document(uEmail)
-      .collection("message")
+      .collection("notMessage")
       .document()
       .setData({
     'senderAvatar': senderAvatar,
