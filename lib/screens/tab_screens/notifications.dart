@@ -32,108 +32,110 @@ class _InboxScreenState extends State<InboxScreen> {
         Provider.of<NotificationsNotifier>(context, listen: false);
     var nots = notificationsNotifier.notificationMessageList;
 
-    return primaryContainer(
-      ListView.builder(
-        physics: BouncingScrollPhysics(),
-        itemCount: nots.length,
-        itemBuilder: (context, i) {
-          var not = nots[i];
+    return primaryContainer(notificationsScreen(nots));
+  }
 
-          return GestureDetector(
-            onTap: () async {
-              var navigationResult = await Navigator.of(context).push(
-                CupertinoPageRoute(
-                  builder: (context) => NotificationsDetails(not),
-                ),
-              );
-              print(navigationResult);
-              setState(() {
-                read = navigationResult;
-              });
-              print(not.notID);
-            },
-            child: Container(
-              decoration: BoxDecoration(
-                color: read == "true"
-                    ? MColors.primaryWhite
-                    : MColors.primaryPlatinum,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(10.0),
-                ),
+  Widget notificationsScreen(nots) {
+    return ListView.builder(
+      physics: BouncingScrollPhysics(),
+      itemCount: nots.length,
+      itemBuilder: (context, i) {
+        var not = nots[i];
+
+        return GestureDetector(
+          onTap: () async {
+            var navigationResult = await Navigator.of(context).push(
+              CupertinoPageRoute(
+                builder: (context) => NotificationsDetails(not),
               ),
-              margin: const EdgeInsets.symmetric(vertical: 4.0),
-              padding: EdgeInsets.all(15.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Container(
-                        padding: EdgeInsets.all(4.0),
-                        height: 35,
-                        child: Image.asset(
-                          not.senderAvatar,
-                          height: 30,
-                        ),
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: MColors.primaryWhite,
-                          border: Border.all(
-                            color: MColors.primaryPurple,
-                            width: 0.50,
-                          ),
-                        ),
-                      ),
-                      SizedBox(width: 10.0),
-                      Text(
-                        not.senderName,
-                        style: normalFont(MColors.textDark, 14.0),
-                      ),
-                      Spacer(),
-                      Row(
-                        children: [
-                          Text(
-                            not.sentTime,
-                            style: normalFont(MColors.textGrey, 12.0),
-                          ),
-                          SizedBox(width: 5.0),
-                          read == "true"
-                              ? Container()
-                              : Container(
-                                  height: 8.0,
-                                  width: 8.0,
-                                  padding: EdgeInsets.all(1),
-                                  decoration: BoxDecoration(
-                                    color: MColors.primaryPurple,
-                                    borderRadius: BorderRadius.circular(6),
-                                  ),
-                                ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 5.0),
-                  Text(
-                    not.notificationTitle,
-                    style: boldFont(MColors.textDark, 14.0),
-                  ),
-                  SizedBox(height: 5.0),
-                  Text(
-                    not.notificationBody,
-                    style: normalFont(MColors.textDark, 13.0),
-                  ),
-                  SizedBox(height: 15.0),
-                  Text(
-                    "$i days ago",
-                    style: normalFont(MColors.primaryPurple, 12.0),
-                  ),
-                ],
+            );
+            print(navigationResult);
+            setState(() {
+              read = navigationResult;
+            });
+            print(not.notID);
+          },
+          child: Container(
+            decoration: BoxDecoration(
+              color: read == "true"
+                  ? MColors.primaryWhite
+                  : MColors.primaryPlatinum,
+              borderRadius: BorderRadius.all(
+                Radius.circular(10.0),
               ),
             ),
-          );
-        },
-      ),
+            margin: const EdgeInsets.symmetric(vertical: 4.0),
+            padding: EdgeInsets.all(15.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.all(4.0),
+                      height: 35,
+                      child: Image.asset(
+                        not.senderAvatar,
+                        height: 30,
+                      ),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: MColors.primaryWhite,
+                        border: Border.all(
+                          color: MColors.primaryPurple,
+                          width: 0.50,
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 10.0),
+                    Text(
+                      not.senderName,
+                      style: normalFont(MColors.textDark, 14.0),
+                    ),
+                    Spacer(),
+                    Row(
+                      children: [
+                        Text(
+                          not.sentTime,
+                          style: normalFont(MColors.textGrey, 12.0),
+                        ),
+                        SizedBox(width: 5.0),
+                        read == "true"
+                            ? Container()
+                            : Container(
+                                height: 8.0,
+                                width: 8.0,
+                                padding: EdgeInsets.all(1),
+                                decoration: BoxDecoration(
+                                  color: MColors.primaryPurple,
+                                  borderRadius: BorderRadius.circular(6),
+                                ),
+                              ),
+                      ],
+                    ),
+                  ],
+                ),
+                SizedBox(height: 5.0),
+                Text(
+                  not.notificationTitle,
+                  style: boldFont(MColors.textDark, 14.0),
+                ),
+                SizedBox(height: 5.0),
+                Text(
+                  not.notificationBody,
+                  style: normalFont(MColors.textDark, 13.0),
+                ),
+                SizedBox(height: 15.0),
+                Text(
+                  "$i days ago",
+                  style: normalFont(MColors.primaryPurple, 12.0),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 
