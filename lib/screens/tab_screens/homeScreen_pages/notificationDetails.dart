@@ -11,8 +11,6 @@ class NotificationsDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(not.notID);
-
     return WillPopScope(
       onWillPop: () {
         Navigator.pop(context, true);

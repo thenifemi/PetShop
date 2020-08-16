@@ -29,7 +29,7 @@ class _InboxScreenState extends State<InboxScreen> {
   @override
   Widget build(BuildContext context) {
     NotificationsNotifier notificationsNotifier =
-        Provider.of<NotificationsNotifier>(context, listen: false);
+        Provider.of<NotificationsNotifier>(context);
     var nots = notificationsNotifier.notificationMessageList;
 
     return primaryContainer(

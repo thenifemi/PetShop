@@ -154,9 +154,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       },
       () {},
       () {
-        NotificationsNotifier notificationsNotifier =
-            Provider.of<NotificationsNotifier>(context, listen: false);
-        getNotifications(notificationsNotifier);
+        mockNotifications();
       },
       () {
         _showLogOutDialog();
