@@ -4,8 +4,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:mollet/model/services/auth_service.dart';
 
-final db = Firestore.instance;
-
 Future initialise() async {
   final FirebaseMessaging _fcm = FirebaseMessaging();
 
@@ -25,6 +23,8 @@ Future initialise() async {
 }
 
 mockNotifications() async {
+  final db = Firestore.instance;
+
   String senderAvatar = "assets/images/footprint.png";
   String senderName = "Pet Shop Team";
   String sentTime = "11 Aug, 2020";
@@ -46,5 +46,22 @@ mockNotifications() async {
     'notificationBody': notificationBody,
     'notID': "",
     'isRead': "false"
+  }).then((value) async {
+    var notIDref = await db
+        .collection("userNotifications")
+        .document(uEmail)
+        .collection("notMessage")
+        .getDocuments();
+    notIDref.documents.forEach((document) {
+      var _notId = document.documentID;
+      var _ref = db
+          .collection("userNotifications")
+          .document(uEmail)
+          .collection("notMessage");
+
+      _ref.document(_notId).updateData({
+        'notID': _notId,
+      });
+    });
   });
 }
