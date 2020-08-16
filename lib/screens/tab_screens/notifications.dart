@@ -42,11 +42,7 @@ class _InboxScreenState extends State<InboxScreen> {
               break;
             case ConnectionState.done:
               return nots.isEmpty
-                  ? emptyScreen(
-                      "assets/images/noHistory.svg",
-                      "No Orders",
-                      "Your past orders, transactions and hires will show up here.",
-                    )
+                  ? noNotifications()
                   : notificationsScreen(nots);
               break;
             case ConnectionState.waiting:
@@ -69,6 +65,8 @@ class _InboxScreenState extends State<InboxScreen> {
 
         return GestureDetector(
           onTap: () async {
+            NotificationsNotifier notificationsNotifier =
+                Provider.of<NotificationsNotifier>(context, listen: false);
             var navigationResult = await Navigator.of(context).push(
               CupertinoPageRoute(
                 builder: (context) => NotificationsDetails(not),
@@ -77,8 +75,6 @@ class _InboxScreenState extends State<InboxScreen> {
             if (navigationResult == true) {
               updateNotificationStatusToTrue(not.notID);
 
-              NotificationsNotifier notificationsNotifier =
-                  Provider.of<NotificationsNotifier>(context, listen: false);
               setState(() {
                 getNotifications(notificationsNotifier);
               });
