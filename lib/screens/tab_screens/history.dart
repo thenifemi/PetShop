@@ -15,7 +15,7 @@ class HistoryScreen extends StatefulWidget {
 }
 
 class _HistoryScreenState extends State<HistoryScreen>
-    with SingleTickerProviderStateMixin, AutomaticKeepAliveClientMixin {
+    with SingleTickerProviderStateMixin {
   Future ordersFuture;
   TabController _tabController;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -35,9 +35,6 @@ class _HistoryScreenState extends State<HistoryScreen>
     );
     super.initState();
   }
-
-  @override
-  bool get wantKeepAlive => true;
 
   @override
   Widget build(BuildContext context) {
