@@ -55,7 +55,7 @@ class _TabsLayoutState extends State<TabsLayout> {
     getCart(cartNotifier);
 
     NotificationsNotifier notificationsNotifier =
-        Provider.of<NotificationsNotifier>(context);
+        Provider.of<NotificationsNotifier>(context, listen: false);
     getNotifications(notificationsNotifier);
 
     saveDeviceToken();

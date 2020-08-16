@@ -85,5 +85,5 @@ getNotifications(NotificationsNotifier notificationsNotifier) async {
     _notificationMessageList.add(notificationMessage);
   });
   notificationsNotifier.notificationMessageList = _notificationMessageList;
-  print(notificationsNotifier.notificationMessageList.first);
+  print(notificationsNotifier.notificationMessageList.first.notID);
 }

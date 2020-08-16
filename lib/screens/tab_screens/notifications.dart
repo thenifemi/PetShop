@@ -1,8 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mollet/model/notifiers/notifications_notifier.dart';
+
+import 'package:mollet/model/services/pushNotification_service.dart';
 import 'package:mollet/screens/tab_screens/homeScreen_pages/notificationDetails.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:mollet/widgets/allWidgets.dart';
+import 'package:provider/provider.dart';
 
 class InboxScreen extends StatefulWidget {
   InboxScreen({Key key}) : super(key: key);
@@ -16,6 +20,9 @@ class _InboxScreenState extends State<InboxScreen> {
 
   @override
   void initState() {
+    NotificationsNotifier notificationsNotifier =
+        Provider.of<NotificationsNotifier>(context, listen: false);
+    getNotifications(notificationsNotifier);
     super.initState();
   }
 
