@@ -5,6 +5,7 @@ import 'package:mollet/model/notifiers/cart_notifier.dart';
 import 'package:mollet/model/notifiers/orders_notifier.dart';
 import 'package:mollet/model/notifiers/products_notifier.dart';
 import 'package:mollet/model/notifiers/userData_notifier.dart';
+import 'package:mollet/model/notifiers/notifications_notifier.dart';
 import 'package:mollet/model/services/auth_service.dart';
 import 'package:mollet/screens/getstarted_screens/intro_screen.dart';
 import 'package:mollet/screens/getstarted_screens/splash_screen.dart';
@@ -84,6 +85,9 @@ class _HomeControllerState extends State<HomeController> {
                         ),
                         ChangeNotifierProvider(
                           create: (context) => OrderListNotifier(),
+                        ),
+                        ChangeNotifierProvider(
+                          create: (context) => NotificationsNotifier(),
                         ),
                       ],
                       child: TabsLayout(),
