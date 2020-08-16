@@ -28,71 +28,10 @@ class _InboxScreenState extends State<InboxScreen> {
 
   @override
   Widget build(BuildContext context) {
-    String senderAvatar = "assets/images/footprint.png";
-    String senderName = "Pet Shop Team";
-    String sentTime = "11 Aug, 2020";
-    String notificationTitle = "Order placed";
-    String notificationBody =
-        "Woof! Your order has been recieved by the Pet Shop, We will process everything for you. Sit back and relax. woof!";
+    NotificationsNotifier notificationsNotifier =
+        Provider.of<NotificationsNotifier>(context, listen: false);
+    var nots = notificationsNotifier.notificationMessageList;
 
-    var nots = [
-      {
-        'senderAvatar': senderAvatar,
-        'senderName': senderName,
-        'sentTime': sentTime,
-        'notificationTitle': notificationTitle,
-        'notificationBody': notificationBody,
-        'notID': read
-      },
-      {
-        'senderAvatar': senderAvatar,
-        'senderName': senderName,
-        'sentTime': sentTime,
-        'notificationTitle': notificationTitle,
-        'notificationBody': notificationBody,
-        'notID': read
-      },
-      {
-        'senderAvatar': senderAvatar,
-        'senderName': senderName,
-        'sentTime': sentTime,
-        'notificationTitle': notificationTitle,
-        'notificationBody': notificationBody,
-        'notID': read
-      },
-      {
-        'senderAvatar': senderAvatar,
-        'senderName': senderName,
-        'sentTime': sentTime,
-        'notificationTitle': notificationTitle,
-        'notificationBody': notificationBody,
-        'notID': read
-      },
-      {
-        'senderAvatar': senderAvatar,
-        'senderName': senderName,
-        'sentTime': sentTime,
-        'notificationTitle': notificationTitle,
-        'notificationBody': notificationBody,
-        'notID': read
-      },
-      {
-        'senderAvatar': senderAvatar,
-        'senderName': senderName,
-        'sentTime': sentTime,
-        'notificationTitle': notificationTitle,
-        'notificationBody': notificationBody,
-        'notID': read
-      },
-      {
-        'senderAvatar': senderAvatar,
-        'senderName': senderName,
-        'sentTime': sentTime,
-        'notificationTitle': notificationTitle,
-        'notificationBody': notificationBody,
-        'notID': read
-      }
-    ];
     return primaryContainer(
       ListView.builder(
         physics: BouncingScrollPhysics(),
@@ -104,14 +43,14 @@ class _InboxScreenState extends State<InboxScreen> {
             onTap: () async {
               var navigationResult = await Navigator.of(context).push(
                 CupertinoPageRoute(
-                  builder: (context) => NotificationsDetails(nots[i], i),
+                  builder: (context) => NotificationsDetails(not),
                 ),
               );
               print(navigationResult);
               setState(() {
                 read = navigationResult;
               });
-              print(not['notID']);
+              print(not.notID);
             },
             child: Container(
               decoration: BoxDecoration(
@@ -134,7 +73,7 @@ class _InboxScreenState extends State<InboxScreen> {
                         padding: EdgeInsets.all(4.0),
                         height: 35,
                         child: Image.asset(
-                          not['senderAvatar'],
+                          not.senderAvatar,
                           height: 30,
                         ),
                         decoration: BoxDecoration(
@@ -148,14 +87,14 @@ class _InboxScreenState extends State<InboxScreen> {
                       ),
                       SizedBox(width: 10.0),
                       Text(
-                        not['senderName'],
+                        not.senderName,
                         style: normalFont(MColors.textDark, 14.0),
                       ),
                       Spacer(),
                       Row(
                         children: [
                           Text(
-                            not['sentTime'],
+                            not.sentTime,
                             style: normalFont(MColors.textGrey, 12.0),
                           ),
                           SizedBox(width: 5.0),
@@ -176,12 +115,12 @@ class _InboxScreenState extends State<InboxScreen> {
                   ),
                   SizedBox(height: 5.0),
                   Text(
-                    not['notificationTitle'],
+                    not.notificationTitle,
                     style: boldFont(MColors.textDark, 14.0),
                   ),
                   SizedBox(height: 5.0),
                   Text(
-                    not['notificationBody'],
+                    not.notificationBody,
                     style: normalFont(MColors.textDark, 13.0),
                   ),
                   SizedBox(height: 15.0),

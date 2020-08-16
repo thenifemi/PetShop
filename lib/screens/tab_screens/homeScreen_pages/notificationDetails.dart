@@ -3,13 +3,15 @@ import 'package:mollet/utils/colors.dart';
 import 'package:mollet/widgets/allWidgets.dart';
 
 class NotificationsDetails extends StatelessWidget {
-  final Map<String, dynamic> nots;
-  final i;
-  NotificationsDetails(this.nots, this.i);
+  final not;
+
+  NotificationsDetails(
+    this.not,
+  );
 
   @override
   Widget build(BuildContext context) {
-    print(nots['notID']);
+    print(not.notID);
 
     return WillPopScope(
       onWillPop: () {
@@ -37,7 +39,7 @@ class NotificationsDetails extends StatelessWidget {
           Column(
             children: [
               Text(
-                nots['notificationTitle'],
+                not.notificationTitle,
                 style: boldFont(MColors.textDark, 14.0),
               ),
               SizedBox(height: 10.0),
@@ -47,7 +49,7 @@ class NotificationsDetails extends StatelessWidget {
                     padding: EdgeInsets.all(4.0),
                     height: 35,
                     child: Image.asset(
-                      nots['senderAvatar'],
+                      not.senderAvatar,
                       height: 30,
                     ),
                     decoration: BoxDecoration(
@@ -61,19 +63,19 @@ class NotificationsDetails extends StatelessWidget {
                   ),
                   SizedBox(width: 10.0),
                   Text(
-                    nots['senderName'],
+                    not.senderName,
                     style: normalFont(MColors.textDark, 14.0),
                   ),
                   Spacer(),
                   Text(
-                    nots['sentTime'],
+                    not.sentTime,
                     style: normalFont(MColors.textGrey, 12.0),
                   ),
                 ],
               ),
               SizedBox(height: 20.0),
               Text(
-                nots['notificationBody'],
+                not.notificationBody,
                 style: normalFont(MColors.textDark, 16.0),
               ),
             ],
