@@ -75,6 +75,13 @@ class _InboxScreenState extends State<InboxScreen> {
               ),
             );
             print(navigationResult);
+            if (navigationResult == true) {
+              updateNotificationStatusToTrue(not.notID);
+
+              NotificationsNotifier notificationsNotifier =
+                  Provider.of<NotificationsNotifier>(context, listen: false);
+              getNotifications(notificationsNotifier);
+            }
           },
           child: Container(
             decoration: BoxDecoration(

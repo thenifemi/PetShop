@@ -86,3 +86,14 @@ getNotifications(NotificationsNotifier notificationsNotifier) async {
   });
   notificationsNotifier.notificationMessageList = _notificationMessageList;
 }
+
+updateNotificationStatusToTrue(notID) async {
+  final uEmail = await AuthService().getCurrentEmail();
+
+  CollectionReference notRef = db
+      .collection("userNotifications")
+      .document(uEmail)
+      .collection("notMessage");
+
+  await notRef.document(notID).updateData({'isRead': true});
+}
