@@ -15,7 +15,7 @@ class NotificationsDetails extends StatelessWidget {
 
     return WillPopScope(
       onWillPop: () {
-        Navigator.pop(context, "true");
+        Navigator.pop(context, true);
         return Future.value(true);
       },
       child: Scaffold(
@@ -26,7 +26,7 @@ class NotificationsDetails extends StatelessWidget {
               color: MColors.textGrey,
             ),
             onPressed: () {
-              Navigator.pop(context, "true");
+              Navigator.pop(context, true);
             },
           ),
           null,

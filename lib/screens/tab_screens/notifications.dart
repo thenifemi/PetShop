@@ -16,13 +16,13 @@ class InboxScreen extends StatefulWidget {
 }
 
 class _InboxScreenState extends State<InboxScreen> {
-  String read;
+  Future notificationsFuture;
 
   @override
   void initState() {
     NotificationsNotifier notificationsNotifier =
         Provider.of<NotificationsNotifier>(context, listen: false);
-    getNotifications(notificationsNotifier);
+    notificationsFuture = getNotifications(notificationsNotifier);
     super.initState();
   }
 
@@ -32,7 +32,32 @@ class _InboxScreenState extends State<InboxScreen> {
         Provider.of<NotificationsNotifier>(context, listen: false);
     var nots = notificationsNotifier.notificationMessageList;
 
-    return primaryContainer(notificationsScreen(nots));
+    return primaryContainer(
+      FutureBuilder(
+        future: notificationsFuture,
+        builder: (c, s) {
+          switch (s.connectionState) {
+            case ConnectionState.active:
+              return progressIndicator(MColors.primaryPurple);
+              break;
+            case ConnectionState.done:
+              return nots.isEmpty
+                  ? emptyScreen(
+                      "assets/images/noHistory.svg",
+                      "No Orders",
+                      "Your past orders, transactions and hires will show up here.",
+                    )
+                  : notificationsScreen(nots);
+              break;
+            case ConnectionState.waiting:
+              return progressIndicator(MColors.primaryPurple);
+              break;
+            default:
+              return progressIndicator(MColors.primaryPurple);
+          }
+        },
+      ),
+    );
   }
 
   Widget notificationsScreen(nots) {
@@ -50,16 +75,11 @@ class _InboxScreenState extends State<InboxScreen> {
               ),
             );
             print(navigationResult);
-            setState(() {
-              read = navigationResult;
-            });
-            print(not.notID);
           },
           child: Container(
             decoration: BoxDecoration(
-              color: read == "true"
-                  ? MColors.primaryWhite
-                  : MColors.primaryPlatinum,
+              color:
+                  not.isRead ? MColors.primaryWhite : MColors.primaryPlatinum,
               borderRadius: BorderRadius.all(
                 Radius.circular(10.0),
               ),
@@ -101,7 +121,7 @@ class _InboxScreenState extends State<InboxScreen> {
                           style: normalFont(MColors.textGrey, 12.0),
                         ),
                         SizedBox(width: 5.0),
-                        read == "true"
+                        not.isRead == "true"
                             ? Container()
                             : Container(
                                 height: 8.0,
