@@ -153,7 +153,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       },
       () {},
       () {
-        mockNotifications();
+        // mockNotifications();
       },
       () {
         _showLogOutDialog();
