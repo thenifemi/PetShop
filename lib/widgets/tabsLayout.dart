@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:mollet/model/notifiers/notifications_notifier.dart';
 import 'package:mollet/model/notifiers/orders_notifier.dart';
 import 'package:mollet/model/notifiers/products_notifier.dart';
 import 'package:mollet/model/notifiers/userData_notifier.dart';
 import 'package:mollet/model/services/Product_service.dart';
 import 'package:mollet/model/notifiers/cart_notifier.dart';
+import 'package:mollet/model/services/pushNotification_service.dart';
 import 'package:mollet/model/services/user_management.dart';
 import 'package:mollet/screens/tab_screens/history.dart';
 import 'package:mollet/screens/tab_screens/home.dart';
@@ -51,6 +53,10 @@ class _TabsLayoutState extends State<TabsLayout> {
     CartNotifier cartNotifier =
         Provider.of<CartNotifier>(context, listen: false);
     getCart(cartNotifier);
+
+    NotificationsNotifier notificationsNotifier =
+        Provider.of<NotificationsNotifier>(context);
+    getNotifications(notificationsNotifier);
 
     saveDeviceToken();
 
