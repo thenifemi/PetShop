@@ -80,13 +80,16 @@ class _InboxScreenState extends State<InboxScreen> {
 
               NotificationsNotifier notificationsNotifier =
                   Provider.of<NotificationsNotifier>(context, listen: false);
-              getNotifications(notificationsNotifier);
+              setState(() {
+                getNotifications(notificationsNotifier);
+              });
             }
           },
           child: Container(
             decoration: BoxDecoration(
-              color:
-                  not.isRead ? MColors.primaryWhite : MColors.primaryPlatinum,
+              color: not.isRead == "true"
+                  ? MColors.primaryWhite
+                  : MColors.primaryPlatinum,
               borderRadius: BorderRadius.all(
                 Radius.circular(10.0),
               ),

@@ -95,5 +95,5 @@ updateNotificationStatusToTrue(notID) async {
       .document(uEmail)
       .collection("notMessage");
 
-  await notRef.document(notID).updateData({'isRead': true});
+  await notRef.document(notID).updateData({'isRead': "true"});
 }
