@@ -74,7 +74,6 @@ class _InboxScreenState extends State<InboxScreen> {
                 builder: (context) => NotificationsDetails(not),
               ),
             );
-            print(navigationResult);
             if (navigationResult == true) {
               updateNotificationStatusToTrue(not.notID);
 
