@@ -12,7 +12,6 @@ class InboxScreen extends StatefulWidget {
 }
 
 class _InboxScreenState extends State<InboxScreen> {
-  var _isRead;
   String read;
 
   @override
