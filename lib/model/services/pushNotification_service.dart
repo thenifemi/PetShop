@@ -9,7 +9,7 @@ import 'package:mollet/model/services/auth_service.dart';
 final db = Firestore.instance;
 
 Future initialise() async {
-  final FirebaseMessaging _cm = FirebaseMessaging();
+  final FirebaseMessaging _fcm = FirebaseMessaging();
 
   Platform.isIOS
       ? _fcm.requestNotificationPermissions(IosNotificationSettings())
