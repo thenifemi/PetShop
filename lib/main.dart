@@ -10,7 +10,6 @@ import 'package:mollet/model/services/auth_service.dart';
 import 'package:mollet/screens/getstarted_screens/intro_screen.dart';
 import 'package:mollet/screens/getstarted_screens/splash_screen.dart';
 import 'package:mollet/utils/colors.dart';
-import 'package:mollet/widgets/allWidgets.dart';
 import 'package:mollet/widgets/provider.dart';
 import 'package:mollet/widgets/tabsLayout.dart';
 import 'package:provider/provider.dart';
