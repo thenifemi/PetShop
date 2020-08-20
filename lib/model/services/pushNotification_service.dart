@@ -6,7 +6,7 @@ import 'package:mollet/model/data/notificationMessage.dart';
 import 'package:mollet/model/notifiers/notifications_notifier.dart';
 import 'package:mollet/model/services/auth_service.dart';
 
-final db = Firestore.instance;
+final db = FirebaseFirestore.instance;
 
 Future initialise() async {
   final FirebaseMessaging _fcm = FirebaseMessaging();
@@ -37,10 +37,10 @@ mockNotifications() async {
 
   await db
       .collection("userNotifications")
-      .document(uEmail)
+      .doc(uEmail)
       .collection("notMessage")
-      .document()
-      .setData({
+      .doc()
+      .set({
     'senderAvatar': senderAvatar,
     'senderName': senderName,
     'sentTime': sentTime,
@@ -51,17 +51,17 @@ mockNotifications() async {
   }).then((value) async {
     var notIDref = await db
         .collection("userNotifications")
-        .document(uEmail)
+        .doc(uEmail)
         .collection("notMessage")
-        .getDocuments();
-    notIDref.documents.forEach((document) {
-      var _notId = document.documentID;
+        .get();
+    notIDref.docs.forEach((document) {
+      var _notId = document.id;
       var _ref = db
           .collection("userNotifications")
-          .document(uEmail)
+          .doc(uEmail)
           .collection("notMessage");
 
-      _ref.document(_notId).updateData({
+      _ref.doc(_notId).update({
         'notID': _notId,
       });
     });
@@ -73,15 +73,15 @@ getNotifications(NotificationsNotifier notificationsNotifier) async {
 
   QuerySnapshot notificationsSnapshot = await db
       .collection("userNotifications")
-      .document(uEmail)
+      .doc(uEmail)
       .collection("notMessage")
-      .getDocuments();
+      .get();
 
   List<NotificationMessage> _notificationMessageList = [];
 
-  notificationsSnapshot.documents.forEach((document) {
+  notificationsSnapshot.docs.forEach((document) {
     NotificationMessage notificationMessage =
-        NotificationMessage.fromMap(document.data);
+        NotificationMessage.fromMap(document.data());
     _notificationMessageList.add(notificationMessage);
   });
   notificationsNotifier.notificationMessageList = _notificationMessageList;
@@ -90,10 +90,8 @@ getNotifications(NotificationsNotifier notificationsNotifier) async {
 updateNotificationStatusToTrue(notID) async {
   final uEmail = await AuthService().getCurrentEmail();
 
-  CollectionReference notRef = db
-      .collection("userNotifications")
-      .document(uEmail)
-      .collection("notMessage");
+  CollectionReference notRef =
+      db.collection("userNotifications").doc(uEmail).collection("notMessage");
 
-  await notRef.document(notID).updateData({'isRead': "true"});
+  await notRef.doc(notID).update({'isRead': "true"});
 }
