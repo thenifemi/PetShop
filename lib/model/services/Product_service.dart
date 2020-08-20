@@ -9,17 +9,17 @@ import 'package:mollet/model/notifiers/orders_notifier.dart';
 import 'package:mollet/model/notifiers/products_notifier.dart';
 import 'package:mollet/model/services/auth_service.dart';
 
-final db = Firestore.instance;
+final db = FirebaseFirestore.instance;
 
 //Getting products
 getProdProducts(ProductsNotifier productsNotifier) async {
   QuerySnapshot snapshot =
-      await Firestore.instance.collection("food").getDocuments();
+      await FirebaseFirestore.instance.collection("food").get();
 
   List<ProdProducts> _prodProductsList = [];
 
-  snapshot.documents.forEach((document) {
-    ProdProducts prodProducts = ProdProducts.fromMap(document.data);
+  snapshot.docs.forEach((document) {
+    ProdProducts prodProducts = ProdProducts.fromMap(document.data());
 
     _prodProductsList.add(prodProducts);
   });
@@ -33,10 +33,10 @@ addProductToCart(product) async {
 
   await db
       .collection("userCart")
-      .document(uEmail)
+      .doc(uEmail)
       .collection("cartItems")
-      .document(product.productID)
-      .setData(product.toMap())
+      .doc(product.productID)
+      .set(product.toMap())
       .catchError((e) {
     print(e);
   });
@@ -45,12 +45,12 @@ addProductToCart(product) async {
 //Getting brands
 getBrands(BrandsNotifier brandsNotifier) async {
   QuerySnapshot snapshot =
-      await Firestore.instance.collection("brands").getDocuments();
+      await FirebaseFirestore.instance.collection("brands").get();
 
   List<Brands> _brandsList = [];
 
-  snapshot.documents.forEach((document) {
-    Brands brands = Brands.fromMap(document.data);
+  snapshot.docs.forEach((document) {
+    Brands brands = Brands.fromMap(document.data());
     _brandsList.add(brands);
   });
 
@@ -61,16 +61,16 @@ getBrands(BrandsNotifier brandsNotifier) async {
 getCart(CartNotifier cartNotifier) async {
   final uEmail = await AuthService().getCurrentEmail();
 
-  QuerySnapshot snapshot = await Firestore.instance
+  QuerySnapshot snapshot = await FirebaseFirestore.instance
       .collection("userCart")
-      .document(uEmail)
+      .doc(uEmail)
       .collection("cartItems")
-      .getDocuments();
+      .get();
 
   List<Cart> _cartList = [];
 
-  snapshot.documents.forEach((document) {
-    Cart cart = Cart.fromMap(document.data);
+  snapshot.docs.forEach((document) {
+    Cart cart = Cart.fromMap(document.data());
     _cartList.add(cart);
   });
 
@@ -89,9 +89,9 @@ addAndApdateData(cartItem) async {
   cartItem.totalPrice = cartItem.price * cartItem.quantity;
 
   CollectionReference cartRef =
-      db.collection("userCart").document(uEmail).collection("cartItems");
+      db.collection("userCart").doc(uEmail).collection("cartItems");
 
-  await cartRef.document(cartItem.productID).updateData(
+  await cartRef.doc(cartItem.productID).update(
     {'quantity': cartItem.quantity, 'totalPrice': cartItem.totalPrice},
   );
 }
@@ -108,9 +108,9 @@ subAndApdateData(cartItem) async {
   cartItem.totalPrice = cartItem.price * cartItem.quantity;
 
   CollectionReference cartRef =
-      db.collection("userCart").document(uEmail).collection("cartItems");
+      db.collection("userCart").doc(uEmail).collection("cartItems");
 
-  await cartRef.document(cartItem.productID).updateData(
+  await cartRef.doc(cartItem.productID).update(
     {'quantity': cartItem.quantity, 'totalPrice': cartItem.totalPrice},
   );
 }
@@ -121,9 +121,9 @@ removeItemFromCart(cartItem) async {
 
   await db
       .collection("userCart")
-      .document(uEmail)
+      .doc(uEmail)
       .collection("cartItems")
-      .document(cartItem.productID)
+      .doc(cartItem.productID)
       .delete();
 }
 
@@ -133,11 +133,11 @@ clearCartAfterPurchase() async {
 
   await db
       .collection('userCart')
-      .document(uEmail)
+      .doc(uEmail)
       .collection("cartItems")
-      .getDocuments()
+      .get()
       .then((snapshot) {
-    for (DocumentSnapshot doc in snapshot.documents) {
+    for (DocumentSnapshot doc in snapshot.docs) {
       doc.reference.delete();
     }
   });
@@ -155,10 +155,10 @@ addCartToOrders(cartList, orderID, addressList) async {
 
   await db
       .collection("userOrder")
-      .document(uEmail)
+      .doc(uEmail)
       .collection("orders")
-      .document(orderID)
-      .setData(
+      .doc(orderID)
+      .set(
     {
       'orderID': orderID,
       'orderDate': orderDate,
@@ -173,10 +173,10 @@ addCartToOrders(cartList, orderID, addressList) async {
   //Sending orders to merchant
   await db
       .collection("merchantOrder")
-      .document(uEmail)
+      .doc(uEmail)
       .collection("orders")
-      .document(orderID)
-      .setData(
+      .doc(orderID)
+      .set(
     {
       'orderID': orderID,
       'orderDate': orderDate,
@@ -194,16 +194,13 @@ getOrders(
 ) async {
   final uEmail = await AuthService().getCurrentEmail();
 
-  QuerySnapshot ordersSnapshot = await db
-      .collection("userOrder")
-      .document(uEmail)
-      .collection("orders")
-      .getDocuments();
+  QuerySnapshot ordersSnapshot =
+      await db.collection("userOrder").doc(uEmail).collection("orders").get();
 
   List<OrdersList> _ordersListList = [];
 
-  ordersSnapshot.documents.forEach((document) {
-    OrdersList ordersList = OrdersList.fromMap(document.data);
+  ordersSnapshot.docs.forEach((document) {
+    OrdersList ordersList = OrdersList.fromMap(document.data());
     _ordersListList.add(ordersList);
   });
   orderListNotifier.orderListList = _ordersListList;
