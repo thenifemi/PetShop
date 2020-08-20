@@ -9,19 +9,19 @@ import 'package:mollet/model/services/auth_service.dart';
 
 //Storing new user data
 storeNewUser(_name, _phone, _email) async {
-  final db = Firestore.instance;
+  final db = FirebaseFirestore.instance;
   final uEmail = await AuthService().getCurrentEmail();
 
-  var userUpdateInfo = new UserUpdateInfo();
-  userUpdateInfo.displayName = _name;
-  print(userUpdateInfo.displayName);
+  var user = FirebaseAuth.instance.currentUser.displayName;
+  user = _name;
+  print(user);
 
   await db
       .collection("userData")
-      .document(uEmail)
+      .doc(uEmail)
       .collection("profile")
-      .document(uEmail)
-      .setData({
+      .doc(uEmail)
+      .set({
     'name': _name,
     'phone': _phone,
     'email': _email,
@@ -34,16 +34,16 @@ storeNewUser(_name, _phone, _email) async {
 getProfile(UserDataProfileNotifier profileNotifier) async {
   final uEmail = await AuthService().getCurrentEmail();
 
-  QuerySnapshot snapshot = await Firestore.instance
+  QuerySnapshot snapshot = await FirebaseFirestore.instance
       .collection("userData")
-      .document(uEmail)
+      .doc(uEmail)
       .collection("profile")
-      .getDocuments();
+      .get();
 
   List<UserDataProfile> _userDataProfileList = [];
 
-  snapshot.documents.forEach((document) {
-    UserDataProfile userDataProfile = UserDataProfile.fromMap(document.data);
+  snapshot.docs.forEach((doc) {
+    UserDataProfile userDataProfile = UserDataProfile.fromMap(doc.data());
     _userDataProfileList.add(userDataProfile);
   });
 
@@ -52,12 +52,12 @@ getProfile(UserDataProfileNotifier profileNotifier) async {
 
 //Updating User profile
 updateProfile(_name, _phone) async {
-  final db = Firestore.instance;
+  final db = FirebaseFirestore.instance;
   final uEmail = await AuthService().getCurrentEmail();
 
   CollectionReference profileRef =
-      db.collection("userData").document(uEmail).collection("profile");
-  await profileRef.document(uEmail).updateData(
+      db.collection("userData").doc(uEmail).collection("profile");
+  await profileRef.doc(uEmail).update(
     {'name': _name, 'phone': _phone},
   );
 }
@@ -68,15 +68,15 @@ storeAddress(
   addressLocation,
   addressNumber,
 ) async {
-  final db = Firestore.instance;
+  final db = FirebaseFirestore.instance;
   final uEmail = await AuthService().getCurrentEmail();
 
   await db
       .collection("userData")
-      .document(uEmail)
+      .doc(uEmail)
       .collection("address")
-      .document(uEmail)
-      .setData({
+      .doc(uEmail)
+      .set({
     'fullLegalName': fullLegalName,
     'addressLocation': addressLocation,
     'addressNumber': addressNumber,
@@ -89,16 +89,16 @@ storeAddress(
 getAddress(UserDataAddressNotifier addressNotifier) async {
   final uEmail = await AuthService().getCurrentEmail();
 
-  QuerySnapshot snapshot = await Firestore.instance
+  QuerySnapshot snapshot = await FirebaseFirestore.instance
       .collection("userData")
-      .document(uEmail)
+      .doc(uEmail)
       .collection("address")
-      .getDocuments();
+      .get();
 
   List<UserDataAddress> _userDataAddressList = [];
 
-  snapshot.documents.forEach((document) {
-    UserDataAddress userDataAddress = UserDataAddress.fromMap(document.data);
+  snapshot.docs.forEach((doc) {
+    UserDataAddress userDataAddress = UserDataAddress.fromMap(doc.data());
     _userDataAddressList.add(userDataAddress);
   });
 
@@ -111,12 +111,12 @@ updateAddress(
   addressLocation,
   addressNumber,
 ) async {
-  final db = Firestore.instance;
+  final db = FirebaseFirestore.instance;
   final uEmail = await AuthService().getCurrentEmail();
 
   CollectionReference addressRef =
-      db.collection("userData").document(uEmail).collection("address");
-  await addressRef.document(uEmail).updateData(
+      db.collection("userData").doc(uEmail).collection("address");
+  await addressRef.doc(uEmail).update(
     {
       'fullLegalName': fullLegalName,
       'addressLocation': addressLocation,
@@ -132,15 +132,15 @@ storeNewCard(
   validThrough,
   securityCode,
 ) async {
-  final db = Firestore.instance;
+  final db = FirebaseFirestore.instance;
   final uEmail = await AuthService().getCurrentEmail();
 
   await db
       .collection("userData")
-      .document(uEmail)
+      .doc(uEmail)
       .collection("card")
-      .document(uEmail)
-      .setData({
+      .doc(uEmail)
+      .set({
     'cardHolder': cardHolder,
     'cardNumber': cardNumber,
     'validThrough': validThrough,
@@ -154,16 +154,16 @@ storeNewCard(
 getCard(UserDataCardNotifier cardNotifier) async {
   final uEmail = await AuthService().getCurrentEmail();
 
-  QuerySnapshot snapshot = await Firestore.instance
+  QuerySnapshot snapshot = await FirebaseFirestore.instance
       .collection("userData")
-      .document(uEmail)
+      .doc(uEmail)
       .collection("card")
-      .getDocuments();
+      .get();
 
   List<UserDataCard> _userDataCardList = [];
 
-  snapshot.documents.forEach((document) {
-    UserDataCard userDataCard = UserDataCard.fromMap(document.data);
+  snapshot.docs.forEach((doc) {
+    UserDataCard userDataCard = UserDataCard.fromMap(doc.data());
     _userDataCardList.add(userDataCard);
   });
 
@@ -177,12 +177,12 @@ updateCard(
   validThrough,
   securityCode,
 ) async {
-  final db = Firestore.instance;
+  final db = FirebaseFirestore.instance;
   final uEmail = await AuthService().getCurrentEmail();
 
   CollectionReference cardRef =
-      db.collection("userData").document(uEmail).collection("card");
-  await cardRef.document(uEmail).updateData(
+      db.collection("userData").doc(uEmail).collection("card");
+  await cardRef.doc(uEmail).update(
     {
       'cardHolder': cardHolder,
       'cardNumber': cardNumber,
@@ -193,7 +193,7 @@ updateCard(
 }
 
 saveDeviceToken() async {
-  final db = Firestore.instance;
+  final db = FirebaseFirestore.instance;
   final _fcm = FirebaseMessaging();
 
   final uEmail = await AuthService().getCurrentEmail();
@@ -203,7 +203,7 @@ saveDeviceToken() async {
 
   //Storing token
   if (fcmToken != null) {
-    await db.collection("userToken").document(uEmail).setData({
+    await db.collection("userToken").doc(uEmail).set({
       'userEmail': uEmail,
       'token': fcmToken,
       'createdAt': FieldValue.serverTimestamp(),
