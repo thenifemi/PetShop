@@ -17,6 +17,7 @@ class _IntroScreenState extends State<IntroScreen> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () {
+        _showCloseAppDialog();
         return Future.value(true);
       },
       child: Scaffold(
