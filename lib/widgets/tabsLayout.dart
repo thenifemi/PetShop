@@ -104,201 +104,159 @@ class _TabsLayoutState extends State<TabsLayout> {
     CartNotifier cartNotifier = Provider.of<CartNotifier>(context);
     var cartList = cartNotifier.cartList;
 
-    return WillPopScope(
-      onWillPop: () {
-        _showCloseAppDialog();
-        return Future.value(true);
-      },
-      child: Scaffold(
-        appBar: primaryAppBar(
-          null,
-          _currentIndex != 0
-              ? Text(
-                  _appBarTitle
-                      .map((title) {
-                        return title;
-                      })
-                      .where((title) =>
-                          _appBarTitle.indexOf(title) == _currentIndex)
-                      .toString()
-                      .replaceAll("\)", "")
-                      .replaceAll("\(", ""),
-                  style: boldFont(MColors.textGrey, 20.0),
-                )
-              : Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: Container(
-                        height: 40.0,
-                        child: primaryTextField(
-                          null,
-                          null,
-                          "Search for products",
-                          null,
-                          true,
-                          null,
-                          false,
-                          false,
-                          true,
-                          TextInputType.text,
-                          null,
-                          SvgPicture.asset(
-                            "assets/images/icons/Search.svg",
-                            color: MColors.textGrey,
-                            height: 16.0,
+    return Scaffold(
+      appBar: primaryAppBar(
+        null,
+        _currentIndex != 0
+            ? Text(
+                _appBarTitle
+                    .map((title) {
+                      return title;
+                    })
+                    .where(
+                        (title) => _appBarTitle.indexOf(title) == _currentIndex)
+                    .toString()
+                    .replaceAll("\)", "")
+                    .replaceAll("\(", ""),
+                style: boldFont(MColors.textGrey, 20.0),
+              )
+            : Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Container(
+                      height: 40.0,
+                      child: primaryTextField(
+                        null,
+                        null,
+                        "Search for products",
+                        null,
+                        true,
+                        null,
+                        false,
+                        false,
+                        true,
+                        TextInputType.text,
+                        null,
+                        SvgPicture.asset(
+                          "assets/images/icons/Search.svg",
+                          color: MColors.textGrey,
+                          height: 16.0,
+                        ),
+                        0.0,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    width: 50,
+                    child: RawMaterialButton(
+                      onPressed: () async {
+                        CartNotifier cartNotifier =
+                            Provider.of<CartNotifier>(context, listen: false);
+                        var navigationResult = await Navigator.of(context).push(
+                          CupertinoPageRoute(
+                            builder: (context) => Bag(),
                           ),
-                          0.0,
+                        );
+                        if (navigationResult == true) {
+                          setState(() {
+                            getCart(cartNotifier);
+                          });
+                        }
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.only(left: 10.0),
+                        child: Stack(
+                          children: <Widget>[
+                            Container(
+                              padding: const EdgeInsets.only(top: 5.0),
+                              child: SvgPicture.asset(
+                                "assets/images/icons/Bag.svg",
+                                height: 25,
+                                color: MColors.textGrey,
+                              ),
+                            ),
+                            cartList.isNotEmpty
+                                ? Positioned(
+                                    right: 0,
+                                    child: Container(
+                                      padding: EdgeInsets.all(1),
+                                      decoration: BoxDecoration(
+                                        color: Colors.redAccent,
+                                        borderRadius: BorderRadius.circular(6),
+                                      ),
+                                      constraints: BoxConstraints(
+                                        minWidth: 7,
+                                        minHeight: 7,
+                                      ),
+                                    ),
+                                  )
+                                : Positioned(
+                                    right: 0,
+                                    child: Container(
+                                      padding: EdgeInsets.all(1),
+                                      decoration: BoxDecoration(
+                                        color: Colors.transparent,
+                                        borderRadius: BorderRadius.circular(6),
+                                      ),
+                                      constraints: BoxConstraints(
+                                        minWidth: 7,
+                                        minHeight: 7,
+                                      ),
+                                    ),
+                                  ),
+                          ],
                         ),
                       ),
                     ),
+                  ),
+                ],
+              ),
+        MColors.primaryWhiteSmoke,
+        null,
+        false,
+        null,
+      ),
+      body: PageStorage(
+        child: _children[_currentIndex],
+        bucket: bucket,
+      ),
+      bottomNavigationBar: Container(
+        color: MColors.primaryWhite,
+        padding: const EdgeInsets.symmetric(horizontal: 15.0),
+        child: BottomNavigationBar(
+          elevation: 0.0,
+          selectedItemColor: MColors.primaryPurple,
+          unselectedItemColor: MColors.textGrey,
+          currentIndex: _currentIndex,
+          type: BottomNavigationBarType.fixed,
+          backgroundColor: MColors.primaryWhite,
+          onTap: onTabTapped,
+          items: _tabIcons.map((e) {
+            final bool isSelected = _tabIcons.indexOf(e) == _currentIndex;
+            return BottomNavigationBarItem(
+              icon: Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: Stack(
+                  children: <Widget>[
                     Container(
-                      width: 50,
-                      child: RawMaterialButton(
-                        onPressed: () async {
-                          CartNotifier cartNotifier =
-                              Provider.of<CartNotifier>(context, listen: false);
-                          var navigationResult =
-                              await Navigator.of(context).push(
-                            CupertinoPageRoute(
-                              builder: (context) => Bag(),
-                            ),
-                          );
-                          if (navigationResult == true) {
-                            setState(() {
-                              getCart(cartNotifier);
-                            });
-                          }
-                        },
-                        child: Container(
-                          padding: const EdgeInsets.only(left: 10.0),
-                          child: Stack(
-                            children: <Widget>[
-                              Container(
-                                padding: const EdgeInsets.only(top: 5.0),
-                                child: SvgPicture.asset(
-                                  "assets/images/icons/Bag.svg",
-                                  height: 25,
-                                  color: MColors.textGrey,
-                                ),
-                              ),
-                              cartList.isNotEmpty
-                                  ? Positioned(
-                                      right: 0,
-                                      child: Container(
-                                        padding: EdgeInsets.all(1),
-                                        decoration: BoxDecoration(
-                                          color: Colors.redAccent,
-                                          borderRadius:
-                                              BorderRadius.circular(6),
-                                        ),
-                                        constraints: BoxConstraints(
-                                          minWidth: 7,
-                                          minHeight: 7,
-                                        ),
-                                      ),
-                                    )
-                                  : Positioned(
-                                      right: 0,
-                                      child: Container(
-                                        padding: EdgeInsets.all(1),
-                                        decoration: BoxDecoration(
-                                          color: Colors.transparent,
-                                          borderRadius:
-                                              BorderRadius.circular(6),
-                                        ),
-                                        constraints: BoxConstraints(
-                                          minWidth: 7,
-                                          minHeight: 7,
-                                        ),
-                                      ),
-                                    ),
-                            ],
-                          ),
-                        ),
+                      padding: const EdgeInsets.only(top: 5.0),
+                      child: SvgPicture.asset(
+                        e,
+                        height: 22,
+                        color: isSelected
+                            ? MColors.primaryPurple
+                            : MColors.textGrey,
                       ),
                     ),
                   ],
                 ),
-          MColors.primaryWhiteSmoke,
-          null,
-          false,
-          null,
-        ),
-        body: PageStorage(
-          child: _children[_currentIndex],
-          bucket: bucket,
-        ),
-        bottomNavigationBar: Container(
-          color: MColors.primaryWhite,
-          padding: const EdgeInsets.symmetric(horizontal: 15.0),
-          child: BottomNavigationBar(
-            elevation: 0.0,
-            selectedItemColor: MColors.primaryPurple,
-            unselectedItemColor: MColors.textGrey,
-            currentIndex: _currentIndex,
-            type: BottomNavigationBarType.fixed,
-            backgroundColor: MColors.primaryWhite,
-            onTap: onTabTapped,
-            items: _tabIcons.map((e) {
-              final bool isSelected = _tabIcons.indexOf(e) == _currentIndex;
-              return BottomNavigationBarItem(
-                icon: Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: Stack(
-                    children: <Widget>[
-                      Container(
-                        padding: const EdgeInsets.only(top: 5.0),
-                        child: SvgPicture.asset(
-                          e,
-                          height: 22,
-                          color: isSelected
-                              ? MColors.primaryPurple
-                              : MColors.textGrey,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                title: Text("", style: normalFont(null, 0.0)),
-                backgroundColor: MColors.primaryPurple,
-              );
-            }).toList(),
-          ),
+              ),
+              title: Text("", style: normalFont(null, 0.0)),
+              backgroundColor: MColors.primaryPurple,
+            );
+          }).toList(),
         ),
       ),
     );
-  }
-
-  void _showCloseAppDialog() {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            content: Text(
-              "Are you sure you want to leave?",
-              style: normalFont(MColors.textGrey, 14.0),
-            ),
-            actions: <Widget>[
-              FlatButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: Text(
-                  "Cancel",
-                  style: normalFont(MColors.textGrey, 14.0),
-                ),
-              ),
-              FlatButton(
-                onPressed: () {
-                  SystemNavigator.pop();
-                },
-                child: Text(
-                  "Leave",
-                  style: normalFont(Colors.redAccent, 14.0),
-                ),
-              ),
-            ],
-          );
-        });
   }
 }
