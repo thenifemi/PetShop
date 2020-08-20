@@ -20,22 +20,30 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_svg: ^0.18.0
+
+  #firebase services
   firebase_auth: ^0.16.1
-  cloud_firestore: ^0.13.7
-  firebase_core: ^0.4.5
+  cloud_firestore: ^0.14.0+1
   firebase_messaging: ^6.0.16
+  firebase_core: ^0.5.0
+
+  #google stuff
   flutter_launcher_icons: ^0.7.5
   google_fonts:
   wc_flutter_share: ^0.2.0
   provider:
   carousel_slider: ^2.0.0
+
+  #location and permission handling stuff
   permission_handler: ^3.1.0
   geolocator: ^5.3.2+2
   geolocation: ^1.1.2
-  mask_text_input_formatter: ^1.0.7
-  dio: ^3.0.9
   geocoder: ^0.2.1
   location: ^3.0.2
+  dio: ^3.0.9
+
+  #unique thingies
+  mask_text_input_formatter: ^1.0.7
   uuid: ^2.2.0
 
 flutter_icons:
