@@ -33,6 +33,8 @@ dependencies:
   google_fonts:
   wc_flutter_share: ^0.2.0
   provider:
+
+  #image processing magic
   carousel_slider: ^2.0.0
   image_cropper: ^1.3.0
   image_picker: ^0.6.7+4
