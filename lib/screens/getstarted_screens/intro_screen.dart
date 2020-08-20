@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mollet/screens/register_screens/login_screen.dart';
 import 'package:mollet/screens/register_screens/registration_screen.dart';
@@ -116,7 +117,9 @@ class _IntroScreenState extends State<IntroScreen> {
                 ),
               ),
               FlatButton(
-                onPressed: () {},
+                onPressed: () {
+                  SystemNavigator.pop();
+                },
                 child: Text(
                   "Leave",
                   style: normalFont(Colors.redAccent, 14.0),
