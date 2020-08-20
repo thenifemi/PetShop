@@ -1,5 +1,5 @@
 name: mollet
-description: A new Flutter project.
+description: Pet Shop is an e-commerce application for Android built with Flutter (iOS to come soon).
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -22,7 +22,7 @@ dependencies:
   flutter_svg: ^0.18.0
 
   #firebase services
-  firebase_auth: ^0.16.1
+  firebase_auth: ^0.18.0+1
   cloud_firestore: ^0.14.0+1
   firebase_messaging: ^6.0.16
   firebase_core: ^0.5.0
@@ -55,18 +55,13 @@ flutter_icons:
   android: true
   ios: true
   image_path: "assets/images/footprint.png"
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-# For information on the generic Dart part of this file, see the
-# following page: https://dart.dev/tools/pub/pubspec
 
-# The following section is specific to Flutter.
 flutter:
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
