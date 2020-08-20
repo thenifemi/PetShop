@@ -98,13 +98,6 @@ class _TabsLayoutState extends State<TabsLayout> {
     "Settings",
   ];
 
-  // final _tabIconsTitle = [
-  //   "Home",
-  //   "History",
-  //   "Notifications",
-  //   "Settings",
-  // ];
-
   @override
   Widget build(BuildContext context) {
     CartNotifier cartNotifier = Provider.of<CartNotifier>(context);
