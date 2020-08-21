@@ -70,3 +70,9 @@ dependencies {
     implementation 'com.android.support:multidex:1.0.3'  //with support libraries
     implementation 'androidx.multidex:multidex:2.0.1'
 }
+
+project.ext {
+  set('FlutterFire', [
+    FirebaseSDKVersion: '21.1.0'
+  ])
+}

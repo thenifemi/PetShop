@@ -62,7 +62,7 @@ class _EnterAddressState extends State<EnterAddress> {
         Provider.of<UserDataAddressNotifier>(context, listen: false);
     addressFuture = getAddress(addressNotifier);
 
-    currentLocation = getUserCurrentLocation(addressNotifier);
+    currentLocation = getUserCurrentLocation();
 
     super.initState();
   }
@@ -128,33 +128,20 @@ class _EnterAddressState extends State<EnterAddress> {
     });
   }
 
-  getUserCurrentLocation(
-    UserDataAddressNotifier addressNotifier,
-  ) async {
+  getUserCurrentLocation() async {
     String error;
 
     try {
       Position position = await Geolocator()
           .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-      print('location: ${position.latitude}');
       final coordinates = Coordinates(position.latitude, position.longitude);
       var addresses =
           await Geocoder.local.findAddressesFromCoordinates(coordinates);
       var first = addresses.first;
-      List<UserDataAddress> _displayResults = [];
       print("${first.featureName} : ${first.addressLine}");
-
-      currentLocationAddress = first.addressLine;
-      Map<String, dynamic> asMap() {
-        return {
-          'addressLocation': currentLocationAddress,
-        };
-      }
-
-      addressNotifier.userDataAddressList = _displayResults;
-
-      UserDataAddress userDataAddress = UserDataAddress.fromMap(asMap());
-      _displayResults.add(userDataAddress);
+      setState(() {
+        currentLocationAddress = first.addressLine;
+      });
     } on PlatformException catch (e) {
       if (e.code == 'PERMISSION_DENIED') {
         Navigator.pop(context);
@@ -275,9 +262,8 @@ class _EnterAddressState extends State<EnterAddress> {
   }
 
   Widget useCurrentLocation() {
-    UserDataAddressNotifier addressNotifier =
-        Provider.of<UserDataAddressNotifier>(context);
-    var _addressList = addressNotifier.userDataAddressList;
+    var _addressList = currentLocationAddress;
+    print(currentLocationAddress);
 
     return Column(
       children: <Widget>[
@@ -304,8 +290,8 @@ class _EnterAddressState extends State<EnterAddress> {
                       ? Container()
                       : GestureDetector(
                           onTap: () {
-                            var _address = _addressList.first;
-                            print(_address.addressLocation);
+                            var _address = _addressList;
+                            print(_address);
                             _showModalSheet(_address, true);
                           },
                           child: Container(
@@ -496,7 +482,7 @@ class _EnterAddressState extends State<EnterAddress> {
     );
   }
 
-  void _showModalSheet(UserDataAddress _address, bool currentLocation) {
+  void _showModalSheet(_address, bool currentLocation) {
     String _streetNameAndNumber;
     String _name;
     showModalBottomSheet(
@@ -546,7 +532,9 @@ class _EnterAddressState extends State<EnterAddress> {
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 30.0),
                         child: Text(
-                          _address.addressLocation,
+                          currentLocation == false
+                              ? _address.addressLocation
+                              : _address,
                           style: normalFont(MColors.textGrey, 14.0),
                           textAlign: TextAlign.center,
                         ),
@@ -635,20 +623,33 @@ class _EnterAddressState extends State<EnterAddress> {
                         final form = formKey.currentState;
                         if (form.validate()) {
                           form.save();
-
-                          _address.addressNumber = _streetNameAndNumber;
-                          _address.fullLegalName = _name;
+                          if (currentLocation == false) {
+                            _address.addressNumber = _streetNameAndNumber;
+                            _address.fullLegalName = _name;
+                          }
 
                           addressList == null
                               ? storeAddress(
-                                  _address.fullLegalName,
-                                  _address.addressLocation,
-                                  _address.addressNumber,
+                                  currentLocation == false
+                                      ? _address.fullLegalName
+                                      : _name,
+                                  currentLocation == false
+                                      ? _address.addressLocation
+                                      : _address,
+                                  currentLocation == false
+                                      ? _address.addressNumber
+                                      : _streetNameAndNumber,
                                 )
                               : updateAddress(
-                                  _address.fullLegalName,
-                                  _address.addressLocation,
-                                  _address.addressNumber,
+                                  currentLocation == false
+                                      ? _address.fullLegalName
+                                      : _name,
+                                  currentLocation == false
+                                      ? _address.addressLocation
+                                      : _address,
+                                  currentLocation == false
+                                      ? _address.addressNumber
+                                      : _streetNameAndNumber,
                                 );
 
                           Navigator.pop(context);

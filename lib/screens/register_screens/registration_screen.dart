@@ -370,11 +370,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         });
       }
     } catch (e) {
-      setState(() {
-        _error = e.message;
-        _isButtonDisabled = false;
-        _isEnabled = true;
-      });
+      if (mounted) {
+        setState(() {
+          _error = e.message;
+          _isButtonDisabled = false;
+          _isEnabled = true;
+        });
+      }
 
       print("ERRORR ==>");
       print(e);
