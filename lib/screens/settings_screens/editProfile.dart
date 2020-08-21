@@ -6,6 +6,7 @@ import 'package:mollet/utils/cardUtils/cardStrings.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:mollet/utils/textFieldFormaters.dart';
 import 'package:mollet/widgets/allWidgets.dart';
+import 'package:mollet/widgets/imageCapture_Widget.dart';
 
 class EditProfile extends StatefulWidget {
   final UserDataProfile user;
@@ -75,14 +76,17 @@ class _EditProfileState extends State<EditProfile> {
                 Center(
                   child: Hero(
                     tag: "profileAvatar",
-                    child: Container(
-                      child: SvgPicture.asset(
-                        "assets/images/femaleAvatar.svg",
-                        height: 90,
-                      ),
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: MColors.dashPurple,
+                    child: GestureDetector(
+                      onTap: () => ImageCapture,
+                      child: Container(
+                        child: SvgPicture.asset(
+                          "assets/images/femaleAvatar.svg",
+                          height: 90,
+                        ),
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: MColors.dashPurple,
+                        ),
                       ),
                     ),
                   ),
