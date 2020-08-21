@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mollet/model/notifiers/brands_notifier.dart';
@@ -27,16 +30,30 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MyProvider(
-      auth: AuthService(),
-      child: AnnotatedRegion<SystemUiOverlayStyle>(
-        value: SystemUiOverlayStyle(
-          statusBarColor: Colors.transparent,
-          statusBarIconBrightness: Brightness.dark,
-          systemNavigationBarIconBrightness: Brightness.dark,
-        ),
-        child: HomeController(),
-      ),
+    return FutureBuilder(
+      future: Firebase.initializeApp(),
+      builder: (context, snapshot) {
+        // Check for errors
+        if (snapshot.hasError) {
+          return exit(0);
+        }
+
+        // Once complete
+        if (snapshot.connectionState == ConnectionState.done) {
+          return MyProvider(
+            auth: AuthService(),
+            child: AnnotatedRegion<SystemUiOverlayStyle>(
+              value: SystemUiOverlayStyle(
+                statusBarColor: Colors.transparent,
+                statusBarIconBrightness: Brightness.dark,
+                systemNavigationBarIconBrightness: Brightness.dark,
+              ),
+              child: HomeController(),
+            ),
+          );
+        }
+        return SplashScreen();
+      },
     );
   }
 }
