@@ -270,52 +270,55 @@ class _EditProfileState extends State<EditProfile> {
   // image capture
 
   imageCapture() {
-    return SimpleDialog(
-      children: [
-        SizedBox(
-          height: 50.0,
-          width: double.infinity,
-          child: RawMaterialButton(
-            onPressed: () =>
-                _pickImage(ImageSource.camera).then((v) => imageEdit()),
-            child: Row(
-              children: [
-                Icon(
-                  Icons.camera,
-                  size: 30.0,
-                ),
-                SizedBox(width: 10.0),
-                Text(
-                  "Capture with camera",
-                  style: normalFont(MColors.textGrey, 14.0),
-                ),
-              ],
+    return showDialog(
+      context: context,
+      builder: (context) => SimpleDialog(
+        children: [
+          SizedBox(
+            height: 50.0,
+            width: double.infinity,
+            child: RawMaterialButton(
+              onPressed: () =>
+                  _pickImage(ImageSource.camera).then((v) => imageEdit()),
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.camera,
+                    size: 30.0,
+                  ),
+                  SizedBox(width: 10.0),
+                  Text(
+                    "Capture with camera",
+                    style: normalFont(MColors.textGrey, 14.0),
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
-        SizedBox(height: 10.0),
-        SizedBox(
-          height: 50.0,
-          width: double.infinity,
-          child: RawMaterialButton(
-            onPressed: () =>
-                _pickImage(ImageSource.gallery).then((v) => imageEdit()),
-            child: Row(
-              children: [
-                Icon(
-                  Icons.photo_library,
-                  size: 30.0,
-                ),
-                SizedBox(width: 10.0),
-                Text(
-                  "Select from photo gallery",
-                  style: normalFont(MColors.textGrey, 14.0),
-                ),
-              ],
+          SizedBox(height: 10.0),
+          SizedBox(
+            height: 50.0,
+            width: double.infinity,
+            child: RawMaterialButton(
+              onPressed: () =>
+                  _pickImage(ImageSource.gallery).then((v) => imageEdit()),
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.photo_library,
+                    size: 30.0,
+                  ),
+                  SizedBox(width: 10.0),
+                  Text(
+                    "Select from photo gallery",
+                    style: normalFont(MColors.textGrey, 14.0),
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 

@@ -352,7 +352,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   void _showLogOutDialog() {
     showDialog(
         context: context,
-        builder: (BuildContext context) {
+        builder: (context) {
           return AlertDialog(
             content: Text(
               "Are you sure you want to sign out?",
