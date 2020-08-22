@@ -331,26 +331,20 @@ class _EditProfileState extends State<EditProfile> {
       context: context,
       builder: (builder) {
         return Container(
-          height: double.infinity,
+          padding: EdgeInsets.all(20.0),
+          height: MediaQuery.of(context).size.height / 1.2,
           child: ListView(
             children: [
               // ignore: sdk_version_ui_as_code
               if (_imageFile != null) ...[
                 Container(
-                  height: 200.0,
+                  width: double.infinity,
+                  height: MediaQuery.of(context).size.height / 2,
                   child: Image.file(_imageFile),
                 ),
-                Row(
-                  children: [
-                    FlatButton(
-                      onPressed: _cropImage,
-                      child: Icon(Icons.crop),
-                    ),
-                    FlatButton(
-                      onPressed: _clear,
-                      child: Icon(Icons.refresh),
-                    ),
-                  ],
+                primaryButtonPurple(
+                  Icon(Icons.crop),
+                  _cropImage,
                 ),
                 Uploader(_imageFile),
               ]
