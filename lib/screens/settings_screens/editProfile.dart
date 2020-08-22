@@ -1,5 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:image_cropper/image_cropper.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:mollet/model/data/userData.dart';
 import 'package:mollet/model/services/user_management.dart';
 import 'package:mollet/utils/cardUtils/cardStrings.dart';
@@ -77,7 +81,7 @@ class _EditProfileState extends State<EditProfile> {
                   child: Hero(
                     tag: "profileAvatar",
                     child: GestureDetector(
-                      onTap: () => ImageCapture,
+                      onTap: () => imageCapture(),
                       child: Stack(
                         children: <Widget>[
                           Container(
@@ -229,5 +233,115 @@ class _EditProfileState extends State<EditProfile> {
       });
       print(_error);
     }
+  }
+
+  // Profile Image
+
+  File _imageFile;
+
+  //select imge via gallery or camera
+  Future<void> _pickImage(ImageSource source) async {
+    // ignore: deprecated_member_use
+    File selected = await ImagePicker.pickImage(source: source);
+    setState(() {
+      _imageFile = selected;
+    });
+  }
+
+  //cropper plugin
+  Future<void> _cropImage() async {
+    File _cropped = await ImageCropper.cropImage(
+        sourcePath: _imageFile.path,
+        androidUiSettings: AndroidUiSettings(
+          toolbarColor: MColors.primaryPurple,
+          toolbarWidgetColor: MColors.primaryWhiteSmoke,
+          toolbarTitle: "Crop image",
+        ));
+    setState(() {
+      _imageFile = _cropped ?? _imageFile;
+    });
+  }
+
+  /// Remove image
+  void _clear() {
+    setState(() => _imageFile = null);
+  }
+
+  // image capture
+
+  imageCapture() {
+    return SimpleDialog(
+      children: [
+        SizedBox(
+          height: 50.0,
+          width: double.infinity,
+          child: RawMaterialButton(
+            onPressed: () =>
+                _pickImage(ImageSource.camera).then((v) => imageEdit()),
+            child: Row(
+              children: [
+                Icon(
+                  Icons.camera,
+                  size: 30.0,
+                ),
+                SizedBox(width: 10.0),
+                Text(
+                  "Capture with camera",
+                  style: normalFont(MColors.textGrey, 14.0),
+                ),
+              ],
+            ),
+          ),
+        ),
+        SizedBox(height: 10.0),
+        SizedBox(
+          height: 50.0,
+          width: double.infinity,
+          child: RawMaterialButton(
+            onPressed: () =>
+                _pickImage(ImageSource.gallery).then((v) => imageEdit()),
+            child: Row(
+              children: [
+                Icon(
+                  Icons.photo_library,
+                  size: 30.0,
+                ),
+                SizedBox(width: 10.0),
+                Text(
+                  "Select from photo gallery",
+                  style: normalFont(MColors.textGrey, 14.0),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget imageEdit() {
+    return Container(
+      child: ListView(
+        children: [
+          // ignore: sdk_version_ui_as_code
+          if (_imageFile != null) ...[
+            Image.file(_imageFile),
+            Row(
+              children: [
+                FlatButton(
+                  onPressed: _cropImage,
+                  child: Icon(Icons.crop),
+                ),
+                FlatButton(
+                  onPressed: _clear,
+                  child: Icon(Icons.refresh),
+                ),
+              ],
+            ),
+            Uploader(_imageFile),
+          ]
+        ],
+      ),
+    );
   }
 }
