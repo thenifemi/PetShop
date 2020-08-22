@@ -286,6 +286,7 @@ class _EditProfileState extends State<EditProfile> {
                   Icon(
                     Icons.camera,
                     size: 30.0,
+                    color: MColors.primaryPurple,
                   ),
                   SizedBox(width: 10.0),
                   Text(
@@ -307,6 +308,7 @@ class _EditProfileState extends State<EditProfile> {
                 children: [
                   Icon(
                     Icons.photo_library,
+                    color: MColors.primaryPurple,
                     size: 30.0,
                   ),
                   SizedBox(width: 10.0),
