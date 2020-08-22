@@ -326,16 +326,20 @@ class _EditProfileState extends State<EditProfile> {
   }
 
   imageEdit() {
-    return showDialog(
+    showModalBottomSheet(
+      isScrollControlled: true,
       context: context,
-      builder: (context) => SimpleDialog(
-        contentPadding: EdgeInsets.all(20.0),
-        children: [
-          ListView(
+      builder: (builder) {
+        return Container(
+          height: double.infinity,
+          child: ListView(
             children: [
               // ignore: sdk_version_ui_as_code
               if (_imageFile != null) ...[
-                Image.file(_imageFile),
+                Container(
+                  height: 200.0,
+                  child: Image.file(_imageFile),
+                ),
                 Row(
                   children: [
                     FlatButton(
@@ -352,8 +356,8 @@ class _EditProfileState extends State<EditProfile> {
               ]
             ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 }
