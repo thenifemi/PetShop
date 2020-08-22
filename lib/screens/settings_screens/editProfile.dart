@@ -78,15 +78,33 @@ class _EditProfileState extends State<EditProfile> {
                     tag: "profileAvatar",
                     child: GestureDetector(
                       onTap: () => ImageCapture,
-                      child: Container(
-                        child: SvgPicture.asset(
-                          "assets/images/femaleAvatar.svg",
-                          height: 90,
-                        ),
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: MColors.dashPurple,
-                        ),
+                      child: Stack(
+                        children: <Widget>[
+                          Container(
+                            child: SvgPicture.asset(
+                              "assets/images/femaleAvatar.svg",
+                              height: 90,
+                            ),
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: MColors.dashPurple,
+                            ),
+                          ),
+                          Positioned(
+                            right: 0,
+                            child: Container(
+                              padding: EdgeInsets.all(2.0),
+                              decoration: BoxDecoration(
+                                color: MColors.primaryPurple,
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                              child: Icon(
+                                Icons.edit,
+                                color: MColors.primaryWhite,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ),

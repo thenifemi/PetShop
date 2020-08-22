@@ -175,35 +175,22 @@ class _TabsLayoutState extends State<TabsLayout> {
                                 color: MColors.textGrey,
                               ),
                             ),
-                            cartList.isNotEmpty
-                                ? Positioned(
-                                    right: 0,
-                                    child: Container(
-                                      padding: EdgeInsets.all(1),
-                                      decoration: BoxDecoration(
-                                        color: Colors.redAccent,
-                                        borderRadius: BorderRadius.circular(6),
-                                      ),
-                                      constraints: BoxConstraints(
-                                        minWidth: 7,
-                                        minHeight: 7,
-                                      ),
-                                    ),
-                                  )
-                                : Positioned(
-                                    right: 0,
-                                    child: Container(
-                                      padding: EdgeInsets.all(1),
-                                      decoration: BoxDecoration(
-                                        color: Colors.transparent,
-                                        borderRadius: BorderRadius.circular(6),
-                                      ),
-                                      constraints: BoxConstraints(
-                                        minWidth: 7,
-                                        minHeight: 7,
-                                      ),
-                                    ),
-                                  ),
+                            Positioned(
+                              right: 0,
+                              child: Container(
+                                padding: EdgeInsets.all(1),
+                                decoration: BoxDecoration(
+                                  color: cartList.isNotEmpty
+                                      ? Colors.redAccent
+                                      : Colors.transparent,
+                                  borderRadius: BorderRadius.circular(6),
+                                ),
+                                constraints: BoxConstraints(
+                                  minWidth: 7,
+                                  minHeight: 7,
+                                ),
+                              ),
+                            ),
                           ],
                         ),
                       ),
