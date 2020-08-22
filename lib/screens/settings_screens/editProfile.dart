@@ -235,7 +235,7 @@ class _EditProfileState extends State<EditProfile> {
     }
   }
 
-  // Profile Image
+  // Profile Image---------------------------------------
 
   File _imageFile;
 
@@ -325,27 +325,33 @@ class _EditProfileState extends State<EditProfile> {
     );
   }
 
-  Widget imageEdit() {
-    return Container(
-      child: ListView(
+  imageEdit() {
+    return showDialog(
+      context: context,
+      builder: (context) => SimpleDialog(
+        contentPadding: EdgeInsets.all(20.0),
         children: [
-          // ignore: sdk_version_ui_as_code
-          if (_imageFile != null) ...[
-            Image.file(_imageFile),
-            Row(
-              children: [
-                FlatButton(
-                  onPressed: _cropImage,
-                  child: Icon(Icons.crop),
+          ListView(
+            children: [
+              // ignore: sdk_version_ui_as_code
+              if (_imageFile != null) ...[
+                Image.file(_imageFile),
+                Row(
+                  children: [
+                    FlatButton(
+                      onPressed: _cropImage,
+                      child: Icon(Icons.crop),
+                    ),
+                    FlatButton(
+                      onPressed: _clear,
+                      child: Icon(Icons.refresh),
+                    ),
+                  ],
                 ),
-                FlatButton(
-                  onPressed: _clear,
-                  child: Icon(Icons.refresh),
-                ),
-              ],
-            ),
-            Uploader(_imageFile),
-          ]
+                Uploader(_imageFile),
+              ]
+            ],
+          ),
         ],
       ),
     );
