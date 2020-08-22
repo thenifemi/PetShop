@@ -84,7 +84,7 @@ class _ImageCaptureState extends State<ImageCapture> {
                 ),
                 SizedBox(width: 10.0),
                 Text(
-                  "Select from gallery",
+                  "Select from photo gallery",
                   style: normalFont(MColors.textGrey, 14.0),
                 ),
               ],
