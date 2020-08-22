@@ -273,6 +273,7 @@ class _EditProfileState extends State<EditProfile> {
     return showDialog(
       context: context,
       builder: (context) => SimpleDialog(
+        contentPadding: EdgeInsets.all(20.0),
         children: [
           SizedBox(
             height: 50.0,
