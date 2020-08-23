@@ -486,182 +486,194 @@ class _EnterAddressState extends State<EnterAddress> {
     String _streetNameAndNumber;
     String _name;
     showModalBottomSheet(
+      backgroundColor: Colors.transparent,
+      isScrollControlled: true,
       context: context,
       builder: (builder) {
         return Container(
+          height: MediaQuery.of(context).size.height / 1.9,
+          margin: EdgeInsets.only(
+            bottom: 10.0,
+            left: 10.0,
+            right: 10.0,
+            top: 5.0,
+          ),
+          padding: EdgeInsets.only(
+            bottom: 15.0,
+            left: 15.0,
+            right: 15.0,
+            top: 5.0,
+          ),
           decoration: BoxDecoration(
             color: MColors.primaryWhiteSmoke,
-            borderRadius: BorderRadius.only(
-              topLeft: const Radius.circular(20.0),
-              topRight: const Radius.circular(20.0),
+            borderRadius: BorderRadius.all(
+              Radius.circular(15.0),
             ),
           ),
           child: Scaffold(
             backgroundColor: MColors.primaryWhiteSmoke,
             body: SingleChildScrollView(
               physics: BouncingScrollPhysics(),
-              child: primaryContainer(
-                Form(
-                  key: formKey,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      SizedBox(height: 10.0),
-                      modalBarWidget(),
-                      SizedBox(height: 20.0),
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 40.0),
-                        child: Text(
-                          currentLocation == false
-                              ? "Please enter your legal name, address name and number, and apt or house number"
-                              : "Please enter your legal name and apt or house number",
-                          style: boldFont(MColors.textDark, 16.0),
-                          textAlign: TextAlign.center,
-                        ),
+              child: Form(
+                key: formKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    SizedBox(height: 10.0),
+                    modalBarWidget(),
+                    SizedBox(height: 20.0),
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 40.0),
+                      child: Text(
+                        currentLocation == false
+                            ? "Please enter your legal name, address name and number, and apt or house number"
+                            : "Please enter your legal name and apt or house number",
+                        style: boldFont(MColors.textDark, 16.0),
+                        textAlign: TextAlign.center,
                       ),
-                      SizedBox(height: 20.0),
-                      Container(
-                        height: 30.0,
-                        child: SvgPicture.asset(
-                          "assets/images/icons/Location.svg",
-                          color: MColors.primaryPurple,
-                        ),
+                    ),
+                    SizedBox(height: 20.0),
+                    Container(
+                      height: 30.0,
+                      child: SvgPicture.asset(
+                        "assets/images/icons/Location.svg",
+                        color: MColors.primaryPurple,
                       ),
-                      SizedBox(height: 20.0),
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                        child: Text(
-                          currentLocation == false
-                              ? _address.addressLocation
-                              : _address,
-                          style: normalFont(MColors.textGrey, 14.0),
-                          textAlign: TextAlign.center,
-                        ),
+                    ),
+                    SizedBox(height: 20.0),
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                      child: Text(
+                        currentLocation == false
+                            ? _address.addressLocation
+                            : _address,
+                        style: normalFont(MColors.textGrey, 14.0),
+                        textAlign: TextAlign.center,
                       ),
-                      SizedBox(height: 20.0),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Container(
-                            child: Text(
-                              "Full legal name",
-                              style: normalFont(MColors.textGrey, null),
-                            ),
+                    ),
+                    SizedBox(height: 20.0),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Container(
+                          child: Text(
+                            "Full legal name",
+                            style: normalFont(MColors.textGrey, null),
                           ),
-                          SizedBox(height: 5.0),
-                          primaryTextField(
-                            null,
-                            null,
-                            null,
-                            (val) => _name = val,
-                            true,
-                            (String value) =>
-                                value.isEmpty ? Strings.fieldReq : null,
-                            false,
-                            _autoValidate,
-                            true,
-                            TextInputType.text,
-                            null,
-                            null,
-                            0.50,
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 20.0),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Container(
-                            child: Text(
-                              currentLocation == false
-                                  ? "Apt or house number and street name and number"
-                                  : "Apt or house number",
-                              style: normalFont(MColors.textGrey, null),
-                            ),
-                          ),
-                          SizedBox(height: 5.0),
-                          primaryTextField(
-                            null,
-                            null,
-                            null,
-                            (val) => _streetNameAndNumber = val,
-                            true,
-                            (String value) =>
-                                value.isEmpty ? Strings.fieldReq : null,
-                            false,
-                            _autoValidate,
-                            true,
+                        ),
+                        SizedBox(height: 5.0),
+                        primaryTextField(
+                          null,
+                          null,
+                          null,
+                          (val) => _name = val,
+                          true,
+                          (String value) =>
+                              value.isEmpty ? Strings.fieldReq : null,
+                          false,
+                          _autoValidate,
+                          true,
+                          TextInputType.text,
+                          null,
+                          null,
+                          0.50,
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 20.0),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Container(
+                          child: Text(
                             currentLocation == false
-                                ? TextInputType.text
-                                : TextInputType.number,
-                            null,
-                            null,
-                            0.50,
+                                ? "Apt or house number and street name and number"
+                                : "Apt or house number",
+                            style: normalFont(MColors.textGrey, null),
                           ),
-                          SizedBox(height: 5.0),
+                        ),
+                        SizedBox(height: 5.0),
+                        primaryTextField(
+                          null,
+                          null,
+                          null,
+                          (val) => _streetNameAndNumber = val,
+                          true,
+                          (String value) =>
+                              value.isEmpty ? Strings.fieldReq : null,
+                          false,
+                          _autoValidate,
+                          true,
                           currentLocation == false
-                              ? Container(
-                                  child: Text(
-                                    "Please enter information in order stated above!",
-                                    style:
-                                        normalFont(MColors.primaryPurple, null),
-                                  ),
-                                )
-                              : Container(),
-                        ],
-                      ),
-                      SizedBox(height: 20.0),
-                      primaryButtonPurple(
-                          Text(
-                            "Save",
-                            style: boldFont(
-                              MColors.primaryWhite,
-                              16.0,
-                            ),
-                          ), () {
-                        final form = formKey.currentState;
-                        if (form.validate()) {
-                          form.save();
-                          if (currentLocation == false) {
-                            _address.addressNumber = _streetNameAndNumber;
-                            _address.fullLegalName = _name;
-                          }
-
-                          addressList == null
-                              ? storeAddress(
-                                  currentLocation == false
-                                      ? _address.fullLegalName
-                                      : _name,
-                                  currentLocation == false
-                                      ? _address.addressLocation
-                                      : _address,
-                                  currentLocation == false
-                                      ? _address.addressNumber
-                                      : _streetNameAndNumber,
-                                )
-                              : updateAddress(
-                                  currentLocation == false
-                                      ? _address.fullLegalName
-                                      : _name,
-                                  currentLocation == false
-                                      ? _address.addressLocation
-                                      : _address,
-                                  currentLocation == false
-                                      ? _address.addressNumber
-                                      : _streetNameAndNumber,
-                                );
-
-                          Navigator.pop(context);
-                          Navigator.pop(context, true);
-                        } else {
-                          setState(() {
-                            _autoValidate = true;
-                          });
+                              ? TextInputType.text
+                              : TextInputType.number,
+                          null,
+                          null,
+                          0.50,
+                        ),
+                        SizedBox(height: 5.0),
+                        currentLocation == false
+                            ? Container(
+                                child: Text(
+                                  "Please enter information in order stated above!",
+                                  style:
+                                      normalFont(MColors.primaryPurple, null),
+                                ),
+                              )
+                            : Container(),
+                      ],
+                    ),
+                    SizedBox(height: 20.0),
+                    primaryButtonPurple(
+                        Text(
+                          "Save",
+                          style: boldFont(
+                            MColors.primaryWhite,
+                            16.0,
+                          ),
+                        ), () {
+                      final form = formKey.currentState;
+                      if (form.validate()) {
+                        form.save();
+                        if (currentLocation == false) {
+                          _address.addressNumber = _streetNameAndNumber;
+                          _address.fullLegalName = _name;
                         }
-                      })
-                    ],
-                  ),
+
+                        addressList == null
+                            ? storeAddress(
+                                currentLocation == false
+                                    ? _address.fullLegalName
+                                    : _name,
+                                currentLocation == false
+                                    ? _address.addressLocation
+                                    : _address,
+                                currentLocation == false
+                                    ? _address.addressNumber
+                                    : _streetNameAndNumber,
+                              )
+                            : updateAddress(
+                                currentLocation == false
+                                    ? _address.fullLegalName
+                                    : _name,
+                                currentLocation == false
+                                    ? _address.addressLocation
+                                    : _address,
+                                currentLocation == false
+                                    ? _address.addressNumber
+                                    : _streetNameAndNumber,
+                              );
+
+                        Navigator.pop(context);
+                        Navigator.pop(context, true);
+                      } else {
+                        setState(() {
+                          _autoValidate = true;
+                        });
+                      }
+                    })
+                  ],
                 ),
               ),
             ),
