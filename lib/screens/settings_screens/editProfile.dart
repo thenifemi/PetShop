@@ -82,40 +82,28 @@ class _EditProfileState extends State<EditProfile> {
                     tag: "profileAvatar",
                     child: GestureDetector(
                       onTap: () => imageCapture(),
-                      child: Stack(
-                        children: <Widget>[
-                          Container(
-                            child: SvgPicture.asset(
-                              "assets/images/femaleAvatar.svg",
-                              height: 90,
-                            ),
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: MColors.dashPurple,
-                            ),
-                          ),
-                          Positioned(
-                            right: 0,
-                            child: Container(
-                              padding: EdgeInsets.all(2.0),
-                              decoration: BoxDecoration(
-                                color: MColors.primaryPurple,
-                                borderRadius: BorderRadius.circular(6),
-                              ),
-                              child: Icon(
-                                Icons.edit,
-                                color: MColors.primaryWhite,
-                              ),
-                            ),
-                          ),
-                        ],
+                      child: Container(
+                        child: SvgPicture.asset(
+                          "assets/images/femaleAvatar.svg",
+                          height: 90,
+                        ),
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: MColors.dashPurple,
+                        ),
                       ),
                     ),
                   ),
                 ),
-                SizedBox(
-                  height: 20.0,
+                SizedBox(height: 10.0),
+                GestureDetector(
+                  onTap: () => imageCapture(),
+                  child: Text(
+                    "Edit photo",
+                    style: boldFont(MColors.primaryPurple, 14.0),
+                  ),
                 ),
+                SizedBox(height: 30.0),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
