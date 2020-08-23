@@ -1,11 +1,13 @@
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mollet/model/data/userData.dart';
 import 'package:mollet/model/services/user_management.dart';
+import 'package:mollet/screens/settings_screens/editImageScreen.dart';
 import 'package:mollet/utils/cardUtils/cardStrings.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:mollet/utils/textFieldFormaters.dart';
@@ -288,7 +290,8 @@ class _EditProfileState extends State<EditProfile> {
               SizedBox(height: 30.0),
               GestureDetector(
                 onTap: () {
-                  _pickImage(ImageSource.camera).then((v) => imageEdit());
+                  _pickImage(ImageSource.camera)
+                      .then((v) => imageEdit(_imageFile));
                   Navigator.pop(context);
                 },
                 child: Container(
@@ -304,7 +307,8 @@ class _EditProfileState extends State<EditProfile> {
               SizedBox(height: 10.0),
               GestureDetector(
                 onTap: () {
-                  _pickImage(ImageSource.gallery).then((v) => imageEdit());
+                  _pickImage(ImageSource.gallery)
+                      .then((v) => imageEdit(_imageFile));
                   Navigator.pop(context);
                 },
                 child: Container(
@@ -324,29 +328,55 @@ class _EditProfileState extends State<EditProfile> {
     );
   }
 
-  imageEdit() {
+  imageEdit(imageFile) {
     showModalBottomSheet(
       isScrollControlled: true,
       context: context,
       builder: (builder) {
         return Container(
-          padding: EdgeInsets.all(20.0),
-          height: MediaQuery.of(context).size.height / 1.2,
-          child: ListView(
+          height: MediaQuery.of(context).size.height / 1.1,
+          color: MColors.primaryWhiteSmoke,
+          child: Column(
             children: [
-              // ignore: sdk_version_ui_as_code
-              if (_imageFile != null) ...[
-                Container(
-                  width: double.infinity,
-                  height: MediaQuery.of(context).size.height / 2,
-                  child: Image.file(_imageFile),
+              SizedBox(height: 20.0),
+              primaryContainer(Container(
+                child: Column(
+                  children: [
+                    Container(
+                      width: double.infinity,
+                      height: MediaQuery.of(context).size.height / 2,
+                      child: Image.file(imageFile),
+                    ),
+                    SizedBox(height: 20.0),
+                    // Row(
+                    //   children: [
+                    //     GestureDetector(
+                    //       onTap: () {},
+                    //       child: Container(
+                    //         padding: EdgeInsets.only(left: 15.0),
+                    //         width: double.infinity,
+                    //         child: Text(
+                    //           "Crop photo",
+                    //           style: normalFont(MColors.textDark, 14.0),
+                    //         ),
+                    //       ),
+                    //     ),
+                    //     GestureDetector(
+                    //       onTap: () {},
+                    //       child: Container(
+                    //         padding: EdgeInsets.only(left: 15.0),
+                    //         width: double.infinity,
+                    //         child: Text(
+                    //           "Save photo",
+                    //           style: normalFont(MColors.primaryPurple, 14.0),
+                    //         ),
+                    //       ),
+                    //     ),
+                    //   ],
+                    // ),
+                  ],
                 ),
-                primaryButtonPurple(
-                  Icon(Icons.crop),
-                  _cropImage,
-                ),
-                Uploader(_imageFile),
-              ]
+              )),
             ],
           ),
         );
