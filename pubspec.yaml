@@ -54,13 +54,12 @@ dependencies:
 flutter_icons:
   android: true
   ios: true
-  image_path: "assets/images/footprint.png"
+  image_path: "assets/images/petshop-footprint-logo-whiteBg.png"
   cupertino_icons: ^0.1.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
 
 flutter:
   # The following line ensures that the Material Icons font is

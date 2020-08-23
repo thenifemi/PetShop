@@ -502,7 +502,7 @@ class _EnterAddressState extends State<EnterAddress> {
             bottom: 15.0,
             left: 15.0,
             right: 15.0,
-            top: 5.0,
+            top: 10.0,
           ),
           decoration: BoxDecoration(
             color: MColors.primaryWhiteSmoke,
@@ -520,7 +520,6 @@ class _EnterAddressState extends State<EnterAddress> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    SizedBox(height: 10.0),
                     modalBarWidget(),
                     SizedBox(height: 20.0),
                     Container(

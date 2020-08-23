@@ -269,7 +269,7 @@ class _EditProfileState extends State<EditProfile> {
         CropAspectRatioPreset.ratio16x9,
       ],
     );
-    saveImage(_cropped);
+    _cropped == null ?? saveImage(_cropped);
   }
 
   /// Remove image

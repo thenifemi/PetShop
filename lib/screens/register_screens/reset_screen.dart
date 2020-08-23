@@ -168,10 +168,31 @@ class _ResetScreenState extends State<ResetScreen> {
 
   void _showModalSheet() {
     showModalBottomSheet(
+      backgroundColor: Colors.transparent,
+      isScrollControlled: true,
       context: context,
       builder: (builder) {
-        return primaryContainer(
-          Column(
+        return Container(
+          height: MediaQuery.of(context).size.height / 3,
+          margin: EdgeInsets.only(
+            bottom: 10.0,
+            left: 10.0,
+            right: 10.0,
+            top: 5.0,
+          ),
+          padding: EdgeInsets.only(
+            bottom: 15.0,
+            left: 15.0,
+            right: 15.0,
+            top: 10.0,
+          ),
+          decoration: BoxDecoration(
+            color: MColors.primaryWhiteSmoke,
+            borderRadius: BorderRadius.all(
+              Radius.circular(15.0),
+            ),
+          ),
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
