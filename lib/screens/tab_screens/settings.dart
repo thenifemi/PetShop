@@ -205,16 +205,27 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             padding: const EdgeInsets.all(10.0),
                             child: Hero(
                               tag: "profileAvatar",
-                              child: Container(
-                                child: SvgPicture.asset(
-                                  "assets/images/femaleAvatar.svg",
-                                  height: 90,
-                                ),
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: MColors.dashPurple,
-                                ),
-                              ),
+                              child: user.profilePhoto == null ||
+                                      user.profilePhoto == ""
+                                  ? ClipRRect(
+                                      borderRadius: BorderRadius.circular(25.0),
+                                      child: SvgPicture.asset(
+                                        "assets/images/petshop-footprint-logo-whiteBg.png",
+                                        height: 90.0,
+                                        width: 90.0,
+                                      ),
+                                    )
+                                  : ClipRRect(
+                                      borderRadius: BorderRadius.circular(25.0),
+                                      child: FadeInImage.assetNetwork(
+                                        image: user.profilePhoto,
+                                        fit: BoxFit.fill,
+                                        height: 90.0,
+                                        width: 90.0,
+                                        placeholder:
+                                            "assets/images/petshop-footprint-logo-whiteBg.png",
+                                      ),
+                                    ),
                             ),
                           ),
                         ),
