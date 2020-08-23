@@ -17,6 +17,7 @@ class Uploader extends StatefulWidget {
 }
 
 class _UploaderState extends State<Uploader> {
+  //Input the link to your own firebase storage bucket
   final FirebaseStorage _storage =
       FirebaseStorage(storageBucket: FIREBASE_STORAGE_BUCKET);
 
