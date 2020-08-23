@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:mollet/credentials.dart';
 
 import 'package:mollet/model/services/auth_service.dart';
 import 'package:mollet/utils/colors.dart';
@@ -17,7 +18,7 @@ class Uploader extends StatefulWidget {
 
 class _UploaderState extends State<Uploader> {
   final FirebaseStorage _storage =
-      FirebaseStorage(storageBucket: 'gs://molletapp.appspot.com');
+      FirebaseStorage(storageBucket: FIREBASE_STORAGE_BUCKET);
 
   StorageUploadTask _uploadTask;
 
