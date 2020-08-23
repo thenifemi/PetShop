@@ -7,7 +7,6 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mollet/model/data/userData.dart';
 import 'package:mollet/model/services/user_management.dart';
-import 'package:mollet/screens/settings_screens/editImageScreen.dart';
 import 'package:mollet/utils/cardUtils/cardStrings.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:mollet/utils/textFieldFormaters.dart';
@@ -23,6 +22,8 @@ class EditProfile extends StatefulWidget {
 }
 
 class _EditProfileState extends State<EditProfile> {
+  File _imageFile;
+
   UserDataProfile user;
 
   _EditProfileState(this.user);
@@ -86,7 +87,9 @@ class _EditProfileState extends State<EditProfile> {
                       onTap: () => imageCapture(),
                       child: Container(
                         child: SvgPicture.asset(
-                          "assets/images/femaleAvatar.svg",
+                          _imageFile == null
+                              ? "assets/images/femaleAvatar.svg"
+                              : "assets/images/femaleAvatar.svg",
                           height: 90,
                         ),
                         decoration: BoxDecoration(
@@ -227,8 +230,6 @@ class _EditProfileState extends State<EditProfile> {
 
   // Profile Image---------------------------------------
 
-  File _imageFile;
-
   //select imge via gallery or camera
   Future<void> _pickImage(ImageSource source) async {
     // ignore: deprecated_member_use
@@ -239,17 +240,15 @@ class _EditProfileState extends State<EditProfile> {
   }
 
   //cropper plugin
-  Future<void> _cropImage() async {
+  Future<void> _cropImage(_imageFileForCrop) async {
     File _cropped = await ImageCropper.cropImage(
-        sourcePath: _imageFile.path,
+        sourcePath: _imageFileForCrop.path,
         androidUiSettings: AndroidUiSettings(
           toolbarColor: MColors.primaryPurple,
           toolbarWidgetColor: MColors.primaryWhiteSmoke,
           toolbarTitle: "Crop image",
         ));
-    setState(() {
-      _imageFile = _cropped ?? _imageFile;
-    });
+    saveImage(_cropped);
   }
 
   /// Remove image
@@ -291,7 +290,7 @@ class _EditProfileState extends State<EditProfile> {
               GestureDetector(
                 onTap: () {
                   _pickImage(ImageSource.camera)
-                      .then((v) => imageEdit(_imageFile));
+                      .then((v) => _cropImage(_imageFile));
                   Navigator.pop(context);
                 },
                 child: Container(
@@ -308,7 +307,7 @@ class _EditProfileState extends State<EditProfile> {
               GestureDetector(
                 onTap: () {
                   _pickImage(ImageSource.gallery)
-                      .then((v) => imageEdit(_imageFile));
+                      .then((v) => _cropImage(_imageFile));
                   Navigator.pop(context);
                 },
                 child: Container(
@@ -328,16 +327,53 @@ class _EditProfileState extends State<EditProfile> {
     );
   }
 
-  imageEdit(imageFile) {
+  saveImage(imageFile) {
     showModalBottomSheet(
+      enableDrag: false,
+      backgroundColor: Colors.transparent,
       isScrollControlled: true,
       context: context,
       builder: (builder) {
         return Container(
-          height: MediaQuery.of(context).size.height / 1.1,
-          color: MColors.primaryWhiteSmoke,
+          height: MediaQuery.of(context).size.height / 1.6,
+          decoration: BoxDecoration(
+            color: MColors.primaryWhiteSmoke,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(15.0),
+              topRight: Radius.circular(15.0),
+            ),
+          ),
           child: Column(
             children: [
+              SizedBox(height: 10.0),
+              primaryAppBar(
+                IconButton(
+                  icon: Icon(
+                    Icons.close,
+                    color: MColors.textGrey,
+                  ),
+                  onPressed: () {
+                    _clear();
+                    Navigator.of(context).pop();
+                  },
+                ),
+                Text(
+                  "Save Photo",
+                  style: boldFont(MColors.primaryPurple, 16.0),
+                ),
+                MColors.primaryWhiteSmoke,
+                null,
+                true,
+                <Widget>[
+                  FlatButton(
+                    onPressed: () {},
+                    child: Text(
+                      "Save",
+                      style: boldFont(MColors.primaryPurple, 14.0),
+                    ),
+                  )
+                ],
+              ),
               SizedBox(height: 20.0),
               primaryContainer(Container(
                 child: Column(
@@ -348,32 +384,6 @@ class _EditProfileState extends State<EditProfile> {
                       child: Image.file(imageFile),
                     ),
                     SizedBox(height: 20.0),
-                    // Row(
-                    //   children: [
-                    //     GestureDetector(
-                    //       onTap: () {},
-                    //       child: Container(
-                    //         padding: EdgeInsets.only(left: 15.0),
-                    //         width: double.infinity,
-                    //         child: Text(
-                    //           "Crop photo",
-                    //           style: normalFont(MColors.textDark, 14.0),
-                    //         ),
-                    //       ),
-                    //     ),
-                    //     GestureDetector(
-                    //       onTap: () {},
-                    //       child: Container(
-                    //         padding: EdgeInsets.only(left: 15.0),
-                    //         width: double.infinity,
-                    //         child: Text(
-                    //           "Save photo",
-                    //           style: normalFont(MColors.primaryPurple, 14.0),
-                    //         ),
-                    //       ),
-                    //     ),
-                    //   ],
-                    // ),
                   ],
                 ),
               )),
