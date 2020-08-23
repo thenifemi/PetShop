@@ -410,7 +410,9 @@ class _EditProfileState extends State<EditProfile> {
                     Container(
                       width: double.infinity,
                       height: MediaQuery.of(context).size.height / 2.3,
-                      child: Image.file(imageFile),
+                      child: ClipRRect(
+                          borderRadius: BorderRadius.circular(30.0),
+                          child: Image.file(imageFile)),
                     ),
                     SizedBox(height: 10.0),
                   ],
@@ -433,7 +435,7 @@ class _EditProfileState extends State<EditProfile> {
             return;
           },
           child: AlertDialog(
-            backgroundColor: Colors.transparent,
+            backgroundColor: MColors.primaryWhiteSmoke,
             content: Container(
               height: 20.0,
               child: Row(
