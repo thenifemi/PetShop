@@ -209,7 +209,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                       user.profilePhoto == ""
                                   ? ClipRRect(
                                       borderRadius: BorderRadius.circular(25.0),
-                                      child: SvgPicture.asset(
+                                      child: Image.asset(
                                         "assets/images/petshop-footprint-logo-whiteBg.png",
                                         height: 90.0,
                                         width: 90.0,

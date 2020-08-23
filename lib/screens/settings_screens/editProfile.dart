@@ -85,12 +85,27 @@ class _EditProfileState extends State<EditProfile> {
                     child: GestureDetector(
                       onTap: () => imageCapture(),
                       child: Container(
-                        child: SvgPicture.asset(
-                          _imageFile == null
-                              ? "assets/images/femaleAvatar.svg"
-                              : "assets/images/femaleAvatar.svg",
-                          height: 90,
-                        ),
+                        child:
+                            user.profilePhoto == null || user.profilePhoto == ""
+                                ? ClipRRect(
+                                    borderRadius: BorderRadius.circular(25.0),
+                                    child: Image.asset(
+                                      "assets/images/petshop-footprint-logo-whiteBg.png",
+                                      height: 90.0,
+                                      width: 90.0,
+                                    ),
+                                  )
+                                : ClipRRect(
+                                    borderRadius: BorderRadius.circular(25.0),
+                                    child: FadeInImage.assetNetwork(
+                                      image: user.profilePhoto,
+                                      fit: BoxFit.fill,
+                                      height: 90.0,
+                                      width: 90.0,
+                                      placeholder:
+                                          "assets/images/petshop-footprint-logo-whiteBg.png",
+                                    ),
+                                  ),
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           color: MColors.dashPurple,
@@ -373,10 +388,11 @@ class _EditProfileState extends State<EditProfile> {
                 true,
                 <Widget>[
                   FlatButton(
-                    onPressed: () {
-                      updateProfilePhoto(imageFile);
-                      Navigator.pop(context);
-                      Navigator.pop(context, true);
+                    onPressed: () async {
+                      await updateProfilePhoto(imageFile).then((value) {
+                        Navigator.pop(context);
+                        Navigator.pop(context, true);
+                      });
                     },
                     child: Text(
                       "Save",

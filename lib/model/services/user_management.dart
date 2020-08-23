@@ -64,7 +64,7 @@ updateProfile(_name, _phone) async {
   );
 }
 
-updateProfilePhoto(file) async {
+Future updateProfilePhoto(file) async {
   final db = FirebaseFirestore.instance;
   final uEmail = await AuthService().getCurrentEmail();
 
@@ -74,9 +74,11 @@ updateProfilePhoto(file) async {
 
   String filePath = 'userImages/$uEmail.png';
 
-  _storage.ref().child(filePath).putFile(file);
+  StorageUploadTask uploadTask = _storage.ref().child(filePath).putFile(file);
 
-  var ref = _storage.ref().child(filePath);
+  StorageTaskSnapshot storageTaskSnapshot = await uploadTask.onComplete;
+
+  var ref = storageTaskSnapshot.ref;
   var profilePhoto = await ref.getDownloadURL();
 
   print(profilePhoto);
