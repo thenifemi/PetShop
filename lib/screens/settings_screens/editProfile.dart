@@ -389,7 +389,9 @@ class _EditProfileState extends State<EditProfile> {
                 <Widget>[
                   FlatButton(
                     onPressed: () async {
+                      _showLoadingDialog();
                       await updateProfilePhoto(imageFile).then((value) {
+                        Navigator.pop(context);
                         Navigator.pop(context);
                         Navigator.pop(context, true);
                       });
@@ -415,6 +417,36 @@ class _EditProfileState extends State<EditProfile> {
                 ),
               )),
             ],
+          ),
+        );
+      },
+    );
+  }
+
+  Future _showLoadingDialog() async {
+    await showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return WillPopScope(
+          onWillPop: () {
+            return;
+          },
+          child: AlertDialog(
+            backgroundColor: Colors.transparent,
+            content: Container(
+              height: 20.0,
+              child: Row(
+                children: <Widget>[
+                  Text(
+                    "Saving...",
+                    style: normalFont(MColors.textGrey, 14.0),
+                  ),
+                  Spacer(),
+                  progressIndicator(MColors.primaryPurple),
+                ],
+              ),
+            ),
           ),
         );
       },
