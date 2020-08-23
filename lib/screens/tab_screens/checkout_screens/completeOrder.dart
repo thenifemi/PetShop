@@ -697,19 +697,36 @@ class _AddressContainerState extends State<AddressContainer> {
   //Bag summary
   void _showModalSheet(cartList, total) {
     showModalBottomSheet(
+      backgroundColor: Colors.transparent,
+      isScrollControlled: true,
       context: context,
       builder: (builder) {
         return Container(
+          height: MediaQuery.of(context).size.height / 1.9,
+          margin: EdgeInsets.only(
+            bottom: 10.0,
+            left: 10.0,
+            right: 10.0,
+            top: 5.0,
+          ),
+          padding: EdgeInsets.only(
+            bottom: 15.0,
+            left: 15.0,
+            right: 15.0,
+            top: 10.0,
+          ),
           decoration: BoxDecoration(
             color: MColors.primaryWhiteSmoke,
+            borderRadius: BorderRadius.all(
+              Radius.circular(15.0),
+            ),
           ),
-          padding: EdgeInsets.all(20.0),
-          height: MediaQuery.of(context).size.height,
           child: SingleChildScrollView(
             physics: BouncingScrollPhysics(),
             child: Column(
               children: <Widget>[
                 modalBarWidget(),
+                SizedBox(height: 10.0),
                 Row(
                   children: <Widget>[
                     Container(
@@ -718,9 +735,7 @@ class _AddressContainerState extends State<AddressContainer> {
                         style: boldFont(MColors.textGrey, 16.0),
                       ),
                     ),
-                    SizedBox(
-                      width: 5.0,
-                    ),
+                    SizedBox(width: 5.0),
                     Container(
                       child: SvgPicture.asset(
                         "assets/images/icons/Bag.svg",
