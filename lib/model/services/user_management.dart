@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:mollet/credentials.dart';
 import 'package:mollet/model/data/userData.dart';
 import 'package:mollet/model/notifiers/userData_notifier.dart';
 import 'package:mollet/model/services/auth_service.dart';
@@ -59,6 +61,36 @@ updateProfile(_name, _phone) async {
       db.collection("userData").doc(uEmail).collection("profile");
   await profileRef.doc(uEmail).update(
     {'name': _name, 'phone': _phone},
+  );
+}
+
+updateProfilePhoto(file) async {
+  final db = FirebaseFirestore.instance;
+  final uEmail = await AuthService().getCurrentEmail();
+
+  //Input the link to your own firebase storage bucket
+  final FirebaseStorage _storage =
+      FirebaseStorage(storageBucket: FIREBASE_STORAGE_BUCKET);
+
+  StorageUploadTask _uploadTask;
+
+  String filePath = 'userImages/$uEmail.png';
+
+  var profilePhotoUri;
+
+  _uploadTask = _storage.ref().child(filePath).putFile(file);
+  _uploadTask.isComplete
+      ? profilePhotoUri = await _uploadTask.lastSnapshot.ref.getDownloadURL()
+      : profilePhotoUri = "";
+
+  print(profilePhotoUri);
+
+  CollectionReference profileRef =
+      db.collection("userData").doc(uEmail).collection("profile");
+  await profileRef.doc(uEmail).update(
+    {
+      'profilePhoto': profilePhotoUri,
+    },
   );
 }
 

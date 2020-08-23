@@ -11,7 +11,6 @@ import 'package:mollet/utils/cardUtils/cardStrings.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:mollet/utils/textFieldFormaters.dart';
 import 'package:mollet/widgets/allWidgets.dart';
-import 'package:mollet/widgets/imageCapture_Widget.dart';
 
 class EditProfile extends StatefulWidget {
   final UserDataProfile user;
@@ -242,12 +241,19 @@ class _EditProfileState extends State<EditProfile> {
   //cropper plugin
   Future<void> _cropImage(_imageFileForCrop) async {
     File _cropped = await ImageCropper.cropImage(
-        sourcePath: _imageFileForCrop.path,
-        androidUiSettings: AndroidUiSettings(
-          toolbarColor: MColors.primaryPurple,
-          toolbarWidgetColor: MColors.primaryWhiteSmoke,
-          toolbarTitle: "Crop image",
-        ));
+      sourcePath: _imageFileForCrop.path,
+      androidUiSettings: AndroidUiSettings(
+        toolbarColor: MColors.primaryPurple,
+        toolbarWidgetColor: MColors.primaryWhiteSmoke,
+        toolbarTitle: "Crop image",
+      ),
+      aspectRatioPresets: [
+        CropAspectRatioPreset.square,
+        CropAspectRatioPreset.ratio3x2,
+        CropAspectRatioPreset.ratio4x3,
+        CropAspectRatioPreset.ratio16x9,
+      ],
+    );
     saveImage(_cropped);
   }
 
@@ -335,7 +341,7 @@ class _EditProfileState extends State<EditProfile> {
       context: context,
       builder: (builder) {
         return Container(
-          height: MediaQuery.of(context).size.height / 1.6,
+          height: MediaQuery.of(context).size.height / 1.8,
           decoration: BoxDecoration(
             color: MColors.primaryWhiteSmoke,
             borderRadius: BorderRadius.only(
@@ -366,7 +372,9 @@ class _EditProfileState extends State<EditProfile> {
                 true,
                 <Widget>[
                   FlatButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      updateProfilePhoto(imageFile);
+                    },
                     child: Text(
                       "Save",
                       style: boldFont(MColors.primaryPurple, 14.0),
