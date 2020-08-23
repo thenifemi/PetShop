@@ -270,57 +270,68 @@ class _EditProfileState extends State<EditProfile> {
   // image capture
 
   imageCapture() {
-    return showDialog(
+    return showModalBottomSheet(
+      backgroundColor: Colors.transparent,
       context: context,
-      builder: (context) => SimpleDialog(
-        contentPadding: EdgeInsets.all(20.0),
-        children: [
-          SizedBox(
-            height: 50.0,
-            width: double.infinity,
-            child: RawMaterialButton(
-              onPressed: () =>
-                  _pickImage(ImageSource.camera).then((v) => imageEdit()),
-              child: Row(
-                children: [
-                  Icon(
-                    Icons.camera,
-                    size: 30.0,
-                    color: MColors.primaryPurple,
-                  ),
-                  SizedBox(width: 10.0),
-                  Text(
+      builder: (context) => Container(
+        margin: EdgeInsets.only(
+          bottom: 10.0,
+          left: 10.0,
+          right: 10.0,
+          top: 5.0,
+        ),
+        padding: EdgeInsets.all(15.0),
+        decoration: BoxDecoration(
+          color: MColors.primaryWhite,
+          borderRadius: BorderRadius.all(
+            Radius.circular(15.0),
+          ),
+        ),
+        height: 150.0,
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                "Change profile photo",
+                style: boldFont(MColors.textDark, 18.0),
+              ),
+              SizedBox(height: 30.0),
+              GestureDetector(
+                onTap: () {
+                  _pickImage(ImageSource.camera).then((v) => imageEdit());
+                  Navigator.pop(context);
+                },
+                child: Container(
+                  padding: EdgeInsets.only(left: 15.0),
+                  height: 30.0,
+                  width: double.infinity,
+                  child: Text(
                     "Capture with camera",
-                    style: normalFont(MColors.textGrey, 14.0),
+                    style: normalFont(MColors.textDark, 14.0),
                   ),
-                ],
+                ),
               ),
-            ),
-          ),
-          SizedBox(height: 10.0),
-          SizedBox(
-            height: 50.0,
-            width: double.infinity,
-            child: RawMaterialButton(
-              onPressed: () =>
-                  _pickImage(ImageSource.gallery).then((v) => imageEdit()),
-              child: Row(
-                children: [
-                  Icon(
-                    Icons.photo_library,
-                    color: MColors.primaryPurple,
-                    size: 30.0,
+              SizedBox(height: 10.0),
+              GestureDetector(
+                onTap: () {
+                  _pickImage(ImageSource.gallery).then((v) => imageEdit());
+                  Navigator.pop(context);
+                },
+                child: Container(
+                  padding: EdgeInsets.only(left: 15.0),
+                  height: 30.0,
+                  width: double.infinity,
+                  child: Text(
+                    "Choose from photo gallery",
+                    style: normalFont(MColors.textDark, 14.0),
                   ),
-                  SizedBox(width: 10.0),
-                  Text(
-                    "Select from photo gallery",
-                    style: normalFont(MColors.textGrey, 14.0),
-                  ),
-                ],
+                ),
               ),
-            ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
