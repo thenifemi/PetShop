@@ -335,6 +335,7 @@ class _EditProfileState extends State<EditProfile> {
 
   saveImage(imageFile) {
     showModalBottomSheet(
+      isDismissible: false,
       enableDrag: false,
       backgroundColor: Colors.transparent,
       isScrollControlled: true,
@@ -374,6 +375,8 @@ class _EditProfileState extends State<EditProfile> {
                   FlatButton(
                     onPressed: () {
                       updateProfilePhoto(imageFile);
+                      Navigator.pop(context);
+                      Navigator.pop(context, true);
                     },
                     child: Text(
                       "Save",
@@ -382,16 +385,16 @@ class _EditProfileState extends State<EditProfile> {
                   )
                 ],
               ),
-              SizedBox(height: 20.0),
+              SizedBox(height: 10.0),
               primaryContainer(Container(
                 child: Column(
                   children: [
                     Container(
                       width: double.infinity,
-                      height: MediaQuery.of(context).size.height / 2,
+                      height: MediaQuery.of(context).size.height / 2.3,
                       child: Image.file(imageFile),
                     ),
-                    SizedBox(height: 20.0),
+                    SizedBox(height: 10.0),
                   ],
                 ),
               )),

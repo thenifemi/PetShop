@@ -72,24 +72,20 @@ updateProfilePhoto(file) async {
   final FirebaseStorage _storage =
       FirebaseStorage(storageBucket: FIREBASE_STORAGE_BUCKET);
 
-  StorageUploadTask _uploadTask;
-
   String filePath = 'userImages/$uEmail.png';
 
-  var profilePhotoUri;
+  _storage.ref().child(filePath).putFile(file);
 
-  _uploadTask = _storage.ref().child(filePath).putFile(file);
-  _uploadTask.isComplete
-      ? profilePhotoUri = await _uploadTask.lastSnapshot.ref.getDownloadURL()
-      : profilePhotoUri = "";
+  var ref = _storage.ref().child(filePath);
+  var profilePhoto = await ref.getDownloadURL();
 
-  print(profilePhotoUri);
+  print(profilePhoto);
 
   CollectionReference profileRef =
       db.collection("userData").doc(uEmail).collection("profile");
   await profileRef.doc(uEmail).update(
     {
-      'profilePhoto': profilePhotoUri,
+      'profilePhoto': profilePhoto,
     },
   );
 }
