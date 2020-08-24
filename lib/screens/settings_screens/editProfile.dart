@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mollet/model/data/userData.dart';
@@ -269,7 +268,8 @@ class _EditProfileState extends State<EditProfile> {
         CropAspectRatioPreset.ratio16x9,
       ],
     );
-    _cropped == null ?? saveImage(_cropped);
+    // ignore: unnecessary_statements
+    _cropped == null ? null : saveImage(_cropped);
   }
 
   /// Remove image
