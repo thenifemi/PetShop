@@ -21,6 +21,18 @@ class _HomeScreenState extends State<HomeScreen>
     with SingleTickerProviderStateMixin {
   @override
   void initState() {
+    // BrandsNotifier brandsNotifier =
+    //     Provider.of<BrandsNotifier>(context, listen: false);
+    // getBrands(brandsNotifier);
+
+    ProductsNotifier productsNotifier =
+        Provider.of<ProductsNotifier>(context, listen: false);
+    getProdProducts(productsNotifier);
+
+    CartNotifier cartNotifier =
+        Provider.of<CartNotifier>(context, listen: false);
+    getCart(cartNotifier);
+
     _tabController = TabController(
       length: _tabItems.length,
       vsync: this,
