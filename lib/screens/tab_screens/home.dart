@@ -21,8 +21,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen>
     with SingleTickerProviderStateMixin {
   @override
-  Future<void> initState() async {
-    await checkInternetConnectivity().then((value) => {
+  void initState() {
+    checkInternetConnectivity().then((value) => {
           value == true
               ? () {
                   // BrandsNotifier brandsNotifier =

@@ -12,6 +12,8 @@ import 'package:mollet/utils/internetConnectivity.dart';
 import 'package:mollet/utils/textFieldFormaters.dart';
 import 'package:mollet/widgets/allWidgets.dart';
 
+import '../../main.dart';
+
 class EditProfile extends StatefulWidget {
   final UserDataProfile user;
   EditProfile(this.user);
@@ -401,7 +403,15 @@ class _EditProfileState extends State<EditProfile> {
                                   Navigator.pop(context, true);
                                 });
                               }()
-                            : showNoInternetSnack(_scaffoldKey);
+                            : () {
+                                showNoInternetSnack(_scaffoldKey);
+                                Navigator.of(context).pushAndRemoveUntil(
+                                  CupertinoPageRoute(
+                                    builder: (_) => MyApp(),
+                                  ),
+                                  (Route<dynamic> route) => false,
+                                );
+                              }();
                       });
                     },
                     child: Text(
