@@ -7,6 +7,7 @@ import 'package:mollet/model/notifiers/products_notifier.dart';
 import 'package:mollet/model/services/Product_service.dart';
 import 'package:mollet/screens/tab_screens/homeScreen_pages/productDetailsScreen.dart';
 import 'package:mollet/utils/colors.dart';
+import 'package:mollet/utils/internetConnectivity.dart';
 import 'package:mollet/widgets/allWidgets.dart';
 import 'package:provider/provider.dart';
 
@@ -21,17 +22,23 @@ class _HomeScreenState extends State<HomeScreen>
     with SingleTickerProviderStateMixin {
   @override
   void initState() {
-    // BrandsNotifier brandsNotifier =
-    //     Provider.of<BrandsNotifier>(context, listen: false);
-    // getBrands(brandsNotifier);
+    checkInternetConnectivity().then((value) => {
+          value == true
+              ? () {
+                  // BrandsNotifier brandsNotifier =
+                  //     Provider.of<BrandsNotifier>(context, listen: false);
+                  // getBrands(brandsNotifier);
 
-    ProductsNotifier productsNotifier =
-        Provider.of<ProductsNotifier>(context, listen: false);
-    getProdProducts(productsNotifier);
+                  ProductsNotifier productsNotifier =
+                      Provider.of<ProductsNotifier>(context, listen: false);
+                  getProdProducts(productsNotifier);
 
-    CartNotifier cartNotifier =
-        Provider.of<CartNotifier>(context, listen: false);
-    getCart(cartNotifier);
+                  CartNotifier cartNotifier =
+                      Provider.of<CartNotifier>(context, listen: false);
+                  getCart(cartNotifier);
+                }()
+              : showNoInternetSnack(_scaffoldKey)
+        });
 
     _tabController = TabController(
       length: _tabItems.length,

@@ -9,6 +9,7 @@ import 'package:mollet/screens/settings_screens/cards.dart';
 import 'package:mollet/screens/settings_screens/editProfile.dart';
 import 'package:mollet/screens/settings_screens/passwordSecurity.dart';
 import 'package:mollet/utils/colors.dart';
+import 'package:mollet/utils/internetConnectivity.dart';
 import 'package:mollet/widgets/allWidgets.dart';
 import 'package:mollet/widgets/provider.dart';
 import 'package:provider/provider.dart';
@@ -29,13 +30,21 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   @override
   void initState() {
-    UserDataProfileNotifier profileNotifier =
-        Provider.of<UserDataProfileNotifier>(context, listen: false);
-    profileFuture = getProfile(profileNotifier);
+    checkInternetConnectivity().then((value) => {
+          value == true
+              ? () {
+                  UserDataProfileNotifier profileNotifier =
+                      Provider.of<UserDataProfileNotifier>(context,
+                          listen: false);
+                  profileFuture = getProfile(profileNotifier);
 
-    UserDataAddressNotifier addressNotifier =
-        Provider.of<UserDataAddressNotifier>(context, listen: false);
-    addressFuture = getAddress(addressNotifier);
+                  UserDataAddressNotifier addressNotifier =
+                      Provider.of<UserDataAddressNotifier>(context,
+                          listen: false);
+                  addressFuture = getAddress(addressNotifier);
+                }()
+              : showNoInternetSnack(_scaffoldKey)
+        });
 
     super.initState();
   }

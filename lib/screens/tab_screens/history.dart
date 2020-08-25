@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:mollet/model/notifiers/orders_notifier.dart';
 import 'package:mollet/model/services/Product_service.dart';
 import 'package:mollet/utils/colors.dart';
+import 'package:mollet/utils/internetConnectivity.dart';
 
 import 'package:mollet/widgets/allWidgets.dart';
 import 'package:provider/provider.dart';
@@ -26,9 +27,16 @@ class _HistoryScreenState extends State<HistoryScreen>
 
   @override
   void initState() {
-    OrderListNotifier orderListNotifier =
-        Provider.of<OrderListNotifier>(context, listen: false);
-    ordersFuture = getOrders(orderListNotifier);
+    checkInternetConnectivity().then((value) => {
+          value == true
+              ? () {
+                  OrderListNotifier orderListNotifier =
+                      Provider.of<OrderListNotifier>(context, listen: false);
+                  ordersFuture = getOrders(orderListNotifier);
+                }()
+              : showNoInternetSnack(_scaffoldKey)
+        });
+
     _tabController = TabController(
       length: _tabItems.length,
       vsync: this,

@@ -5,6 +5,7 @@ import 'package:mollet/model/notifiers/notifications_notifier.dart';
 import 'package:mollet/model/services/pushNotification_service.dart';
 import 'package:mollet/screens/tab_screens/homeScreen_pages/notificationDetails.dart';
 import 'package:mollet/utils/colors.dart';
+import 'package:mollet/utils/internetConnectivity.dart';
 import 'package:mollet/widgets/allWidgets.dart';
 import 'package:provider/provider.dart';
 
@@ -16,13 +17,23 @@ class InboxScreen extends StatefulWidget {
 }
 
 class _InboxScreenState extends State<InboxScreen> {
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+
   Future notificationsFuture;
 
   @override
   void initState() {
-    NotificationsNotifier notificationsNotifier =
-        Provider.of<NotificationsNotifier>(context, listen: false);
-    notificationsFuture = getNotifications(notificationsNotifier);
+    checkInternetConnectivity().then((value) => {
+          value == true
+              ? () {
+                  NotificationsNotifier notificationsNotifier =
+                      Provider.of<NotificationsNotifier>(context,
+                          listen: false);
+                  notificationsFuture = getNotifications(notificationsNotifier);
+                }()
+              : showNoInternetSnack(_scaffoldKey)
+        });
+
     super.initState();
   }
 
@@ -32,26 +43,29 @@ class _InboxScreenState extends State<InboxScreen> {
         Provider.of<NotificationsNotifier>(context);
     var nots = notificationsNotifier.notificationMessageList;
 
-    return primaryContainer(
-      FutureBuilder(
-        future: notificationsFuture,
-        builder: (c, s) {
-          switch (s.connectionState) {
-            case ConnectionState.active:
-              return progressIndicator(MColors.primaryPurple);
-              break;
-            case ConnectionState.done:
-              return nots.isEmpty
-                  ? noNotifications()
-                  : notificationsScreen(nots);
-              break;
-            case ConnectionState.waiting:
-              return progressIndicator(MColors.primaryPurple);
-              break;
-            default:
-              return progressIndicator(MColors.primaryPurple);
-          }
-        },
+    return Scaffold(
+      backgroundColor: MColors.primaryWhiteSmoke,
+      body: primaryContainer(
+        FutureBuilder(
+          future: notificationsFuture,
+          builder: (c, s) {
+            switch (s.connectionState) {
+              case ConnectionState.active:
+                return progressIndicator(MColors.primaryPurple);
+                break;
+              case ConnectionState.done:
+                return nots.isEmpty
+                    ? noNotifications()
+                    : notificationsScreen(nots);
+                break;
+              case ConnectionState.waiting:
+                return progressIndicator(MColors.primaryPurple);
+                break;
+              default:
+                return progressIndicator(MColors.primaryPurple);
+            }
+          },
+        ),
       ),
     );
   }
