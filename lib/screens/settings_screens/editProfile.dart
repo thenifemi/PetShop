@@ -400,10 +400,8 @@ class _EditProfileState extends State<EditProfile> {
                                     .then((value) {
                                   Navigator.of(context, rootNavigator: true)
                                       .pop();
-                                  Navigator.of(context, rootNavigator: true)
-                                      .pop();
-                                  Navigator.of(context, rootNavigator: true)
-                                      .pop(true);
+                                  Navigator.of(context).pop();
+                                  Navigator.of(context).pop(true);
                                 });
                               }()
                             : () {
