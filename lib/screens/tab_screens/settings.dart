@@ -201,13 +201,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             }
                           },
                           child: Padding(
-                            padding: const EdgeInsets.all(10.0),
+                            padding: const EdgeInsets.all(5.0),
                             child: Hero(
                               tag: "profileAvatar",
                               child: user.profilePhoto == null ||
                                       user.profilePhoto == ""
                                   ? ClipRRect(
-                                      borderRadius: BorderRadius.circular(25.0),
+                                      borderRadius: BorderRadius.circular(9.0),
                                       child: Image.asset(
                                         "assets/images/petshop-footprint-logo-whiteBg.png",
                                         height: 90.0,
@@ -215,7 +215,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                       ),
                                     )
                                   : ClipRRect(
-                                      borderRadius: BorderRadius.circular(25.0),
+                                      borderRadius: BorderRadius.circular(9.0),
                                       child: FadeInImage.assetNetwork(
                                         image: user.profilePhoto,
                                         fit: BoxFit.fill,

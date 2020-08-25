@@ -87,7 +87,7 @@ class _EditProfileState extends State<EditProfile> {
                         child:
                             user.profilePhoto == null || user.profilePhoto == ""
                                 ? ClipRRect(
-                                    borderRadius: BorderRadius.circular(25.0),
+                                    borderRadius: BorderRadius.circular(9.0),
                                     child: Image.asset(
                                       "assets/images/petshop-footprint-logo-whiteBg.png",
                                       height: 90.0,
@@ -95,7 +95,7 @@ class _EditProfileState extends State<EditProfile> {
                                     ),
                                   )
                                 : ClipRRect(
-                                    borderRadius: BorderRadius.circular(25.0),
+                                    borderRadius: BorderRadius.circular(9.0),
                                     child: FadeInImage.assetNetwork(
                                       image: user.profilePhoto,
                                       fit: BoxFit.fill,
@@ -404,20 +404,23 @@ class _EditProfileState extends State<EditProfile> {
                 ],
               ),
               SizedBox(height: 10.0),
-              primaryContainer(Container(
-                child: Column(
-                  children: [
-                    Container(
-                      width: double.infinity,
-                      height: MediaQuery.of(context).size.height / 2.3,
-                      child: ClipRRect(
-                          borderRadius: BorderRadius.circular(30.0),
-                          child: Image.file(imageFile)),
-                    ),
-                    SizedBox(height: 10.0),
-                  ],
+              primaryContainer(
+                Container(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Column(
+                    children: [
+                      Container(
+                        width: double.infinity,
+                        height: MediaQuery.of(context).size.height / 2.3,
+                        child: ClipRRect(
+                            borderRadius: BorderRadius.circular(100.0),
+                            child: Image.file(imageFile)),
+                      ),
+                      SizedBox(height: 10.0),
+                    ],
+                  ),
                 ),
-              )),
+              ),
             ],
           ),
         );
