@@ -8,6 +8,7 @@ import 'package:mollet/model/data/userData.dart';
 import 'package:mollet/model/services/user_management.dart';
 import 'package:mollet/utils/cardUtils/cardStrings.dart';
 import 'package:mollet/utils/colors.dart';
+import 'package:mollet/utils/internetConnectivity.dart';
 import 'package:mollet/utils/textFieldFormaters.dart';
 import 'package:mollet/widgets/allWidgets.dart';
 
@@ -389,11 +390,18 @@ class _EditProfileState extends State<EditProfile> {
                 <Widget>[
                   FlatButton(
                     onPressed: () async {
-                      _showLoadingDialog();
-                      await updateProfilePhoto(imageFile).then((value) {
-                        Navigator.pop(context);
-                        Navigator.pop(context);
-                        Navigator.pop(context, true);
+                      await checkInternetConnectivity().then((value) {
+                        value == true
+                            ? () async {
+                                _showLoadingDialog();
+                                await updateProfilePhoto(imageFile)
+                                    .then((value) {
+                                  Navigator.pop(context);
+                                  Navigator.pop(context);
+                                  Navigator.pop(context, true);
+                                });
+                              }()
+                            : showNoInternetSnack(_scaffoldKey);
                       });
                     },
                     child: Text(
