@@ -69,7 +69,7 @@ class _TabsLayoutState extends State<TabsLayout> {
                   getNotifications(notificationsNotifier);
 
                   saveDeviceToken();
-                }
+                }()
               : showNoInternetSnack(_scaffoldKey)
         });
 
