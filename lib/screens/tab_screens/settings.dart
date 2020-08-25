@@ -349,7 +349,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
         ),
       ),
       bottomNavigationBar: Container(
-        color: Colors.red,
         height: 20,
         padding: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
         child: Column(
