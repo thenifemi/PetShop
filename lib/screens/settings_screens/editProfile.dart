@@ -412,9 +412,7 @@ class _EditProfileState extends State<EditProfile> {
                       Container(
                         width: double.infinity,
                         height: MediaQuery.of(context).size.height / 2.3,
-                        child: ClipRRect(
-                            borderRadius: BorderRadius.circular(100.0),
-                            child: Image.file(imageFile)),
+                        child: Image.file(imageFile),
                       ),
                       SizedBox(height: 10.0),
                     ],
