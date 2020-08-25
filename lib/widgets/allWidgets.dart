@@ -388,6 +388,34 @@ void showSimpleSnack(
     ),
   );
 }
+
+void showNoInternetSnack(
+  GlobalKey<ScaffoldState> _scaffoldKey,
+) {
+  _scaffoldKey.currentState.showSnackBar(
+    SnackBar(
+      behavior: SnackBarBehavior.floating,
+      duration: Duration(milliseconds: 2000),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+      content: Row(
+        children: <Widget>[
+          Expanded(
+            child: Text(
+              "No internet connection! Please connect to the internet to continue.",
+              style: normalFont(null, null),
+            ),
+          ),
+          Icon(
+            Icons.check_circle_outline,
+            color: Colors.amber,
+          )
+        ],
+      ),
+    ),
+  );
+}
 //-------------------------------------------
 
 //EMPTYCART----------------------------------

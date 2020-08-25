@@ -16,6 +16,7 @@ import 'package:mollet/screens/tab_screens/homeScreen_pages/bag.dart';
 import 'package:mollet/screens/tab_screens/notifications.dart';
 import 'package:mollet/screens/tab_screens/settings.dart';
 import 'package:mollet/utils/colors.dart';
+import 'package:mollet/utils/internetConnectivity.dart';
 import 'package:provider/provider.dart';
 import 'allWidgets.dart';
 
@@ -25,41 +26,52 @@ class TabsLayout extends StatefulWidget {
 }
 
 class _TabsLayoutState extends State<TabsLayout> {
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+
   final PageStorageBucket bucket = PageStorageBucket();
 
   int _currentIndex = 0;
 
   @override
   void initState() {
-    // BrandsNotifier brandsNotifier =
-    //     Provider.of<BrandsNotifier>(context, listen: false);
-    // getBrands(brandsNotifier);
+    checkInternetConnectivity().then((value) => {
+          value == true
+              ? () {
+                  // BrandsNotifier brandsNotifier =
+                  //     Provider.of<BrandsNotifier>(context, listen: false);
+                  // getBrands(brandsNotifier);
 
-    OrderListNotifier orderListNotifier =
-        Provider.of<OrderListNotifier>(context, listen: false);
-    getOrders(orderListNotifier);
+                  OrderListNotifier orderListNotifier =
+                      Provider.of<OrderListNotifier>(context, listen: false);
+                  getOrders(orderListNotifier);
 
-    ProductsNotifier productsNotifier =
-        Provider.of<ProductsNotifier>(context, listen: false);
-    getProdProducts(productsNotifier);
+                  ProductsNotifier productsNotifier =
+                      Provider.of<ProductsNotifier>(context, listen: false);
+                  getProdProducts(productsNotifier);
 
-    UserDataProfileNotifier profileNotifier =
-        Provider.of<UserDataProfileNotifier>(context, listen: false);
-    getProfile(profileNotifier);
+                  UserDataProfileNotifier profileNotifier =
+                      Provider.of<UserDataProfileNotifier>(context,
+                          listen: false);
+                  getProfile(profileNotifier);
 
-    UserDataAddressNotifier addressNotifier =
-        Provider.of<UserDataAddressNotifier>(context, listen: false);
-    getAddress(addressNotifier);
+                  UserDataAddressNotifier addressNotifier =
+                      Provider.of<UserDataAddressNotifier>(context,
+                          listen: false);
+                  getAddress(addressNotifier);
 
-    CartNotifier cartNotifier =
-        Provider.of<CartNotifier>(context, listen: false);
-    getCart(cartNotifier);
+                  CartNotifier cartNotifier =
+                      Provider.of<CartNotifier>(context, listen: false);
+                  getCart(cartNotifier);
 
-    NotificationsNotifier notificationsNotifier =
-        Provider.of<NotificationsNotifier>(context, listen: false);
-    getNotifications(notificationsNotifier);
+                  NotificationsNotifier notificationsNotifier =
+                      Provider.of<NotificationsNotifier>(context,
+                          listen: false);
+                  getNotifications(notificationsNotifier);
 
-    saveDeviceToken();
+                  saveDeviceToken();
+                }
+              : showNoInternetSnack(_scaffoldKey)
+        });
 
     super.initState();
   }
@@ -105,6 +117,7 @@ class _TabsLayoutState extends State<TabsLayout> {
     var cartList = cartNotifier.cartList;
 
     return Scaffold(
+      key: _scaffoldKey,
       appBar: primaryAppBar(
         null,
         _currentIndex != 0
