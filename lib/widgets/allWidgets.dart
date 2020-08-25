@@ -395,7 +395,7 @@ void showNoInternetSnack(
   _scaffoldKey.currentState.showSnackBar(
     SnackBar(
       behavior: SnackBarBehavior.floating,
-      duration: Duration(milliseconds: 2000),
+      duration: Duration(milliseconds: 7000),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10.0),
       ),
@@ -408,7 +408,7 @@ void showNoInternetSnack(
             ),
           ),
           Icon(
-            Icons.check_circle_outline,
+            Icons.error_outline,
             color: Colors.amber,
           )
         ],
