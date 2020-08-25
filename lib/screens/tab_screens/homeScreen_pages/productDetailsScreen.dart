@@ -124,44 +124,38 @@ class _ProductDetailsState extends State<ProductDetails> {
                               color: MColors.textGrey,
                             ),
                           ),
-                          cartList.isNotEmpty || isCartBadge
-                              ? Positioned(
-                                  right: 0,
-                                  child: new Container(
-                                    padding: EdgeInsets.all(1),
-                                    decoration: new BoxDecoration(
-                                      color: Colors.redAccent,
-                                      borderRadius: BorderRadius.circular(6),
-                                    ),
-                                    constraints: BoxConstraints(
-                                      minWidth: 7,
-                                      minHeight: 7,
-                                    ),
-                                  ),
-                                )
-                              : Positioned(
-                                  right: 0,
-                                  child: new Container(
-                                    padding: EdgeInsets.all(1),
-                                    decoration: new BoxDecoration(
-                                      color: MColors.primaryWhite,
-                                      borderRadius: BorderRadius.circular(6),
-                                    ),
-                                    constraints: BoxConstraints(
-                                      minWidth: 7,
-                                      minHeight: 7,
-                                    ),
-                                  ),
-                                ),
+                          Positioned(
+                            right: 0,
+                            child: Container(
+                              padding: EdgeInsets.all(1),
+                              decoration: BoxDecoration(
+                                color: cartList.isNotEmpty
+                                    ? Colors.redAccent
+                                    : Colors.transparent,
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                              constraints: BoxConstraints(
+                                minWidth: 7,
+                                minHeight: 7,
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ),
-                    onPressed: () {
-                      Navigator.of(context).push(
+                    onPressed: () async {
+                      CartNotifier cartNotifier =
+                          Provider.of<CartNotifier>(context, listen: false);
+                      var navigationResult = await Navigator.of(context).push(
                         CupertinoPageRoute(
                           builder: (context) => Bag(),
                         ),
                       );
+                      if (navigationResult == true) {
+                        setState(() {
+                          getCart(cartNotifier);
+                        });
+                      }
                     },
                   ),
                 ),
