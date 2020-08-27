@@ -47,6 +47,7 @@ class _BagScreenState extends State<BagScreen> {
 
     return WillPopScope(
       onWillPop: () {
+        Navigator.pop(context, true);
         return Future.value(true);
       },
       child: Scaffold(
