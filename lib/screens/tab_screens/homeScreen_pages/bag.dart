@@ -45,49 +45,54 @@ class _BagScreenState extends State<BagScreen> {
         ? 0.0
         : totalList.reduce((sum, element) => sum + element).toStringAsFixed(2);
 
-    return Scaffold(
-      appBar: primaryAppBar(
-        IconButton(
-          icon: Icon(
-            Icons.arrow_back_ios,
-            color: MColors.textGrey,
+    return WillPopScope(
+      onWillPop: () {
+        return Future.value(true);
+      },
+      child: Scaffold(
+        appBar: primaryAppBar(
+          IconButton(
+            icon: Icon(
+              Icons.arrow_back_ios,
+              color: MColors.textGrey,
+            ),
+            onPressed: () {
+              Navigator.pop(context, true);
+            },
           ),
-          onPressed: () {
-            Navigator.pop(context, true);
+          Text(
+            "Bag",
+            style: boldFont(MColors.primaryPurple, 16.0),
+          ),
+          MColors.primaryWhiteSmoke,
+          null,
+          true,
+          null,
+        ),
+        body: FutureBuilder(
+          future: bagFuture,
+          builder: (c, s) {
+            switch (s.connectionState) {
+              case ConnectionState.active:
+                return progressIndicator(MColors.primaryPurple);
+                break;
+              case ConnectionState.done:
+                return cartList.isEmpty
+                    ? emptyScreen(
+                        "assets/images/emptyCart.svg",
+                        "Bag is empty",
+                        "Products you add to your bag will show up here. So lets get shopping and make your pet happy.",
+                      )
+                    : bag(cartList, total);
+                break;
+              case ConnectionState.waiting:
+                return progressIndicator(MColors.primaryPurple);
+                break;
+              default:
+                return progressIndicator(MColors.primaryPurple);
+            }
           },
         ),
-        Text(
-          "Bag",
-          style: boldFont(MColors.primaryPurple, 16.0),
-        ),
-        MColors.primaryWhiteSmoke,
-        null,
-        true,
-        null,
-      ),
-      body: FutureBuilder(
-        future: bagFuture,
-        builder: (c, s) {
-          switch (s.connectionState) {
-            case ConnectionState.active:
-              return progressIndicator(MColors.primaryPurple);
-              break;
-            case ConnectionState.done:
-              return cartList.isEmpty
-                  ? emptyScreen(
-                      "assets/images/emptyCart.svg",
-                      "Bag is empty",
-                      "Products you add to your bag will show up here. So lets get shopping and make your pet happy.",
-                    )
-                  : bag(cartList, total);
-              break;
-            case ConnectionState.waiting:
-              return progressIndicator(MColors.primaryPurple);
-              break;
-            default:
-              return progressIndicator(MColors.primaryPurple);
-          }
-        },
       ),
     );
   }
