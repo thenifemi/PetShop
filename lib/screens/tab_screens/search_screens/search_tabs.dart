@@ -1,19 +1,23 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mollet/model/data/Products.dart';
+import 'package:mollet/model/notifiers/cart_notifier.dart';
+import 'package:mollet/model/services/Product_service.dart';
+import 'package:mollet/screens/tab_screens/homeScreen_pages/productDetailsScreen.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:mollet/widgets/allWidgets.dart';
 
 class SearchTabWidget extends StatefulWidget {
   final PageStorageKey pageStorageKey;
-  final void Function() onTapProductDetails;
+  final CartNotifier cartNotifier;
   final void Function() onTapAddToBag;
   final Iterable<ProdProducts> prods;
 
   SearchTabWidget({
     Key key,
     this.pageStorageKey,
-    this.onTapProductDetails,
+    this.cartNotifier,
     this.onTapAddToBag,
     this.prods,
   }) : super(key: key);
@@ -21,7 +25,7 @@ class SearchTabWidget extends StatefulWidget {
   @override
   _SearchTabWidgetState createState() => _SearchTabWidgetState(
         pageStorageKey,
-        onTapProductDetails,
+        cartNotifier,
         onTapAddToBag,
         prods,
       );
@@ -30,13 +34,13 @@ class SearchTabWidget extends StatefulWidget {
 class _SearchTabWidgetState extends State<SearchTabWidget> {
   _SearchTabWidgetState(
     this.pageStorageKey,
-    this.onTapProductDetails,
+    this.cartNotifier,
     this.onTapAddToBag,
     this.prods,
   );
   ProdProducts product;
   PageStorageKey pageStorageKey;
-  void Function() onTapProductDetails;
+  CartNotifier cartNotifier;
   void Function() onTapAddToBag;
   Iterable<ProdProducts> prods;
 
@@ -69,7 +73,18 @@ class _SearchTabWidgetState extends State<SearchTabWidget> {
         var product = cleanList[i];
 
         return GestureDetector(
-          onTap: () async => onTapProductDetails,
+          onTap: () async {
+            var navigationResult = await Navigator.of(context).push(
+              CupertinoPageRoute(
+                builder: (context) => ProductDetailsProv(product, prods),
+              ),
+            );
+            if (navigationResult == true) {
+              setState(() {
+                getCart(cartNotifier);
+              });
+            }
+          },
           child: Container(
             padding: EdgeInsets.all(10),
             decoration: BoxDecoration(
