@@ -1,5 +1,3 @@
-import 'dart:collection';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mollet/model/data/Products.dart';
@@ -7,15 +5,13 @@ import 'package:mollet/utils/colors.dart';
 import 'package:mollet/widgets/allWidgets.dart';
 
 class SearchTabWidget extends StatefulWidget {
-  final ProdProducts product;
   final PageStorageKey pageStorageKey;
   final void Function() onTapProductDetails;
   final void Function() onTapAddToBag;
-  final UnmodifiableListView<ProdProducts> prods;
+  final Iterable<ProdProducts> prods;
 
   SearchTabWidget({
     Key key,
-    this.product,
     this.pageStorageKey,
     this.onTapProductDetails,
     this.onTapAddToBag,
@@ -24,7 +20,6 @@ class SearchTabWidget extends StatefulWidget {
 
   @override
   _SearchTabWidgetState createState() => _SearchTabWidgetState(
-        product,
         pageStorageKey,
         onTapProductDetails,
         onTapAddToBag,
@@ -34,7 +29,6 @@ class SearchTabWidget extends StatefulWidget {
 
 class _SearchTabWidgetState extends State<SearchTabWidget> {
   _SearchTabWidgetState(
-    this.product,
     this.pageStorageKey,
     this.onTapProductDetails,
     this.onTapAddToBag,
@@ -44,7 +38,7 @@ class _SearchTabWidgetState extends State<SearchTabWidget> {
   PageStorageKey pageStorageKey;
   void Function() onTapProductDetails;
   void Function() onTapAddToBag;
-  UnmodifiableListView<ProdProducts> prods;
+  Iterable<ProdProducts> prods;
 
   @override
   Widget build(BuildContext context) {
@@ -71,6 +65,9 @@ class _SearchTabWidgetState extends State<SearchTabWidget> {
       mainAxisSpacing: 15.0,
       crossAxisSpacing: 15.0,
       children: List<Widget>.generate(prods.length, (i) {
+        var cleanList = prods.toList();
+        var product = cleanList[i];
+
         return GestureDetector(
           onTap: () async => onTapProductDetails,
           child: Container(
