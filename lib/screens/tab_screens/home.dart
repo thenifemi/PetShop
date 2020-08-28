@@ -6,6 +6,7 @@ import 'package:mollet/model/notifiers/cart_notifier.dart';
 import 'package:mollet/model/notifiers/products_notifier.dart';
 import 'package:mollet/model/services/Product_service.dart';
 import 'package:mollet/screens/tab_screens/homeScreen_pages/productDetailsScreen.dart';
+import 'package:mollet/screens/tab_screens/search_screens/search_tabs.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:mollet/utils/internetConnectivity.dart';
 import 'package:mollet/widgets/allWidgets.dart';
@@ -187,137 +188,144 @@ class _HomeScreenState extends State<HomeScreen>
   //Add to Bag dialog
   Widget buildAllBody(prods, cartProdID) {
     Iterable<ProdProducts> all = prods.reversed;
+    CartNotifier cartNotifier =
+        Provider.of<CartNotifier>(context, listen: false);
 
-    var size = MediaQuery.of(context).size;
-    /*24 is for notification bar on Android*/
-    final double itemHeight = size.height / 2.5;
-    final double itemWidth = size.width / 2;
-    double _picHeight;
-    if (itemHeight >= 315) {
-      _picHeight = itemHeight / 2;
-    } else if (itemHeight <= 315 && itemHeight >= 280) {
-      _picHeight = itemHeight / 2.2;
-    } else if (itemHeight <= 280 && itemHeight >= 200) {
-      _picHeight = itemHeight / 2.7;
-    } else {
-      _picHeight = 30;
-    }
-
-    return primaryContainer(
-      GridView.count(
-        physics: BouncingScrollPhysics(),
-        crossAxisCount: 2,
-        childAspectRatio: (itemWidth / itemHeight),
-        mainAxisSpacing: 15.0,
-        crossAxisSpacing: 15.0,
-        children: List<Widget>.generate(all.length, (i) {
-          var cleanList = all.toList();
-          var fil = cleanList[i];
-
-          return GestureDetector(
-            onTap: () async {
-              CartNotifier cartNotifier =
-                  Provider.of<CartNotifier>(context, listen: false);
-              var navigationResult = await Navigator.of(context).push(
-                CupertinoPageRoute(
-                  builder: (context) => ProductDetailsProv(fil, prods),
-                ),
-              );
-              if (navigationResult == true) {
-                setState(() {
-                  getCart(cartNotifier);
-                });
-              }
-            },
-            child: Container(
-              padding: EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: MColors.primaryWhite,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(10.0),
-                ),
-                boxShadow: [
-                  BoxShadow(
-                      color: Color.fromRGBO(0, 0, 0, 0.03),
-                      offset: Offset(0, 10),
-                      blurRadius: 10,
-                      spreadRadius: 0),
-                ],
-              ),
-              child: Column(
-                children: <Widget>[
-                  Container(
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10.0),
-                      child: Hero(
-                        child: FadeInImage.assetNetwork(
-                          image: fil.productImage,
-                          fit: BoxFit.fill,
-                          height: _picHeight,
-                          placeholder: "assets/images/placeholder.jpg",
-                          placeholderScale:
-                              MediaQuery.of(context).size.height / 2,
-                        ),
-                        tag: fil.productID,
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 10.0),
-                  Align(
-                    alignment: Alignment.bottomLeft,
-                    child: Container(
-                      child: Text(
-                        fil.name,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        style: normalFont(MColors.textGrey, 14.0),
-                      ),
-                    ),
-                  ),
-                  Spacer(),
-                  Container(
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Container(
-                          child: Text(
-                            "\$${fil.price}",
-                            style: boldFont(MColors.primaryPurple, 20.0),
-                          ),
-                        ),
-                        Spacer(),
-                        GestureDetector(
-                          onTap: () {
-                            addToBagshowDialog(
-                              cartProdID,
-                              fil,
-                            );
-                          },
-                          child: Container(
-                            width: 40.0,
-                            height: 40.0,
-                            padding: const EdgeInsets.all(8.0),
-                            decoration: BoxDecoration(
-                              color: MColors.dashPurple,
-                              borderRadius: new BorderRadius.circular(8.0),
-                            ),
-                            child: SvgPicture.asset(
-                              "assets/images/icons/basket.svg",
-                              height: 22.0,
-                              color: MColors.textGrey,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          );
-        }),
-      ),
+    return SearchTabWidget(
+      prods: all,
+      cartNotifier: cartNotifier,
     );
+
+    // var size = MediaQuery.of(context).size;
+    // /*24 is for notification bar on Android*/
+    // final double itemHeight = size.height / 2.5;
+    // final double itemWidth = size.width / 2;
+    // double _picHeight;
+    // if (itemHeight >= 315) {
+    //   _picHeight = itemHeight / 2;
+    // } else if (itemHeight <= 315 && itemHeight >= 280) {
+    //   _picHeight = itemHeight / 2.2;
+    // } else if (itemHeight <= 280 && itemHeight >= 200) {
+    //   _picHeight = itemHeight / 2.7;
+    // } else {
+    //   _picHeight = 30;
+    // }
+
+    // return primaryContainer(
+    //   GridView.count(
+    //     physics: BouncingScrollPhysics(),
+    //     crossAxisCount: 2,
+    //     childAspectRatio: (itemWidth / itemHeight),
+    //     mainAxisSpacing: 15.0,
+    //     crossAxisSpacing: 15.0,
+    //     children: List<Widget>.generate(all.length, (i) {
+    //       var cleanList = all.toList();
+    //       var fil = cleanList[i];
+
+    //       return GestureDetector(
+    //         onTap: () async {
+    //           CartNotifier cartNotifier =
+    //               Provider.of<CartNotifier>(context, listen: false);
+    //           var navigationResult = await Navigator.of(context).push(
+    //             CupertinoPageRoute(
+    //               builder: (context) => ProductDetailsProv(fil, prods),
+    //             ),
+    //           );
+    //           if (navigationResult == true) {
+    //             setState(() {
+    //               getCart(cartNotifier);
+    //             });
+    //           }
+    //         },
+    //         child: Container(
+    //           padding: EdgeInsets.all(10),
+    //           decoration: BoxDecoration(
+    //             color: MColors.primaryWhite,
+    //             borderRadius: BorderRadius.all(
+    //               Radius.circular(10.0),
+    //             ),
+    //             boxShadow: [
+    //               BoxShadow(
+    //                   color: Color.fromRGBO(0, 0, 0, 0.03),
+    //                   offset: Offset(0, 10),
+    //                   blurRadius: 10,
+    //                   spreadRadius: 0),
+    //             ],
+    //           ),
+    //           child: Column(
+    //             children: <Widget>[
+    //               Container(
+    //                 child: ClipRRect(
+    //                   borderRadius: BorderRadius.circular(10.0),
+    //                   child: Hero(
+    //                     child: FadeInImage.assetNetwork(
+    //                       image: fil.productImage,
+    //                       fit: BoxFit.fill,
+    //                       height: _picHeight,
+    //                       placeholder: "assets/images/placeholder.jpg",
+    //                       placeholderScale:
+    //                           MediaQuery.of(context).size.height / 2,
+    //                     ),
+    //                     tag: fil.productID,
+    //                   ),
+    //                 ),
+    //               ),
+    //               SizedBox(height: 10.0),
+    //               Align(
+    //                 alignment: Alignment.bottomLeft,
+    //                 child: Container(
+    //                   child: Text(
+    //                     fil.name,
+    //                     maxLines: 2,
+    //                     overflow: TextOverflow.ellipsis,
+    //                     style: normalFont(MColors.textGrey, 14.0),
+    //                   ),
+    //                 ),
+    //               ),
+    //               Spacer(),
+    //               Container(
+    //                 child: Row(
+    //                   crossAxisAlignment: CrossAxisAlignment.center,
+    //                   children: <Widget>[
+    //                     Container(
+    //                       child: Text(
+    //                         "\$${fil.price}",
+    //                         style: boldFont(MColors.primaryPurple, 20.0),
+    //                       ),
+    //                     ),
+    //                     Spacer(),
+    //                     GestureDetector(
+    //                       onTap: () {
+    //                         addToBagshowDialog(
+    //                           cartProdID,
+    //                           fil,
+    //                         );
+    //                       },
+    //                       child: Container(
+    //                         width: 40.0,
+    //                         height: 40.0,
+    //                         padding: const EdgeInsets.all(8.0),
+    //                         decoration: BoxDecoration(
+    //                           color: MColors.dashPurple,
+    //                           borderRadius: new BorderRadius.circular(8.0),
+    //                         ),
+    //                         child: SvgPicture.asset(
+    //                           "assets/images/icons/basket.svg",
+    //                           height: 22.0,
+    //                           color: MColors.textGrey,
+    //                         ),
+    //                       ),
+    //                     ),
+    //                   ],
+    //                 ),
+    //               ),
+    //             ],
+    //           ),
+    //         ),
+    //       );
+    //     }),
+    //   ),
+    // );
   }
 
   Widget buildCatBody(prods, cartProdID) {
