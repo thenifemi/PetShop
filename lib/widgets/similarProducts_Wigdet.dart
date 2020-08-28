@@ -14,7 +14,7 @@ import 'package:provider/provider.dart';
 class SimilarProductsWidget extends StatefulWidget {
   final ProdProducts prodDetails;
   final GlobalKey<ScaffoldState> scaffoldKey;
-  final UnmodifiableListView<ProdProducts> prods;
+  final Iterable<ProdProducts> prods;
 
   SimilarProductsWidget(
       {Key key, this.prods, this.prodDetails, this.scaffoldKey})
@@ -29,7 +29,7 @@ class _SimilarProductsWidgetState extends State<SimilarProductsWidget> {
   ProdProducts prodDetails;
   final GlobalKey<ScaffoldState> scaffoldKey;
 
-  UnmodifiableListView<ProdProducts> prods;
+  Iterable<ProdProducts> prods;
   _SimilarProductsWidgetState(this.prods, this.prodDetails, this.scaffoldKey);
 
   @override

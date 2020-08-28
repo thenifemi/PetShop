@@ -15,7 +15,7 @@ import 'package:provider/provider.dart';
 
 class ProductDetailsProv extends StatelessWidget {
   final ProdProducts prodDetails;
-  final UnmodifiableListView<ProdProducts> prods;
+  final Iterable<ProdProducts> prods;
   ProductDetailsProv(this.prodDetails, this.prods);
 
   @override
@@ -29,7 +29,7 @@ class ProductDetailsProv extends StatelessWidget {
 
 class ProductDetails extends StatefulWidget {
   final ProdProducts prodDetails;
-  final UnmodifiableListView<ProdProducts> prods;
+  final Iterable<ProdProducts> prods;
   ProductDetails(this.prodDetails, this.prods);
 
   @override
@@ -41,7 +41,7 @@ class _ProductDetailsState extends State<ProductDetails> {
   _ProductDetailsState(this.prodDetails, this.prods);
 
   ProdProducts prodDetails;
-  UnmodifiableListView<ProdProducts> prods;
+  Iterable<ProdProducts> prods;
   bool _isbuttonDisabled = false;
   bool _isProductadded = false;
 

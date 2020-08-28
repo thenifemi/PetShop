@@ -124,12 +124,12 @@ class _HomeScreenState extends State<HomeScreen>
     cartProdID,
     fil,
   ) async {
-    CartNotifier cartNotifier =
-        Provider.of<CartNotifier>(context, listen: false);
-
     await showCupertinoDialog(
         context: context,
         builder: (context) {
+          CartNotifier cartNotifier =
+              Provider.of<CartNotifier>(context, listen: false);
+
           return CupertinoAlertDialog(
             content: Text(
               "Sure you want to add to Bag?",
@@ -194,6 +194,7 @@ class _HomeScreenState extends State<HomeScreen>
     return SearchTabWidget(
       prods: all,
       cartNotifier: cartNotifier,
+      cartProdID: cartProdID,
     );
 
     // var size = MediaQuery.of(context).size;
