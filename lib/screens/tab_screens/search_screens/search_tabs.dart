@@ -9,14 +9,12 @@ import 'package:mollet/utils/colors.dart';
 import 'package:mollet/widgets/allWidgets.dart';
 
 class SearchTabWidget extends StatefulWidget {
-  final GlobalKey<ScaffoldState> scaffoldKey;
   final CartNotifier cartNotifier;
   final Iterable<String> cartProdID;
   final Iterable<ProdProducts> prods;
 
   SearchTabWidget({
     Key key,
-    this.scaffoldKey,
     this.cartNotifier,
     this.cartProdID,
     this.prods,
@@ -24,7 +22,6 @@ class SearchTabWidget extends StatefulWidget {
 
   @override
   _SearchTabWidgetState createState() => _SearchTabWidgetState(
-        scaffoldKey,
         cartNotifier,
         cartProdID,
         prods,
@@ -33,13 +30,11 @@ class SearchTabWidget extends StatefulWidget {
 
 class _SearchTabWidgetState extends State<SearchTabWidget> {
   _SearchTabWidgetState(
-    this._scaffoldKey,
     this.cartNotifier,
     this.cartProdID,
     this.prods,
   );
   ProdProducts product;
-  GlobalKey<ScaffoldState> _scaffoldKey;
   CartNotifier cartNotifier;
   Iterable<String> cartProdID;
   Iterable<ProdProducts> prods;
