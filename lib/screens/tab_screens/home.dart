@@ -50,6 +50,7 @@ class _HomeScreenState extends State<HomeScreen>
   }
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  final PageStorageBucket searchBucket = PageStorageBucket();
 
   TabController _tabController;
   final _tabItems = [
@@ -107,15 +108,18 @@ class _HomeScreenState extends State<HomeScreen>
         false,
         null,
       ),
-      body: Container(
-        color: MColors.primaryWhiteSmoke,
-        child: prods.isEmpty
-            ? progressIndicator(MColors.primaryPurple)
-            : TabBarView(
-                physics: BouncingScrollPhysics(),
-                children: _tabBody,
-                controller: _tabController,
-              ),
+      body: PageStorage(
+        bucket: searchBucket,
+        child: Container(
+          color: MColors.primaryWhiteSmoke,
+          child: prods.isEmpty
+              ? progressIndicator(MColors.primaryPurple)
+              : TabBarView(
+                  physics: BouncingScrollPhysics(),
+                  children: _tabBody,
+                  controller: _tabController,
+                ),
+        ),
       ),
     );
   }
@@ -133,18 +137,6 @@ class _HomeScreenState extends State<HomeScreen>
     );
   }
 
-  Widget buildCatBody(prods, cartProdID) {
-    Iterable<ProdProducts> cat = prods.where((e) => e.pet == "cat");
-    CartNotifier cartNotifier =
-        Provider.of<CartNotifier>(context, listen: false);
-
-    return SearchTabWidget(
-      prods: cat,
-      cartNotifier: cartNotifier,
-      cartProdID: cartProdID,
-    );
-  }
-
   Widget buildDogBody(prods, cartProdID) {
     Iterable<ProdProducts> dog = prods.where((e) => e.pet == "dog");
     CartNotifier cartNotifier =
@@ -152,6 +144,18 @@ class _HomeScreenState extends State<HomeScreen>
 
     return SearchTabWidget(
       prods: dog,
+      cartNotifier: cartNotifier,
+      cartProdID: cartProdID,
+    );
+  }
+
+  Widget buildCatBody(prods, cartProdID) {
+    Iterable<ProdProducts> cat = prods.where((e) => e.pet == "cat");
+    CartNotifier cartNotifier =
+        Provider.of<CartNotifier>(context, listen: false);
+
+    return SearchTabWidget(
+      prods: cat,
       cartNotifier: cartNotifier,
       cartProdID: cartProdID,
     );

@@ -87,7 +87,7 @@ class _TabsLayoutState extends State<TabsLayout> {
       key: PageStorageKey("pageKey3"),
     ),
     SettingsScreen(
-      key: PageStorageKey("pageKey4 "),
+      key: PageStorageKey("pageKey4"),
     ),
   ];
 
