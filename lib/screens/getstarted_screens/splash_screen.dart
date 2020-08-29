@@ -8,8 +8,9 @@ class SplashScreen extends StatelessWidget {
       color: MColors.primaryWhiteSmoke,
       child: Center(
         child: Container(
+          height: 45.0,
           child:
-              Image.asset("assets/images/petshop-footprint-logo-whiteBg.png"),
+              Image.asset("assets/images/petshop-footprint-logo-transBg.png"),
         ),
       ),
     );
