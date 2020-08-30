@@ -38,12 +38,6 @@ class _SimilarProductsWidgetState extends State<SimilarProductsWidget> {
     var cartList = cartNotifier.cartList;
     var cartProdID = cartList.map((e) => e.productID);
 
-    // return SearchTabWidget(
-    //   prods: sims,
-    //   cartNotifier: cartNotifier,
-    //   cartProdID: cartProdID,
-    // );
-
     var size = MediaQuery.of(context).size;
     /*24 is for notification bar on Android*/
     final double itemHeight = size.height / 2.5;
