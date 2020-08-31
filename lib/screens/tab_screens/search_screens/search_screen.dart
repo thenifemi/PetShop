@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:mollet/model/data/Products.dart';
 import 'package:mollet/model/notifiers/brands_notifier.dart';
 import 'package:mollet/model/notifiers/cart_notifier.dart';
@@ -103,9 +104,37 @@ class _SearchScreenState extends State<SearchScreen>
     ];
 
     return Scaffold(
-      key: _scaffoldKey,
       appBar: primaryAppBar(
-        null,
+        IconButton(
+          icon: Icon(
+            Icons.arrow_back_ios,
+            color: MColors.textGrey,
+          ),
+          onPressed: () {
+            Navigator.pop(context, true);
+          },
+        ),
+        searchTextField(
+          null,
+          null,
+          "Search for products...",
+          null,
+          null,
+          true,
+          null,
+          false,
+          false,
+          true,
+          TextInputType.text,
+          null,
+          SvgPicture.asset(
+            "assets/images/icons/Search.svg",
+            color: MColors.textGrey,
+            height: 16.0,
+          ),
+          0.0,
+        ),
+        MColors.primaryWhiteSmoke,
         TabBar(
           unselectedLabelColor: MColors.textGrey,
           unselectedLabelStyle: normalFont(MColors.textGrey, 16.0),
@@ -122,22 +151,23 @@ class _SearchScreenState extends State<SearchScreen>
           }).toList(),
           controller: _tabController,
         ),
-        MColors.primaryWhiteSmoke,
-        null,
         false,
         null,
       ),
-      body: PageStorage(
-        bucket: searchBucket,
-        child: Container(
-          color: MColors.primaryWhiteSmoke,
-          child: prods.isEmpty
-              ? progressIndicator(MColors.primaryPurple)
-              : TabBarView(
-                  physics: BouncingScrollPhysics(),
-                  children: _tabBody,
-                  controller: _tabController,
-                ),
+      body: Scaffold(
+        key: _scaffoldKey,
+        body: PageStorage(
+          bucket: searchBucket,
+          child: Container(
+            color: MColors.primaryWhiteSmoke,
+            child: prods.isEmpty
+                ? progressIndicator(MColors.primaryPurple)
+                : TabBarView(
+                    physics: BouncingScrollPhysics(),
+                    children: _tabBody,
+                    controller: _tabController,
+                  ),
+          ),
         ),
       ),
     );
