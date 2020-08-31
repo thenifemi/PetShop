@@ -143,7 +143,7 @@ class _TabsLayoutState extends State<TabsLayout> {
                         null,
                         "Search for products",
                         null,
-                        true,
+                        false,
                         null,
                         false,
                         false,
