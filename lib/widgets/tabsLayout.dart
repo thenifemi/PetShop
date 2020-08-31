@@ -14,6 +14,7 @@ import 'package:mollet/screens/tab_screens/history.dart';
 import 'package:mollet/screens/tab_screens/home.dart';
 import 'package:mollet/screens/tab_screens/homeScreen_pages/bag.dart';
 import 'package:mollet/screens/tab_screens/notifications.dart';
+import 'package:mollet/screens/tab_screens/search_screens/search_screen.dart';
 import 'package:mollet/screens/tab_screens/settings.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:mollet/utils/internetConnectivity.dart';
@@ -136,26 +137,39 @@ class _TabsLayoutState extends State<TabsLayout> {
             : Row(
                 children: <Widget>[
                   Expanded(
-                    child: Container(
-                      height: 40.0,
-                      child: primaryTextField(
-                        null,
-                        null,
-                        "Search for products",
-                        null,
-                        false,
-                        null,
-                        false,
-                        false,
-                        true,
-                        TextInputType.text,
-                        null,
-                        SvgPicture.asset(
-                          "assets/images/icons/Search.svg",
-                          color: MColors.textGrey,
-                          height: 16.0,
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).push(
+                          CupertinoPageRoute(
+                            builder: (context) => SearchScreen(),
+                          ),
+                        );
+                      },
+                      child: Container(
+                        height: 40.0,
+                        child: Container(
+                          padding: EdgeInsets.symmetric(horizontal: 20.0),
+                          height: 40.0,
+                          decoration: BoxDecoration(
+                              color: MColors.primaryWhite,
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(10.0),
+                              )),
+                          child: Row(
+                            children: [
+                              Text(
+                                "Search for products...",
+                                style: normalFont(MColors.textGrey, 14.0),
+                              ),
+                              Spacer(),
+                              SvgPicture.asset(
+                                "assets/images/icons/Search.svg",
+                                color: MColors.textGrey,
+                                height: 20.0,
+                              ),
+                            ],
+                          ),
                         ),
-                        0.0,
                       ),
                     ),
                   ),
