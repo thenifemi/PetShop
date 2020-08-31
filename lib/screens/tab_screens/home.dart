@@ -108,18 +108,15 @@ class _HomeScreenState extends State<HomeScreen>
       ),
       body: PageStorage(
         bucket: searchBucket,
-        child: RefreshIndicator(
-          onRefresh: () => getProdProducts(productsNotifier),
-          child: Container(
-            color: MColors.primaryWhiteSmoke,
-            child: prods.isEmpty
-                ? progressIndicator(MColors.primaryPurple)
-                : TabBarView(
-                    physics: BouncingScrollPhysics(),
-                    children: _tabBody,
-                    controller: _tabController,
-                  ),
-          ),
+        child: Container(
+          color: MColors.primaryWhiteSmoke,
+          child: prods.isEmpty
+              ? progressIndicator(MColors.primaryPurple)
+              : TabBarView(
+                  physics: BouncingScrollPhysics(),
+                  children: _tabBody,
+                  controller: _tabController,
+                ),
         ),
       ),
     );
@@ -130,10 +127,13 @@ class _HomeScreenState extends State<HomeScreen>
     Iterable<ProdProducts> all = prods.reversed;
     CartNotifier cartNotifier =
         Provider.of<CartNotifier>(context, listen: false);
+    ProductsNotifier productsNotifier =
+        Provider.of<ProductsNotifier>(context, listen: false);
 
     return SearchTabWidget(
       prods: all,
       cartNotifier: cartNotifier,
+      productsNotifier: productsNotifier,
       cartProdID: cartProdID,
     );
   }
@@ -142,10 +142,12 @@ class _HomeScreenState extends State<HomeScreen>
     Iterable<ProdProducts> dog = prods.where((e) => e.pet == "dog");
     CartNotifier cartNotifier =
         Provider.of<CartNotifier>(context, listen: false);
+    ProductsNotifier productsNotifier = Provider.of<ProductsNotifier>(context);
 
     return SearchTabWidget(
       prods: dog,
       cartNotifier: cartNotifier,
+      productsNotifier: productsNotifier,
       cartProdID: cartProdID,
     );
   }
@@ -154,10 +156,12 @@ class _HomeScreenState extends State<HomeScreen>
     Iterable<ProdProducts> cat = prods.where((e) => e.pet == "cat");
     CartNotifier cartNotifier =
         Provider.of<CartNotifier>(context, listen: false);
+    ProductsNotifier productsNotifier = Provider.of<ProductsNotifier>(context);
 
     return SearchTabWidget(
       prods: cat,
       cartNotifier: cartNotifier,
+      productsNotifier: productsNotifier,
       cartProdID: cartProdID,
     );
   }

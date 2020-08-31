@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mollet/model/data/Products.dart';
 import 'package:mollet/model/notifiers/cart_notifier.dart';
+import 'package:mollet/model/notifiers/products_notifier.dart';
 import 'package:mollet/model/services/Product_service.dart';
 import 'package:mollet/screens/tab_screens/homeScreen_pages/productDetailsScreen.dart';
 import 'package:mollet/utils/colors.dart';
@@ -10,12 +11,14 @@ import 'package:mollet/widgets/allWidgets.dart';
 
 class SearchTabWidget extends StatefulWidget {
   final CartNotifier cartNotifier;
+  final ProductsNotifier productsNotifier;
   final Iterable<String> cartProdID;
   final Iterable<ProdProducts> prods;
 
   SearchTabWidget({
     Key key,
     this.cartNotifier,
+    this.productsNotifier,
     this.cartProdID,
     this.prods,
   }) : super(key: key);
@@ -23,6 +26,7 @@ class SearchTabWidget extends StatefulWidget {
   @override
   _SearchTabWidgetState createState() => _SearchTabWidgetState(
         cartNotifier,
+        productsNotifier,
         cartProdID,
         prods,
       );
@@ -31,11 +35,13 @@ class SearchTabWidget extends StatefulWidget {
 class _SearchTabWidgetState extends State<SearchTabWidget> {
   _SearchTabWidgetState(
     this.cartNotifier,
+    this.productsNotifier,
     this.cartProdID,
     this.prods,
   );
   ProdProducts product;
   CartNotifier cartNotifier;
+  ProductsNotifier productsNotifier;
   Iterable<String> cartProdID;
   Iterable<ProdProducts> prods;
 
@@ -62,7 +68,7 @@ class _SearchTabWidgetState extends State<SearchTabWidget> {
     return Scaffold(
       key: scaffoldKey,
       body: RefreshIndicator(
-        onRefresh: () {},
+        onRefresh: () => getProdProducts(productsNotifier),
         child: primaryContainer(GridView.count(
           physics: BouncingScrollPhysics(),
           crossAxisCount: 2,
