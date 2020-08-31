@@ -121,10 +121,10 @@ class _HistoryScreenState extends State<HistoryScreen>
   Widget currentOrder(orderList) {
     OrderListNotifier orderListNotifier =
         Provider.of<OrderListNotifier>(context, listen: false);
-    return RefreshIndicator(
-      onRefresh: () => getOrders(orderListNotifier),
-      child: Container(
-        height: MediaQuery.of(context).size.height,
+    return Container(
+      height: MediaQuery.of(context).size.height,
+      child: RefreshIndicator(
+        onRefresh: () => getOrders(orderListNotifier),
         child: ListView.builder(
           physics: BouncingScrollPhysics(),
           shrinkWrap: true,
