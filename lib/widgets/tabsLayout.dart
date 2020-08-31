@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mollet/model/notifiers/notifications_notifier.dart';
 import 'package:mollet/model/notifiers/orders_notifier.dart';
@@ -141,7 +140,7 @@ class _TabsLayoutState extends State<TabsLayout> {
                       onTap: () {
                         Navigator.of(context).push(
                           CupertinoPageRoute(
-                            builder: (context) => SearchScreen(),
+                            builder: (context) => Search(),
                           ),
                         );
                       },
