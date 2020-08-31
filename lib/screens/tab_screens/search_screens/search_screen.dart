@@ -115,6 +115,7 @@ class _SearchScreenState extends State<SearchScreen>
           },
         ),
         searchTextField(
+          true,
           null,
           null,
           "Search for products...",

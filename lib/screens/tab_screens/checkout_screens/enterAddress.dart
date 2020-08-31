@@ -48,7 +48,7 @@ class _EnterAddressState extends State<EnterAddress> {
   _EnterAddressState(this.address, this.addressList);
   final formKey = GlobalKey<FormState>();
 
-  TextEditingController _searchController = new TextEditingController();
+  TextEditingController _searchController = TextEditingController();
   Timer _throttle;
   bool showCurrentLocation;
   bool _autoValidate = false;
@@ -189,6 +189,7 @@ class _EnterAddressState extends State<EnterAddress> {
                   SizedBox(height: 20.0),
                   Container(
                     child: searchTextField(
+                      false,
                       _searchController,
                       null,
                       "Search for your address",

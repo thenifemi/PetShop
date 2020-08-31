@@ -248,6 +248,7 @@ Widget primaryTextField(
 }
 
 Widget searchTextField(
+  bool autofocus,
   TextEditingController controller,
   String initialValue,
   String labelText,
@@ -264,6 +265,7 @@ Widget searchTextField(
   double textfieldBorder,
 ) {
   return TextFormField(
+    autofocus: autofocus,
     controller: controller,
     initialValue: initialValue,
     onSaved: onsaved,
