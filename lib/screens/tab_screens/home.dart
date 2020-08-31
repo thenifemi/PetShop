@@ -108,15 +108,18 @@ class _HomeScreenState extends State<HomeScreen>
       ),
       body: PageStorage(
         bucket: searchBucket,
-        child: Container(
-          color: MColors.primaryWhiteSmoke,
-          child: prods.isEmpty
-              ? progressIndicator(MColors.primaryPurple)
-              : TabBarView(
-                  physics: BouncingScrollPhysics(),
-                  children: _tabBody,
-                  controller: _tabController,
-                ),
+        child: RefreshIndicator(
+          onRefresh: () => getProdProducts(productsNotifier),
+          child: Container(
+            color: MColors.primaryWhiteSmoke,
+            child: prods.isEmpty
+                ? progressIndicator(MColors.primaryPurple)
+                : TabBarView(
+                    physics: BouncingScrollPhysics(),
+                    children: _tabBody,
+                    controller: _tabController,
+                  ),
+          ),
         ),
       ),
     );
