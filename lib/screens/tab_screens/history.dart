@@ -51,29 +51,32 @@ class _HistoryScreenState extends State<HistoryScreen>
     var orderList = orderListNotifier.orderListList;
 
     return Scaffold(
-      body: FutureBuilder(
-        future: ordersFuture,
-        builder: (c, s) {
-          switch (s.connectionState) {
-            case ConnectionState.active:
-              return progressIndicator(MColors.primaryPurple);
-              break;
-            case ConnectionState.done:
-              return orderList.isEmpty
-                  ? emptyScreen(
-                      "assets/images/noHistory.svg",
-                      "No Orders",
-                      "Your past orders, transactions and hires will show up here.",
-                    )
-                  : ordersScreen(orderList);
-              break;
-            case ConnectionState.waiting:
-              return progressIndicator(MColors.primaryPurple);
-              break;
-            default:
-              return progressIndicator(MColors.primaryPurple);
-          }
-        },
+      body: RefreshIndicator(
+        onRefresh: () => getOrders(orderListNotifier),
+        child: FutureBuilder(
+          future: ordersFuture,
+          builder: (c, s) {
+            switch (s.connectionState) {
+              case ConnectionState.active:
+                return progressIndicator(MColors.primaryPurple);
+                break;
+              case ConnectionState.done:
+                return orderList.isEmpty
+                    ? emptyScreen(
+                        "assets/images/noHistory.svg",
+                        "No Orders",
+                        "Your past orders, transactions and hires will show up here.",
+                      )
+                    : ordersScreen(orderList);
+                break;
+              case ConnectionState.waiting:
+                return progressIndicator(MColors.primaryPurple);
+                break;
+              default:
+                return progressIndicator(MColors.primaryPurple);
+            }
+          },
+        ),
       ),
     );
   }

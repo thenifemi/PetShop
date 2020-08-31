@@ -45,26 +45,29 @@ class _InboxScreenState extends State<InboxScreen> {
 
     return Scaffold(
       backgroundColor: MColors.primaryWhiteSmoke,
-      body: primaryContainer(
-        FutureBuilder(
-          future: notificationsFuture,
-          builder: (c, s) {
-            switch (s.connectionState) {
-              case ConnectionState.active:
-                return progressIndicator(MColors.primaryPurple);
-                break;
-              case ConnectionState.done:
-                return nots.isEmpty
-                    ? noNotifications()
-                    : notificationsScreen(nots);
-                break;
-              case ConnectionState.waiting:
-                return progressIndicator(MColors.primaryPurple);
-                break;
-              default:
-                return progressIndicator(MColors.primaryPurple);
-            }
-          },
+      body: RefreshIndicator(
+        onRefresh: () => getNotifications(notificationsNotifier),
+        child: primaryContainer(
+          FutureBuilder(
+            future: notificationsFuture,
+            builder: (c, s) {
+              switch (s.connectionState) {
+                case ConnectionState.active:
+                  return progressIndicator(MColors.primaryPurple);
+                  break;
+                case ConnectionState.done:
+                  return nots.isEmpty
+                      ? noNotifications()
+                      : notificationsScreen(nots);
+                  break;
+                case ConnectionState.waiting:
+                  return progressIndicator(MColors.primaryPurple);
+                  break;
+                default:
+                  return progressIndicator(MColors.primaryPurple);
+              }
+            },
+          ),
         ),
       ),
     );
