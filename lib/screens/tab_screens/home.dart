@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mollet/model/data/Products.dart';
@@ -83,31 +84,36 @@ class _HomeScreenState extends State<HomeScreen>
 
     return Scaffold(
       key: _scaffoldKey,
-      appBar: primaryAppBar(
-        null,
-        TabBar(
-          unselectedLabelColor: MColors.textGrey,
-          unselectedLabelStyle: normalFont(MColors.textGrey, 16.0),
-          labelColor: MColors.primaryPurple,
-          labelStyle: boldFont(MColors.primaryPurple, 20.0),
-          indicatorWeight: 0.01,
-          isScrollable: true,
-          tabs: _tabItems.map((e) {
-            return Tab(
-              child: Text(
-                e,
-              ),
-            );
-          }).toList(),
-          controller: _tabController,
-        ),
-        MColors.primaryWhiteSmoke,
-        null,
-        false,
-        null,
-      ),
+      backgroundColor: MColors.primaryWhiteSmoke,
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(),
+        child: Column(
+          children: [
+            Container(
+              child: CarouselSlider(
+                options: CarouselOptions(
+                  height: 200.0,
+                  enableInfiniteScroll: false,
+                  initialPage: 0,
+                ),
+                items: [1, 2, 3, 4, 5].map((i) {
+                  return Builder(
+                    builder: (BuildContext context) {
+                      return Container(
+                          width: MediaQuery.of(context).size.width,
+                          margin: EdgeInsets.symmetric(horizontal: 5.0),
+                          decoration: BoxDecoration(color: Colors.amber),
+                          child: Text(
+                            'text $i',
+                            style: TextStyle(fontSize: 16.0),
+                          ));
+                    },
+                  );
+                }).toList(),
+              ),
+            ),
+          ],
+        ),
       ),
       // body: PageStorage(
       //   bucket: searchBucket,
