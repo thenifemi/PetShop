@@ -97,13 +97,12 @@ class _HomeScreenState extends State<HomeScreen>
                   initialPage: 0,
                   viewportFraction: 0.95,
                 ),
-                items: [1, 2, 3, 4, 5].map((i) {
+                items: [1, 2].map((i) {
                   return Builder(
                     builder: (BuildContext context) {
                       return Container(
                         width: MediaQuery.of(context).size.width,
                         margin: EdgeInsets.symmetric(horizontal: 5.0),
-                        padding: EdgeInsets.all(10),
                         decoration: BoxDecoration(
                           color: MColors.primaryWhite,
                           borderRadius: BorderRadius.all(
@@ -120,9 +119,10 @@ class _HomeScreenState extends State<HomeScreen>
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(10.0),
                           child: Image.asset(
-                            "assets/images/petshop-footprint-logo-whiteBg.png",
+                            "assets/images/banner1.png",
                             height: 90.0,
                             width: 90.0,
+                            fit: BoxFit.fill,
                           ),
                         ),
                       );
