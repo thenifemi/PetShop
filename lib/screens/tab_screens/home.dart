@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mollet/model/data/Products.dart';
+import 'package:mollet/model/notifiers/bannerAd_notifier.dart';
 import 'package:mollet/model/notifiers/cart_notifier.dart';
 import 'package:mollet/model/notifiers/products_notifier.dart';
 import 'package:mollet/model/services/Product_service.dart';
@@ -36,6 +37,10 @@ class _HomeScreenState extends State<HomeScreen>
                   CartNotifier cartNotifier =
                       Provider.of<CartNotifier>(context, listen: false);
                   getCart(cartNotifier);
+
+                  BannerAdNotifier bannerAdNotifier =
+                      Provider.of<BannerAdNotifier>(context, listen: false);
+                  getBannerAds(bannerAdNotifier);
                 }()
               : showNoInternetSnack(_scaffoldKey)
         });
@@ -71,6 +76,9 @@ class _HomeScreenState extends State<HomeScreen>
     var cartList = cartNotifier.cartList;
     var cartProdID = cartList.map((e) => e.productID);
 
+    BannerAdNotifier bannerAdNotifier = Provider.of<BannerAdNotifier>(context);
+    var bannerAds = bannerAdNotifier.bannerAdsList;
+
     //Tab Items
     final _tabBody = [
       buildAllBody(prods, cartProdID),
@@ -97,7 +105,7 @@ class _HomeScreenState extends State<HomeScreen>
                   initialPage: 0,
                   viewportFraction: 0.95,
                 ),
-                items: [1, 2].map((i) {
+                items: bannerAds.map((banner) {
                   return Builder(
                     builder: (BuildContext context) {
                       return Container(
@@ -118,11 +126,12 @@ class _HomeScreenState extends State<HomeScreen>
                         ),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(10.0),
-                          child: Image.asset(
-                            "assets/images/banner1.png",
-                            height: 90.0,
-                            width: 90.0,
+                          child: FadeInImage.assetNetwork(
+                            image: banner.bannerAd,
                             fit: BoxFit.fill,
+                            placeholder: "assets/images/placeholder.jpg",
+                            placeholderScale:
+                                MediaQuery.of(context).size.width / 2,
                           ),
                         ),
                       );
