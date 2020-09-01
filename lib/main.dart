@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:mollet/model/notifiers/bannerAd_notifier.dart';
 import 'package:mollet/model/notifiers/brands_notifier.dart';
 import 'package:mollet/model/notifiers/cart_notifier.dart';
 import 'package:mollet/model/notifiers/orders_notifier.dart';
@@ -105,6 +106,9 @@ class _HomeControllerState extends State<HomeController> {
                         ),
                         ChangeNotifierProvider(
                           create: (context) => NotificationsNotifier(),
+                        ),
+                        ChangeNotifierProvider(
+                          create: (context) => BannerAdNotifier(),
                         ),
                       ],
                       child: TabsLayout(),

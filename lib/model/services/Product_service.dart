@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:mollet/model/data/Products.dart';
+import 'package:mollet/model/data/bannerAds.dart';
 import 'package:mollet/model/data/brands.dart';
 import 'package:mollet/model/data/cart.dart';
 import 'package:mollet/model/data/orders.dart';
+import 'package:mollet/model/notifiers/bannerAd_notifier.dart';
 import 'package:mollet/model/notifiers/brands_notifier.dart';
 import 'package:mollet/model/notifiers/cart_notifier.dart';
 import 'package:mollet/model/notifiers/orders_notifier.dart';
@@ -55,6 +57,21 @@ getBrands(BrandsNotifier brandsNotifier) async {
   });
 
   brandsNotifier.brandsList = _brandsList;
+}
+
+//Getting bannersAds
+getBannerAds(BannerAdNotifier bannerAdNotifier) async {
+  QuerySnapshot snapshot =
+      await FirebaseFirestore.instance.collection("bannerAds").get();
+
+  List<BannerAds> _bannerAdsList = [];
+
+  snapshot.docs.forEach((document) {
+    BannerAds bannerAds = BannerAds.fromMap(document.data());
+    _bannerAdsList.add(bannerAds);
+  });
+
+  bannerAdNotifier.bannerAdsList = _bannerAdsList;
 }
 
 //Getting users' cart

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:mollet/model/notifiers/bannerAd_notifier.dart';
 import 'package:mollet/model/notifiers/notifications_notifier.dart';
 import 'package:mollet/model/notifiers/orders_notifier.dart';
 import 'package:mollet/model/notifiers/products_notifier.dart';
@@ -67,6 +68,10 @@ class _TabsLayoutState extends State<TabsLayout> {
                       Provider.of<NotificationsNotifier>(context,
                           listen: false);
                   getNotifications(notificationsNotifier);
+
+                  BannerAdNotifier bannerAdNotifier =
+                      Provider.of<BannerAdNotifier>(context, listen: false);
+                  getBannerAds(bannerAdNotifier);
 
                   saveDeviceToken();
                 }()
