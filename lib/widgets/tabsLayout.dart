@@ -145,29 +145,26 @@ class _TabsLayoutState extends State<TabsLayout> {
                         );
                       },
                       child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 20.0),
                         height: 40.0,
-                        child: Container(
-                          padding: EdgeInsets.symmetric(horizontal: 20.0),
-                          height: 40.0,
-                          decoration: BoxDecoration(
-                              color: MColors.primaryWhite,
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(10.0),
-                              )),
-                          child: Row(
-                            children: [
-                              Text(
-                                "Search for products...",
-                                style: normalFont(MColors.textGrey, 14.0),
-                              ),
-                              Spacer(),
-                              SvgPicture.asset(
-                                "assets/images/icons/Search.svg",
-                                color: MColors.textGrey,
-                                height: 20.0,
-                              ),
-                            ],
-                          ),
+                        decoration: BoxDecoration(
+                            color: MColors.primaryWhite,
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(10.0),
+                            )),
+                        child: Row(
+                          children: [
+                            Text(
+                              "Search for products...",
+                              style: normalFont(MColors.textGrey, 14.0),
+                            ),
+                            Spacer(),
+                            SvgPicture.asset(
+                              "assets/images/icons/Search.svg",
+                              color: MColors.textGrey,
+                              height: 20.0,
+                            ),
+                          ],
                         ),
                       ),
                     ),
