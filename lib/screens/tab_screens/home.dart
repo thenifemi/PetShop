@@ -92,21 +92,40 @@ class _HomeScreenState extends State<HomeScreen>
             Container(
               child: CarouselSlider(
                 options: CarouselOptions(
-                  height: 200.0,
+                  height: 170.0,
                   enableInfiniteScroll: false,
                   initialPage: 0,
+                  viewportFraction: 0.95,
                 ),
                 items: [1, 2, 3, 4, 5].map((i) {
                   return Builder(
                     builder: (BuildContext context) {
                       return Container(
-                          width: MediaQuery.of(context).size.width,
-                          margin: EdgeInsets.symmetric(horizontal: 5.0),
-                          decoration: BoxDecoration(color: Colors.amber),
-                          child: Text(
-                            'text $i',
-                            style: TextStyle(fontSize: 16.0),
-                          ));
+                        width: MediaQuery.of(context).size.width,
+                        margin: EdgeInsets.symmetric(horizontal: 5.0),
+                        padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          color: MColors.primaryWhite,
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(10.0),
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                                color: Color.fromRGBO(0, 0, 0, 0.03),
+                                offset: Offset(0, 10),
+                                blurRadius: 10,
+                                spreadRadius: 0),
+                          ],
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(10.0),
+                          child: Image.asset(
+                            "assets/images/petshop-footprint-logo-whiteBg.png",
+                            height: 90.0,
+                            width: 90.0,
+                          ),
+                        ),
+                      );
                     },
                   );
                 }).toList(),
