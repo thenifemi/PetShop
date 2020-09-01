@@ -35,7 +35,7 @@ dependencies:
   provider:
 
   #image processing magic
-  carousel_slider: ^2.0.0
+  carousel_slider: ^2.2.1
   image_cropper: ^1.3.0
   image_picker: ^0.6.7+4
 

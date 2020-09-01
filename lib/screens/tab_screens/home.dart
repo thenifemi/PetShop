@@ -106,19 +106,22 @@ class _HomeScreenState extends State<HomeScreen>
         false,
         null,
       ),
-      body: PageStorage(
-        bucket: searchBucket,
-        child: Container(
-          color: MColors.primaryWhiteSmoke,
-          child: prods.isEmpty
-              ? progressIndicator(MColors.primaryPurple)
-              : TabBarView(
-                  physics: BouncingScrollPhysics(),
-                  children: _tabBody,
-                  controller: _tabController,
-                ),
-        ),
+      body: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
       ),
+      // body: PageStorage(
+      //   bucket: searchBucket,
+      //   child: Container(
+      //     color: MColors.primaryWhiteSmoke,
+      //     child: prods.isEmpty
+      //         ? progressIndicator(MColors.primaryPurple)
+      //         : TabBarView(
+      //             physics: BouncingScrollPhysics(),
+      //             children: _tabBody,
+      //             controller: _tabController,
+      //           ),
+      //   ),
+      // ),
     );
   }
 
