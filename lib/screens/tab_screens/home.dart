@@ -45,27 +45,11 @@ class _HomeScreenState extends State<HomeScreen>
               : showNoInternetSnack(_scaffoldKey)
         });
 
-    _tabController = TabController(
-      length: _tabItems.length,
-      vsync: this,
-    );
-
     super.initState();
   }
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final PageStorageBucket searchBucket = PageStorageBucket();
-
-  TabController _tabController;
-  final _tabItems = [
-    "All",
-    "Dogs",
-    "Cats",
-    "Fish",
-    "Birds",
-    "Reptiles",
-    "Others",
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -79,17 +63,6 @@ class _HomeScreenState extends State<HomeScreen>
     BannerAdNotifier bannerAdNotifier = Provider.of<BannerAdNotifier>(context);
     var bannerAds = bannerAdNotifier.bannerAdsList;
 
-    //Tab Items
-    final _tabBody = [
-      buildAllBody(prods, cartProdID),
-      buildDogBody(prods, cartProdID),
-      buildCatBody(prods, cartProdID),
-      buildDogBody(prods, cartProdID),
-      buildCatBody(prods, cartProdID),
-      buildDogBody(prods, cartProdID),
-      buildCatBody(prods, cartProdID),
-    ];
-
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: MColors.primaryWhiteSmoke,
@@ -97,6 +70,7 @@ class _HomeScreenState extends State<HomeScreen>
         physics: BouncingScrollPhysics(),
         child: Column(
           children: [
+            //BANNER ADS
             Container(
               child: CarouselSlider(
                 options: CarouselOptions(
@@ -143,23 +117,25 @@ class _HomeScreenState extends State<HomeScreen>
           ],
         ),
       ),
-      // body: PageStorage(
-      //   bucket: searchBucket,
-      //   child: Container(
-      //     color: MColors.primaryWhiteSmoke,
-      //     child: prods.isEmpty
-      //         ? progressIndicator(MColors.primaryPurple)
-      //         : TabBarView(
-      //             physics: BouncingScrollPhysics(),
-      //             children: _tabBody,
-      //             controller: _tabController,
-      //           ),
-      //   ),
-      // ),
     );
   }
 
-  //Build Tabs
+  //Build sections
+
+  Widget buildPopular(prods, cartProdID) {
+    Iterable<ProdProducts> dog = prods.where((e) => e.pet == "dog");
+    CartNotifier cartNotifier =
+        Provider.of<CartNotifier>(context, listen: false);
+    ProductsNotifier productsNotifier = Provider.of<ProductsNotifier>(context);
+
+    return SearchTabWidget(
+      prods: dog,
+      cartNotifier: cartNotifier,
+      productsNotifier: productsNotifier,
+      cartProdID: cartProdID,
+    );
+  }
+
   Widget buildAllBody(prods, cartProdID) {
     Iterable<ProdProducts> all = prods.reversed;
     CartNotifier cartNotifier =
@@ -169,20 +145,6 @@ class _HomeScreenState extends State<HomeScreen>
 
     return SearchTabWidget(
       prods: all,
-      cartNotifier: cartNotifier,
-      productsNotifier: productsNotifier,
-      cartProdID: cartProdID,
-    );
-  }
-
-  Widget buildDogBody(prods, cartProdID) {
-    Iterable<ProdProducts> dog = prods.where((e) => e.pet == "dog");
-    CartNotifier cartNotifier =
-        Provider.of<CartNotifier>(context, listen: false);
-    ProductsNotifier productsNotifier = Provider.of<ProductsNotifier>(context);
-
-    return SearchTabWidget(
-      prods: dog,
       cartNotifier: cartNotifier,
       productsNotifier: productsNotifier,
       cartProdID: cartProdID,
