@@ -6,6 +6,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mollet/model/data/Products.dart';
+import 'package:mollet/model/notifiers/cart_notifier.dart';
+import 'package:mollet/model/services/Product_service.dart';
+import 'package:mollet/screens/tab_screens/homeScreen_pages/productDetailsScreen.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:wc_flutter_share/wc_flutter_share.dart';
 
@@ -735,9 +738,68 @@ Widget blockWigdet(
   String blockSubTitle,
   double _picHeight,
   UnmodifiableListView<ProdProducts> prods,
-  void Function() onTapToProductDetails,
-  void Function() onTapAddToBag,
+  CartNotifier cartNotifier,
+  Iterable<String> cartProdID,
+  GlobalKey _scaffoldKey,
+  BuildContext context,
 ) {
+  void addToBagshowDialog(
+      _product, cartNotifier, cartProdID, scaffoldKey) async {
+    await showCupertinoDialog(
+        context: context,
+        builder: (context) {
+          return CupertinoAlertDialog(
+            content: Text(
+              "Sure you want to add to Bag?",
+              style: normalFont(MColors.textDark, null),
+            ),
+            actions: <Widget>[
+              CupertinoDialogAction(
+                child: Text(
+                  "Cancel",
+                  style: normalFont(Colors.red, null),
+                ),
+                onPressed: () async {
+                  getCart(cartNotifier);
+
+                  Navigator.of(context).pop();
+                },
+              ),
+              CupertinoDialogAction(
+                isDefaultAction: true,
+                child: Text(
+                  "Yes",
+                  style: normalFont(Colors.blue, null),
+                ),
+                onPressed: () {
+                  getCart(cartNotifier);
+
+                  if (cartProdID.contains(_product.productID)) {
+                    showSimpleSnack(
+                      "Product already in bag",
+                      Icons.error_outline,
+                      Colors.amber,
+                      scaffoldKey,
+                    );
+                  } else {
+                    addProductToCart(_product);
+                    showSimpleSnack(
+                      "Product added to bag",
+                      Icons.check_circle_outline,
+                      Colors.green,
+                      scaffoldKey,
+                    );
+
+                    getCart(cartNotifier);
+                  }
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        });
+  }
+
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -782,7 +844,16 @@ Widget blockWigdet(
               var product = prods[i];
 
               return GestureDetector(
-                onTap: onTapToProductDetails,
+                onTap: () async {
+                  var navigationResult = await Navigator.of(context).push(
+                    CupertinoPageRoute(
+                      builder: (context) => ProductDetailsProv(product, prods),
+                    ),
+                  );
+                  if (navigationResult == true) {
+                    getCart(cartNotifier);
+                  }
+                },
                 child: Container(
                   margin: EdgeInsets.all(5.0),
                   width: 180.0,
@@ -843,7 +914,8 @@ Widget blockWigdet(
                             ),
                             Spacer(),
                             GestureDetector(
-                              onTap: onTapAddToBag,
+                              onTap: () => addToBagshowDialog(product,
+                                  cartNotifier, cartProdID, _scaffoldKey),
                               child: Container(
                                 width: 40.0,
                                 height: 40.0,

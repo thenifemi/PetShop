@@ -141,84 +141,14 @@ class _HomeScreenState extends State<HomeScreen>
               "Sought after products",
               _picHeight,
               prods,
-              () async {
-                var navigationResult = await Navigator.of(context).push(
-                  CupertinoPageRoute(
-                    builder: (context) => ProductDetailsProv(product, prods),
-                  ),
-                );
-                if (navigationResult == true) {
-                  setState(() {
-                    getCart(cartNotifier);
-                  });
-                }
-              },
-              () => addToBagshowDialog(
-                  product, cartNotifier, cartProdID, _scaffoldKey),
+              cartNotifier,
+              cartProdID,
+              _scaffoldKey,
+              context,
             ),
           ],
         ),
       ),
     );
-  }
-
-  void addToBagshowDialog(
-      _product, cartNotifier, cartProdID, scaffoldKey) async {
-    await showCupertinoDialog(
-        context: context,
-        builder: (context) {
-          return CupertinoAlertDialog(
-            content: Text(
-              "Sure you want to add to Bag?",
-              style: normalFont(MColors.textDark, null),
-            ),
-            actions: <Widget>[
-              CupertinoDialogAction(
-                child: Text(
-                  "Cancel",
-                  style: normalFont(Colors.red, null),
-                ),
-                onPressed: () async {
-                  setState(() {
-                    getCart(cartNotifier);
-                  });
-                  Navigator.of(context).pop();
-                },
-              ),
-              CupertinoDialogAction(
-                isDefaultAction: true,
-                child: Text(
-                  "Yes",
-                  style: normalFont(Colors.blue, null),
-                ),
-                onPressed: () {
-                  setState(() {
-                    getCart(cartNotifier);
-                  });
-                  if (cartProdID.contains(_product.productID)) {
-                    showSimpleSnack(
-                      "Product already in bag",
-                      Icons.error_outline,
-                      Colors.amber,
-                      scaffoldKey,
-                    );
-                  } else {
-                    addProductToCart(_product);
-                    showSimpleSnack(
-                      "Product added to bag",
-                      Icons.check_circle_outline,
-                      Colors.green,
-                      scaffoldKey,
-                    );
-                    setState(() {
-                      getCart(cartNotifier);
-                    });
-                  }
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          );
-        });
   }
 }
