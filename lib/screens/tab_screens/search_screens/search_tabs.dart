@@ -157,7 +157,7 @@ class _SearchTabWidgetState extends State<SearchTabWidget> {
                               padding: const EdgeInsets.all(8.0),
                               decoration: BoxDecoration(
                                 color: MColors.dashPurple,
-                                borderRadius: new BorderRadius.circular(8.0),
+                                borderRadius: BorderRadius.circular(8.0),
                               ),
                               child: SvgPicture.asset(
                                 "assets/images/icons/basket.svg",

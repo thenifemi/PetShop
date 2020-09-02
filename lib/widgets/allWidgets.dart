@@ -1,8 +1,11 @@
+import 'dart:collection';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mollet/model/data/Products.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:wc_flutter_share/wc_flutter_share.dart';
 
@@ -727,8 +730,144 @@ orderTrackerWidget(String status) {
 }
 
 //-------------------------------------------
-Widget blockWigdet() {
-  return Builder(builder: (context) {
-    return;
-  });
+Widget blockWigdet(
+  String blockTitle,
+  String blockSubTitle,
+  double _picHeight,
+  UnmodifiableListView<ProdProducts> prods,
+  void Function() onTapToProductDetails,
+  void Function() onTapAddToBag,
+) {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 15.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              blockTitle,
+              style: boldFont(MColors.textDark, 16.0),
+            ),
+            SizedBox(height: 3.0),
+            Row(
+              children: [
+                Text(
+                  blockSubTitle,
+                  style: normalFont(MColors.textGrey, 14.0),
+                ),
+                Spacer(),
+                GestureDetector(
+                  onTap: () async {},
+                  child: Text(
+                    "See more",
+                    style: boldFont(MColors.primaryPurple, 14.0),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+      SizedBox(height: 5.0),
+      Container(
+        height: _picHeight * 1.7,
+        padding: EdgeInsets.symmetric(horizontal: 10.0),
+        child: ListView.builder(
+            physics: BouncingScrollPhysics(),
+            scrollDirection: Axis.horizontal,
+            itemCount: prods.length,
+            itemBuilder: (context, i) {
+              var product = prods[i];
+
+              return GestureDetector(
+                onTap: onTapToProductDetails,
+                child: Container(
+                  margin: EdgeInsets.all(5.0),
+                  width: 180.0,
+                  padding: EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: MColors.primaryWhite,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(10.0),
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Color.fromRGBO(0, 0, 0, 0.03),
+                          offset: Offset(0, 10),
+                          blurRadius: 10,
+                          spreadRadius: 0),
+                    ],
+                  ),
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(10.0),
+                          child: Hero(
+                            child: FadeInImage.assetNetwork(
+                              image: product.productImage,
+                              fit: BoxFit.fill,
+                              height: _picHeight,
+                              placeholder: "assets/images/placeholder.jpg",
+                              placeholderScale:
+                                  MediaQuery.of(context).size.height / 2,
+                            ),
+                            tag: product.productID,
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 10.0),
+                      Align(
+                        alignment: Alignment.bottomLeft,
+                        child: Container(
+                          child: Text(
+                            product.name,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: normalFont(MColors.textGrey, 14.0),
+                          ),
+                        ),
+                      ),
+                      Spacer(),
+                      Container(
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            Container(
+                              child: Text(
+                                "\$${product.price}",
+                                style: boldFont(MColors.primaryPurple, 20.0),
+                              ),
+                            ),
+                            Spacer(),
+                            GestureDetector(
+                              onTap: onTapAddToBag,
+                              child: Container(
+                                width: 40.0,
+                                height: 40.0,
+                                padding: const EdgeInsets.all(8.0),
+                                decoration: BoxDecoration(
+                                  color: MColors.dashPurple,
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                child: SvgPicture.asset(
+                                  "assets/images/icons/basket.svg",
+                                  height: 22.0,
+                                  color: MColors.textGrey,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            }),
+      ),
+    ],
+  );
 }
