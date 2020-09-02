@@ -735,6 +735,7 @@ Widget blockWigdet(
   String blockTitle,
   String blockSubTitle,
   double _picHeight,
+  double _itemHeight,
   List<ProdProducts> prods,
   CartNotifier cartNotifier,
   Iterable<String> cartProdID,
@@ -833,7 +834,7 @@ Widget blockWigdet(
       ),
       SizedBox(height: 5.0),
       Container(
-        height: _picHeight * 1.7,
+        height: _itemHeight,
         padding: EdgeInsets.symmetric(horizontal: 10.0),
         child: ListView.builder(
             physics: BouncingScrollPhysics(),
