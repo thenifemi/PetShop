@@ -12,8 +12,6 @@ import 'package:mollet/utils/internetConnectivity.dart';
 import 'package:mollet/widgets/allWidgets.dart';
 import 'package:provider/provider.dart';
 
-import 'homeScreen_pages/productDetailsScreen.dart';
-
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key key}) : super(key: key);
 
@@ -136,54 +134,137 @@ class _HomeScreenState extends State<HomeScreen>
             ),
 
             SizedBox(height: 20),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "POPULAR",
-                    style: boldFont(MColors.textDark, 16.0),
-                  ),
-                  SizedBox(height: 3.0),
-                  Text(
-                    "Sought after products",
-                    style: normalFont(MColors.textGrey, 14.0),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: 5.0),
 
             //POPULAR BLOCK
-            Container(
-              height: 250.0,
-              padding: EdgeInsets.symmetric(horizontal: 10.0),
-              child: ListView.builder(
-                  physics: BouncingScrollPhysics(),
-                  scrollDirection: Axis.horizontal,
-                  itemCount: prods.length,
-                  itemBuilder: (context, i) {
-                    return Container(
-                      margin: EdgeInsets.all(5.0),
-                      width: 200.0,
-                      height: 240.0,
-                      padding: EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        color: MColors.primaryWhite,
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(10.0),
-                        ),
-                        boxShadow: [
-                          BoxShadow(
-                              color: Color.fromRGBO(0, 0, 0, 0.03),
-                              offset: Offset(0, 10),
-                              blurRadius: 10,
-                              spreadRadius: 0),
-                        ],
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "POPULAR",
+                        style: boldFont(MColors.textDark, 16.0),
                       ),
-                    );
-                  }),
+                      SizedBox(height: 3.0),
+                      Text(
+                        "Sought after products",
+                        style: normalFont(MColors.textGrey, 14.0),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 5.0),
+                Container(
+                  height: 250.0,
+                  padding: EdgeInsets.symmetric(horizontal: 10.0),
+                  child: ListView.builder(
+                      physics: BouncingScrollPhysics(),
+                      scrollDirection: Axis.horizontal,
+                      itemCount: prods.length,
+                      itemBuilder: (context, i) {
+                        var product = prods[i];
+
+                        return GestureDetector(
+                          onTap: () {},
+                          child: Container(
+                            margin: EdgeInsets.all(5.0),
+                            width: 200.0,
+                            height: 240.0,
+                            padding: EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              color: MColors.primaryWhite,
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(10.0),
+                              ),
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Color.fromRGBO(0, 0, 0, 0.03),
+                                    offset: Offset(0, 10),
+                                    blurRadius: 10,
+                                    spreadRadius: 0),
+                              ],
+                            ),
+                            child: Column(
+                              children: <Widget>[
+                                Container(
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    child: Hero(
+                                      child: FadeInImage.assetNetwork(
+                                        image: product.productImage,
+                                        fit: BoxFit.fill,
+                                        height: _picHeight,
+                                        placeholder:
+                                            "assets/images/placeholder.jpg",
+                                        placeholderScale:
+                                            MediaQuery.of(context).size.height /
+                                                2,
+                                      ),
+                                      tag: product.productID,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(height: 10.0),
+                                Align(
+                                  alignment: Alignment.bottomLeft,
+                                  child: Container(
+                                    child: Text(
+                                      product.name,
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: normalFont(MColors.textGrey, 14.0),
+                                    ),
+                                  ),
+                                ),
+                                Spacer(),
+                                Container(
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: <Widget>[
+                                      Container(
+                                        child: Text(
+                                          "\$${product.price}",
+                                          style: boldFont(
+                                              MColors.primaryPurple, 20.0),
+                                        ),
+                                      ),
+                                      Spacer(),
+                                      GestureDetector(
+                                        onTap: () => addToBagshowDialog(
+                                            product,
+                                            cartNotifier,
+                                            cartProdID,
+                                            _scaffoldKey),
+                                        child: Container(
+                                          width: 40.0,
+                                          height: 40.0,
+                                          padding: const EdgeInsets.all(8.0),
+                                          decoration: BoxDecoration(
+                                            color: MColors.dashPurple,
+                                            borderRadius:
+                                                new BorderRadius.circular(8.0),
+                                          ),
+                                          child: SvgPicture.asset(
+                                            "assets/images/icons/basket.svg",
+                                            height: 22.0,
+                                            color: MColors.textGrey,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      }),
+                ),
+              ],
             ),
           ],
         ),

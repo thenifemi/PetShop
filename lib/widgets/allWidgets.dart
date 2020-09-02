@@ -727,3 +727,8 @@ orderTrackerWidget(String status) {
 }
 
 //-------------------------------------------
+Widget blockWigdet() {
+  return Builder(builder: (context) {
+    return;
+  });
+}
