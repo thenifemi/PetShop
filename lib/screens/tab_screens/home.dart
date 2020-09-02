@@ -149,16 +149,28 @@ class _HomeScreenState extends State<HomeScreen>
                         style: boldFont(MColors.textDark, 16.0),
                       ),
                       SizedBox(height: 3.0),
-                      Text(
-                        "Sought after products",
-                        style: normalFont(MColors.textGrey, 14.0),
+                      Row(
+                        children: [
+                          Text(
+                            "Sought after products",
+                            style: normalFont(MColors.textGrey, 14.0),
+                          ),
+                          Spacer(),
+                          GestureDetector(
+                            onTap: () {},
+                            child: Text(
+                              "See more",
+                              style: boldFont(MColors.primaryPurple, 14.0),
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
                 ),
                 SizedBox(height: 5.0),
                 Container(
-                  height: 250.0,
+                  height: _picHeight * 1.8,
                   padding: EdgeInsets.symmetric(horizontal: 10.0),
                   child: ListView.builder(
                       physics: BouncingScrollPhysics(),
@@ -171,8 +183,7 @@ class _HomeScreenState extends State<HomeScreen>
                           onTap: () {},
                           child: Container(
                             margin: EdgeInsets.all(5.0),
-                            width: 200.0,
-                            height: 240.0,
+                            width: 180.0,
                             padding: EdgeInsets.all(10),
                             decoration: BoxDecoration(
                               color: MColors.primaryWhite,
