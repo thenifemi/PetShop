@@ -152,6 +152,7 @@ class _HomeScreenState extends State<HomeScreen>
                   cartProdID,
                   _scaffoldKey,
                   context,
+                  prods,
                 );
               },
             ),
@@ -174,6 +175,7 @@ class _HomeScreenState extends State<HomeScreen>
                   cartProdID,
                   _scaffoldKey,
                   context,
+                  prods,
                 );
               },
             ),
@@ -196,6 +198,7 @@ class _HomeScreenState extends State<HomeScreen>
                   cartProdID,
                   _scaffoldKey,
                   context,
+                  prods,
                 );
               },
             ),

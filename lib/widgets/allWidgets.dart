@@ -742,6 +742,7 @@ Widget blockWigdet(
   Iterable<String> cartProdID,
   GlobalKey _scaffoldKey,
   BuildContext context,
+  allProds,
 ) {
   void addToBagshowDialog(
       _product, cartNotifier, cartProdID, scaffoldKey) async {
@@ -847,7 +848,8 @@ Widget blockWigdet(
                 onTap: () async {
                   var navigationResult = await Navigator.of(context).push(
                     CupertinoPageRoute(
-                      builder: (context) => ProductDetailsProv(product, prods),
+                      builder: (context) =>
+                          ProductDetailsProv(product, allProds),
                     ),
                   );
                   if (navigationResult == true) {
