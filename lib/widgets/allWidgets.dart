@@ -737,7 +737,7 @@ Widget blockWigdet(
   String blockTitle,
   String blockSubTitle,
   double _picHeight,
-  UnmodifiableListView<ProdProducts> prods,
+  List<ProdProducts> prods,
   CartNotifier cartNotifier,
   Iterable<String> cartProdID,
   GlobalKey _scaffoldKey,

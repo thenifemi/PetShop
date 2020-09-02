@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:mollet/model/data/Products.dart';
 import 'package:mollet/model/notifiers/bannerAd_notifier.dart';
 import 'package:mollet/model/notifiers/cart_notifier.dart';
 import 'package:mollet/model/notifiers/products_notifier.dart';
@@ -135,16 +136,68 @@ class _HomeScreenState extends State<HomeScreen>
 
             SizedBox(height: 20),
 
+            //FOR YOU BLOCK
+            Builder(
+              builder: (BuildContext context) {
+                Iterable<ProdProducts> forYou =
+                    prods.where((e) => e.tag == "forYou");
+                var _prods = forYou.toList();
+
+                return blockWigdet(
+                  "FOR YOU",
+                  "Products you might like",
+                  _picHeight,
+                  _prods,
+                  cartNotifier,
+                  cartProdID,
+                  _scaffoldKey,
+                  context,
+                );
+              },
+            ),
+
+            SizedBox(height: 20),
+
             //POPULAR BLOCK
-            blockWigdet(
-              "POPULAR",
-              "Sought after products",
-              _picHeight,
-              prods,
-              cartNotifier,
-              cartProdID,
-              _scaffoldKey,
-              context,
+            Builder(
+              builder: (BuildContext context) {
+                Iterable<ProdProducts> popular =
+                    prods.where((e) => e.tag == "popular");
+                var _prods = popular.toList();
+
+                return blockWigdet(
+                  "POPULAR",
+                  "Sought after products",
+                  _picHeight,
+                  _prods,
+                  cartNotifier,
+                  cartProdID,
+                  _scaffoldKey,
+                  context,
+                );
+              },
+            ),
+
+            SizedBox(height: 20),
+
+            //NEW BLOCK
+            Builder(
+              builder: (BuildContext context) {
+                Iterable<ProdProducts> newP =
+                    prods.where((e) => e.tag == "new");
+                var _prods = newP.toList();
+
+                return blockWigdet(
+                  "NEW",
+                  "Newly released products",
+                  _picHeight,
+                  _prods,
+                  cartNotifier,
+                  cartProdID,
+                  _scaffoldKey,
+                  context,
+                );
+              },
             ),
           ],
         ),
