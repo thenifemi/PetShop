@@ -821,11 +821,14 @@ Widget blockWigdet(
                   style: normalFont(MColors.textGrey, 14.0),
                 ),
                 Spacer(),
-                GestureDetector(
-                  onTap: seeMore,
-                  child: Text(
-                    "See more",
-                    style: boldFont(MColors.primaryPurple, 14.0),
+                Container(
+                  height: 15.0,
+                  child: RawMaterialButton(
+                    onPressed: seeMore,
+                    child: Text(
+                      "See more",
+                      style: boldFont(MColors.primaryPurple, 14.0),
+                    ),
                   ),
                 ),
               ],
