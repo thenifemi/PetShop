@@ -162,7 +162,7 @@ class _HomeScreenState extends State<HomeScreen>
                       CupertinoPageRoute(
                         builder: (context) => SeeMoreScreen(
                           title: title,
-                          products: _prods,
+                          products: forYou,
                           productsNotifier: productsNotifier,
                           cartNotifier: cartNotifier,
                           cartProdID: cartProdID,
@@ -204,7 +204,7 @@ class _HomeScreenState extends State<HomeScreen>
                       CupertinoPageRoute(
                         builder: (context) => SeeMoreScreen(
                           title: title,
-                          products: _prods,
+                          products: popular,
                           productsNotifier: productsNotifier,
                           cartNotifier: cartNotifier,
                           cartProdID: cartProdID,
@@ -246,7 +246,7 @@ class _HomeScreenState extends State<HomeScreen>
                       CupertinoPageRoute(
                         builder: (context) => SeeMoreScreen(
                           title: title,
-                          products: _prods,
+                          products: newP,
                           productsNotifier: productsNotifier,
                           cartNotifier: cartNotifier,
                           cartProdID: cartProdID,
@@ -349,7 +349,7 @@ class _HomeScreenState extends State<HomeScreen>
                       CupertinoPageRoute(
                         builder: (context) => SeeMoreScreen(
                           title: title,
-                          products: _prods,
+                          products: prods,
                           productsNotifier: productsNotifier,
                           cartNotifier: cartNotifier,
                           cartProdID: cartProdID,

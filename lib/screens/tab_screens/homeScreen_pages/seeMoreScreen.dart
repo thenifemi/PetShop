@@ -29,11 +29,11 @@ class SeeMoreScreen extends StatefulWidget {
 
 class _SeeMoreScreenState extends State<SeeMoreScreen> {
   final String title;
-
   final Iterable<ProdProducts> products;
   final CartNotifier cartNotifier;
   final ProductsNotifier productsNotifier;
   final Iterable<String> cartProdID;
+
   _SeeMoreScreenState(
     this.title,
     this.products,

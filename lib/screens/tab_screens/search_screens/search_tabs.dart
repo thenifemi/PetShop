@@ -39,7 +39,6 @@ class _SearchTabWidgetState extends State<SearchTabWidget> {
     this.cartProdID,
     this.prods,
   );
-  ProdProducts product;
   CartNotifier cartNotifier;
   ProductsNotifier productsNotifier;
   Iterable<String> cartProdID;
