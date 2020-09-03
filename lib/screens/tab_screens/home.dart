@@ -267,6 +267,30 @@ class _HomeScreenState extends State<HomeScreen>
                 ],
               ),
             ),
+
+            SizedBox(height: 20),
+
+            //OFFERS
+            Builder(
+              builder: (BuildContext context) {
+                Iterable<ProdProducts> offers =
+                    prods.where((e) => e.tag == "offers");
+                var _prods = offers.toList();
+
+                return blockWigdet(
+                  "OFFERS",
+                  "Slashed prices just for you",
+                  _picHeight,
+                  itemHeight,
+                  _prods,
+                  cartNotifier,
+                  cartProdID,
+                  _scaffoldKey,
+                  context,
+                  prods,
+                );
+              },
+            ),
           ],
         ),
       ),

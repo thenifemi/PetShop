@@ -834,7 +834,7 @@ Widget blockWigdet(
       ),
       SizedBox(height: 5.0),
       Container(
-        height: _itemHeight,
+        height: _itemHeight / 1.15,
         padding: EdgeInsets.symmetric(horizontal: 10.0),
         child: ListView.builder(
             physics: BouncingScrollPhysics(),
