@@ -211,47 +211,60 @@ class _HomeScreenState extends State<HomeScreen>
 
             //BRANDS
             Container(
-              child: CarouselSlider(
-                options: CarouselOptions(
-                  height: 200.0,
-                  enableInfiniteScroll: false,
-                  initialPage: 0,
-                  viewportFraction: 0.95,
-                  scrollPhysics: BouncingScrollPhysics(),
-                ),
-                items: brands.map((brand) {
-                  return Builder(
-                    builder: (BuildContext context) {
-                      return Container(
-                        width: MediaQuery.of(context).size.width,
-                        margin: EdgeInsets.symmetric(horizontal: 5.0),
-                        decoration: BoxDecoration(
-                          color: MColors.primaryWhite,
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(10.0),
-                          ),
-                          boxShadow: [
-                            BoxShadow(
-                                color: Color.fromRGBO(0, 0, 0, 0.03),
-                                offset: Offset(0, 10),
-                                blurRadius: 10,
-                                spreadRadius: 0),
-                          ],
-                        ),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(10.0),
-                          child: FadeInImage.assetNetwork(
-                            image: brand.brandImage,
-                            fit: BoxFit.fill,
-                            placeholder: "assets/images/placeholder.jpg",
-                            placeholderScale:
-                                MediaQuery.of(context).size.width / 2,
-                          ),
-                        ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                    child: Text(
+                      "POPULAR BRANDS",
+                      style: boldFont(MColors.textDark, 16.0),
+                    ),
+                  ),
+                  SizedBox(height: 5.0),
+                  CarouselSlider(
+                    options: CarouselOptions(
+                      height: 200.0,
+                      enableInfiniteScroll: false,
+                      initialPage: 0,
+                      viewportFraction: 0.95,
+                      scrollPhysics: BouncingScrollPhysics(),
+                    ),
+                    items: brands.map((brand) {
+                      return Builder(
+                        builder: (BuildContext context) {
+                          return Container(
+                            width: MediaQuery.of(context).size.width,
+                            margin: EdgeInsets.symmetric(horizontal: 5.0),
+                            decoration: BoxDecoration(
+                              color: MColors.primaryWhite,
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(10.0),
+                              ),
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Color.fromRGBO(0, 0, 0, 0.03),
+                                    offset: Offset(0, 10),
+                                    blurRadius: 10,
+                                    spreadRadius: 0),
+                              ],
+                            ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(10.0),
+                              child: FadeInImage.assetNetwork(
+                                image: brand.brandImage,
+                                fit: BoxFit.fill,
+                                placeholder: "assets/images/placeholder.jpg",
+                                placeholderScale:
+                                    MediaQuery.of(context).size.width / 2,
+                              ),
+                            ),
+                          );
+                        },
                       );
-                    },
-                  );
-                }).toList(),
+                    }).toList(),
+                  ),
+                ],
               ),
             ),
           ],
