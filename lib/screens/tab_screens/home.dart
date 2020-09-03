@@ -7,6 +7,7 @@ import 'package:mollet/model/notifiers/brands_notifier.dart';
 import 'package:mollet/model/notifiers/cart_notifier.dart';
 import 'package:mollet/model/notifiers/products_notifier.dart';
 import 'package:mollet/model/services/Product_service.dart';
+import 'package:mollet/screens/tab_screens/homeScreen_pages/seeMoreScreen.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:mollet/utils/internetConnectivity.dart';
 import 'package:mollet/widgets/allWidgets.dart';
@@ -155,6 +156,21 @@ class _HomeScreenState extends State<HomeScreen>
                   _scaffoldKey,
                   context,
                   prods,
+                  () async {
+                    var navigationResult = await Navigator.of(context).push(
+                      CupertinoPageRoute(
+                        builder: (context) => SeeMoreScreen(
+                          products: _prods,
+                          productsNotifier: productsNotifier,
+                          cartNotifier: cartNotifier,
+                          cartProdID: cartProdID,
+                        ),
+                      ),
+                    );
+                    if (navigationResult == true) {
+                      getCart(cartNotifier);
+                    }
+                  },
                 );
               },
             ),
@@ -179,6 +195,21 @@ class _HomeScreenState extends State<HomeScreen>
                   _scaffoldKey,
                   context,
                   prods,
+                  () async {
+                    var navigationResult = await Navigator.of(context).push(
+                      CupertinoPageRoute(
+                        builder: (context) => SeeMoreScreen(
+                          products: _prods,
+                          productsNotifier: productsNotifier,
+                          cartNotifier: cartNotifier,
+                          cartProdID: cartProdID,
+                        ),
+                      ),
+                    );
+                    if (navigationResult == true) {
+                      getCart(cartNotifier);
+                    }
+                  },
                 );
               },
             ),
@@ -203,6 +234,21 @@ class _HomeScreenState extends State<HomeScreen>
                   _scaffoldKey,
                   context,
                   prods,
+                  () async {
+                    var navigationResult = await Navigator.of(context).push(
+                      CupertinoPageRoute(
+                        builder: (context) => SeeMoreScreen(
+                          products: _prods,
+                          productsNotifier: productsNotifier,
+                          cartNotifier: cartNotifier,
+                          cartProdID: cartProdID,
+                        ),
+                      ),
+                    );
+                    if (navigationResult == true) {
+                      getCart(cartNotifier);
+                    }
+                  },
                 );
               },
             ),
@@ -288,6 +334,21 @@ class _HomeScreenState extends State<HomeScreen>
                   _scaffoldKey,
                   context,
                   prods,
+                  () async {
+                    var navigationResult = await Navigator.of(context).push(
+                      CupertinoPageRoute(
+                        builder: (context) => SeeMoreScreen(
+                          products: _prods,
+                          productsNotifier: productsNotifier,
+                          cartNotifier: cartNotifier,
+                          cartProdID: cartProdID,
+                        ),
+                      ),
+                    );
+                    if (navigationResult == true) {
+                      getCart(cartNotifier);
+                    }
+                  },
                 );
               },
             ),

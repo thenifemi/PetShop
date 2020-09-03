@@ -742,6 +742,7 @@ Widget blockWigdet(
   GlobalKey _scaffoldKey,
   BuildContext context,
   allProds,
+  void Function() seeMore,
 ) {
   void addToBagshowDialog(
       _product, cartNotifier, cartProdID, scaffoldKey) async {
@@ -821,7 +822,7 @@ Widget blockWigdet(
                 ),
                 Spacer(),
                 GestureDetector(
-                  onTap: () async {},
+                  onTap: seeMore,
                   child: Text(
                     "See more",
                     style: boldFont(MColors.primaryPurple, 14.0),
