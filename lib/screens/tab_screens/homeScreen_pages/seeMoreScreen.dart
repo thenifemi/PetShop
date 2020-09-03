@@ -1,20 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:mollet/model/data/Products.dart';
+import 'package:mollet/model/notifiers/cart_notifier.dart';
+import 'package:mollet/model/notifiers/products_notifier.dart';
 import 'package:mollet/screens/tab_screens/search_screens/search_tabs.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:mollet/widgets/allWidgets.dart';
 
 class SeeMoreScreen extends StatefulWidget {
-  final List<ProdProducts> products;
-  SeeMoreScreen({Key key, this.products}) : super(key: key);
+  final Iterable<ProdProducts> products;
+  final CartNotifier cartNotifier;
+  final ProductsNotifier productsNotifier;
+  final Iterable<String> cartProdID;
+
+  SeeMoreScreen({
+    Key key,
+    this.products,
+    this.cartNotifier,
+    this.productsNotifier,
+    this.cartProdID,
+  }) : super(key: key);
 
   @override
-  _SeeMoreScreenState createState() => _SeeMoreScreenState(products);
+  _SeeMoreScreenState createState() =>
+      _SeeMoreScreenState(products, cartNotifier, productsNotifier, cartProdID);
 }
 
 class _SeeMoreScreenState extends State<SeeMoreScreen> {
-  final List<ProdProducts> products;
-  _SeeMoreScreenState(this.products);
+  final Iterable<ProdProducts> products;
+  final CartNotifier cartNotifier;
+  final ProductsNotifier productsNotifier;
+  final Iterable<String> cartProdID;
+  _SeeMoreScreenState(
+    this.products,
+    this.cartNotifier,
+    this.productsNotifier,
+    this.cartProdID,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +61,7 @@ class _SeeMoreScreenState extends State<SeeMoreScreen> {
       ),
       body: primaryContainer(
         SearchTabWidget(
-          prods: dog,
+          prods: products,
           cartNotifier: cartNotifier,
           productsNotifier: productsNotifier,
           cartProdID: cartProdID,
