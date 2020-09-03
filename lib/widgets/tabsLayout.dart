@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mollet/model/notifiers/bannerAd_notifier.dart';
+import 'package:mollet/model/notifiers/brands_notifier.dart';
 import 'package:mollet/model/notifiers/notifications_notifier.dart';
 import 'package:mollet/model/notifiers/orders_notifier.dart';
 import 'package:mollet/model/notifiers/products_notifier.dart';
@@ -38,9 +39,9 @@ class _TabsLayoutState extends State<TabsLayout> {
     checkInternetConnectivity().then((value) => {
           value == true
               ? () {
-                  // BrandsNotifier brandsNotifier =
-                  //     Provider.of<BrandsNotifier>(context, listen: false);
-                  // getBrands(brandsNotifier);
+                  BrandsNotifier brandsNotifier =
+                      Provider.of<BrandsNotifier>(context, listen: false);
+                  getBrands(brandsNotifier);
 
                   ProductsNotifier productsNotifier =
                       Provider.of<ProductsNotifier>(context, listen: false);
