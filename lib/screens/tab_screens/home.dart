@@ -157,9 +157,11 @@ class _HomeScreenState extends State<HomeScreen>
                   context,
                   prods,
                   () async {
+                    var title = "For you";
                     var navigationResult = await Navigator.of(context).push(
                       CupertinoPageRoute(
                         builder: (context) => SeeMoreScreen(
+                          title: title,
                           products: _prods,
                           productsNotifier: productsNotifier,
                           cartNotifier: cartNotifier,
@@ -196,9 +198,12 @@ class _HomeScreenState extends State<HomeScreen>
                   context,
                   prods,
                   () async {
+                    var title = "Popular";
+
                     var navigationResult = await Navigator.of(context).push(
                       CupertinoPageRoute(
                         builder: (context) => SeeMoreScreen(
+                          title: title,
                           products: _prods,
                           productsNotifier: productsNotifier,
                           cartNotifier: cartNotifier,
@@ -235,9 +240,12 @@ class _HomeScreenState extends State<HomeScreen>
                   context,
                   prods,
                   () async {
+                    var title = "New";
+
                     var navigationResult = await Navigator.of(context).push(
                       CupertinoPageRoute(
                         builder: (context) => SeeMoreScreen(
+                          title: title,
                           products: _prods,
                           productsNotifier: productsNotifier,
                           cartNotifier: cartNotifier,
@@ -335,9 +343,12 @@ class _HomeScreenState extends State<HomeScreen>
                   context,
                   prods,
                   () async {
+                    var title = "Offers";
+
                     var navigationResult = await Navigator.of(context).push(
                       CupertinoPageRoute(
                         builder: (context) => SeeMoreScreen(
+                          title: title,
                           products: _prods,
                           productsNotifier: productsNotifier,
                           cartNotifier: cartNotifier,

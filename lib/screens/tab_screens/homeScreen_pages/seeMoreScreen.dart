@@ -7,6 +7,7 @@ import 'package:mollet/utils/colors.dart';
 import 'package:mollet/widgets/allWidgets.dart';
 
 class SeeMoreScreen extends StatefulWidget {
+  final String title;
   final Iterable<ProdProducts> products;
   final CartNotifier cartNotifier;
   final ProductsNotifier productsNotifier;
@@ -14,6 +15,7 @@ class SeeMoreScreen extends StatefulWidget {
 
   SeeMoreScreen({
     Key key,
+    this.title,
     this.products,
     this.cartNotifier,
     this.productsNotifier,
@@ -21,16 +23,19 @@ class SeeMoreScreen extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _SeeMoreScreenState createState() =>
-      _SeeMoreScreenState(products, cartNotifier, productsNotifier, cartProdID);
+  _SeeMoreScreenState createState() => _SeeMoreScreenState(
+      title, products, cartNotifier, productsNotifier, cartProdID);
 }
 
 class _SeeMoreScreenState extends State<SeeMoreScreen> {
+  final String title;
+
   final Iterable<ProdProducts> products;
   final CartNotifier cartNotifier;
   final ProductsNotifier productsNotifier;
   final Iterable<String> cartProdID;
   _SeeMoreScreenState(
+    this.title,
     this.products,
     this.cartNotifier,
     this.productsNotifier,
@@ -51,7 +56,7 @@ class _SeeMoreScreenState extends State<SeeMoreScreen> {
           },
         ),
         Text(
-          "For you",
+          title,
           style: boldFont(MColors.primaryPurple, 16.0),
         ),
         MColors.primaryWhiteSmoke,
@@ -59,13 +64,11 @@ class _SeeMoreScreenState extends State<SeeMoreScreen> {
         true,
         null,
       ),
-      body: primaryContainer(
-        SearchTabWidget(
-          prods: products,
-          cartNotifier: cartNotifier,
-          productsNotifier: productsNotifier,
-          cartProdID: cartProdID,
-        ),
+      body: SearchTabWidget(
+        prods: products,
+        cartNotifier: cartNotifier,
+        productsNotifier: productsNotifier,
+        cartProdID: cartProdID,
       ),
     );
   }
