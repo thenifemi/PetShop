@@ -1,4 +1,4 @@
-package com.example.mollet
+package com.petshop.petshop
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity

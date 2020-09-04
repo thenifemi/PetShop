@@ -3,20 +3,21 @@ import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+
 import 'package:mollet/model/notifiers/bannerAd_notifier.dart';
 import 'package:mollet/model/notifiers/brands_notifier.dart';
 import 'package:mollet/model/notifiers/cart_notifier.dart';
+import 'package:mollet/model/notifiers/notifications_notifier.dart';
 import 'package:mollet/model/notifiers/orders_notifier.dart';
 import 'package:mollet/model/notifiers/products_notifier.dart';
 import 'package:mollet/model/notifiers/userData_notifier.dart';
-import 'package:mollet/model/notifiers/notifications_notifier.dart';
 import 'package:mollet/model/services/auth_service.dart';
 import 'package:mollet/screens/getstarted_screens/intro_screen.dart';
 import 'package:mollet/screens/getstarted_screens/splash_screen.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:mollet/widgets/provider.dart';
 import 'package:mollet/widgets/tabsLayout.dart';
-import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

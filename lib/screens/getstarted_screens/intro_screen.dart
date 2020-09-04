@@ -15,6 +15,7 @@ class IntroScreen extends StatefulWidget {
 
 class _IntroScreenState extends State<IntroScreen> {
   @override
+  @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () {
