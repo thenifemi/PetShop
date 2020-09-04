@@ -78,7 +78,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
             return progressIndicator(MColors.primaryPurple);
             break;
           case ConnectionState.done:
-            return checkUser.isEmpty || checkUser == null
+            return checkUser.isEmpty ||
+                    checkUser == null ||
+                    addressList.isEmpty ||
+                    addressList == null
                 ? progressIndicator(MColors.primaryPurple)
                 : showSettings(user, addressList);
 

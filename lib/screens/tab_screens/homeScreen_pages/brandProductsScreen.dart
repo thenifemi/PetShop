@@ -73,6 +73,7 @@ class _BrandProductsScreenState extends State<BrandProductsScreen> {
         true,
         [
           Container(
+            margin: EdgeInsets.symmetric(horizontal: 15.0),
             width: 50,
             child: RawMaterialButton(
               onPressed: () async {
