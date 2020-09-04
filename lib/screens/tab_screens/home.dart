@@ -7,6 +7,7 @@ import 'package:mollet/model/notifiers/brands_notifier.dart';
 import 'package:mollet/model/notifiers/cart_notifier.dart';
 import 'package:mollet/model/notifiers/products_notifier.dart';
 import 'package:mollet/model/services/Product_service.dart';
+import 'package:mollet/screens/tab_screens/homeScreen_pages/brandProductsScreen.dart';
 import 'package:mollet/screens/tab_screens/homeScreen_pages/seeMoreScreen.dart';
 import 'package:mollet/utils/colors.dart';
 import 'package:mollet/utils/internetConnectivity.dart';
@@ -294,30 +295,52 @@ class _HomeScreenState extends State<HomeScreen>
                       items: brands.map((brand) {
                         return Builder(
                           builder: (BuildContext context) {
-                            return Container(
-                              width: MediaQuery.of(context).size.width,
-                              margin: EdgeInsets.symmetric(horizontal: 5.0),
-                              decoration: BoxDecoration(
-                                color: MColors.primaryWhite,
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(10.0),
+                            return GestureDetector(
+                              onTap: () async {
+                                var navigationResult =
+                                    await Navigator.of(context).push(
+                                  CupertinoPageRoute(
+                                      builder: (context) => BrandProductsScreen(
+                                            brand: brand,
+                                            products: prods,
+                                            cartNotifier: cartNotifier,
+                                            productsNotifier: productsNotifier,
+                                            cartProdID: cartProdID,
+                                          )),
+                                );
+                                if (navigationResult == true) {
+                                  getCart(cartNotifier);
+                                }
+                              },
+                              child: Container(
+                                width: MediaQuery.of(context).size.width,
+                                margin: EdgeInsets.symmetric(horizontal: 5.0),
+                                decoration: BoxDecoration(
+                                  color: MColors.primaryWhite,
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(10.0),
+                                  ),
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color: Color.fromRGBO(0, 0, 0, 0.03),
+                                        offset: Offset(0, 10),
+                                        blurRadius: 10,
+                                        spreadRadius: 0),
+                                  ],
                                 ),
-                                boxShadow: [
-                                  BoxShadow(
-                                      color: Color.fromRGBO(0, 0, 0, 0.03),
-                                      offset: Offset(0, 10),
-                                      blurRadius: 10,
-                                      spreadRadius: 0),
-                                ],
-                              ),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(10.0),
-                                child: FadeInImage.assetNetwork(
-                                  image: brand.brandImage,
-                                  fit: BoxFit.fill,
-                                  placeholder: "assets/images/placeholder.jpg",
-                                  placeholderScale:
-                                      MediaQuery.of(context).size.width / 2,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  child: Hero(
+                                    tag: brand.brandName,
+                                    child: FadeInImage.assetNetwork(
+                                      image: brand.brandImage,
+                                      fit: BoxFit.fill,
+                                      placeholder:
+                                          "assets/images/placeholder.jpg",
+                                      placeholderScale:
+                                          MediaQuery.of(context).size.width / 2,
+                                    ),
+                                  ),
                                 ),
                               ),
                             );
