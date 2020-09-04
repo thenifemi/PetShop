@@ -53,6 +53,7 @@ class _BrandProductsScreenState extends State<BrandProductsScreen> {
     var cartList = cartNotifier.cartList;
 
     return Scaffold(
+      backgroundColor: MColors.primaryWhiteSmoke,
       appBar: primaryAppBar(
         IconButton(
           icon: Icon(
