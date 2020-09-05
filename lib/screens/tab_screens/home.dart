@@ -28,9 +28,9 @@ class _HomeScreenState extends State<HomeScreen>
     checkInternetConnectivity().then((value) => {
           value == true
               ? () {
-                  // BrandsNotifier brandsNotifier =
-                  //     Provider.of<BrandsNotifier>(context, listen: false);
-                  // getBrands(brandsNotifier);
+                  BrandsNotifier brandsNotifier =
+                      Provider.of<BrandsNotifier>(context, listen: false);
+                  getBrands(brandsNotifier);
 
                   ProductsNotifier productsNotifier =
                       Provider.of<ProductsNotifier>(context, listen: false);
@@ -83,264 +83,60 @@ class _HomeScreenState extends State<HomeScreen>
     BrandsNotifier brandsNotifier = Provider.of<BrandsNotifier>(context);
     var brands = brandsNotifier.brandsList;
 
-    return Scaffold(
-      key: _scaffoldKey,
-      backgroundColor: MColors.primaryWhiteSmoke,
-      body: RefreshIndicator(
-        onRefresh: () => () {
-          getProdProducts(productsNotifier);
-          getCart(cartNotifier);
-          getBannerAds(bannerAdNotifier);
-          getBrands(brandsNotifier);
-        }(),
-        child: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              //BANNER ADS
-              Container(
-                child: CarouselSlider(
-                  options: CarouselOptions(
-                    height: 170.0,
-                    enableInfiniteScroll: false,
-                    initialPage: 0,
-                    viewportFraction: 0.95,
-                    scrollPhysics: BouncingScrollPhysics(),
-                  ),
-                  items: bannerAds.map((banner) {
-                    return Builder(
-                      builder: (BuildContext context) {
-                        return Container(
-                          width: MediaQuery.of(context).size.width,
-                          margin: EdgeInsets.symmetric(horizontal: 5.0),
-                          decoration: BoxDecoration(
-                            color: MColors.primaryWhite,
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(10.0),
-                            ),
-                            boxShadow: [
-                              BoxShadow(
-                                  color: Color.fromRGBO(0, 0, 0, 0.03),
-                                  offset: Offset(0, 10),
-                                  blurRadius: 10,
-                                  spreadRadius: 0),
-                            ],
-                          ),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(10.0),
-                            child: FadeInImage.assetNetwork(
-                              image: banner.bannerAd,
-                              fit: BoxFit.fill,
-                              placeholder: "assets/images/placeholder.jpg",
-                              placeholderScale:
-                                  MediaQuery.of(context).size.width / 2,
-                            ),
-                          ),
-                        );
-                      },
-                    );
-                  }).toList(),
-                ),
-              ),
-
-              SizedBox(height: 20),
-
-              //FOR YOU BLOCK
-              Builder(
-                builder: (BuildContext context) {
-                  Iterable<ProdProducts> forYou =
-                      prods.where((e) => e.tag == "forYou");
-                  var _prods = forYou.toList();
-
-                  return blockWigdet(
-                    "FOR YOU",
-                    "Products you might like",
-                    _picHeight,
-                    itemHeight,
-                    _prods,
-                    cartNotifier,
-                    cartProdID,
-                    _scaffoldKey,
-                    context,
-                    prods,
-                    () async {
-                      var title = "For you";
-                      var navigationResult = await Navigator.of(context).push(
-                        CupertinoPageRoute(
-                          builder: (context) => SeeMoreScreen(
-                            title: title,
-                            products: prods,
-                            productsNotifier: productsNotifier,
-                            cartNotifier: cartNotifier,
-                            cartProdID: cartProdID,
-                          ),
-                        ),
-                      );
-                      if (navigationResult == true) {
-                        getCart(cartNotifier);
-                      }
-                    },
-                  );
-                },
-              ),
-
-              SizedBox(height: 20),
-
-              //POPULAR BLOCK
-              Builder(
-                builder: (BuildContext context) {
-                  Iterable<ProdProducts> popular =
-                      prods.where((e) => e.tag == "popular");
-                  var _prods = popular.toList();
-
-                  return blockWigdet(
-                    "POPULAR",
-                    "Sought after products",
-                    _picHeight,
-                    itemHeight,
-                    _prods,
-                    cartNotifier,
-                    cartProdID,
-                    _scaffoldKey,
-                    context,
-                    prods,
-                    () async {
-                      var title = "Popular";
-
-                      var navigationResult = await Navigator.of(context).push(
-                        CupertinoPageRoute(
-                          builder: (context) => SeeMoreScreen(
-                            title: title,
-                            products: prods,
-                            productsNotifier: productsNotifier,
-                            cartNotifier: cartNotifier,
-                            cartProdID: cartProdID,
-                          ),
-                        ),
-                      );
-                      if (navigationResult == true) {
-                        getCart(cartNotifier);
-                      }
-                    },
-                  );
-                },
-              ),
-
-              SizedBox(height: 20),
-
-              //NEW BLOCK
-              Builder(
-                builder: (BuildContext context) {
-                  Iterable<ProdProducts> newP =
-                      prods.where((e) => e.tag == "new");
-                  var _prods = newP.toList();
-
-                  return blockWigdet(
-                    "NEW",
-                    "Newly released products",
-                    _picHeight,
-                    itemHeight,
-                    _prods,
-                    cartNotifier,
-                    cartProdID,
-                    _scaffoldKey,
-                    context,
-                    prods,
-                    () async {
-                      var title = "New";
-
-                      var navigationResult = await Navigator.of(context).push(
-                        CupertinoPageRoute(
-                          builder: (context) => SeeMoreScreen(
-                            title: title,
-                            products: prods,
-                            productsNotifier: productsNotifier,
-                            cartNotifier: cartNotifier,
-                            cartProdID: cartProdID,
-                          ),
-                        ),
-                      );
-                      if (navigationResult == true) {
-                        getCart(cartNotifier);
-                      }
-                    },
-                  );
-                },
-              ),
-
-              SizedBox(height: 20),
-
-              //BRANDS
-              Container(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                      child: Text(
-                        "POPULAR BRANDS",
-                        style: boldFont(MColors.textDark, 16.0),
-                      ),
-                    ),
-                    SizedBox(height: 5.0),
-                    CarouselSlider(
+    return FutureBuilder(
+      builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+        return Scaffold(
+          key: _scaffoldKey,
+          backgroundColor: MColors.primaryWhiteSmoke,
+          body: RefreshIndicator(
+            onRefresh: () => () async {
+              await getProdProducts(productsNotifier);
+              await getCart(cartNotifier);
+              await getBannerAds(bannerAdNotifier);
+              await getBrands(brandsNotifier);
+            }(),
+            child: SingleChildScrollView(
+              physics: BouncingScrollPhysics(),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  //BANNER ADS
+                  Container(
+                    child: CarouselSlider(
                       options: CarouselOptions(
-                        height: 200.0,
+                        height: 170.0,
                         enableInfiniteScroll: false,
                         initialPage: 0,
                         viewportFraction: 0.95,
                         scrollPhysics: BouncingScrollPhysics(),
                       ),
-                      items: brands.map((brand) {
+                      items: bannerAds.map((banner) {
                         return Builder(
                           builder: (BuildContext context) {
-                            return GestureDetector(
-                              onTap: () async {
-                                var navigationResult =
-                                    await Navigator.of(context).push(
-                                  CupertinoPageRoute(
-                                      builder: (context) => BrandProductsScreen(
-                                            brand: brand,
-                                            products: prods,
-                                            cartNotifier: cartNotifier,
-                                            productsNotifier: productsNotifier,
-                                            cartProdID: cartProdID,
-                                          )),
-                                );
-                                if (navigationResult == true) {
-                                  getCart(cartNotifier);
-                                }
-                              },
-                              child: Container(
-                                width: MediaQuery.of(context).size.width,
-                                margin: EdgeInsets.symmetric(horizontal: 5.0),
-                                decoration: BoxDecoration(
-                                  color: MColors.primaryWhite,
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(10.0),
-                                  ),
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color: Color.fromRGBO(0, 0, 0, 0.03),
-                                        offset: Offset(0, 10),
-                                        blurRadius: 10,
-                                        spreadRadius: 0),
-                                  ],
+                            return Container(
+                              width: MediaQuery.of(context).size.width,
+                              margin: EdgeInsets.symmetric(horizontal: 5.0),
+                              decoration: BoxDecoration(
+                                color: MColors.primaryWhite,
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(10.0),
                                 ),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                  child: Hero(
-                                    tag: brand.brandName,
-                                    child: FadeInImage.assetNetwork(
-                                      image: brand.brandImage,
-                                      fit: BoxFit.fill,
-                                      placeholder:
-                                          "assets/images/placeholder.jpg",
-                                      placeholderScale:
-                                          MediaQuery.of(context).size.width / 2,
-                                    ),
-                                  ),
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Color.fromRGBO(0, 0, 0, 0.03),
+                                      offset: Offset(0, 10),
+                                      blurRadius: 10,
+                                      spreadRadius: 0),
+                                ],
+                              ),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(10.0),
+                                child: FadeInImage.assetNetwork(
+                                  image: banner.bannerAd,
+                                  fit: BoxFit.fill,
+                                  placeholder: "assets/images/placeholder.jpg",
+                                  placeholderScale:
+                                      MediaQuery.of(context).size.width / 2,
                                 ),
                               ),
                             );
@@ -348,55 +144,274 @@ class _HomeScreenState extends State<HomeScreen>
                         );
                       }).toList(),
                     ),
-                  ],
-                ),
-              ),
+                  ),
 
-              SizedBox(height: 20),
+                  SizedBox(height: 20),
 
-              //OFFERS
-              Builder(
-                builder: (BuildContext context) {
-                  Iterable<ProdProducts> offers =
-                      prods.where((e) => e.tag == "offers");
-                  var _prods = offers.toList();
+                  //FOR YOU BLOCK
+                  Builder(
+                    builder: (BuildContext context) {
+                      Iterable<ProdProducts> forYou =
+                          prods.where((e) => e.tag == "forYou");
+                      var _prods = forYou.toList();
 
-                  return blockWigdet(
-                    "OFFERS",
-                    "Slashed prices just for you",
-                    _picHeight,
-                    itemHeight,
-                    _prods,
-                    cartNotifier,
-                    cartProdID,
-                    _scaffoldKey,
-                    context,
-                    prods,
-                    () async {
-                      var title = "Offers";
+                      return blockWigdet(
+                        "FOR YOU",
+                        "Products you might like",
+                        _picHeight,
+                        itemHeight,
+                        _prods,
+                        cartNotifier,
+                        cartProdID,
+                        _scaffoldKey,
+                        context,
+                        prods,
+                        () async {
+                          var title = "For you";
+                          var navigationResult =
+                              await Navigator.of(context).push(
+                            CupertinoPageRoute(
+                              builder: (context) => SeeMoreScreen(
+                                title: title,
+                                products: prods,
+                                productsNotifier: productsNotifier,
+                                cartNotifier: cartNotifier,
+                                cartProdID: cartProdID,
+                              ),
+                            ),
+                          );
+                          if (navigationResult == true) {
+                            getCart(cartNotifier);
+                          }
+                        },
+                      );
+                    },
+                  ),
 
-                      var navigationResult = await Navigator.of(context).push(
-                        CupertinoPageRoute(
-                          builder: (context) => SeeMoreScreen(
-                            title: title,
-                            products: prods,
-                            productsNotifier: productsNotifier,
-                            cartNotifier: cartNotifier,
-                            cartProdID: cartProdID,
+                  SizedBox(height: 20),
+
+                  //POPULAR BLOCK
+                  Builder(
+                    builder: (BuildContext context) {
+                      Iterable<ProdProducts> popular =
+                          prods.where((e) => e.tag == "popular");
+                      var _prods = popular.toList();
+
+                      return blockWigdet(
+                        "POPULAR",
+                        "Sought after products",
+                        _picHeight,
+                        itemHeight,
+                        _prods,
+                        cartNotifier,
+                        cartProdID,
+                        _scaffoldKey,
+                        context,
+                        prods,
+                        () async {
+                          var title = "Popular";
+
+                          var navigationResult =
+                              await Navigator.of(context).push(
+                            CupertinoPageRoute(
+                              builder: (context) => SeeMoreScreen(
+                                title: title,
+                                products: prods,
+                                productsNotifier: productsNotifier,
+                                cartNotifier: cartNotifier,
+                                cartProdID: cartProdID,
+                              ),
+                            ),
+                          );
+                          if (navigationResult == true) {
+                            getCart(cartNotifier);
+                          }
+                        },
+                      );
+                    },
+                  ),
+
+                  SizedBox(height: 20),
+
+                  //NEW BLOCK
+                  Builder(
+                    builder: (BuildContext context) {
+                      Iterable<ProdProducts> newP =
+                          prods.where((e) => e.tag == "new");
+                      var _prods = newP.toList();
+
+                      return blockWigdet(
+                        "NEW",
+                        "Newly released products",
+                        _picHeight,
+                        itemHeight,
+                        _prods,
+                        cartNotifier,
+                        cartProdID,
+                        _scaffoldKey,
+                        context,
+                        prods,
+                        () async {
+                          var title = "New";
+
+                          var navigationResult =
+                              await Navigator.of(context).push(
+                            CupertinoPageRoute(
+                              builder: (context) => SeeMoreScreen(
+                                title: title,
+                                products: prods,
+                                productsNotifier: productsNotifier,
+                                cartNotifier: cartNotifier,
+                                cartProdID: cartProdID,
+                              ),
+                            ),
+                          );
+                          if (navigationResult == true) {
+                            getCart(cartNotifier);
+                          }
+                        },
+                      );
+                    },
+                  ),
+
+                  SizedBox(height: 20),
+
+                  //BRANDS
+                  Container(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                          child: Text(
+                            "POPULAR BRANDS",
+                            style: boldFont(MColors.textDark, 16.0),
                           ),
                         ),
+                        SizedBox(height: 5.0),
+                        CarouselSlider(
+                          options: CarouselOptions(
+                            height: 200.0,
+                            enableInfiniteScroll: false,
+                            initialPage: 0,
+                            viewportFraction: 0.95,
+                            scrollPhysics: BouncingScrollPhysics(),
+                          ),
+                          items: brands.map((brand) {
+                            return Builder(
+                              builder: (BuildContext context) {
+                                return GestureDetector(
+                                  onTap: () async {
+                                    var navigationResult =
+                                        await Navigator.of(context).push(
+                                      CupertinoPageRoute(
+                                          builder: (context) =>
+                                              BrandProductsScreen(
+                                                brand: brand,
+                                                products: prods,
+                                                cartNotifier: cartNotifier,
+                                                productsNotifier:
+                                                    productsNotifier,
+                                                cartProdID: cartProdID,
+                                              )),
+                                    );
+                                    if (navigationResult == true) {
+                                      getCart(cartNotifier);
+                                    }
+                                  },
+                                  child: Container(
+                                    width: MediaQuery.of(context).size.width,
+                                    margin:
+                                        EdgeInsets.symmetric(horizontal: 5.0),
+                                    decoration: BoxDecoration(
+                                      color: MColors.primaryWhite,
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(10.0),
+                                      ),
+                                      boxShadow: [
+                                        BoxShadow(
+                                            color:
+                                                Color.fromRGBO(0, 0, 0, 0.03),
+                                            offset: Offset(0, 10),
+                                            blurRadius: 10,
+                                            spreadRadius: 0),
+                                      ],
+                                    ),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                      child: Hero(
+                                        tag: brand.brandName,
+                                        child: FadeInImage.assetNetwork(
+                                          image: brand.brandImage,
+                                          fit: BoxFit.fill,
+                                          placeholder:
+                                              "assets/images/placeholder.jpg",
+                                          placeholderScale:
+                                              MediaQuery.of(context)
+                                                      .size
+                                                      .width /
+                                                  2,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
+                            );
+                          }).toList(),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  SizedBox(height: 20),
+
+                  //OFFERS
+                  Builder(
+                    builder: (BuildContext context) {
+                      Iterable<ProdProducts> offers =
+                          prods.where((e) => e.tag == "offers");
+                      var _prods = offers.toList();
+
+                      return blockWigdet(
+                        "OFFERS",
+                        "Slashed prices just for you",
+                        _picHeight,
+                        itemHeight,
+                        _prods,
+                        cartNotifier,
+                        cartProdID,
+                        _scaffoldKey,
+                        context,
+                        prods,
+                        () async {
+                          var title = "Offers";
+
+                          var navigationResult =
+                              await Navigator.of(context).push(
+                            CupertinoPageRoute(
+                              builder: (context) => SeeMoreScreen(
+                                title: title,
+                                products: prods,
+                                productsNotifier: productsNotifier,
+                                cartNotifier: cartNotifier,
+                                cartProdID: cartProdID,
+                              ),
+                            ),
+                          );
+                          if (navigationResult == true) {
+                            getCart(cartNotifier);
+                          }
+                        },
                       );
-                      if (navigationResult == true) {
-                        getCart(cartNotifier);
-                      }
                     },
-                  );
-                },
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

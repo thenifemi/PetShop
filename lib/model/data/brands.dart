@@ -4,6 +4,6 @@ class Brands {
 
   Brands.fromMap(Map<String, dynamic> data) {
     brandName = data["brandName"];
-    brandImage = data["brandImage"];
+    brandImage = data["brandsImage"];
   }
 }
