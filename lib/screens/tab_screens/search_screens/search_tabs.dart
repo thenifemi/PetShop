@@ -152,7 +152,7 @@ class _SearchTabWidgetState extends State<SearchTabWidget> {
                           GestureDetector(
                             onTap: () => () {
                               addToBagshowDialog(product);
-                              HapticFeedback.lightImpact();
+                              HapticFeedback.heavyImpact();
                             }(),
                             child: Container(
                               width: 40.0,
