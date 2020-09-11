@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mollet/screens/settings_screens/changePassword.dart';
-import 'package:mollet/utils/colors.dart';
-import 'package:mollet/utils/permission_handler.dart';
-import 'package:mollet/widgets/allWidgets.dart';
+import 'package:petShop/screens/settings_screens/changePassword.dart';
+import 'package:petShop/utils/colors.dart';
+import 'package:petShop/utils/permission_handler.dart';
+import 'package:petShop/widgets/allWidgets.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class SecurityScreen extends StatelessWidget {

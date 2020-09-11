@@ -4,13 +4,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:mollet/model/data/userData.dart';
-import 'package:mollet/model/services/user_management.dart';
-import 'package:mollet/utils/cardUtils/cardStrings.dart';
-import 'package:mollet/utils/colors.dart';
-import 'package:mollet/utils/internetConnectivity.dart';
-import 'package:mollet/utils/textFieldFormaters.dart';
-import 'package:mollet/widgets/allWidgets.dart';
+import 'package:petShop/model/data/userData.dart';
+import 'package:petShop/model/services/user_management.dart';
+import 'package:petShop/utils/cardUtils/cardStrings.dart';
+import 'package:petShop/utils/colors.dart';
+import 'package:petShop/utils/internetConnectivity.dart';
+import 'package:petShop/utils/textFieldFormaters.dart';
+import 'package:petShop/widgets/allWidgets.dart';
 
 import '../../main.dart';
 
