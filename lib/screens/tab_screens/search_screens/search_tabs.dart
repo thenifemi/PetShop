@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mollet/model/data/Products.dart';
 import 'package:mollet/model/notifiers/cart_notifier.dart';
@@ -151,6 +152,7 @@ class _SearchTabWidgetState extends State<SearchTabWidget> {
                           GestureDetector(
                             onTap: () => () {
                               addToBagshowDialog(product);
+                              HapticFeedback.lightImpact();
                             }(),
                             child: Container(
                               width: 40.0,
