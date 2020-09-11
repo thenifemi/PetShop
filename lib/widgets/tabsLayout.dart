@@ -1,25 +1,26 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:mollet/model/notifiers/bannerAd_notifier.dart';
-import 'package:mollet/model/notifiers/brands_notifier.dart';
-import 'package:mollet/model/notifiers/notifications_notifier.dart';
-import 'package:mollet/model/notifiers/orders_notifier.dart';
-import 'package:mollet/model/notifiers/products_notifier.dart';
-import 'package:mollet/model/notifiers/userData_notifier.dart';
-import 'package:mollet/model/services/Product_service.dart';
-import 'package:mollet/model/notifiers/cart_notifier.dart';
-import 'package:mollet/model/services/pushNotification_service.dart';
-import 'package:mollet/model/services/user_management.dart';
-import 'package:mollet/screens/tab_screens/history.dart';
-import 'package:mollet/screens/tab_screens/home.dart';
-import 'package:mollet/screens/tab_screens/homeScreen_pages/bag.dart';
-import 'package:mollet/screens/tab_screens/notifications.dart';
-import 'package:mollet/screens/tab_screens/search_screens/search_screen.dart';
-import 'package:mollet/screens/tab_screens/settings.dart';
-import 'package:mollet/utils/colors.dart';
-import 'package:mollet/utils/internetConnectivity.dart';
+import 'package:petShop/model/notifiers/bannerAd_notifier.dart';
+import 'package:petShop/model/notifiers/brands_notifier.dart';
+import 'package:petShop/model/notifiers/cart_notifier.dart';
+import 'package:petShop/model/notifiers/notifications_notifier.dart';
+import 'package:petShop/model/notifiers/orders_notifier.dart';
+import 'package:petShop/model/notifiers/products_notifier.dart';
+import 'package:petShop/model/notifiers/userData_notifier.dart';
+import 'package:petShop/model/services/Product_service.dart';
+import 'package:petShop/model/services/pushNotification_service.dart';
+import 'package:petShop/model/services/user_management.dart';
+import 'package:petShop/screens/tab_screens/history.dart';
+import 'package:petShop/screens/tab_screens/home.dart';
+import 'package:petShop/screens/tab_screens/homeScreen_pages/bag.dart';
+import 'package:petShop/screens/tab_screens/notifications.dart';
+import 'package:petShop/screens/tab_screens/search_screens/search_screen.dart';
+import 'package:petShop/screens/tab_screens/settings.dart';
+import 'package:petShop/utils/colors.dart';
+import 'package:petShop/utils/internetConnectivity.dart';
 import 'package:provider/provider.dart';
+
 import 'allWidgets.dart';
 
 class TabsLayout extends StatefulWidget {
