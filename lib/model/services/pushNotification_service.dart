@@ -2,9 +2,9 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:mollet/model/data/notificationMessage.dart';
-import 'package:mollet/model/notifiers/notifications_notifier.dart';
-import 'package:mollet/model/services/auth_service.dart';
+import 'package:petShop/model/data/notificationMessage.dart';
+import 'package:petShop/model/notifiers/notifications_notifier.dart';
+import 'package:petShop/model/services/auth_service.dart';
 
 final db = FirebaseFirestore.instance;
 

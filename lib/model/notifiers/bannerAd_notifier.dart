@@ -1,7 +1,7 @@
 import 'dart:collection';
 
 import 'package:flutter/foundation.dart';
-import 'package:mollet/model/data/bannerAds.dart';
+import 'package:petShop/model/data/bannerAds.dart';
 
 class BannerAdNotifier with ChangeNotifier {
   List<BannerAds> _bannerAdsList = [];

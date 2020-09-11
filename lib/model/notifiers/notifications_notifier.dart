@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:mollet/model/data/notificationMessage.dart';
+import 'package:petShop/model/data/notificationMessage.dart';
 
 class NotificationsNotifier with ChangeNotifier {
   List<NotificationMessage> _notificationMessageList = [];

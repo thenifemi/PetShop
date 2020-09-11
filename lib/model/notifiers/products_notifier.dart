@@ -2,7 +2,7 @@ import 'dart:collection';
 
 import 'package:flutter/foundation.dart';
 
-import 'package:mollet/model/data/Products.dart';
+import 'package:petShop/model/data/Products.dart';
 
 class ProductsNotifier with ChangeNotifier {
   List<ProdProducts> _prodProductsList = [];

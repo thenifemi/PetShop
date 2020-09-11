@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:mollet/model/data/cart.dart';
+import 'package:petShop/model/data/cart.dart';
 
 class CartNotifier with ChangeNotifier {
   List<Cart> _cartList = [];

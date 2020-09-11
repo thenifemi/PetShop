@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:mollet/model/data/userData.dart';
+import 'package:petShop/model/data/userData.dart';
 
 //For Users profile
 class UserDataProfileNotifier with ChangeNotifier {
