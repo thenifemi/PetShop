@@ -1,4 +1,4 @@
-import 'package:mollet/utils/cardUtils/cardStrings.dart';
+import 'package:petShop/utils/cardUtils/cardStrings.dart';
 import 'package:flutter/material.dart';
 
 class PaymentCard {

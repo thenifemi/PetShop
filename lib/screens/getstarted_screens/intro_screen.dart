@@ -2,11 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:mollet/screens/register_screens/login_screen.dart';
-import 'package:mollet/screens/register_screens/registration_screen.dart';
-import 'package:mollet/utils/colors.dart';
-import 'package:mollet/utils/strings.dart';
-import 'package:mollet/widgets/allWidgets.dart';
+import 'package:petShop/screens/register_screens/login_screen.dart';
+import 'package:petShop/screens/register_screens/registration_screen.dart';
+import 'package:petShop/utils/colors.dart';
+import 'package:petShop/utils/strings.dart';
+import 'package:petShop/widgets/allWidgets.dart';
 
 class IntroScreen extends StatefulWidget {
   @override
