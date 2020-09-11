@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:mollet/main.dart';
-import 'package:mollet/model/data/userData.dart';
-import 'package:mollet/utils/colors.dart';
-import 'package:mollet/widgets/allWidgets.dart';
+import 'package:petShop/main.dart';
+import 'package:petShop/model/data/userData.dart';
+import 'package:petShop/utils/colors.dart';
+import 'package:petShop/widgets/allWidgets.dart';
 
 class OrderPlaced extends StatefulWidget {
   final List<UserDataAddress> addressList;
