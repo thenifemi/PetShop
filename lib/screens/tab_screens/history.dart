@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:mollet/model/notifiers/orders_notifier.dart';
-import 'package:mollet/model/services/Product_service.dart';
-import 'package:mollet/utils/colors.dart';
-import 'package:mollet/utils/internetConnectivity.dart';
+import 'package:petShop/model/notifiers/orders_notifier.dart';
+import 'package:petShop/model/services/Product_service.dart';
+import 'package:petShop/utils/colors.dart';
+import 'package:petShop/utils/internetConnectivity.dart';
 
-import 'package:mollet/widgets/allWidgets.dart';
+import 'package:petShop/widgets/allWidgets.dart';
 import 'package:provider/provider.dart';
 
 class HistoryScreen extends StatefulWidget {
