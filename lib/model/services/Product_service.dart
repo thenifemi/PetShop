@@ -1,15 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:mollet/model/data/Products.dart';
-import 'package:mollet/model/data/bannerAds.dart';
-import 'package:mollet/model/data/brands.dart';
-import 'package:mollet/model/data/cart.dart';
-import 'package:mollet/model/data/orders.dart';
-import 'package:mollet/model/notifiers/bannerAd_notifier.dart';
-import 'package:mollet/model/notifiers/brands_notifier.dart';
-import 'package:mollet/model/notifiers/cart_notifier.dart';
-import 'package:mollet/model/notifiers/orders_notifier.dart';
-import 'package:mollet/model/notifiers/products_notifier.dart';
-import 'package:mollet/model/services/auth_service.dart';
+import 'package:petShop/model/data/Products.dart';
+import 'package:petShop/model/data/bannerAds.dart';
+import 'package:petShop/model/data/brands.dart';
+import 'package:petShop/model/data/cart.dart';
+import 'package:petShop/model/data/orders.dart';
+import 'package:petShop/model/notifiers/bannerAd_notifier.dart';
+import 'package:petShop/model/notifiers/brands_notifier.dart';
+import 'package:petShop/model/notifiers/cart_notifier.dart';
+import 'package:petShop/model/notifiers/orders_notifier.dart';
+import 'package:petShop/model/notifiers/products_notifier.dart';
+import 'package:petShop/model/services/auth_service.dart';
 
 final db = FirebaseFirestore.instance;
 

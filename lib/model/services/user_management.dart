@@ -4,10 +4,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:mollet/credentials.dart';
-import 'package:mollet/model/data/userData.dart';
-import 'package:mollet/model/notifiers/userData_notifier.dart';
-import 'package:mollet/model/services/auth_service.dart';
+import 'package:petShop/credentials.dart';
+import 'package:petShop/model/data/userData.dart';
+import 'package:petShop/model/notifiers/userData_notifier.dart';
+import 'package:petShop/model/services/auth_service.dart';
 
 //Storing new user data
 storeNewUser(_name, _phone, _email) async {

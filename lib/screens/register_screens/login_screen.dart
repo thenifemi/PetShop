@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mollet/main.dart';
-import 'package:mollet/screens/register_screens/registration_screen.dart';
-import 'package:mollet/screens/register_screens/reset_screen.dart';
-import 'package:mollet/utils/colors.dart';
-import 'package:mollet/utils/textFieldFormaters.dart';
-import 'package:mollet/widgets/provider.dart';
-import 'package:mollet/widgets/allWidgets.dart';
+import 'package:petShop/main.dart';
+import 'package:petShop/screens/register_screens/registration_screen.dart';
+import 'package:petShop/screens/register_screens/reset_screen.dart';
+import 'package:petShop/utils/colors.dart';
+import 'package:petShop/utils/textFieldFormaters.dart';
+import 'package:petShop/widgets/provider.dart';
+import 'package:petShop/widgets/allWidgets.dart';
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({Key key}) : super(key: key);

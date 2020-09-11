@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mollet/utils/colors.dart';
+import 'package:petShop/utils/colors.dart';
 
 class SplashScreen extends StatelessWidget {
   @override
