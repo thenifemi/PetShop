@@ -149,7 +149,9 @@ class _SearchTabWidgetState extends State<SearchTabWidget> {
                           ),
                           Spacer(),
                           GestureDetector(
-                            onTap: () => addToBagshowDialog(product),
+                            onTap: () => () {
+                              addToBagshowDialog(product);
+                            }(),
                             child: Container(
                               width: 40.0,
                               height: 40.0,
