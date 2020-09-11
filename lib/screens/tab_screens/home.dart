@@ -1,17 +1,17 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mollet/model/data/Products.dart';
-import 'package:mollet/model/notifiers/bannerAd_notifier.dart';
-import 'package:mollet/model/notifiers/brands_notifier.dart';
-import 'package:mollet/model/notifiers/cart_notifier.dart';
-import 'package:mollet/model/notifiers/products_notifier.dart';
-import 'package:mollet/model/services/Product_service.dart';
-import 'package:mollet/screens/tab_screens/homeScreen_pages/brandProductsScreen.dart';
-import 'package:mollet/screens/tab_screens/homeScreen_pages/seeMoreScreen.dart';
-import 'package:mollet/utils/colors.dart';
-import 'package:mollet/utils/internetConnectivity.dart';
-import 'package:mollet/widgets/allWidgets.dart';
+import 'package:petShop/model/data/Products.dart';
+import 'package:petShop/model/notifiers/bannerAd_notifier.dart';
+import 'package:petShop/model/notifiers/brands_notifier.dart';
+import 'package:petShop/model/notifiers/cart_notifier.dart';
+import 'package:petShop/model/notifiers/products_notifier.dart';
+import 'package:petShop/model/services/Product_service.dart';
+import 'package:petShop/screens/tab_screens/homeScreen_pages/brandProductsScreen.dart';
+import 'package:petShop/screens/tab_screens/homeScreen_pages/seeMoreScreen.dart';
+import 'package:petShop/utils/colors.dart';
+import 'package:petShop/utils/internetConnectivity.dart';
+import 'package:petShop/widgets/allWidgets.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
