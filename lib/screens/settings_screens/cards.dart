@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:mollet/model/notifiers/userData_notifier.dart';
-import 'package:mollet/model/services/user_management.dart';
-import 'package:mollet/screens/tab_screens/checkout_screens/addPaymentMethod.dart';
-import 'package:mollet/utils/colors.dart';
-import 'package:mollet/widgets/allWidgets.dart';
+import 'package:petShop/model/notifiers/userData_notifier.dart';
+import 'package:petShop/model/services/user_management.dart';
+import 'package:petShop/screens/tab_screens/checkout_screens/addPaymentMethod.dart';
+import 'package:petShop/utils/colors.dart';
+import 'package:petShop/widgets/allWidgets.dart';
 import 'package:provider/provider.dart';
 
 class Cards1 extends StatelessWidget {

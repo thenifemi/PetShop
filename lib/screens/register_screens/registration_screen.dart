@@ -1,14 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:mollet/main.dart';
-import 'package:mollet/model/notifiers/userData_notifier.dart';
-import 'package:mollet/model/services/user_management.dart';
-import 'package:mollet/screens/register_screens/login_screen.dart';
-import 'package:mollet/utils/colors.dart';
-import 'package:mollet/utils/textFieldFormaters.dart';
-import 'package:mollet/widgets/allWidgets.dart';
-import 'package:mollet/widgets/provider.dart';
+import 'package:petShop/main.dart';
+import 'package:petShop/model/notifiers/userData_notifier.dart';
+import 'package:petShop/model/services/user_management.dart';
+import 'package:petShop/screens/register_screens/login_screen.dart';
+import 'package:petShop/utils/colors.dart';
+import 'package:petShop/utils/textFieldFormaters.dart';
+import 'package:petShop/widgets/allWidgets.dart';
+import 'package:petShop/widgets/provider.dart';
 import 'package:provider/provider.dart';
 
 class RegistrationScreen extends StatefulWidget {
