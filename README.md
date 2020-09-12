@@ -1,6 +1,5 @@
-<img align="left" src="https://raw.githubusercontent.com/thenifemi/PetShop/master/screenshots/footprint.png" width="40px">
+<img align="left" src="https://raw.githubusercontent.com/thenifemi/PetShop/master/assets/images/petshop-logo-transBg.png" width="70px">
 
-# Pet Shop 🐶🐱
 
 [![Header](https://raw.githubusercontent.com/thenifemi/PetShop/master/assets/images/playstoreBanner.png "Header")](https://play.google.com/store/apps/details?id=com.petshop.petshop)
 
