@@ -1,5 +1,4 @@
 <img align="left" src="https://raw.githubusercontent.com/thenifemi/PetShop/master/assets/images/petshop-logo-transBg.png" width="250px" >
-<img align="left" src="https://raw.githubusercontent.com/thenifemi/PetShop/master/assets/images/petshop-logo-transBg.png" width="250px" >
 
 [![Header](https://raw.githubusercontent.com/thenifemi/PetShop/master/assets/images/playstoreBanner.png "Header")](https://play.google.com/store/apps/details?id=com.petshop.petshop)
 
@@ -15,11 +14,12 @@
     <img src="https://raw.githubusercontent.com/thenifemi/PetShop/master/screenshots/notifications.jpg" width="150px" height="auto" hspace="5" vspace="20"/>
 </p>
 
-Pet Shop is an e-commerce application for Android built with Flutter (iOS to come soon). The goal is to implement the Flutter framework for large scale Android and iOS applications, implementing native platform features like camera accessibility, location reading, biometrics and NFC. 
+Pet Shop is an e-commerce application for Android built with Flutter (iOS to come soon). The goal is to implement the Flutter framework for large scale Android and iOS applications, implementing native platform features like camera accessibility, location reading, biometrics and NFC.
 
 So far, authentication, location reading (implemented through Google Places API) and a couple database (using Firebase) reads and writes have been fully implemented. I also hope to integrate biometrics, payment options etc
 
 ## NOTICE!!
+
 If the app or certain areas of the app are not functioning properly, please update your code with the latest in the repo.
 Disfunctionality may occur because I recently migrated my database.
 For further enquiries, reach out to me on thenifemi@gmail.com.
