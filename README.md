@@ -1,4 +1,4 @@
-<img align="left" src="https://raw.githubusercontent.com/thenifemi/PetShop/master/assets/images/petshop-logo-transBg.png" width="250px" height="auto">
+<img align="left" src="https://raw.githubusercontent.com/thenifemi/PetShop/master/assets/images/petshop-logo-transBg.png" width="250px" >
 
 
 [![Header](https://raw.githubusercontent.com/thenifemi/PetShop/master/assets/images/playstoreBanner.png "Header")](https://play.google.com/store/apps/details?id=com.petshop.petshop)
