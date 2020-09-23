@@ -662,13 +662,13 @@ class _AddressContainerState extends State<AddressContainer> {
           Container(
             padding: const EdgeInsets.only(left: 25.0),
             child: Text(
-              "No payment method added to this account",
+              "No payment card added to this account",
               style: normalFont(MColors.textGrey, 16.0),
             ),
           ),
           SizedBox(height: 10.0),
           primaryButtonWhiteSmoke(
-            Text("Add a payment method",
+            Text("Add a payment card",
                 style: boldFont(MColors.primaryPurple, 16.0)),
             () async {
               var navigationResult = await Navigator.of(context).push(
