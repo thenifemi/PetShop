@@ -5,19 +5,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
-import 'package:petShop/model/notifiers/bannerAd_notifier.dart';
-import 'package:petShop/model/notifiers/brands_notifier.dart';
-import 'package:petShop/model/notifiers/cart_notifier.dart';
-import 'package:petShop/model/notifiers/notifications_notifier.dart';
-import 'package:petShop/model/notifiers/orders_notifier.dart';
-import 'package:petShop/model/notifiers/products_notifier.dart';
-import 'package:petShop/model/notifiers/userData_notifier.dart';
-import 'package:petShop/model/services/auth_service.dart';
-import 'package:petShop/screens/getstarted_screens/intro_screen.dart';
-import 'package:petShop/screens/getstarted_screens/splash_screen.dart';
-import 'package:petShop/utils/colors.dart';
-import 'package:petShop/widgets/provider.dart';
-import 'package:petShop/widgets/tabsLayout.dart';
+import 'model/notifiers/bannerAd_notifier.dart';
+import 'model/notifiers/brands_notifier.dart';
+import 'model/notifiers/cart_notifier.dart';
+import 'model/notifiers/notifications_notifier.dart';
+import 'model/notifiers/orders_notifier.dart';
+import 'model/notifiers/products_notifier.dart';
+import 'model/notifiers/userData_notifier.dart';
+import 'model/services/auth_service.dart';
+import 'screens/getstarted_screens/intro_screen.dart';
+import 'screens/getstarted_screens/splash_screen.dart';
+import 'utils/colors.dart';
+import 'widgets/provider.dart';
+import 'widgets/tabsLayout.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
