@@ -41,6 +41,26 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen>
     with SingleTickerProviderStateMixin {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  final PageStorageBucket searchBucket = PageStorageBucket();
+
+  // TextEditingController for searching products
+  TextEditingController _searchController = TextEditingController();
+  Iterable<ProdProducts> searchList = [];
+  var prods;
+
+  TabController _tabController;
+  final _tabItems = [
+    "Search",
+    "All",
+    "Dogs",
+    "Cats",
+    "Fish",
+    "Birds",
+    "Reptiles",
+    "Others",
+  ];
+
   @override
   void initState() {
     checkInternetConnectivity().then((value) => {
@@ -66,27 +86,47 @@ class _SearchScreenState extends State<SearchScreen>
       vsync: this,
     );
 
+    // Add listener to searchController
+    _searchController.addListener((_onSearchChanged));
     super.initState();
   }
 
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  final PageStorageBucket searchBucket = PageStorageBucket();
+  @override
+  void dispose() {
+    _searchController.removeListener((_onSearchChanged));
+    _searchController.dispose();
+    _tabController.dispose();
+    super.dispose();
+  }
 
-  TabController _tabController;
-  final _tabItems = [
-    "All",
-    "Dogs",
-    "Cats",
-    "Fish",
-    "Birds",
-    "Reptiles",
-    "Others",
-  ];
+  // Add callback which is called whenever a text is added to search field
+  _onSearchChanged() {
+    searchResultsList(prods);
+  }
+
+  // Search for the text and match with products
+  searchResultsList(List<ProdProducts> allList) {
+    List<ProdProducts> showResults = [];
+
+    if (_searchController.text != "") {
+      for (var prod in allList) {
+        var title = prod.name.toLowerCase();
+        if (title.contains(_searchController.text.toLowerCase())) {
+          showResults.add(prod);
+        }
+      }
+    } else {
+      showResults = allList;
+    }
+    setState(() {
+      searchList = showResults;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     ProductsNotifier productsNotifier = Provider.of<ProductsNotifier>(context);
-    var prods = productsNotifier.productsList;
+    prods = productsNotifier.productsList;
 
     CartNotifier cartNotifier = Provider.of<CartNotifier>(context);
     var cartList = cartNotifier.cartList;
@@ -94,13 +134,14 @@ class _SearchScreenState extends State<SearchScreen>
 
     //Tab Items
     final _tabBody = [
-      buildAllBody(prods, cartProdID),
-      buildDogBody(prods, cartProdID),
-      buildCatBody(prods, cartProdID),
-      buildDogBody(prods, cartProdID),
-      buildCatBody(prods, cartProdID),
-      buildDogBody(prods, cartProdID),
-      buildCatBody(prods, cartProdID),
+      buildSearchBody(prods, cartProdID),
+      buildTypeBody(prods, cartProdID, "all"),
+      buildTypeBody(prods, cartProdID, "cat"),
+      buildTypeBody(prods, cartProdID, "dog"),
+      buildTypeBody(prods, cartProdID, "cat"),
+      buildTypeBody(prods, cartProdID, "dog"),
+      buildTypeBody(prods, cartProdID, "cat"),
+      buildTypeBody(prods, cartProdID, "dog"),
     ];
 
     return Scaffold(
@@ -118,7 +159,7 @@ class _SearchScreenState extends State<SearchScreen>
           height: 40.0,
           child: searchTextField(
             true,
-            null,
+            _searchController,
             null,
             "Search for products...",
             null,
@@ -178,46 +219,42 @@ class _SearchScreenState extends State<SearchScreen>
   }
 
   //Build Tabs
-  Widget buildAllBody(prods, cartProdID) {
-    Iterable<ProdProducts> all = prods.reversed;
+  Widget buildTypeBody(prods, cartProdID, type) {
+    Iterable<ProdProducts> typeProds =
+        type == "all" ? prods.reversed : prods.where((e) => e.pet == type);
     CartNotifier cartNotifier =
         Provider.of<CartNotifier>(context, listen: false);
     ProductsNotifier productsNotifier =
         Provider.of<ProductsNotifier>(context, listen: false);
 
     return SearchTabWidget(
-      prods: all,
+      prods: typeProds,
       cartNotifier: cartNotifier,
       productsNotifier: productsNotifier,
       cartProdID: cartProdID,
     );
   }
 
-  Widget buildDogBody(prods, cartProdID) {
-    Iterable<ProdProducts> dog = prods.where((e) => e.pet == "dog");
+  // Search Tab
+  Widget buildSearchBody(prods, cartProdID) {
     CartNotifier cartNotifier =
         Provider.of<CartNotifier>(context, listen: false);
     ProductsNotifier productsNotifier = Provider.of<ProductsNotifier>(context);
 
-    return SearchTabWidget(
-      prods: dog,
-      cartNotifier: cartNotifier,
-      productsNotifier: productsNotifier,
-      cartProdID: cartProdID,
-    );
-  }
-
-  Widget buildCatBody(prods, cartProdID) {
-    Iterable<ProdProducts> cat = prods.where((e) => e.pet == "cat");
-    CartNotifier cartNotifier =
-        Provider.of<CartNotifier>(context, listen: false);
-    ProductsNotifier productsNotifier = Provider.of<ProductsNotifier>(context);
-
-    return SearchTabWidget(
-      prods: cat,
-      cartNotifier: cartNotifier,
-      productsNotifier: productsNotifier,
-      cartProdID: cartProdID,
-    );
+    if (searchList.isEmpty) {
+      return emptyScreen(
+        "assets/images/noSearch.svg",
+        "No Search Query",
+        "Type a product name in the searchbar above.",
+      );
+    } else {
+      return SearchTabWidget(
+        key: UniqueKey(),
+        prods: searchList,
+        cartNotifier: cartNotifier,
+        productsNotifier: productsNotifier,
+        cartProdID: cartProdID,
+      );
+    }
   }
 }
