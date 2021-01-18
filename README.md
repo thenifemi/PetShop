@@ -36,7 +36,7 @@ For further enquiries, reach out to me on thenifemi@gmail.com.
 
 ## Building 🏢🚀
 
-1. Clone the repo to your local computer
+1. Clone the repo to your local computer.
 2. Make sure you have Flutter and firebase installed.
 3. Please add your google-services.json file.
 4. import the foodProductsJSON/foodProducts.json to your firestore. (see: https://github.com/dalenguyen/firestore-import-export)
