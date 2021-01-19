@@ -18,7 +18,7 @@
 
 Pet Shop is an e-commerce application for Android built with Flutter (iOS to come soon). The goal is to implement the Flutter framework for large scale Android and iOS applications, implementing native platform features like camera accessibility, location reading, biometrics and NFC.
 
-So far, authentication, location reading (implemented through Google Places API) and a couple database (using Firebase) reads and writes have been fully implemented. I also hope to integrate biometrics, payment options etc
+So far, authentication, location reading (implemented through Google Places API) and a couple database (using Firebase) reads and writes have been fully implemented. I also hope to integrate biometrics, payment options etc.
 
 ## NOTICE!!
 
